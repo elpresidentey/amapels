@@ -7,11 +7,8 @@ Successfully integrated Paystack payment gateway into the AMAPELS checkout syste
 
 ## 🔑 Configuration
 
-### Environment Variables Added
-```env
-NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY=pk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-PAYSTACK_SECRET_KEY=sk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-```
+### Environment Variables Configuration
+Paystack API keys have been configured in the `.env` file for payment processing.
 
 **Location**: `.env` file (root directory)
 
@@ -237,11 +234,7 @@ sequenceDiagram
 ## 🚀 Deployment Checklist
 
 ### Before Going Live:
-- [ ] Replace test keys with live keys in `.env`
-  ```env
-  NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY=pk_live_xxxxx
-  PAYSTACK_SECRET_KEY=sk_live_xxxxx
-  ```
+- [ ] Configure live keys in deployment environment
 - [ ] Test live payment with real card
 - [ ] Set up webhook for payment notifications
 - [ ] Configure payment confirmation emails
