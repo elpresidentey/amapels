@@ -7,7 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed": "npx tsx src/scripts/seed.ts"
+    "seed": "npx tsx src/scripts/seed.ts",
+    "validate-system": "npx tsx src/scripts/validateSystem.ts",
+    "health-check": "npx tsx src/scripts/validateSystem.ts",
+    "test-checkout": "npx tsx src/scripts/testCheckout.ts",
+    "validate-mvp": "npx tsx src/scripts/validateMVP.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.110.0",

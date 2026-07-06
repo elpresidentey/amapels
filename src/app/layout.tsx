@@ -2,9 +2,11 @@ import type { Metadata } from "next"
 import { Inter, Playfair_Display } from "next/font/google"
 import "./globals.css"
 import Navbar from "@/components/Navbar"
+import NewCart from "@/components/NewCart"
 import Footer from "@/components/Footer"
 import ErrorBoundary from "@/components/ErrorBoundary"
 import PerformanceMonitor from "@/components/PerformanceMonitor"
+import SessionInitializer from "@/components/SessionInitializer"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,6 +25,7 @@ export const metadata: Metadata = {
   keywords: "Nigerian jewelry, luxury accessories, Lagos fashion, African jewelry, statement pieces, elegant jewelry",
   authors: [{ name: "AMAPELS" }],
   creator: "AMAPELS",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
   openGraph: {
     title: "AMAPELS - Modern Nigerian Elegance",
     description: "Discover beautiful Nigerian jewelry and luxury accessories crafted in Lagos.",
@@ -49,8 +52,10 @@ export default function RootLayout({
         suppressHydrationWarning={true}
       >
         <ErrorBoundary>
+          <SessionInitializer />
           <PerformanceMonitor />
           <Navbar />
+          <NewCart />
           <main className="flex-1">{children}</main>
           <Footer />
         </ErrorBoundary>

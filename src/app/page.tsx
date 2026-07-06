@@ -141,7 +141,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-[radial-gradient(circle at top right,rgba(212,175,55,0.06),transparent 40%)]" />
         </div>
 
-        <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-end px-6 pb-16 pt-36 md:px-12 lg:px-24 lg:pb-24">
+        <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-end px-4 pb-12 pt-28 sm:px-6 sm:pb-16 sm:pt-32 md:px-12 md:pt-36 lg:px-24 lg:pb-24">
           <div className="grid gap-16 lg:grid-cols-[minmax(0,1.2fr)_360px] lg:items-end">
             <div className="max-w-3xl">
               <motion.p
@@ -158,7 +158,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.1 }}
-                className="font-serif text-5xl font-light leading-[1.05] tracking-tight md:text-6xl lg:text-[5.2rem]"
+                className="font-serif text-3xl font-light leading-[1.1] tracking-tight sm:text-4xl md:text-5xl lg:text-6xl xl:text-[5.2rem]"
               >
                 {activeSlide.title}
               </motion.h1>
@@ -167,7 +167,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 28 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.2 }}
-                className="mt-7 max-w-xl text-base leading-relaxed text-white/75 md:text-lg"
+                className="mt-5 max-w-xl text-sm leading-relaxed text-white/75 sm:mt-6 sm:text-base md:mt-7 md:text-lg"
               >
                 {activeSlide.description}
               </motion.p>
@@ -175,18 +175,18 @@ export default function Home() {
                 initial={{ opacity: 0, y: 28 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.3 }}
-                className="mt-11 flex flex-col gap-4 sm:flex-row"
+                className="mt-8 flex flex-col gap-3 sm:mt-10 sm:gap-4 md:flex-row lg:mt-11"
               >
                 <Link
                   href="/collections"
-                  className="group inline-flex items-center justify-center gap-3 bg-white px-8 py-5 text-[11px] font-semibold uppercase tracking-[0.3em] text-brown-dark transition-all hover:bg-champagne hover:shadow-xl"
+                  className="group inline-flex items-center justify-center gap-3 bg-white px-6 py-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-brown-dark transition-all hover:bg-champagne hover:shadow-xl sm:px-8 sm:py-5"
                 >
                   Discover Your Treasure
                   <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
                 </Link>
                 <Link
                   href="/shop"
-                  className="inline-flex items-center justify-center gap-3 border border-white/40 bg-white/8 px-8 py-5 text-[11px] font-semibold uppercase tracking-[0.3em] text-white backdrop-blur-sm transition-all hover:bg-white/16 hover:border-white/60"
+                  className="inline-flex items-center justify-center gap-3 border border-white/40 bg-white/8 px-6 py-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-white backdrop-blur-sm transition-all hover:bg-white/16 hover:border-white/60 sm:px-8 sm:py-5"
                 >
                   View Most Loved Pieces
                 </Link>
@@ -236,28 +236,28 @@ export default function Home() {
             </motion.div>
           </div>
 
-          <div className="mt-14 rounded-[30px] border border-white/12 bg-white/8 p-4 backdrop-blur-md md:p-5">
-            <div className="grid gap-4 lg:grid-cols-[auto_1fr] lg:items-center">
-              <div className="flex items-center gap-3">
+          <div className="mt-8 rounded-2xl border border-white/12 bg-white/8 p-3 backdrop-blur-md sm:mt-12 sm:rounded-[30px] sm:p-4 md:p-5 lg:mt-14">
+            <div className="grid gap-3 sm:gap-4 lg:grid-cols-[auto_1fr] lg:items-center">
+              <div className="flex items-center gap-2 sm:gap-3">
                 <button
                   type="button"
                   onClick={goToPrevious}
-                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/18 text-white transition-all hover:bg-white/12 hover:border-white/30"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/18 text-white transition-all hover:bg-white/12 hover:border-white/30 sm:h-10 sm:w-10 md:h-11 md:w-11"
                   aria-label="Previous slide"
                 >
-                  <ChevronLeft size={18} />
+                  <ChevronLeft size={16} className="sm:w-[18px] sm:h-[18px]" />
                 </button>
                 <button
                   type="button"
                   onClick={goToNext}
-                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/18 text-white transition-all hover:bg-white/12 hover:border-white/30"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/18 text-white transition-all hover:bg-white/12 hover:border-white/30 sm:h-10 sm:w-10 md:h-11 md:w-11"
                   aria-label="Next slide"
                 >
-                  <ChevronRight size={18} />
+                  <ChevronRight size={16} className="sm:w-[18px] sm:h-[18px]" />
                 </button>
               </div>
 
-              <div className="grid gap-3 md:grid-cols-3">
+              <div className="grid gap-2 sm:gap-3 md:grid-cols-3">
               {heroSlides.map((slide, index) => (
                 <button
                   key={slide.id}
@@ -334,7 +334,7 @@ export default function Home() {
       </section>
 
       {/* Brand Perspective */}
-      <section className="px-6 py-28 md:px-12 lg:px-24 lg:py-36">
+      <section className="px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-24 lg:px-24 lg:py-28 xl:py-36">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
             <motion.div
@@ -346,13 +346,13 @@ export default function Home() {
               <p className="mb-6 text-[10px] font-semibold uppercase tracking-[0.4em] text-brown/50">
                 Brand Perspective
               </p>
-              <h2 className="font-serif text-4xl font-light leading-snug text-brown-dark md:text-5xl">
+              <h2 className="font-serif text-2xl font-light leading-snug text-brown-dark sm:text-3xl md:text-4xl lg:text-5xl">
                 Exquisite jewelry, artfully crafted to celebrate every woman who loves to shine.
               </h2>
-              <p className="mt-7 max-w-xl text-lg leading-relaxed text-brown/78">
+              <p className="mt-5 max-w-xl text-base leading-relaxed text-brown/78 sm:mt-6 sm:text-lg md:mt-7">
                 We create timeless pieces that make you feel radiant and confident, whether it's for everyday grace or milestone celebrations.
               </p>
-              <div className="mt-12 space-y-6">
+              <div className="mt-8 space-y-4 sm:mt-10 sm:space-y-5 md:mt-12 md:space-y-6">
                 <div className="border-l border-sand pl-6">
                   <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.35em] text-brown/50">Our Philosophy</p>
                   <p className="text-brown/78">Artisan craftsmanship, luminous designs, and timeless elegance that lets each piece tell its own story.</p>
@@ -403,9 +403,9 @@ export default function Home() {
       </section>
 
       {/* Featured Collections */}
-      <section className="px-6 pb-32 md:px-12 lg:px-24 lg:pb-40">
+      <section className="px-4 py-20 sm:px-6 sm:py-24 md:px-12 md:py-28 lg:px-24 lg:py-32 xl:pb-40">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-14 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <div className="mb-10 flex flex-col gap-4 sm:mb-12 sm:gap-5 md:flex-row md:items-end md:justify-between lg:mb-14">
             <div>
               <p className="mb-5 text-[10px] font-semibold uppercase tracking-[0.4em] text-brown/50">
                 Featured Collections

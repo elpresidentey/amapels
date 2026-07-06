@@ -47,31 +47,31 @@ function ShopContent() {
   }
 
   return (
-    <div className="pt-24 min-h-screen">
-      <section className="py-28 px-6 md:px-12 lg:px-24">
+    <div className="pt-16 min-h-screen sm:pt-20 md:pt-24">
+      <section className="py-16 px-4 sm:py-20 sm:px-6 md:py-24 md:px-8 lg:py-28 lg:px-12 xl:px-24">
         <div className="max-w-7xl mx-auto">
           <motion.div 
             initial={{ opacity: 0, y: 45 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9 }}
-            className="text-center mb-20"
+            className="text-center mb-12 sm:mb-16 md:mb-20"
           >
-            <p className="mb-6 text-[10px] font-semibold uppercase tracking-[0.45em] text-brown/50">DISCOVER TREASURES</p>
-            <h1 className="font-serif text-5xl font-light text-brown-dark md:text-6xl">SHOP</h1>
-            <p className="mt-8 text-lg text-brown/70">Explore exquisite jewelry, artisan craftsmanship, and timeless pieces to treasure or gift.</p>
+            <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.45em] text-brown/50 sm:mb-6">DISCOVER TREASURES</p>
+            <h1 className="font-serif text-3xl font-light text-brown-dark sm:text-4xl md:text-5xl lg:text-6xl">SHOP</h1>
+            <p className="mt-4 text-base text-brown/70 px-4 sm:mt-6 sm:text-lg md:mt-8">Explore exquisite jewelry, artisan craftsmanship, and timeless pieces to treasure or gift.</p>
           </motion.div>
 
           <motion.div 
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.15 }}
-            className="flex flex-wrap justify-center gap-4 mb-20"
+            className="flex flex-wrap justify-center gap-2 mb-12 sm:gap-3 sm:mb-16 md:gap-4 md:mb-20"
           >
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-7 py-3 text-[11px] font-semibold uppercase tracking-[0.35em] transition-all duration-300 ${
+                className={`px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.3em] transition-all duration-300 sm:px-6 sm:py-2.5 sm:text-[11px] md:px-7 md:py-3 md:tracking-[0.35em] ${
                   selectedCategory === category 
                     ? 'bg-brown-dark text-white' 
                     : 'border border-sand text-brown/75 hover:border-brown-dark hover:text-brown-dark'
@@ -87,7 +87,7 @@ function ShopContent() {
               <p className="text-brown/60">No products found in this category yet. Check back soon!</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3 lg:gap-10">
               {products.map((product, index) => (
                 <motion.div
                   key={product._id}
@@ -97,7 +97,7 @@ function ShopContent() {
                   className="group cursor-pointer"
                 >
                   <Link href={`/shop/${product._id}`}>
-                    <div className="relative aspect-[3/4] overflow-hidden mb-6 rounded-[32px] bg-white shadow-sm">
+                    <div className="relative aspect-[3/4] overflow-hidden mb-4 rounded-2xl bg-white shadow-sm sm:mb-5 sm:rounded-3xl md:mb-6 md:rounded-[32px]">
                       <Image 
                         src={product.images[0]}
                         alt={product.name}
@@ -106,9 +106,9 @@ function ShopContent() {
                         className="object-cover transition-transform duration-800 group-hover:scale-108"
                       />
                     </div>
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.32em] text-brown/50 mb-2">{product.category}</p>
-                    <h3 className="font-serif text-xl font-medium text-brown-dark mb-1">{product.name}</h3>
-                    <p className="text-brown-dark font-medium">{product.price}</p>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.32em] text-brown/50 mb-1.5 sm:mb-2">{product.category}</p>
+                    <h3 className="font-serif text-lg font-medium text-brown-dark mb-1 sm:text-xl">{product.name}</h3>
+                    <p className="text-sm text-brown-dark font-medium sm:text-base">{product.price}</p>
                   </Link>
                 </motion.div>
               ))}

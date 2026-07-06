@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 export interface IOrderItem {
-  productId: mongoose.Types.ObjectId
+  productId: string // Changed from ObjectId to string to match checkout data
   name: string
   price: number
   quantity: number
@@ -9,7 +9,7 @@ export interface IOrderItem {
 }
 
 export interface IOrder {
-  orderNumber: string
+  orderNumber?: string // Make optional since it's auto-generated
   customerEmail: string
   customerName: string
   customerPhone?: string
@@ -29,20 +29,21 @@ export interface IOrder {
     country: string
   }
   subtotal: number
-  shippingCost: number
+  shippingCost?: number // Make optional with default
+  tax?: number // Add tax field
   total: number
   status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled'
   paymentStatus: 'pending' | 'paid' | 'failed' | 'refunded'
   paymentReference?: string
+  metadata?: Record<string, any> // Add metadata field for checkout data
   notes?: string
-  createdAt: Date
-  updatedAt: Date
+  createdAt?: Date
+  updatedAt?: Date
 }
 
 const OrderItemSchema = new mongoose.Schema<IOrderItem>({
   productId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Product',
+    type: String, // Changed from ObjectId to String
     required: true,
   },
   name: {
@@ -75,7 +76,6 @@ const AddressSchema = new mongoose.Schema({
 const OrderSchema = new mongoose.Schema<IOrder>({
   orderNumber: {
     type: String,
-    required: true,
     unique: true,
   },
   customerEmail: {
@@ -101,7 +101,10 @@ const OrderSchema = new mongoose.Schema<IOrder>({
   },
   shippingCost: {
     type: Number,
-    required: true,
+    default: 0,
+  },
+  tax: {
+    type: Number,
     default: 0,
   },
   total: {
@@ -120,6 +123,10 @@ const OrderSchema = new mongoose.Schema<IOrder>({
   },
   paymentReference: {
     type: String,
+  },
+  metadata: {
+    type: mongoose.Schema.Types.Mixed,
+    default: {},
   },
   notes: {
     type: String,

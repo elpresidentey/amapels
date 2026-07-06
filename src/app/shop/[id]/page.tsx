@@ -7,7 +7,7 @@ import { Heart, ShoppingBag, ArrowLeft, Check } from 'lucide-react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import { useProduct } from '@/hooks/useProducts'
-import { useCartStore } from '@/store/cartStore'
+import { useCartStore } from '@/store/newCartStore'
 
 export default function ProductPage() {
   const params = useParams<{ id: string }>()
