@@ -72,24 +72,24 @@ export default function AdminDashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-ivory pt-28 pb-16 flex items-center justify-center">
+      <div className="min-h-screen bg-white pt-28 pb-16 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-brown-dark border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-brown/70">Loading dashboard...</p>
+          <div className="w-8 h-8 border-2 border-gray-800-dark border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-black/70">Loading dashboard...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-ivory">
+    <div className="min-h-screen bg-white">
       <div className="section-shell py-8 sm:py-12">
         {/* Header */}
         <div className="mb-8 sm:mb-12">
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-brown-dark mb-3">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-black-dark mb-3">
             Admin Dashboard
           </h1>
-          <p className="text-brown/70 text-sm sm:text-base">
+          <p className="text-black/70 text-sm sm:text-base">
             Welcome back! Here's what's happening with your store today.
           </p>
         </div>
@@ -101,7 +101,7 @@ export default function AdminDashboard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="bg-white rounded-xl sm:rounded-2xl border border-sand/30 p-5 sm:p-6 hover:shadow-lg transition-shadow min-h-[140px] flex flex-col justify-between"
+            className="bg-white rounded-xl sm:rounded-2xl border border-gold/30 p-5 sm:p-6 hover:shadow-lg transition-shadow min-h-[140px] flex flex-col justify-between"
           >
             <div className="flex items-start justify-between mb-3 sm:mb-4">
               <div className="p-2.5 sm:p-3 bg-blue-50 rounded-lg sm:rounded-xl">
@@ -109,16 +109,16 @@ export default function AdminDashboard() {
               </div>
               <Link
                 href="/admin/products"
-                className="text-brown/60 hover:text-brown-dark transition-colors p-1"
+                className="text-black/60 hover:text-black-dark transition-colors p-1"
               >
                 <Eye size={16} className="sm:w-[18px] sm:h-[18px]" />
               </Link>
             </div>
             <div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-brown-dark mb-1">
+              <h3 className="text-2xl sm:text-3xl font-bold text-black-dark mb-1">
                 {stats.totalProducts}
               </h3>
-              <p className="text-brown/70 text-xs sm:text-sm">Total Products</p>
+              <p className="text-black/70 text-xs sm:text-sm">Total Products</p>
             </div>
           </motion.div>
 
@@ -127,7 +127,7 @@ export default function AdminDashboard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="bg-white rounded-xl sm:rounded-2xl border border-sand/30 p-5 sm:p-6 hover:shadow-lg transition-shadow min-h-[140px] flex flex-col justify-between"
+            className="bg-white rounded-xl sm:rounded-2xl border border-gold/30 p-5 sm:p-6 hover:shadow-lg transition-shadow min-h-[140px] flex flex-col justify-between"
           >
             <div className="flex items-start justify-between mb-3 sm:mb-4">
               <div className="p-2.5 sm:p-3 bg-green-50 rounded-lg sm:rounded-xl">
@@ -135,16 +135,16 @@ export default function AdminDashboard() {
               </div>
               <Link
                 href="/admin/orders"
-                className="text-brown/60 hover:text-brown-dark transition-colors p-1"
+                className="text-black/60 hover:text-black-dark transition-colors p-1"
               >
                 <Eye size={16} className="sm:w-[18px] sm:h-[18px]" />
               </Link>
             </div>
             <div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-brown-dark mb-1">
+              <h3 className="text-2xl sm:text-3xl font-bold text-black-dark mb-1">
                 {stats.totalOrders}
               </h3>
-              <p className="text-brown/70 text-xs sm:text-sm">Total Orders</p>
+              <p className="text-black/70 text-xs sm:text-sm">Total Orders</p>
             </div>
           </motion.div>
 
@@ -153,7 +153,7 @@ export default function AdminDashboard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-white rounded-xl sm:rounded-2xl border border-sand/30 p-5 sm:p-6 hover:shadow-lg transition-shadow min-h-[140px] flex flex-col justify-between"
+            className="bg-white rounded-xl sm:rounded-2xl border border-gold/30 p-5 sm:p-6 hover:shadow-lg transition-shadow min-h-[140px] flex flex-col justify-between"
           >
             <div className="flex items-start justify-between mb-3 sm:mb-4">
               <div className="p-2.5 sm:p-3 bg-accent-emerald/10 rounded-lg sm:rounded-xl">
@@ -161,16 +161,16 @@ export default function AdminDashboard() {
               </div>
               <Link
                 href="/admin/sales"
-                className="text-brown/60 hover:text-brown-dark transition-colors p-1"
+                className="text-black/60 hover:text-black-dark transition-colors p-1"
               >
                 <Eye size={16} className="sm:w-[18px] sm:h-[18px]" />
               </Link>
             </div>
             <div>
-              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-brown-dark mb-1 break-words">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-black-dark mb-1 break-words">
                 ₦{stats.totalRevenue.toLocaleString()}
               </h3>
-              <p className="text-brown/70 text-xs sm:text-sm">Total Revenue</p>
+              <p className="text-black/70 text-xs sm:text-sm">Total Revenue</p>
             </div>
           </motion.div>
 
@@ -179,7 +179,7 @@ export default function AdminDashboard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="bg-white rounded-xl sm:rounded-2xl border border-sand/30 p-5 sm:p-6 hover:shadow-lg transition-shadow min-h-[140px] flex flex-col justify-between"
+            className="bg-white rounded-xl sm:rounded-2xl border border-gold/30 p-5 sm:p-6 hover:shadow-lg transition-shadow min-h-[140px] flex flex-col justify-between"
           >
             <div className="flex items-start justify-between mb-3 sm:mb-4">
               <div className="p-2.5 sm:p-3 bg-accent-orange/10 rounded-lg sm:rounded-xl">
@@ -187,11 +187,11 @@ export default function AdminDashboard() {
               </div>
             </div>
             <div>
-              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-brown-dark mb-1 break-words">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-black-dark mb-1 break-words">
                 ₦{stats.totalOrders > 0 ? '' : ''}
                 {((stats.totalRevenue / Math.max(stats.totalOrders, 1))).toLocaleString('en-NG', { maximumFractionDigits: 0 })}
               </h3>
-              <p className="text-brown/70 text-xs sm:text-sm">Avg Order Value</p>
+              <p className="text-black/70 text-xs sm:text-sm">Avg Order Value</p>
             </div>
           </motion.div>
         </div>
@@ -200,40 +200,40 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 gap-4 mb-8 sm:grid-cols-2 sm:gap-5 md:gap-6 lg:grid-cols-3">
           <Link
             href="/admin/products"
-            className="bg-white rounded-xl border border-sand/30 p-5 sm:p-6 hover:border-brown-dark transition-all group min-h-[100px] flex items-center"
+            className="bg-white rounded-xl border border-gold/30 p-5 sm:p-6 hover:border-gray-800-dark transition-all group min-h-[100px] flex items-center"
           >
             <div className="flex items-center justify-between w-full gap-3">
               <div className="flex-1 min-w-0">
-                <h3 className="font-medium text-brown-dark mb-1 text-sm sm:text-base">Manage Products</h3>
-                <p className="text-brown/70 text-xs sm:text-sm">Add, edit, or remove products</p>
+                <h3 className="font-medium text-black-dark mb-1 text-sm sm:text-base">Manage Products</h3>
+                <p className="text-black/70 text-xs sm:text-sm">Add, edit, or remove products</p>
               </div>
-              <ArrowRight className="text-brown/40 group-hover:text-brown-dark group-hover:translate-x-1 transition-all flex-shrink-0" size={18} />
+              <ArrowRight className="text-black/40 group-hover:text-black-dark group-hover:translate-x-1 transition-all flex-shrink-0" size={18} />
             </div>
           </Link>
 
           <Link
             href="/admin/orders"
-            className="bg-white rounded-xl border border-sand/30 p-5 sm:p-6 hover:border-brown-dark transition-all group min-h-[100px] flex items-center"
+            className="bg-white rounded-xl border border-gold/30 p-5 sm:p-6 hover:border-gray-800-dark transition-all group min-h-[100px] flex items-center"
           >
             <div className="flex items-center justify-between w-full gap-3">
               <div className="flex-1 min-w-0">
-                <h3 className="font-medium text-brown-dark mb-1 text-sm sm:text-base">View Orders</h3>
-                <p className="text-brown/70 text-xs sm:text-sm">Track and manage customer orders</p>
+                <h3 className="font-medium text-black-dark mb-1 text-sm sm:text-base">View Orders</h3>
+                <p className="text-black/70 text-xs sm:text-sm">Track and manage customer orders</p>
               </div>
-              <ArrowRight className="text-brown/40 group-hover:text-brown-dark group-hover:translate-x-1 transition-all flex-shrink-0" size={18} />
+              <ArrowRight className="text-black/40 group-hover:text-black-dark group-hover:translate-x-1 transition-all flex-shrink-0" size={18} />
             </div>
           </Link>
 
           <Link
             href="/admin/sales"
-            className="bg-white rounded-xl border border-sand/30 p-5 sm:p-6 hover:border-brown-dark transition-all group min-h-[100px] flex items-center sm:col-span-2 lg:col-span-1"
+            className="bg-white rounded-xl border border-gold/30 p-5 sm:p-6 hover:border-gray-800-dark transition-all group min-h-[100px] flex items-center sm:col-span-2 lg:col-span-1"
           >
             <div className="flex items-center justify-between w-full gap-3">
               <div className="flex-1 min-w-0">
-                <h3 className="font-medium text-brown-dark mb-1 text-sm sm:text-base">Sales Reports</h3>
-                <p className="text-brown/70 text-xs sm:text-sm">View sales analytics and trends</p>
+                <h3 className="font-medium text-black-dark mb-1 text-sm sm:text-base">Sales Reports</h3>
+                <p className="text-black/70 text-xs sm:text-sm">View sales analytics and trends</p>
               </div>
-              <ArrowRight className="text-brown/40 group-hover:text-brown-dark group-hover:translate-x-1 transition-all flex-shrink-0" size={18} />
+              <ArrowRight className="text-black/40 group-hover:text-black-dark group-hover:translate-x-1 transition-all flex-shrink-0" size={18} />
             </div>
           </Link>
         </div>
@@ -243,13 +243,13 @@ export default function AdminDashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="bg-white rounded-2xl border border-sand/30 overflow-hidden"
+          className="bg-white rounded-2xl border border-gold/30 overflow-hidden"
         >
-          <div className="p-6 border-b border-sand/20 flex justify-between items-center">
-            <h2 className="font-serif text-xl sm:text-2xl text-brown-dark">Recent Orders</h2>
+          <div className="p-6 border-b border-gold/20 flex justify-between items-center">
+            <h2 className="font-serif text-xl sm:text-2xl text-black-dark">Recent Orders</h2>
             <Link
               href="/admin/orders"
-              className="text-sm text-brown-dark hover:text-brown transition-colors flex items-center gap-1"
+              className="text-sm text-black-dark hover:text-black transition-colors flex items-center gap-1"
             >
               View All
               <ArrowRight size={14} />
@@ -258,28 +258,28 @@ export default function AdminDashboard() {
 
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-sand/10">
+              <thead className="bg-gray-100/10">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-brown-dark">Order ID</th>
-                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-brown-dark">Customer</th>
-                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-brown-dark hidden sm:table-cell">Items</th>
-                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-brown-dark">Total</th>
-                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-brown-dark">Status</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-black-dark">Order ID</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-black-dark">Customer</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-black-dark hidden sm:table-cell">Items</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-black-dark">Total</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-black-dark">Status</th>
                 </tr>
               </thead>
               <tbody>
                 {stats.recentOrders.map((order, index) => (
-                  <tr key={order._id || index} className="border-b border-sand/10 hover:bg-sand/5 transition-colors">
-                    <td className="px-4 py-4 text-xs sm:text-sm text-brown-dark font-mono">
+                  <tr key={order._id || index} className="border-b border-gold/10 hover:bg-gray-100/5 transition-colors">
+                    <td className="px-4 py-4 text-xs sm:text-sm text-black-dark font-mono">
                       #{order._id?.slice(-6) || 'N/A'}
                     </td>
-                    <td className="px-4 py-4 text-xs sm:text-sm text-brown/80">
+                    <td className="px-4 py-4 text-xs sm:text-sm text-black/80">
                       {order.customerName || order.customerEmail || 'Guest'}
                     </td>
-                    <td className="px-4 py-4 text-xs sm:text-sm text-brown/80 hidden sm:table-cell">
+                    <td className="px-4 py-4 text-xs sm:text-sm text-black/80 hidden sm:table-cell">
                       {order.items?.length || 0} items
                     </td>
-                    <td className="px-4 py-4 text-xs sm:text-sm text-brown-dark font-medium">
+                    <td className="px-4 py-4 text-xs sm:text-sm text-black-dark font-medium">
                       ₦{(order.total || 0).toLocaleString()}
                     </td>
                     <td className="px-4 py-4">
@@ -297,7 +297,7 @@ export default function AdminDashboard() {
                 ))}
                 {stats.recentOrders.length === 0 && (
                   <tr>
-                    <td colSpan={5} className="px-4 py-12 text-center text-brown/70 text-sm">
+                    <td colSpan={5} className="px-4 py-12 text-center text-black/70 text-sm">
                       No orders yet. Orders will appear here once customers start making purchases.
                     </td>
                   </tr>

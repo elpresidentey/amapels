@@ -28,8 +28,8 @@ function ShopContent() {
     return (
       <div className="pt-32 min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-sand border-t-brown-dark rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-brown/70">Loading products...</p>
+          <div className="w-16 h-16 border-4 border-gold border-t-brown-dark rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-black/70">Loading products...</p>
         </div>
       </div>
     )
@@ -40,7 +40,7 @@ function ShopContent() {
       <div className="pt-32 min-h-screen flex items-center justify-center">
         <div className="text-center max-w-md">
           <p className="text-accent-orange mb-4">Oops! Something went wrong.</p>
-          <p className="text-brown/70">{error}</p>
+          <p className="text-black/70">{error}</p>
         </div>
       </div>
     )
@@ -56,9 +56,9 @@ function ShopContent() {
             transition={{ duration: 0.9 }}
             className="text-center mb-12 sm:mb-16 md:mb-20"
           >
-            <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.45em] text-brown/50 sm:mb-6">DISCOVER TREASURES</p>
-            <h1 className="font-serif text-3xl font-light text-brown-dark sm:text-4xl md:text-5xl lg:text-6xl">SHOP</h1>
-            <p className="mt-4 text-base text-brown/70 px-4 sm:mt-6 sm:text-lg md:mt-8">Explore exquisite jewelry, artisan craftsmanship, and timeless pieces to treasure or gift.</p>
+            <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.45em] text-black/50 sm:mb-6">DISCOVER TREASURES</p>
+            <h1 className="font-serif text-3xl font-light text-black-dark sm:text-4xl md:text-5xl lg:text-6xl">SHOP</h1>
+            <p className="mt-4 text-base text-black/70 px-4 sm:mt-6 sm:text-lg md:mt-8">Explore exquisite jewelry, artisan craftsmanship, and timeless pieces to treasure or gift.</p>
           </motion.div>
 
           <motion.div 
@@ -73,8 +73,8 @@ function ShopContent() {
                 onClick={() => setSelectedCategory(category)}
                 className={`px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.3em] transition-all duration-300 sm:px-6 sm:py-2.5 sm:text-[11px] md:px-7 md:py-3 md:tracking-[0.35em] ${
                   selectedCategory === category 
-                    ? 'bg-brown-dark text-white' 
-                    : 'border border-sand text-brown/75 hover:border-brown-dark hover:text-brown-dark'
+                    ? 'bg-black-light-dark text-white' 
+                    : 'border border-gold text-black/75 hover:border-gray-800-dark hover:text-black-dark'
                 }`}
               >
                 {category}
@@ -84,7 +84,7 @@ function ShopContent() {
 
           {products.length === 0 ? (
             <div className="text-center py-16">
-              <p className="text-brown/60">No products found in this category yet. Check back soon!</p>
+              <p className="text-black/60">No products found in this category yet. Check back soon!</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7 md:gap-8 lg:grid-cols-3 lg:gap-9 xl:gap-10">
@@ -107,9 +107,9 @@ function ShopContent() {
                       />
                     </div>
                     <div className="px-2 sm:px-1">
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.32em] text-brown/50 mb-1.5 sm:mb-2 sm:text-[10px]">{product.category}</p>
-                      <h3 className="font-serif text-base font-medium text-brown-dark mb-1 line-clamp-2 sm:text-lg md:text-xl">{product.name}</h3>
-                      <p className="text-sm text-brown-dark font-medium sm:text-base">{product.price}</p>
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.32em] text-black/50 mb-1.5 sm:mb-2 sm:text-[10px]">{product.category}</p>
+                      <h3 className="font-serif text-base font-medium text-black-dark mb-1 line-clamp-2 sm:text-lg md:text-xl">{product.name}</h3>
+                      <p className="text-sm text-black-dark font-medium sm:text-base">{product.price}</p>
                     </div>
                   </Link>
                 </motion.div>
@@ -128,8 +128,8 @@ export default function ShopPage() {
       fallback={
         <div className="pt-32 min-h-screen flex items-center justify-center">
           <div className="text-center">
-            <div className="w-16 h-16 border-4 border-sand border-t-brown-dark rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-brown/70">Loading products...</p>
+            <div className="w-16 h-16 border-4 border-gold border-t-brown-dark rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-black/70">Loading products...</p>
           </div>
         </div>
       }

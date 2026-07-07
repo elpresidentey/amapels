@@ -16,20 +16,20 @@ const FAQAccordion = ({ question, answer, isOpen, onToggle }: {
   onToggle: () => void
 }) => {
   return (
-    <div className="border-b border-brown/10 last:border-b-0">
+    <div className="border-b border-gray-800/10 last:border-b-0">
       <button
         onClick={onToggle}
-        className="w-full flex items-center justify-between py-4 lg:py-6 text-left hover:text-brown transition-colors"
+        className="w-full flex items-center justify-between py-4 lg:py-6 text-left hover:text-black transition-colors"
       >
-        <h3 className="font-medium text-brown-dark pr-4">{question}</h3>
+        <h3 className="font-medium text-black-dark pr-4">{question}</h3>
         <ChevronDown 
           size={20} 
-          className={`text-brown/60 transition-transform flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`} 
+          className={`text-black/60 transition-transform flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`} 
         />
       </button>
       {isOpen && (
         <div className="pb-4 lg:pb-6">
-          <div className="text-brown/70 leading-relaxed prose prose-sm max-w-none">
+          <div className="text-black/70 leading-relaxed prose prose-sm max-w-none">
             {answer}
           </div>
         </div>
@@ -83,7 +83,7 @@ export default function FAQPage() {
             <li>Real-time updates on your order status</li>
             <li>Estimated delivery time</li>
           </ul>
-          <p className="mt-2">You can also track your order on our <a href="/track-order" className="text-brown-dark underline">Track Order page</a>.</p>
+          <p className="mt-2">You can also track your order on our <a href="/track-order" className="text-black-dark underline">Track Order page</a>.</p>
         </div>
       )
     },
@@ -151,7 +151,7 @@ export default function FAQPage() {
             <li><strong>Pearls:</strong> Wipe with a damp cloth only</li>
             <li><strong>Gemstones:</strong> Gentle soap and soft brush</li>
           </ul>
-          <p className="mt-2">See our <a href="/care-guide" className="text-brown-dark underline">complete care guide</a> for detailed instructions.</p>
+          <p className="mt-2">See our <a href="/care-guide" className="text-black-dark underline">complete care guide</a> for detailed instructions.</p>
         </div>
       )
     },
@@ -196,14 +196,14 @@ export default function FAQPage() {
   }
 
   return (
-    <div className="min-h-screen bg-ivory">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="section-shell pt-12 pb-16 lg:pt-20 lg:pb-24">
         <div className="text-center max-w-4xl mx-auto">
-          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-brown-dark mb-6 lg:mb-8">
+          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-black-dark mb-6 lg:mb-8">
             Frequently Asked Questions
           </h1>
-          <p className="text-lg sm:text-xl text-brown/70 leading-relaxed">
+          <p className="text-lg sm:text-xl text-black/70 leading-relaxed">
             Find answers to common questions about ordering, shipping, returns, and caring for your AMAPELS jewelry.
           </p>
         </div>
@@ -220,8 +220,8 @@ export default function FAQPage() {
                 onClick={() => setActiveCategory(category.id)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all btn-mobile ${
                   activeCategory === category.id
-                    ? 'bg-brown-dark text-ivory'
-                    : 'bg-brown/5 text-brown hover:bg-brown/10'
+                    ? 'bg-black-light-dark text-white'
+                    : 'bg-black-light/5 text-black hover:bg-gold/10'
                 }`}
               >
                 <Icon size={16} />
@@ -235,7 +235,7 @@ export default function FAQPage() {
       {/* FAQ List */}
       <section className="section-shell pb-16 lg:pb-24">
         <div className="max-w-4xl mx-auto">
-          <div className="bg-ivory border border-brown/10 rounded-lg">
+          <div className="bg-white border border-gray-800/10 rounded-lg">
             {filteredFAQs.map((faq, index) => (
               <FAQAccordion
                 key={index}
@@ -250,12 +250,12 @@ export default function FAQPage() {
       </section>
 
       {/* Contact Section */}
-      <section className="bg-brown-dark text-ivory section-shell py-16 lg:py-24">
+      <section className="bg-black-light-dark text-white section-shell py-16 lg:py-24">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="font-serif text-2xl lg:text-3xl font-light mb-6">
             Still Need Help?
           </h2>
-          <p className="text-ivory/80 leading-relaxed mb-8">
+          <p className="text-white/80 leading-relaxed mb-8">
             Can't find the answer you're looking for? Our customer service team is here to help. 
             Reach out and we'll get back to you as soon as possible.
           </p>
@@ -263,28 +263,28 @@ export default function FAQPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <a 
               href="mailto:help@amapels.com"
-              className="flex items-center justify-center gap-3 bg-ivory/10 rounded-lg p-4 hover:bg-ivory/20 transition-colors btn-mobile"
+              className="flex items-center justify-center gap-3 bg-white/10 rounded-lg p-4 hover:bg-white/20 transition-colors btn-mobile"
             >
               <Mail size={20} />
               <div className="text-left">
                 <div className="font-medium">Email Support</div>
-                <div className="text-sm text-ivory/70">help@amapels.com</div>
+                <div className="text-sm text-white/70">help@amapels.com</div>
               </div>
             </a>
             
             <a 
               href="tel:+234-809-123-4567"
-              className="flex items-center justify-center gap-3 bg-ivory/10 rounded-lg p-4 hover:bg-ivory/20 transition-colors btn-mobile"
+              className="flex items-center justify-center gap-3 bg-white/10 rounded-lg p-4 hover:bg-white/20 transition-colors btn-mobile"
             >
               <Phone size={20} />
               <div className="text-left">
                 <div className="font-medium">Phone Support</div>
-                <div className="text-sm text-ivory/70">+234-809-123-4567</div>
+                <div className="text-sm text-white/70">+234-809-123-4567</div>
               </div>
             </a>
           </div>
           
-          <p className="text-ivory/60 text-sm">
+          <p className="text-white/60 text-sm">
             Customer service hours: Monday - Saturday, 9AM - 6PM WAT
           </p>
         </div>
@@ -293,34 +293,34 @@ export default function FAQPage() {
       {/* Quick Links */}
       <section className="section-shell py-16 lg:pb-24">
         <div className="text-center mb-8">
-          <h2 className="font-serif text-2xl font-light text-brown-dark mb-4">
+          <h2 className="font-serif text-2xl font-light text-black-dark mb-4">
             Popular Help Topics
           </h2>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
-          <a href="/shipping-returns" className="bg-brown/5 rounded-lg p-6 text-center hover:bg-brown/10 transition-colors group">
-            <Package size={24} className="mx-auto mb-3 text-brown-dark group-hover:text-brown" />
-            <h3 className="font-medium text-brown-dark mb-2">Shipping Info</h3>
-            <p className="text-brown/70 text-sm">Delivery times and costs</p>
+          <a href="/shipping-returns" className="bg-black-light/5 rounded-lg p-6 text-center hover:bg-gold/10 transition-colors group">
+            <Package size={24} className="mx-auto mb-3 text-black-dark group-hover:text-black" />
+            <h3 className="font-medium text-black-dark mb-2">Shipping Info</h3>
+            <p className="text-black/70 text-sm">Delivery times and costs</p>
           </a>
           
-          <a href="/size-guide" className="bg-brown/5 rounded-lg p-6 text-center hover:bg-brown/10 transition-colors group">
-            <Shield size={24} className="mx-auto mb-3 text-brown-dark group-hover:text-brown" />
-            <h3 className="font-medium text-brown-dark mb-2">Size Guide</h3>
-            <p className="text-brown/70 text-sm">Find your perfect fit</p>
+          <a href="/size-guide" className="bg-black-light/5 rounded-lg p-6 text-center hover:bg-gold/10 transition-colors group">
+            <Shield size={24} className="mx-auto mb-3 text-black-dark group-hover:text-black" />
+            <h3 className="font-medium text-black-dark mb-2">Size Guide</h3>
+            <p className="text-black/70 text-sm">Find your perfect fit</p>
           </a>
           
-          <a href="/care-guide" className="bg-brown/5 rounded-lg p-6 text-center hover:bg-brown/10 transition-colors group">
-            <Shield size={24} className="mx-auto mb-3 text-brown-dark group-hover:text-brown" />
-            <h3 className="font-medium text-brown-dark mb-2">Jewelry Care</h3>
-            <p className="text-brown/70 text-sm">Keep pieces beautiful</p>
+          <a href="/care-guide" className="bg-black-light/5 rounded-lg p-6 text-center hover:bg-gold/10 transition-colors group">
+            <Shield size={24} className="mx-auto mb-3 text-black-dark group-hover:text-black" />
+            <h3 className="font-medium text-black-dark mb-2">Jewelry Care</h3>
+            <p className="text-black/70 text-sm">Keep pieces beautiful</p>
           </a>
           
-          <a href="/track-order" className="bg-brown/5 rounded-lg p-6 text-center hover:bg-brown/10 transition-colors group">
-            <Search size={24} className="mx-auto mb-3 text-brown-dark group-hover:text-brown" />
-            <h3 className="font-medium text-brown-dark mb-2">Track Order</h3>
-            <p className="text-brown/70 text-sm">Check delivery status</p>
+          <a href="/track-order" className="bg-black-light/5 rounded-lg p-6 text-center hover:bg-gold/10 transition-colors group">
+            <Search size={24} className="mx-auto mb-3 text-black-dark group-hover:text-black" />
+            <h3 className="font-medium text-black-dark mb-2">Track Order</h3>
+            <p className="text-black/70 text-sm">Check delivery status</p>
           </a>
         </div>
       </section>

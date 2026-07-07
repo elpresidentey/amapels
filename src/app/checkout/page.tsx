@@ -46,7 +46,7 @@ const OptimizedInput = memo<{
 
   return (
     <div>
-      <label className="block text-sm font-medium text-brown-dark mb-2">
+      <label className="block text-sm font-medium text-black-dark mb-2">
         {label} {required && '*'}
       </label>
       <input
@@ -54,8 +54,8 @@ const OptimizedInput = memo<{
         required={required}
         value={value}
         onChange={handleChange}
-        className={`w-full px-3 py-2.5 md:px-4 md:py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-brown-dark outline-none transition-colors text-base ${
-          error ? 'border-red-400' : 'border-sand'
+        className={`w-full px-3 py-2.5 md:px-4 md:py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none transition-colors text-base ${
+          error ? 'border-red-400' : 'border-gold'
         }`}
         placeholder={placeholder}
         maxLength={maxLength}
@@ -85,15 +85,15 @@ const OptimizedSelect = memo<{
 
   return (
     <div>
-      <label className="block text-sm font-medium text-brown-dark mb-2">
+      <label className="block text-sm font-medium text-black-dark mb-2">
         {label} {required && '*'}
       </label>
       <select
         required={required}
         value={value}
         onChange={handleChange}
-        className={`w-full px-3 py-2.5 md:px-4 md:py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-brown-dark outline-none transition-colors text-base ${
-          error ? 'border-red-400' : 'border-sand'
+        className={`w-full px-3 py-2.5 md:px-4 md:py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none transition-colors text-base ${
+          error ? 'border-red-400' : 'border-gold'
         }`}
         style={{ fontSize: '16px' }} // Prevents zoom on iOS
       >
@@ -525,10 +525,10 @@ export default function CheckoutPage() {
   // Enhanced loading state with error handling
   if (!mounted || !isLoaded) {
     return (
-      <div className="min-h-screen bg-ivory pt-28 pb-16 flex items-center justify-center">
+      <div className="min-h-screen bg-white pt-28 pb-16 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-brown-dark border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-brown/70">Loading checkout...</p>
+          <div className="w-8 h-8 border-2 border-gray-800-dark border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-black/70">Loading checkout...</p>
           {!isOnline && (
             <div className="flex items-center justify-center gap-2 mt-4 text-red-600">
               <WifiOff size={16} />
@@ -546,7 +546,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen bg-ivory pt-20 sm:pt-24 md:pt-28 pb-8 sm:pb-12 md:pb-16">
+    <div className="min-h-screen bg-white pt-20 sm:pt-24 md:pt-28 pb-8 sm:pb-12 md:pb-16">
       {/* Toast Notification */}
       <Toast
         message={toastMessage}
@@ -574,7 +574,7 @@ export default function CheckoutPage() {
         <div className="mb-6 md:mb-8">
           <Link 
             href="/cart"
-            className="inline-flex items-center gap-2 text-brown/70 hover:text-brown-dark transition-colors text-sm uppercase tracking-wider"
+            className="inline-flex items-center gap-2 text-black/70 hover:text-black-dark transition-colors text-sm uppercase tracking-wider"
           >
             <ArrowLeft size={16} />
             <span className="hidden sm:inline">Return to Cart</span>
@@ -586,18 +586,18 @@ export default function CheckoutPage() {
         <div className="mb-8 md:mb-12">
           {/* Mobile Progress - Vertical Stack */}
           <div className="block md:hidden">
-            <div className="bg-white rounded-2xl border border-sand/30 p-4 mb-6">
+            <div className="bg-white rounded-2xl border border-gold/30 p-4 mb-6">
               <div className="text-center mb-4">
-                <div className="text-lg font-medium text-brown-dark">
+                <div className="text-lg font-medium text-black-dark">
                   Step {currentStep} of {CHECKOUT_STEPS.length}
                 </div>
-                <div className="text-sm text-brown/70 mt-1">
+                <div className="text-sm text-black/70 mt-1">
                   {CHECKOUT_STEPS[currentStep - 1]?.title}
                 </div>
               </div>
-              <div className="w-full bg-sand/30 rounded-full h-2">
+              <div className="w-full bg-gray-100/30 rounded-full h-2">
                 <div 
-                  className="bg-brown-dark h-2 rounded-full transition-all duration-300"
+                  className="bg-black-light-dark h-2 rounded-full transition-all duration-300"
                   style={{ width: `${(currentStep / CHECKOUT_STEPS.length) * 100}%` }}
                 />
               </div>
@@ -616,8 +616,8 @@ export default function CheckoutPage() {
                   <div key={step.id} className="flex items-center">
                     <div className={`flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300 ${
                       isCompleted || isCurrent
-                        ? 'bg-brown-dark border-brown-dark text-ivory'
-                        : 'border-sand text-brown/50'
+                        ? 'bg-black-light-dark border-gray-800-dark text-white'
+                        : 'border-gold text-black/50'
                     }`}>
                       {isCompleted ? (
                         <Check size={20} />
@@ -628,7 +628,7 @@ export default function CheckoutPage() {
                     
                     {index < CHECKOUT_STEPS.length - 1 && (
                       <div className={`w-16 h-0.5 mx-4 transition-all duration-300 ${
-                        isCompleted ? 'bg-brown-dark' : 'bg-sand'
+                        isCompleted ? 'bg-black-light-dark' : 'bg-gray-100'
                       }`} />
                     )}
                   </div>
@@ -637,7 +637,7 @@ export default function CheckoutPage() {
             </div>
             
             <div className="text-center mt-4">
-              <p className="text-sm font-medium text-brown-dark">
+              <p className="text-sm font-medium text-black-dark">
                 {CHECKOUT_STEPS[currentStep - 1]?.title}
               </p>
             </div>
@@ -651,9 +651,9 @@ export default function CheckoutPage() {
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="bg-white rounded-2xl md:rounded-3xl border border-sand/30 p-4 md:p-8"
+                className="bg-white rounded-2xl md:rounded-3xl border border-gold/30 p-4 md:p-8"
               >
-                <h2 className="font-serif text-xl md:text-2xl text-brown-dark mb-6 md:mb-8">Delivery Information</h2>
+                <h2 className="font-serif text-xl md:text-2xl text-black-dark mb-6 md:mb-8">Delivery Information</h2>
                 
                 <form onSubmit={handleShippingSubmit} className="space-y-4 md:space-y-6">
                   <div className="grid gap-4 md:gap-6 md:grid-cols-2">
@@ -736,7 +736,7 @@ export default function CheckoutPage() {
                   
                   <button
                     type="submit"
-                    className="w-full bg-brown-dark text-ivory py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-brown transition-colors rounded-xl flex items-center justify-center gap-2"
+                    className="w-full bg-black-light-dark text-white py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl flex items-center justify-center gap-2"
                   >
                     Continue to Payment
                     <ArrowRight size={16} />
@@ -749,23 +749,23 @@ export default function CheckoutPage() {
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="bg-white rounded-2xl md:rounded-3xl border border-sand/30 p-4 md:p-8"
+                className="bg-white rounded-2xl md:rounded-3xl border border-gold/30 p-4 md:p-8"
               >
                 <div className="flex items-center gap-3 mb-6 md:mb-8">
                   <Lock size={18} className="md:w-5 md:h-5 text-accent-emerald" />
-                  <h2 className="font-serif text-xl md:text-2xl text-brown-dark">Secure Payment</h2>
+                  <h2 className="font-serif text-xl md:text-2xl text-black-dark">Secure Payment</h2>
                 </div>
                 
                 <div className="space-y-4 md:space-y-6">
                   {/* Paystack Info */}
-                  <div className="bg-champagne/10 rounded-xl md:rounded-2xl p-4 md:p-6 border border-sand/30">
+                  <div className="bg-primary-light/10 rounded-xl md:rounded-2xl p-4 md:p-6 border border-gold/30">
                     <div className="flex items-start gap-3 md:gap-4 mb-4">
                       <div className="w-10 h-10 md:w-12 md:h-12 bg-accent-emerald/10 rounded-full flex items-center justify-center flex-shrink-0">
                         <Lock size={16} className="md:w-5 md:h-5 text-accent-emerald" />
                       </div>
                       <div>
-                        <h3 className="font-medium text-brown-dark mb-2 text-sm md:text-base">Secure Payment with Paystack</h3>
-                        <p className="text-xs md:text-sm text-brown/70 leading-relaxed">
+                        <h3 className="font-medium text-black-dark mb-2 text-sm md:text-base">Secure Payment with Paystack</h3>
+                        <p className="text-xs md:text-sm text-black/70 leading-relaxed">
                           Your payment information is processed securely through Paystack, Nigeria's leading payment gateway. 
                           We never store your card details.
                         </p>
@@ -773,15 +773,15 @@ export default function CheckoutPage() {
                     </div>
                     
                     <div className="grid gap-2 md:gap-3 mt-4">
-                      <div className="flex items-center gap-2 text-xs md:text-sm text-brown/70">
+                      <div className="flex items-center gap-2 text-xs md:text-sm text-black/70">
                         <Check size={14} className="md:w-4 md:h-4 text-accent-emerald" />
                         <span>Bank-grade SSL encryption</span>
                       </div>
-                      <div className="flex items-center gap-2 text-xs md:text-sm text-brown/70">
+                      <div className="flex items-center gap-2 text-xs md:text-sm text-black/70">
                         <Check size={14} className="md:w-4 md:h-4 text-accent-emerald" />
                         <span>PCI DSS compliant</span>
                       </div>
-                      <div className="flex items-center gap-2 text-xs md:text-sm text-brown/70">
+                      <div className="flex items-center gap-2 text-xs md:text-sm text-black/70">
                         <Check size={14} className="md:w-4 md:h-4 text-accent-emerald" />
                         <span>Supports all Nigerian banks & cards</span>
                       </div>
@@ -789,23 +789,23 @@ export default function CheckoutPage() {
                   </div>
 
                   {/* Payment Summary */}
-                  <div className="bg-white rounded-xl md:rounded-2xl border border-sand/30 p-4 md:p-6">
-                    <h3 className="font-medium text-brown-dark mb-4 text-sm md:text-base">Payment Summary</h3>
+                  <div className="bg-white rounded-xl md:rounded-2xl border border-gold/30 p-4 md:p-6">
+                    <h3 className="font-medium text-black-dark mb-4 text-sm md:text-base">Payment Summary</h3>
                     <div className="space-y-2 md:space-y-3">
-                      <div className="flex justify-between text-brown/70 text-sm md:text-base">
+                      <div className="flex justify-between text-black/70 text-sm md:text-base">
                         <span>Subtotal</span>
                         <span>₦{subtotal.toLocaleString()}</span>
                       </div>
-                      <div className="flex justify-between text-brown/70 text-sm md:text-base">
+                      <div className="flex justify-between text-black/70 text-sm md:text-base">
                         <span>Delivery</span>
                         <span>₦{shipping.toLocaleString()}</span>
                       </div>
-                      <div className="flex justify-between text-brown/70 text-sm md:text-base">
+                      <div className="flex justify-between text-black/70 text-sm md:text-base">
                         <span>Tax (VAT 7.5%)</span>
                         <span>₦{tax.toLocaleString()}</span>
                       </div>
-                      <div className="border-t border-sand pt-3">
-                        <div className="flex justify-between font-medium text-brown-dark text-base md:text-lg">
+                      <div className="border-t border-gold pt-3">
+                        <div className="flex justify-between font-medium text-black-dark text-base md:text-lg">
                           <span>Total Amount</span>
                           <span>₦{total.toLocaleString()}</span>
                         </div>
@@ -817,7 +817,7 @@ export default function CheckoutPage() {
                     <button
                       type="button"
                       onClick={goToShipping}
-                      className="flex-1 border border-brown-dark text-brown-dark py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-brown-dark hover:text-ivory transition-colors rounded-xl"
+                      className="flex-1 border border-gray-800-dark text-black-dark py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-white transition-colors rounded-xl"
                     >
                       Back
                     </button>
@@ -825,7 +825,7 @@ export default function CheckoutPage() {
                     <button
                       type="button"
                       onClick={() => nextStep()}
-                      className="flex-1 bg-brown-dark text-ivory py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-brown transition-colors rounded-xl flex items-center justify-center gap-2"
+                      className="flex-1 bg-black-light-dark text-white py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl flex items-center justify-center gap-2"
                     >
                       Review Order
                       <ArrowRight size={16} />
@@ -839,14 +839,14 @@ export default function CheckoutPage() {
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="bg-white rounded-2xl md:rounded-3xl border border-sand/30 p-4 md:p-8"
+                className="bg-white rounded-2xl md:rounded-3xl border border-gold/30 p-4 md:p-8"
               >
-                <h2 className="font-serif text-xl md:text-2xl text-brown-dark mb-6 md:mb-8">Confirm Your Order</h2>
+                <h2 className="font-serif text-xl md:text-2xl text-black-dark mb-6 md:mb-8">Confirm Your Order</h2>
                 
                 <div className="space-y-4 md:space-y-6 mb-6 md:mb-8">
-                  <div className="border border-sand/30 rounded-xl p-4 md:p-6">
-                    <h3 className="font-medium text-brown-dark mb-3 md:mb-4 text-sm md:text-base">Delivery Address</h3>
-                    <div className="text-brown/80 text-sm md:text-base leading-relaxed">
+                  <div className="border border-gold/30 rounded-xl p-4 md:p-6">
+                    <h3 className="font-medium text-black-dark mb-3 md:mb-4 text-sm md:text-base">Delivery Address</h3>
+                    <div className="text-black/80 text-sm md:text-base leading-relaxed">
                       <div className="font-medium">{shippingData.firstName} {shippingData.lastName}</div>
                       <div>{shippingData.address}</div>
                       <div>{shippingData.city}, {shippingData.state} {shippingData.postalCode}</div>
@@ -855,15 +855,15 @@ export default function CheckoutPage() {
                     </div>
                   </div>
                   
-                  <div className="border border-sand/30 rounded-xl p-4 md:p-6">
-                    <h3 className="font-medium text-brown-dark mb-3 md:mb-4 text-sm md:text-base">Payment Method</h3>
+                  <div className="border border-gold/30 rounded-xl p-4 md:p-6">
+                    <h3 className="font-medium text-black-dark mb-3 md:mb-4 text-sm md:text-base">Payment Method</h3>
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 md:w-10 md:h-10 bg-accent-emerald/10 rounded-full flex items-center justify-center">
                         <CreditCard size={16} className="md:w-5 md:h-5 text-accent-emerald" />
                       </div>
                       <div>
-                        <p className="font-medium text-brown-dark text-sm md:text-base">Paystack</p>
-                        <p className="text-xs md:text-sm text-brown/70">Secure payment gateway</p>
+                        <p className="font-medium text-black-dark text-sm md:text-base">Paystack</p>
+                        <p className="text-xs md:text-sm text-black/70">Secure payment gateway</p>
                       </div>
                     </div>
                   </div>
@@ -873,7 +873,7 @@ export default function CheckoutPage() {
                   <button
                     type="button"
                     onClick={goToPayment}
-                    className="flex-1 border border-brown-dark text-brown-dark py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-brown-dark hover:text-ivory transition-colors rounded-xl"
+                    className="flex-1 border border-gray-800-dark text-black-dark py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-white transition-colors rounded-xl"
                   >
                     Back
                   </button>
@@ -924,23 +924,23 @@ export default function CheckoutPage() {
           <div className="lg:col-span-1">
             {/* Mobile Order Summary - Collapsible */}
             <div className="lg:hidden mb-6">
-              <div className="bg-white rounded-2xl border border-sand/30 p-4">
+              <div className="bg-white rounded-2xl border border-gold/30 p-4">
                 <div className="flex justify-between items-center mb-3">
-                  <h3 className="font-serif text-lg text-brown-dark">Order Summary</h3>
-                  <div className="text-lg font-medium text-brown-dark">
+                  <h3 className="font-serif text-lg text-black-dark">Order Summary</h3>
+                  <div className="text-lg font-medium text-black-dark">
                     ₦{total.toLocaleString()}
                   </div>
                 </div>
                 <details className="group">
-                  <summary className="cursor-pointer text-brown/70 text-sm flex items-center justify-between">
+                  <summary className="cursor-pointer text-black/70 text-sm flex items-center justify-between">
                     <span>View details</span>
                     <span className="group-open:rotate-180 transition-transform">▼</span>
                   </summary>
-                  <div className="mt-4 pt-4 border-t border-sand/30">
+                  <div className="mt-4 pt-4 border-t border-gold/30">
                     <div className="space-y-3 mb-4">
                       {items.map((item) => (
                         <div key={item.id} className="flex gap-3">
-                          <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-champagne/20 flex-shrink-0">
+                          <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-primary-light/20 flex-shrink-0">
                             <Image
                               src={item.image}
                               alt={item.name}
@@ -951,24 +951,24 @@ export default function CheckoutPage() {
                             />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <h4 className="font-medium text-brown-dark text-sm truncate">{item.name}</h4>
-                            <p className="text-brown/70 text-xs">Qty: {item.quantity}</p>
-                            <p className="text-brown-dark text-sm font-medium">{item.price}</p>
+                            <h4 className="font-medium text-black-dark text-sm truncate">{item.name}</h4>
+                            <p className="text-black/70 text-xs">Qty: {item.quantity}</p>
+                            <p className="text-black-dark text-sm font-medium">{item.price}</p>
                           </div>
                         </div>
                       ))}
                     </div>
                     
-                    <div className="space-y-2 pt-3 border-t border-sand/30">
-                      <div className="flex justify-between text-brown/70 text-sm">
+                    <div className="space-y-2 pt-3 border-t border-gold/30">
+                      <div className="flex justify-between text-black/70 text-sm">
                         <span>Subtotal</span>
                         <span>₦{subtotal.toLocaleString()}</span>
                       </div>
-                      <div className="flex justify-between text-brown/70 text-sm">
+                      <div className="flex justify-between text-black/70 text-sm">
                         <span>Shipping</span>
                         <span>₦{shipping.toLocaleString()}</span>
                       </div>
-                      <div className="flex justify-between text-brown/70 text-sm">
+                      <div className="flex justify-between text-black/70 text-sm">
                         <span>Tax (VAT 7.5%)</span>
                         <span>₦{tax.toLocaleString()}</span>
                       </div>
@@ -979,13 +979,13 @@ export default function CheckoutPage() {
             </div>
 
             {/* Desktop Order Summary - Always visible */}
-            <div className="hidden lg:block bg-white rounded-3xl border border-sand/30 p-8 sticky top-32">
-              <h3 className="font-serif text-xl text-brown-dark mb-6">Your Selection</h3>
+            <div className="hidden lg:block bg-white rounded-3xl border border-gold/30 p-8 sticky top-32">
+              <h3 className="font-serif text-xl text-black-dark mb-6">Your Selection</h3>
               
               <div className="space-y-4 mb-6">
                 {items.map((item) => (
                   <div key={item.id} className="flex gap-4">
-                    <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-champagne/20">
+                    <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-primary-light/20">
                       <Image
                         src={item.image}
                         alt={item.name}
@@ -996,36 +996,36 @@ export default function CheckoutPage() {
                       />
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-medium text-brown-dark text-sm">{item.name}</h4>
-                      <p className="text-brown/70 text-xs">Qty: {item.quantity}</p>
-                      <p className="text-brown-dark text-sm font-medium">{item.price}</p>
+                      <h4 className="font-medium text-black-dark text-sm">{item.name}</h4>
+                      <p className="text-black/70 text-xs">Qty: {item.quantity}</p>
+                      <p className="text-black-dark text-sm font-medium">{item.price}</p>
                     </div>
                   </div>
                 ))}
               </div>
               
-              <div className="space-y-3 mb-6 pt-6 border-t border-sand/30">
-                <div className="flex justify-between text-brown/70">
+              <div className="space-y-3 mb-6 pt-6 border-t border-gold/30">
+                <div className="flex justify-between text-black/70">
                   <span>Subtotal</span>
                   <span>₦{subtotal.toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between text-brown/70">
+                <div className="flex justify-between text-black/70">
                   <span>Shipping</span>
                   <span>₦{shipping.toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between text-brown/70">
+                <div className="flex justify-between text-black/70">
                   <span>Tax (VAT 7.5%)</span>
                   <span>₦{tax.toLocaleString()}</span>
                 </div>
-                <div className="border-t border-sand pt-3">
-                  <div className="flex justify-between font-medium text-brown-dark text-lg">
+                <div className="border-t border-gold pt-3">
+                  <div className="flex justify-between font-medium text-black-dark text-lg">
                     <span>Total</span>
                     <span>₦{total.toLocaleString()}</span>
                   </div>
                 </div>
               </div>
               
-              <div className="text-xs text-brown/60 text-center">
+              <div className="text-xs text-black/60 text-center">
                 <Lock size={12} className="inline mr-1" />
                 Protected by secure SSL encryption
               </div>

@@ -14,8 +14,8 @@ export default function StoryPage() {
             transition={{ duration: 0.9 }}
             className="text-center mb-24"
           >
-            <p className="mb-6 text-[10px] font-semibold uppercase tracking-[0.45em] text-brown/50">OUR JOURNEY</p>
-            <h1 className="font-serif text-5xl font-light md:text-6xl lg:text-7xl text-brown-dark">OUR STORY</h1>
+            <p className="mb-6 text-[10px] font-semibold uppercase tracking-[0.45em] text-black/50">OUR JOURNEY</p>
+            <h1 className="font-serif text-5xl font-light md:text-6xl lg:text-7xl text-black-dark">OUR STORY</h1>
           </motion.div>
 
           <motion.div 
@@ -39,13 +39,13 @@ export default function StoryPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.25 }}
             >
-              <h2 className="font-serif text-3xl font-light md:text-4xl text-brown-dark mb-7">THE FOUNDER'S VISION</h2>
-              <p className="text-lg text-brown/75 leading-relaxed mb-6">
+              <h2 className="font-serif text-3xl font-light md:text-4xl text-black-dark mb-7">THE FOUNDER'S VISION</h2>
+              <p className="text-lg text-black/75 leading-relaxed mb-6">
                 Amapels was born from a passion for jewelry that feels beautiful, deeply personal, and profoundly meaningful.
                 Founded in the heart of Lagos, our brand exists to create pieces that celebrate your confidence, grace,
                 and the unique story only you can tell.
               </p>
-              <p className="text-lg text-brown/75 leading-relaxed">
+              <p className="text-lg text-black/75 leading-relaxed">
                 Every design is chosen with intention: balancing timeless elegance, artisan craftsmanship, and the kind of
                 luminous detail that transforms jewelry into cherished heirlooms.
               </p>
@@ -72,12 +72,12 @@ export default function StoryPage() {
                 transition={{ duration: 0.9, delay: 0.45 }}
                 className="flex flex-col justify-center"
               >
-                <h2 className="font-serif text-3xl font-light md:text-4xl text-brown-dark mb-7">ARTISAN CRAFTSMANSHIP</h2>
-                <p className="text-lg text-brown/75 leading-relaxed mb-6">
+                <h2 className="font-serif text-3xl font-light md:text-4xl text-black-dark mb-7">ARTISAN CRAFTSMANSHIP</h2>
+                <p className="text-lg text-black/75 leading-relaxed mb-6">
                   We believe jewelry should radiate beauty from every angle: captivating from across the room and exquisite up close.
                   That's why Amapels focuses on luminous finishes, graceful proportions, and meticulous attention to every detail.
                 </p>
-                <p className="text-lg text-brown/75 leading-relaxed">
+                <p className="text-lg text-black/75 leading-relaxed">
                   From statement earrings to heirloom-worthy sets, every piece is crafted to feel elegant, wearable,
                   and destined to become a treasured part of your story.
                 </p>
@@ -89,12 +89,12 @@ export default function StoryPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.55 }}
             >
-              <h2 className="font-serif text-3xl font-light md:text-4xl text-brown-dark mb-7">NIGERIAN HERITAGE</h2>
-              <p className="text-lg text-brown/75 leading-relaxed mb-6">
+              <h2 className="font-serif text-3xl font-light md:text-4xl text-black-dark mb-7">NIGERIAN HERITAGE</h2>
+              <p className="text-lg text-black/75 leading-relaxed mb-6">
                 Nigeria's vibrant culture, rich traditions, and love of celebration inspire everything we create at Amapels.
                 Our pieces embody presence, confidence, and the profound way jewelry completes a look with meaning and pride.
               </p>
-              <p className="text-lg text-brown/75 leading-relaxed">
+              <p className="text-lg text-black/75 leading-relaxed">
                 We translate these influences into contemporary designs that feel modern yet deeply rooted: jewelry that carries
                 warmth, individuality, and the timeless spirit of Nigerian artistry.
               </p>
@@ -104,12 +104,12 @@ export default function StoryPage() {
               initial={{ opacity: 0, y: 45 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.65 }}
-              className="bg-champagne/25 py-16 px-8 md:px-12 text-center rounded-[36px] border border-sand/40"
+              className="bg-primary-light/25 py-16 px-8 md:px-12 text-center rounded-[36px] border border-gold/40"
             >
-              <blockquote className="font-serif text-2xl md:text-3xl font-light italic mb-6 text-brown-dark">
+              <blockquote className="font-serif text-2xl md:text-3xl font-light italic mb-6 text-black-dark">
                 &ldquo;Jewelry is more than adornment. It's memory, legacy, and the radiant expression of who you are.&rdquo;
               </blockquote>
-              <p className="text-lg text-brown/75">Founder, Amapels</p>
+              <p className="text-lg text-black/75">Founder, Amapels</p>
             </motion.div>
           </div>
         </div>

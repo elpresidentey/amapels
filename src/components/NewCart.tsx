@@ -60,18 +60,18 @@ export default function NewCart() {
             className="fixed right-0 top-0 h-full w-full sm:max-w-md lg:max-w-lg bg-white z-50 shadow-2xl overflow-hidden flex flex-col"
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-4 sm:p-6 border-b border-sand/30">
+            <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gold/30">
               <div className="flex items-center gap-2 sm:gap-3">
-                <ShoppingBag size={20} className="sm:w-6 sm:h-6 text-brown-dark" />
-                <h2 className="font-serif text-lg sm:text-xl text-brown-dark">
+                <ShoppingBag size={20} className="sm:w-6 sm:h-6 text-black-dark" />
+                <h2 className="font-serif text-lg sm:text-xl text-black-dark">
                   Cart ({itemCount})
                 </h2>
               </div>
               <button
                 onClick={closeCart}
-                className="p-2 hover:bg-sand/20 rounded-full transition-colors"
+                className="p-2 hover:bg-gray-100/20 rounded-full transition-colors"
               >
-                <X size={18} className="sm:w-5 sm:h-5 text-brown/70" />
+                <X size={18} className="sm:w-5 sm:h-5 text-black/70" />
               </button>
             </div>
 
@@ -80,16 +80,16 @@ export default function NewCart() {
               {items.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full p-4 sm:p-6 text-center">
                   <ShoppingBag size={48} className="sm:w-16 sm:h-16 text-sand mb-3 sm:mb-4" />
-                  <h3 className="font-serif text-lg sm:text-xl text-brown-dark mb-2">
+                  <h3 className="font-serif text-lg sm:text-xl text-black-dark mb-2">
                     Your cart is empty
                   </h3>
-                  <p className="text-brown/60 mb-4 sm:mb-6 text-sm sm:text-base">
+                  <p className="text-black/60 mb-4 sm:mb-6 text-sm sm:text-base">
                     Discover our beautiful jewelry collection
                   </p>
                   <Link
                     href="/shop"
                     onClick={closeCart}
-                    className="bg-brown-dark text-ivory px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-medium uppercase tracking-wider hover:bg-brown transition-colors text-sm sm:text-base"
+                    className="bg-black-light-dark text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-medium uppercase tracking-wider hover:bg-gold transition-colors text-sm sm:text-base"
                   >
                     Shop Now
                   </Link>
@@ -97,9 +97,9 @@ export default function NewCart() {
               ) : (
                 <div className="p-4 sm:p-6 space-y-3 sm:space-y-4">
                   {items.map((item) => (
-                    <div key={item.id} className="flex gap-3 sm:gap-4 p-3 sm:p-4 bg-champagne/5 rounded-xl sm:rounded-2xl">
+                    <div key={item.id} className="flex gap-3 sm:gap-4 p-3 sm:p-4 bg-primary-light/5 rounded-xl sm:rounded-2xl">
                       {/* Product Image */}
-                      <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-lg sm:rounded-xl overflow-hidden bg-champagne/20 flex-shrink-0">
+                      <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-lg sm:rounded-xl overflow-hidden bg-primary-light/20 flex-shrink-0">
                         <Image
                           src={item.image}
                           alt={item.name}
@@ -111,12 +111,12 @@ export default function NewCart() {
 
                       {/* Product Info */}
                       <div className="flex-1 min-w-0">
-                        <h4 className="font-medium text-brown-dark text-sm mb-1 line-clamp-2">
+                        <h4 className="font-medium text-black-dark text-sm mb-1 line-clamp-2">
                           {item.name}
                         </h4>
-                        <p className="text-brown/60 text-xs mb-2">{item.category}</p>
+                        <p className="text-black/60 text-xs mb-2">{item.category}</p>
                         <div className="flex items-center justify-between mb-2 sm:mb-3">
-                          <span className="font-medium text-brown-dark text-sm sm:text-base">
+                          <span className="font-medium text-black-dark text-sm sm:text-base">
                             {item.price}
                           </span>
                           <button
@@ -131,16 +131,16 @@ export default function NewCart() {
                         <div className="flex items-center gap-2 sm:gap-3">
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                            className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg border border-sand hover:bg-sand/20 transition-colors"
+                            className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg border border-gold hover:bg-gray-100/20 transition-colors"
                           >
                             <Minus size={12} className="sm:w-3.5 sm:h-3.5" />
                           </button>
-                          <span className="font-medium text-brown-dark min-w-[1.5rem] sm:min-w-[2rem] text-center text-sm sm:text-base">
+                          <span className="font-medium text-black-dark min-w-[1.5rem] sm:min-w-[2rem] text-center text-sm sm:text-base">
                             {item.quantity}
                           </span>
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                            className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg border border-sand hover:bg-sand/20 transition-colors"
+                            className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg border border-gold hover:bg-gray-100/20 transition-colors"
                           >
                             <Plus size={12} className="sm:w-3.5 sm:h-3.5" />
                           </button>
@@ -154,25 +154,25 @@ export default function NewCart() {
 
             {/* Footer - Order Summary & Checkout */}
             {items.length > 0 && (
-              <div className="border-t border-sand/30 p-6 bg-champagne/5">
+              <div className="border-t border-gold/30 p-6 bg-primary-light/5">
                 {/* Order Summary */}
                 <div className="space-y-2 mb-4">
                   <div className="flex justify-between text-sm">
-                    <span className="text-brown/70">Subtotal</span>
-                    <span className="text-brown-dark">₦{subtotal.toLocaleString()}</span>
+                    <span className="text-black/70">Subtotal</span>
+                    <span className="text-black-dark">₦{subtotal.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-brown/70">Shipping</span>
-                    <span className="text-brown-dark">₦{shipping.toLocaleString()}</span>
+                    <span className="text-black/70">Shipping</span>
+                    <span className="text-black-dark">₦{shipping.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-brown/70">Tax (VAT 7.5%)</span>
-                    <span className="text-brown-dark">₦{tax.toLocaleString()}</span>
+                    <span className="text-black/70">Tax (VAT 7.5%)</span>
+                    <span className="text-black-dark">₦{tax.toLocaleString()}</span>
                   </div>
-                  <div className="border-t border-sand pt-2">
+                  <div className="border-t border-gold pt-2">
                     <div className="flex justify-between font-semibold">
-                      <span className="text-brown-dark">Total</span>
-                      <span className="text-brown-dark">₦{total.toLocaleString()}</span>
+                      <span className="text-black-dark">Total</span>
+                      <span className="text-black-dark">₦{total.toLocaleString()}</span>
                     </div>
                   </div>
                 </div>
@@ -182,7 +182,7 @@ export default function NewCart() {
                   <Link
                     href="/checkout"
                     onClick={closeCart}
-                    className="w-full bg-brown-dark text-ivory py-3 px-4 rounded-xl font-medium uppercase tracking-wider hover:bg-brown transition-colors text-center block"
+                    className="w-full bg-black-light-dark text-white py-3 px-4 rounded-xl font-medium uppercase tracking-wider hover:bg-gold transition-colors text-center block"
                   >
                     Proceed to Checkout
                   </Link>
@@ -190,7 +190,7 @@ export default function NewCart() {
                     <Link
                       href="/cart"
                       onClick={closeCart}
-                      className="flex-1 border border-brown-dark text-brown-dark py-2 px-4 rounded-xl font-medium text-center hover:bg-brown-dark hover:text-ivory transition-colors"
+                      className="flex-1 border border-gray-800-dark text-black-dark py-2 px-4 rounded-xl font-medium text-center hover:bg-gold hover:text-white transition-colors"
                     >
                       View Cart
                     </Link>

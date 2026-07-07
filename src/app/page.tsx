@@ -114,9 +114,9 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-ivory">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative min-h-screen overflow-hidden bg-brown-dark text-white">
+      <section className="relative min-h-screen overflow-hidden bg-black-light-dark text-white">
         <div className="absolute inset-0">
           <AnimatePresence mode="wait">
             <motion.div
@@ -179,7 +179,7 @@ export default function Home() {
               >
                 <Link
                   href="/collections"
-                  className="group inline-flex items-center justify-center gap-2 sm:gap-3 bg-white px-5 py-3 sm:px-6 sm:py-4 md:px-8 md:py-5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.25em] sm:tracking-[0.3em] text-brown-dark transition-all hover:bg-champagne hover:shadow-xl"
+                  className="group inline-flex items-center justify-center gap-2 sm:gap-3 bg-white px-5 py-3 sm:px-6 sm:py-4 md:px-8 md:py-5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.25em] sm:tracking-[0.3em] text-black-dark transition-all hover:bg-primary-light hover:shadow-xl"
                 >
                   <span className="hidden sm:inline">Discover Your Treasure</span>
                   <span className="sm:hidden">Shop Collection</span>
@@ -302,7 +302,7 @@ export default function Home() {
       </section>
 
       {/* Brand Pillars */}
-      <section className="border-y border-sand/35 bg-white/40">
+      <section className="border-y border-gold/35 bg-white/40">
         <div className="mx-auto max-w-7xl px-6 py-6 md:px-12 lg:px-24">
           <div className="relative h-8 overflow-hidden">
             <AnimatePresence mode="wait">
@@ -314,7 +314,7 @@ export default function Home() {
                 transition={{ duration: 0.5 }}
                 className="absolute inset-0 flex items-center justify-center"
               >
-                <p className="text-center text-[10px] font-semibold uppercase tracking-[0.38em] text-brown/65">
+                <p className="text-center text-[10px] font-semibold uppercase tracking-[0.38em] text-black/65">
                   {brandPillars[currentPillar]}
                 </p>
               </motion.div>
@@ -326,7 +326,7 @@ export default function Home() {
                 key={index}
                 onClick={() => setCurrentPillar(index)}
                 className={`h-1.5 rounded-full transition-all duration-300 ${
-                  currentPillar === index ? 'w-6 bg-brown-dark' : 'w-1.5 bg-sand/50'
+                  currentPillar === index ? 'w-6 bg-black-light-dark' : 'w-1.5 bg-gray-100/50'
                 }`}
                 aria-label={`Go to pillar ${index + 1}`}
               />
@@ -345,23 +345,23 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.9 }}
             >
-              <p className="mb-6 text-[10px] font-semibold uppercase tracking-[0.4em] text-brown/50">
+              <p className="mb-6 text-[10px] font-semibold uppercase tracking-[0.4em] text-black/50">
                 Brand Perspective
               </p>
-              <h2 className="font-serif text-2xl font-light leading-snug text-brown-dark sm:text-3xl md:text-4xl lg:text-5xl">
+              <h2 className="font-serif text-2xl font-light leading-snug text-black-dark sm:text-3xl md:text-4xl lg:text-5xl">
                 Exquisite jewelry, artfully crafted to celebrate every woman who loves to shine.
               </h2>
-              <p className="mt-5 max-w-xl text-base leading-relaxed text-brown/78 sm:mt-6 sm:text-lg md:mt-7">
+              <p className="mt-5 max-w-xl text-base leading-relaxed text-black/78 sm:mt-6 sm:text-lg md:mt-7">
                 We create timeless pieces that make you feel radiant and confident, whether it's for everyday grace or milestone celebrations.
               </p>
               <div className="mt-8 space-y-4 sm:mt-10 sm:space-y-5 md:mt-12 md:space-y-6">
-                <div className="border-l border-sand pl-6">
-                  <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.35em] text-brown/50">Our Philosophy</p>
-                  <p className="text-brown/78">Artisan craftsmanship, luminous designs, and timeless elegance that lets each piece tell its own story.</p>
+                <div className="border-l border-gold pl-6">
+                  <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.35em] text-black/50">Our Philosophy</p>
+                  <p className="text-black/78">Artisan craftsmanship, luminous designs, and timeless elegance that lets each piece tell its own story.</p>
                 </div>
-                <div className="border-l border-sand pl-6">
-                  <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.35em] text-brown/50">Growing With You</p>
-                  <p className="text-brown/78">As our collection grows, we continue to discover treasures that celebrate your unique journey and style.</p>
+                <div className="border-l border-gold pl-6">
+                  <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.35em] text-black/50">Growing With You</p>
+                  <p className="text-black/78">As our collection grows, we continue to discover treasures that celebrate your unique journey and style.</p>
                 </div>
               </div>
             </motion.div>
@@ -389,13 +389,13 @@ export default function Home() {
                     <h3 className="mt-4 font-serif text-2xl font-light">Close-up luxury with unmistakable shine</h3>
                   </div>
                 </div>
-              <div className="rounded-[32px] bg-brown-dark px-8 py-9 text-white">
+              <div className="rounded-[32px] bg-black-light-dark px-8 py-9 text-white">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.35em] text-white/50">Aesthetic</p>
                 <p className="mt-5 font-serif text-2xl font-light leading-snug">Less clutter, more shine and clarity.</p>
               </div>
-              <div className="rounded-[32px] border border-sand bg-white px-8 py-9">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.35em] text-brown/50">Next Upgrade</p>
-                <p className="mt-5 font-serif text-2xl font-light leading-snug text-brown-dark">
+              <div className="rounded-[32px] border border-gold bg-white px-8 py-9">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.35em] text-black/50">Next Upgrade</p>
+                <p className="mt-5 font-serif text-2xl font-light leading-snug text-black-dark">
                   More product close-ups will make this feel even more luxurious.
                 </p>
               </div>
@@ -409,16 +409,16 @@ export default function Home() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 flex flex-col gap-4 sm:mb-12 sm:gap-5 md:flex-row md:items-end md:justify-between lg:mb-14">
             <div>
-              <p className="mb-5 text-[10px] font-semibold uppercase tracking-[0.4em] text-brown/50">
+              <p className="mb-5 text-[10px] font-semibold uppercase tracking-[0.4em] text-black/50">
                 Featured Collections
               </p>
-              <h2 className="font-serif text-4xl font-light text-brown-dark md:text-5xl">
+              <h2 className="font-serif text-4xl font-light text-black-dark md:text-5xl">
                 Collections crafted for every style, moment, and celebration.
               </h2>
             </div>
             <Link
               href="/collections"
-              className="group inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-brown-dark transition-colors hover:text-accent-orange"
+              className="group inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-black-dark transition-colors hover:text-accent-orange"
             >
               Explore All Collections
               <ArrowUpRight size={16} className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
@@ -536,18 +536,18 @@ export default function Home() {
       </section>
 
       {/* Curated Pieces */}
-      <section className="bg-champagne/25 px-6 py-32 md:px-12 lg:px-24 lg:py-40">
+      <section className="bg-primary-light/25 px-6 py-32 md:px-12 lg:px-24 lg:py-40">
         <div className="mx-auto max-w-7xl">
           <div className="mb-16 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="mb-5 text-[10px] font-semibold uppercase tracking-[0.4em] text-brown/50">
+              <p className="mb-5 text-[10px] font-semibold uppercase tracking-[0.4em] text-black/50">
                 Curated Pieces
               </p>
-              <h2 className="font-serif text-4xl font-light text-brown-dark md:text-5xl">
+              <h2 className="font-serif text-4xl font-light text-black-dark md:text-5xl">
                 Treasures to wear, treasures to give.
               </h2>
             </div>
-            <p className="max-w-md text-sm leading-relaxed text-brown/70">
+            <p className="max-w-md text-sm leading-relaxed text-black/70">
               Artfully curated jewelry for those who appreciate timeless elegance, meaningful moments, and the perfect gift.
             </p>
           </div>
@@ -556,10 +556,10 @@ export default function Home() {
             <div className="grid gap-10 md:grid-cols-3">
               {[1, 2, 3].map((i) => (
                 <div key={i} className="animate-pulse">
-                  <div className="relative aspect-[4/5] bg-sand/30 rounded-[30px] mb-6"></div>
-                  <div className="h-3 bg-sand/30 rounded w-1/3 mb-2"></div>
-                  <div className="h-5 bg-sand/30 rounded w-2/3 mb-2"></div>
-                  <div className="h-4 bg-sand/30 rounded w-1/4"></div>
+                  <div className="relative aspect-[4/5] bg-gray-100/30 rounded-[30px] mb-6"></div>
+                  <div className="h-3 bg-gray-100/30 rounded w-1/3 mb-2"></div>
+                  <div className="h-5 bg-gray-100/30 rounded w-2/3 mb-2"></div>
+                  <div className="h-4 bg-gray-100/30 rounded w-1/4"></div>
                 </div>
               ))}
             </div>
@@ -588,10 +588,10 @@ export default function Home() {
                     </div>
                     <div className="mt-6 flex items-start justify-between gap-5">
                       <div>
-                        <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-brown/50">{piece.category}</p>
-                        <h3 className="mt-2 font-serif text-xl font-medium text-brown-dark">{piece.name}</h3>
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-black/50">{piece.category}</p>
+                        <h3 className="mt-2 font-serif text-xl font-medium text-black-dark">{piece.name}</h3>
                       </div>
-                      <p className="pt-1 text-sm font-medium text-brown-dark">{piece.price}</p>
+                      <p className="pt-1 text-sm font-medium text-black-dark">{piece.price}</p>
                     </div>
                   </Link>
                 </motion.div>
@@ -599,7 +599,7 @@ export default function Home() {
             </div>
           ) : (
             <div className="text-center py-16">
-              <p className="text-brown/60">No featured products yet. Check back soon!</p>
+              <p className="text-black/60">No featured products yet. Check back soon!</p>
             </div>
           )}
         </div>
@@ -612,22 +612,22 @@ export default function Home() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.85 }}
-          className="mx-auto grid max-w-6xl gap-14 rounded-[40px] border border-sand/55 bg-white px-9 py-14 md:grid-cols-[1.1fr_0.9fr] md:px-14 md:py-16"
+          className="mx-auto grid max-w-6xl gap-14 rounded-[40px] border border-gold/55 bg-white px-9 py-14 md:grid-cols-[1.1fr_0.9fr] md:px-14 md:py-16"
         >
           <div>
-            <p className="mb-6 text-[10px] font-semibold uppercase tracking-[0.4em] text-brown/50">The Brand Story</p>
-            <h2 className="font-serif text-4xl font-light leading-snug text-brown-dark md:text-5xl">
+            <p className="mb-6 text-[10px] font-semibold uppercase tracking-[0.4em] text-black/50">The Brand Story</p>
+            <h2 className="font-serif text-4xl font-light leading-snug text-black-dark md:text-5xl">
               More than jewelry: a celebration of your story, your style, your moments.
             </h2>
           </div>
           <div className="flex flex-col justify-between">
-            <p className="text-base leading-relaxed text-brown/75">
+            <p className="text-base leading-relaxed text-black/75">
               We're creating a place where you discover timeless treasures, find the perfect gift, and celebrate the beauty of every moment with confidence.
             </p>
             <div className="mt-10">
               <Link
                 href="/story"
-                className="group inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-brown-dark transition-colors hover:text-accent-orange"
+                className="group inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-black-dark transition-colors hover:text-accent-orange"
               >
                 Discover Our Story
                 <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />

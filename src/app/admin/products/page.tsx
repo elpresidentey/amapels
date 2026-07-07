@@ -270,17 +270,17 @@ export default function AdminProductsPage() {
   }
   if (loading) {
     return (
-      <div className="min-h-screen bg-ivory pt-28 pb-16 flex items-center justify-center">
+      <div className="min-h-screen bg-white pt-28 pb-16 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-brown-dark border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-brown/70">Loading products...</p>
+          <div className="w-8 h-8 border-2 border-gray-800-dark border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-black/70">Loading products...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-ivory pt-20 sm:pt-24 md:pt-28 pb-8 sm:pb-12 md:pb-16">
+    <div className="min-h-screen bg-white pt-20 sm:pt-24 md:pt-28 pb-8 sm:pb-12 md:pb-16">
       <Toast
         message={toastMessage}
         type={toastType}
@@ -290,10 +290,10 @@ export default function AdminProductsPage() {
       
       <div className="section-shell">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6 md:mb-8">
-          <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl text-brown-dark">Product Management</h1>
+          <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl text-black-dark">Product Management</h1>
           <button
             onClick={() => handleShowModal()}
-            className="bg-brown-dark text-ivory px-4 py-2.5 sm:px-6 sm:py-3 rounded-xl font-medium hover:bg-brown transition-colors flex items-center justify-center gap-2 text-sm sm:text-base btn-mobile"
+            className="bg-black-light-dark text-white px-4 py-2.5 sm:px-6 sm:py-3 rounded-xl font-medium hover:bg-gold transition-colors flex items-center justify-center gap-2 text-sm sm:text-base btn-mobile"
           >
             <Plus size={18} className="sm:w-5 sm:h-5" />
             <span className="hidden sm:inline">Add Product</span>
@@ -301,12 +301,12 @@ export default function AdminProductsPage() {
           </button>
         </div>
 
-        <div className="bg-white rounded-2xl md:rounded-3xl border border-sand/30 overflow-hidden">
+        <div className="bg-white rounded-2xl md:rounded-3xl border border-gold/30 overflow-hidden">
           {/* Mobile Table */}
           <div className="block md:hidden">
             <div className="p-4 space-y-4">
               {products.map((product) => (
-                <div key={product._id} className="border border-sand/20 rounded-xl p-3 sm:p-4">
+                <div key={product._id} className="border border-gold/20 rounded-xl p-3 sm:p-4">
                   <div className="flex gap-2 mb-3 sm:gap-3">
                     {product.images[0] && (
                       <img
@@ -316,16 +316,16 @@ export default function AdminProductsPage() {
                       />
                     )}
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-medium text-brown-dark text-xs mb-1 line-clamp-2 sm:text-sm">{product.name}</h3>
-                      <p className="text-brown/70 text-[10px] mb-1 line-clamp-2 sm:text-xs sm:mb-2">{product.description}</p>
+                      <h3 className="font-medium text-black-dark text-xs mb-1 line-clamp-2 sm:text-sm">{product.name}</h3>
+                      <p className="text-black/70 text-[10px] mb-1 line-clamp-2 sm:text-xs sm:mb-2">{product.description}</p>
                       <div className="flex items-center justify-between gap-2">
-                        <span className="text-brown-dark font-medium text-xs sm:text-sm truncate">{product.price}</span>
-                        <span className="text-brown/70 text-[10px] sm:text-xs flex-shrink-0">{product.category}</span>
+                        <span className="text-black-dark font-medium text-xs sm:text-sm truncate">{product.price}</span>
+                        <span className="text-black/70 text-[10px] sm:text-xs flex-shrink-0">{product.category}</span>
                       </div>
                     </div>
                   </div>
                   
-                  <div className="flex items-center justify-between pt-2 border-t border-sand/20 sm:pt-3">
+                  <div className="flex items-center justify-between pt-2 border-t border-gold/20 sm:pt-3">
                     <button
                       onClick={() => toggleFeatured(product)}
                       className={`flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] transition-colors sm:gap-1 sm:px-2 sm:py-1 sm:text-xs ${
@@ -356,7 +356,7 @@ export default function AdminProductsPage() {
                 </div>
               ))}
               {products.length === 0 && (
-                <div className="text-center py-8 text-brown/70">
+                <div className="text-center py-8 text-black/70">
                   No products yet. Create your first product to get started.
                 </div>
               )}
@@ -366,18 +366,18 @@ export default function AdminProductsPage() {
           {/* Desktop Table */}
           <div className="hidden md:block overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-sand/20">
+              <thead className="bg-gray-100/20">
                 <tr>
-                  <th className="px-6 py-4 text-left text-brown-dark font-medium">Product</th>
-                  <th className="px-6 py-4 text-left text-brown-dark font-medium">Category</th>
-                  <th className="px-6 py-4 text-left text-brown-dark font-medium">Price</th>
-                  <th className="px-6 py-4 text-left text-brown-dark font-medium">Featured</th>
-                  <th className="px-6 py-4 text-left text-brown-dark font-medium">Actions</th>
+                  <th className="px-6 py-4 text-left text-black-dark font-medium">Product</th>
+                  <th className="px-6 py-4 text-left text-black-dark font-medium">Category</th>
+                  <th className="px-6 py-4 text-left text-black-dark font-medium">Price</th>
+                  <th className="px-6 py-4 text-left text-black-dark font-medium">Featured</th>
+                  <th className="px-6 py-4 text-left text-black-dark font-medium">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {products.map((product) => (
-                  <tr key={product._id} className="border-b border-sand/20">
+                  <tr key={product._id} className="border-b border-gold/20">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-4">
                         {product.images[0] && (
@@ -388,15 +388,15 @@ export default function AdminProductsPage() {
                           />
                         )}
                         <div>
-                          <div className="font-medium text-brown-dark">{product.name}</div>
-                          <div className="text-sm text-brown/70 truncate max-w-[200px]">
+                          <div className="font-medium text-black-dark">{product.name}</div>
+                          <div className="text-sm text-black/70 truncate max-w-[200px]">
                             {product.description}
                           </div>
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-brown/80">{product.category}</td>
-                    <td className="px-6 py-4 text-brown-dark font-medium">{product.price}</td>
+                    <td className="px-6 py-4 text-black/80">{product.category}</td>
+                    <td className="px-6 py-4 text-black-dark font-medium">{product.price}</td>
                     <td className="px-6 py-4">
                       <button
                         onClick={() => toggleFeatured(product)}
@@ -430,7 +430,7 @@ export default function AdminProductsPage() {
                 ))}
                 {products.length === 0 && (
                   <tr>
-                    <td colSpan={5} className="px-6 py-12 text-center text-brown/70">
+                    <td colSpan={5} className="px-6 py-12 text-center text-black/70">
                       No products yet. Create your first product to get started.
                     </td>
                   </tr>
@@ -442,14 +442,14 @@ export default function AdminProductsPage() {
         {/* Product Form Modal */}
         {showModal && (
           <div className="fixed inset-0 bg-black/50 flex items-end sm:items-center justify-center p-0 sm:p-4 z-50">
-            <div className="bg-white rounded-t-3xl sm:rounded-3xl border border-sand/30 w-full max-w-4xl max-h-[90vh] sm:max-h-[85vh] overflow-hidden">
-              <div className="p-4 sm:p-6 border-b border-sand/20 flex justify-between items-center">
-                <h2 className="font-serif text-xl sm:text-2xl text-brown-dark">
+            <div className="bg-white rounded-t-3xl sm:rounded-3xl border border-gold/30 w-full max-w-4xl max-h-[90vh] sm:max-h-[85vh] overflow-hidden">
+              <div className="p-4 sm:p-6 border-b border-gold/20 flex justify-between items-center">
+                <h2 className="font-serif text-xl sm:text-2xl text-black-dark">
                   {editingProduct ? 'Edit Product' : 'Add New Product'}
                 </h2>
                 <button
                   onClick={handleCloseModal}
-                  className="p-2 text-brown/70 hover:text-brown-dark hover:bg-sand/20 rounded-lg transition-colors btn-mobile"
+                  className="p-2 text-black/70 hover:text-black-dark hover:bg-gray-100/20 rounded-lg transition-colors btn-mobile"
                 >
                   <X size={20} />
                 </button>
@@ -459,28 +459,28 @@ export default function AdminProductsPage() {
                 <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                   <div className="grid gap-4 sm:gap-6 sm:grid-cols-2">
                     <div>
-                      <label className="block text-sm font-medium text-brown-dark mb-2">
+                      <label className="block text-sm font-medium text-black-dark mb-2">
                         Product Name *
                       </label>
                       <input
                         type="text"
                         value={formData.name}
                         onChange={(e) => handleInputChange('name', e.target.value)}
-                        className="w-full px-3 py-2.5 sm:px-4 sm:py-3 border border-sand rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-brown-dark outline-none text-base"
+                        className="w-full px-3 py-2.5 sm:px-4 sm:py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none text-base"
                         required
                         style={{ fontSize: '16px' }}
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-brown-dark mb-2">
+                      <label className="block text-sm font-medium text-black-dark mb-2">
                         Price *
                       </label>
                       <input
                         type="text"
                         value={formData.price}
                         onChange={(e) => handleInputChange('price', e.target.value)}
-                        className="w-full px-4 py-3 border border-sand rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-brown-dark outline-none"
+                        className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none"
                         placeholder="₦250,000"
                         required
                       />
@@ -488,13 +488,13 @@ export default function AdminProductsPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-brown-dark mb-2">
+                    <label className="block text-sm font-medium text-black-dark mb-2">
                       Category *
                     </label>
                     <select
                       value={formData.category}
                       onChange={(e) => handleInputChange('category', e.target.value)}
-                      className="w-full px-4 py-3 border border-sand rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-brown-dark outline-none"
+                      className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none"
                       required
                     >
                       {CATEGORIES.map(category => (
@@ -503,28 +503,28 @@ export default function AdminProductsPage() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-brown-dark mb-2">
+                    <label className="block text-sm font-medium text-black-dark mb-2">
                       Story *
                     </label>
                     <textarea
                       value={formData.story}
                       onChange={(e) => handleInputChange('story', e.target.value)}
                       rows={3}
-                      className="w-full px-4 py-3 border border-sand rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-brown-dark outline-none"
+                      className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none"
                       placeholder="Tell the story behind this product..."
                       required
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-brown-dark mb-2">
+                    <label className="block text-sm font-medium text-black-dark mb-2">
                       Description *
                     </label>
                     <textarea
                       value={formData.description}
                       onChange={(e) => handleInputChange('description', e.target.value)}
                       rows={3}
-                      className="w-full px-4 py-3 border border-sand rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-brown-dark outline-none"
+                      className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none"
                       placeholder="Product description..."
                       required
                     />
@@ -532,49 +532,49 @@ export default function AdminProductsPage() {
 
                   <div className="grid gap-6 md:grid-cols-2">
                     <div>
-                      <label className="block text-sm font-medium text-brown-dark mb-2">
+                      <label className="block text-sm font-medium text-black-dark mb-2">
                         Material *
                       </label>
                       <input
                         type="text"
                         value={formData.material}
                         onChange={(e) => handleInputChange('material', e.target.value)}
-                        className="w-full px-4 py-3 border border-sand rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-brown-dark outline-none"
+                        className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none"
                         placeholder="Gold, Silver, etc."
                         required
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-brown-dark mb-2">
+                      <label className="block text-sm font-medium text-black-dark mb-2">
                         Materials Info *
                       </label>
                       <input
                         type="text"
                         value={formData.materials}
                         onChange={(e) => handleInputChange('materials', e.target.value)}
-                        className="w-full px-4 py-3 border border-sand rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-brown-dark outline-none"
+                        className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none"
                         placeholder="Detailed materials information"
                         required
                       />
                     </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-brown-dark mb-2">
+                    <label className="block text-sm font-medium text-black-dark mb-2">
                       Care Instructions *
                     </label>
                     <textarea
                       value={formData.care}
                       onChange={(e) => handleInputChange('care', e.target.value)}
                       rows={2}
-                      className="w-full px-4 py-3 border border-sand rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-brown-dark outline-none"
+                      className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none"
                       placeholder="How to care for this product..."
                       required
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-brown-dark mb-2">
+                    <label className="block text-sm font-medium text-black-dark mb-2">
                       Product Details *
                     </label>
                     {formData.details.map((detail, index) => (
@@ -583,7 +583,7 @@ export default function AdminProductsPage() {
                           type="text"
                           value={detail}
                           onChange={(e) => handleArrayFieldChange('details', index, e.target.value)}
-                          className="flex-1 px-4 py-3 border border-sand rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-brown-dark outline-none"
+                          className="flex-1 px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none"
                           placeholder="Product detail..."
                         />
                         {formData.details.length > 1 && (
@@ -600,13 +600,13 @@ export default function AdminProductsPage() {
                     <button
                       type="button"
                       onClick={() => addArrayFieldItem('details')}
-                      className="text-brown-dark hover:text-brown text-sm font-medium"
+                      className="text-black-dark hover:text-black text-sm font-medium"
                     >
                       + Add Detail
                     </button>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-brown-dark mb-2">
+                    <label className="block text-sm font-medium text-black-dark mb-2">
                       Product Options *
                     </label>
                     {formData.options.map((option, index) => (
@@ -615,7 +615,7 @@ export default function AdminProductsPage() {
                           type="text"
                           value={option}
                           onChange={(e) => handleArrayFieldChange('options', index, e.target.value)}
-                          className="flex-1 px-4 py-3 border border-sand rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-brown-dark outline-none"
+                          className="flex-1 px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none"
                           placeholder="Product option..."
                         />
                         {formData.options.length > 1 && (
@@ -632,14 +632,14 @@ export default function AdminProductsPage() {
                     <button
                       type="button"
                       onClick={() => addArrayFieldItem('options')}
-                      className="text-brown-dark hover:text-brown text-sm font-medium"
+                      className="text-black-dark hover:text-black text-sm font-medium"
                     >
                       + Add Option
                     </button>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-brown-dark mb-2">
+                    <label className="block text-sm font-medium text-black-dark mb-2">
                       Product Images *
                     </label>
                     {formData.images.map((image, index) => (
@@ -648,7 +648,7 @@ export default function AdminProductsPage() {
                           type="text"
                           value={image}
                           onChange={(e) => handleArrayFieldChange('images', index, e.target.value)}
-                          className="flex-1 px-4 py-3 border border-sand rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-brown-dark outline-none"
+                          className="flex-1 px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none"
                           placeholder="/images/product-image.jpg"
                         />
                         {formData.images.length > 1 && (
@@ -665,7 +665,7 @@ export default function AdminProductsPage() {
                     <button
                       type="button"
                       onClick={() => addArrayFieldItem('images')}
-                      className="text-brown-dark hover:text-brown text-sm font-medium"
+                      className="text-black-dark hover:text-black text-sm font-medium"
                     >
                       + Add Image
                     </button>
@@ -676,9 +676,9 @@ export default function AdminProductsPage() {
                         type="checkbox"
                         checked={formData.featured}
                         onChange={(e) => handleInputChange('featured', e.target.checked)}
-                        className="w-4 h-4 text-brown-dark border-sand rounded focus:ring-brown/20"
+                        className="w-4 h-4 text-black-dark border-gold rounded focus:ring-brown/20"
                       />
-                      <span className="text-sm font-medium text-brown-dark">
+                      <span className="text-sm font-medium text-black-dark">
                         Feature this product on homepage
                       </span>
                     </label>
@@ -686,18 +686,18 @@ export default function AdminProductsPage() {
                 </form>
               </div>
 
-              <div className="p-6 border-t border-sand/20 flex justify-end gap-4">
+              <div className="p-6 border-t border-gold/20 flex justify-end gap-4">
                 <button
                   type="button"
                   onClick={handleCloseModal}
-                  className="px-6 py-3 border border-brown-dark text-brown-dark rounded-xl font-medium hover:bg-brown-dark hover:text-ivory transition-colors"
+                  className="px-6 py-3 border border-gray-800-dark text-black-dark rounded-xl font-medium hover:bg-gold hover:text-white transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleSubmit}
                   disabled={saving}
-                  className="px-6 py-3 bg-brown-dark text-ivory rounded-xl font-medium hover:bg-brown transition-colors flex items-center gap-2 disabled:opacity-50"
+                  className="px-6 py-3 bg-black-light-dark text-white rounded-xl font-medium hover:bg-gold transition-colors flex items-center gap-2 disabled:opacity-50"
                 >
                   {saving ? (
                     <>

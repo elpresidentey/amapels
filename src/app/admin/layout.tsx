@@ -57,10 +57,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     return (
       <html lang="en">
         <body>
-          <div className="min-h-screen bg-ivory flex items-center justify-center">
+          <div className="min-h-screen bg-white flex items-center justify-center">
             <div className="text-center">
-              <div className="w-8 h-8 border-2 border-brown-dark border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-              <p className="text-brown/70">Loading...</p>
+              <div className="w-8 h-8 border-2 border-gray-800-dark border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+              <p className="text-black/70">Loading...</p>
             </div>
           </div>
         </body>
@@ -89,17 +89,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <meta name="robots" content="noindex, nofollow" />
       </head>
       <body>
-        <div className="min-h-screen bg-ivory">
+        <div className="min-h-screen bg-white">
           {/* Admin Navbar */}
-          <nav className="fixed top-0 left-0 right-0 z-50 bg-brown-dark border-b border-ivory/10">
+          <nav className="fixed top-0 left-0 right-0 z-50 bg-black-light-dark border-b border-ivory/10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex items-center justify-between h-16 sm:h-20">
                 {/* Logo */}
                 <Link href="/admin" className="flex items-center gap-3">
-                  <div className="font-serif text-lg sm:text-xl font-light tracking-[0.25em] text-ivory uppercase">
+                  <div className="font-serif text-lg sm:text-xl font-light tracking-[0.25em] text-white uppercase">
                     AMAPELS
                   </div>
-                  <span className="hidden sm:inline text-ivory/40 text-xs font-medium uppercase tracking-wider">
+                  <span className="hidden sm:inline text-white/40 text-xs font-medium uppercase tracking-wider">
                     / Admin
                   </span>
                 </Link>
@@ -115,8 +115,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                         href={item.href}
                         className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                           isActive
-                            ? 'bg-ivory/10 text-ivory'
-                            : 'text-ivory/70 hover:text-ivory hover:bg-ivory/5'
+                            ? 'bg-white/10 text-white'
+                            : 'text-white/70 hover:text-white hover:bg-white/5'
                         }`}
                       >
                         <Icon size={16} />
@@ -130,13 +130,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 <div className="flex items-center gap-3">
                   <Link
                     href="/"
-                    className="hidden sm:inline-flex text-xs text-ivory/70 hover:text-ivory transition-colors uppercase tracking-wider"
+                    className="hidden sm:inline-flex text-xs text-white/70 hover:text-white transition-colors uppercase tracking-wider"
                   >
                     View Store
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="hidden sm:flex items-center gap-2 px-4 py-2 text-sm font-medium text-ivory/70 hover:text-ivory hover:bg-ivory/5 rounded-lg transition-colors"
+                    className="hidden sm:flex items-center gap-2 px-4 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
                   >
                     <LogOut size={16} />
                     Logout
@@ -145,7 +145,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   {/* Mobile Menu Button */}
                   <button
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    className="md:hidden p-2 text-ivory hover:bg-ivory/5 rounded-lg transition-colors"
+                    className="md:hidden p-2 text-white hover:bg-white/5 rounded-lg transition-colors"
                   >
                     {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
                   </button>
@@ -160,7 +160,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
-                  className="md:hidden border-t border-ivory/10 bg-brown-dark/98 backdrop-blur-xl"
+                  className="md:hidden border-t border-ivory/10 bg-black-light-dark/98 backdrop-blur-xl"
                 >
                   <div className="px-4 py-4 space-y-2">
                     {navItems.map((item) => {
@@ -173,8 +173,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                           onClick={() => setIsMobileMenuOpen(false)}
                           className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
                             isActive
-                              ? 'bg-ivory/10 text-ivory'
-                              : 'text-ivory/70 hover:text-ivory hover:bg-ivory/5'
+                              ? 'bg-white/10 text-white'
+                              : 'text-white/70 hover:text-white hover:bg-white/5'
                           }`}
                         >
                           <Icon size={18} />
@@ -187,7 +187,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                       <Link
                         href="/"
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-ivory/70 hover:text-ivory hover:bg-ivory/5 transition-colors"
+                        className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-colors"
                       >
                         View Store
                       </Link>
@@ -196,7 +196,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                           setIsMobileMenuOpen(false)
                           handleLogout()
                         }}
-                        className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-ivory/70 hover:text-ivory hover:bg-ivory/5 transition-colors"
+                        className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-colors"
                       >
                         <LogOut size={18} />
                         Logout

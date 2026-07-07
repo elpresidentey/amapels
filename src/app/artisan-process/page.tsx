@@ -8,14 +8,14 @@ export const metadata: Metadata = {
 
 export default function ArtisanProcessPage() {
   return (
-    <div className="min-h-screen bg-ivory">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="section-shell pt-12 pb-16 lg:pt-20 lg:pb-24">
         <div className="text-center max-w-3xl mx-auto">
-          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-brown-dark mb-6 lg:mb-8">
+          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-black-dark mb-6 lg:mb-8">
             Our Artisan Process
           </h1>
-          <p className="text-lg sm:text-xl text-brown/70 leading-relaxed">
+          <p className="text-lg sm:text-xl text-black/70 leading-relaxed">
             Every AMAPELS piece tells a story of heritage, skill, and passion. 
             Discover the meticulous craftsmanship behind our jewelry.
           </p>
@@ -30,18 +30,18 @@ export default function ArtisanProcessPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             <div className="order-2 lg:order-1">
               <div className="max-w-lg">
-                <span className="text-sm font-semibold uppercase tracking-wide text-brown/60 mb-3 block">
+                <span className="text-sm font-semibold uppercase tracking-wide text-black/60 mb-3 block">
                   Step 01
                 </span>
-                <h2 className="font-serif text-2xl lg:text-3xl font-light text-brown-dark mb-4 lg:mb-6">
+                <h2 className="font-serif text-2xl lg:text-3xl font-light text-black-dark mb-4 lg:mb-6">
                   Design & Inspiration
                 </h2>
-                <p className="text-brown/70 leading-relaxed mb-4">
+                <p className="text-black/70 leading-relaxed mb-4">
                   Our journey begins with inspiration drawn from Nigerian heritage, contemporary fashion, 
                   and the stories of the women who wear our pieces. Each design is carefully sketched 
                   and refined by our master artisans.
                 </p>
-                <p className="text-brown/70 leading-relaxed">
+                <p className="text-black/70 leading-relaxed">
                   We blend traditional motifs with modern aesthetics, ensuring every piece reflects 
                   both timeless elegance and contemporary relevance.
                 </p>
@@ -71,18 +71,18 @@ export default function ArtisanProcessPage() {
             </div>
             <div>
               <div className="max-w-lg">
-                <span className="text-sm font-semibold uppercase tracking-wide text-brown/60 mb-3 block">
+                <span className="text-sm font-semibold uppercase tracking-wide text-black/60 mb-3 block">
                   Step 02
                 </span>
-                <h2 className="font-serif text-2xl lg:text-3xl font-light text-brown-dark mb-4 lg:mb-6">
+                <h2 className="font-serif text-2xl lg:text-3xl font-light text-black-dark mb-4 lg:mb-6">
                   Premium Material Selection
                 </h2>
-                <p className="text-brown/70 leading-relaxed mb-4">
+                <p className="text-black/70 leading-relaxed mb-4">
                   We source only the finest materials - from sterling silver to gold vermeil, 
                   genuine gemstones, and ethically-sourced pearls. Each material is carefully 
                   inspected for quality and authenticity.
                 </p>
-                <p className="text-brown/70 leading-relaxed">
+                <p className="text-black/70 leading-relaxed">
                   Our commitment to quality means every component meets our exacting standards, 
                   ensuring durability and lasting beauty in every piece.
                 </p>
@@ -94,18 +94,18 @@ export default function ArtisanProcessPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             <div className="order-2 lg:order-1">
               <div className="max-w-lg">
-                <span className="text-sm font-semibold uppercase tracking-wide text-brown/60 mb-3 block">
+                <span className="text-sm font-semibold uppercase tracking-wide text-black/60 mb-3 block">
                   Step 03
                 </span>
-                <h2 className="font-serif text-2xl lg:text-3xl font-light text-brown-dark mb-4 lg:mb-6">
+                <h2 className="font-serif text-2xl lg:text-3xl font-light text-black-dark mb-4 lg:mb-6">
                   Masterful Handcrafting
                 </h2>
-                <p className="text-brown/70 leading-relaxed mb-4">
+                <p className="text-black/70 leading-relaxed mb-4">
                   Our skilled artisans, trained in traditional Nigerian jewelry-making techniques, 
                   bring each design to life through meticulous handcrafting. Every curve, every 
                   setting, every detail is shaped with precision and care.
                 </p>
-                <p className="text-brown/70 leading-relaxed">
+                <p className="text-black/70 leading-relaxed">
                   This process can take anywhere from several hours to several days, depending 
                   on the complexity of the piece. We never rush perfection.
                 </p>
@@ -135,18 +135,18 @@ export default function ArtisanProcessPage() {
             </div>
             <div>
               <div className="max-w-lg">
-                <span className="text-sm font-semibold uppercase tracking-wide text-brown/60 mb-3 block">
+                <span className="text-sm font-semibold uppercase tracking-wide text-black/60 mb-3 block">
                   Step 04
                 </span>
-                <h2 className="font-serif text-2xl lg:text-3xl font-light text-brown-dark mb-4 lg:mb-6">
+                <h2 className="font-serif text-2xl lg:text-3xl font-light text-black-dark mb-4 lg:mb-6">
                   Rigorous Quality Control
                 </h2>
-                <p className="text-brown/70 leading-relaxed mb-4">
+                <p className="text-black/70 leading-relaxed mb-4">
                   Every finished piece undergoes thorough quality inspection. We check for 
                   structural integrity, finish quality, stone security, and overall craftsmanship 
                   to ensure it meets our high standards.
                 </p>
-                <p className="text-brown/70 leading-relaxed">
+                <p className="text-black/70 leading-relaxed">
                   Only pieces that pass our comprehensive quality checks are carefully packaged 
                   and prepared for our customers, complete with authenticity documentation.
                 </p>
@@ -157,17 +157,17 @@ export default function ArtisanProcessPage() {
       </section>
 
       {/* Heritage Section */}
-      <section className="bg-brown-dark text-ivory section-shell py-16 lg:py-24">
+      <section className="bg-black-light-dark text-white section-shell py-16 lg:py-24">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="font-serif text-2xl lg:text-3xl font-light mb-6 lg:mb-8">
             Honoring Nigerian Heritage
           </h2>
-          <p className="text-lg text-ivory/80 leading-relaxed mb-8">
+          <p className="text-lg text-white/80 leading-relaxed mb-8">
             Our artisan process honors centuries-old Nigerian jewelry-making traditions while 
             embracing modern techniques and quality standards. Each piece carries the spirit 
             of our cultural heritage.
           </p>
-          <p className="text-ivory/70 leading-relaxed">
+          <p className="text-white/70 leading-relaxed">
             We are proud to support local artisans and preserve traditional craftsmanship 
             for future generations while creating jewelry that speaks to the modern Nigerian woman.
           </p>

@@ -9,6 +9,26 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Primary: White
+        primary: {
+          DEFAULT: '#FFFFFF',
+          light: '#FAFAFA',
+          dark: '#F5F5F5',
+        },
+        // Brand: Black
+        black: {
+          DEFAULT: '#000000',
+          light: '#1A1A1A',
+          dark: '#0A0A0A',
+        },
+        // Brand: Gold
+        gold: {
+          light: '#FFD700',
+          DEFAULT: '#D4AF37',
+          dark: '#B8860B',
+          metallic: '#AA8B2E',
+        },
+        // Supporting colors (kept for backward compatibility)
         ivory: "#FDF8F3",
         champagne: "#F5E6D3",
         sand: "#D4C4B0",

@@ -56,15 +56,15 @@ export default function Navbar() {
     <nav 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 safe-top ${
         scrolled 
-          ? 'bg-brown-dark/95 backdrop-blur-xl py-3 md:py-3.5' 
-          : 'bg-brown-dark/80 backdrop-blur-sm py-4 md:py-5'
+          ? 'bg-black-light-dark/95 backdrop-blur-xl py-3 md:py-3.5' 
+          : 'bg-black-light-dark/80 backdrop-blur-sm py-4 md:py-5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 xl:px-24">
         <div className="flex items-center justify-between">
           {/* Brand Logo - Cleaner */}
           <Link href="/" className="flex-shrink-0">
-            <span className="font-serif text-xl font-light tracking-[0.25em] text-ivory uppercase md:text-2xl">
+            <span className="font-serif text-xl font-light tracking-[0.25em] text-white uppercase md:text-2xl">
               AMAPELS
             </span>
           </Link>
@@ -75,7 +75,7 @@ export default function Navbar() {
               <Link 
                 key={item.name}
                 href={item.href}
-                className="text-xs font-medium uppercase tracking-[0.15em] text-champagne/90 hover:text-ivory transition-colors duration-200"
+                className="text-xs font-medium uppercase tracking-[0.15em] text-champagne/90 hover:text-white transition-colors duration-200"
               >
                 {item.name}
               </Link>
@@ -92,7 +92,7 @@ export default function Navbar() {
             {/* Cart Button - Cleaner Design */}
             <button 
               onClick={toggleCart}
-              className="text-champagne hover:text-ivory transition-colors duration-200 relative"
+              className="text-champagne hover:text-white transition-colors duration-200 relative"
               aria-label="Shopping cart"
             >
               <ShoppingBag size={20} strokeWidth={1.5} />
@@ -105,7 +105,7 @@ export default function Navbar() {
             
             {/* Mobile Menu Toggle */}
             <button 
-              className="text-ivory lg:hidden"
+              className="text-white lg:hidden"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle menu"
             >
@@ -123,7 +123,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25 }}
-            className="overflow-hidden bg-brown-dark/98 backdrop-blur-xl border-t border-ivory/10 lg:hidden"
+            className="overflow-hidden bg-black-light-dark/98 backdrop-blur-xl border-t border-ivory/10 lg:hidden"
           >
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
               <div className="py-6 space-y-2">
@@ -137,7 +137,7 @@ export default function Navbar() {
                     <Link 
                       href={item.href}
                       onClick={closeMenu}
-                      className="block text-lg font-light uppercase tracking-wide text-champagne hover:text-ivory transition-colors duration-200 py-3 px-4 rounded-lg hover:bg-white/5"
+                      className="block text-lg font-light uppercase tracking-wide text-champagne hover:text-white transition-colors duration-200 py-3 px-4 rounded-lg hover:bg-white/5"
                     >
                       {item.name}
                     </Link>

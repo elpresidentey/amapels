@@ -97,14 +97,14 @@ export default function CareGuidePage() {
   }
 
   return (
-    <div className="min-h-screen bg-ivory">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="section-shell pt-12 pb-16 lg:pt-20 lg:pb-24">
         <div className="text-center max-w-4xl mx-auto">
-          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-brown-dark mb-6 lg:mb-8">
+          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-black-dark mb-6 lg:mb-8">
             Jewelry Care Guide
           </h1>
-          <p className="text-lg sm:text-xl text-brown/70 leading-relaxed">
+          <p className="text-lg sm:text-xl text-black/70 leading-relaxed">
             Keep your AMAPELS jewelry beautiful for years to come with our expert care tips. 
             Proper maintenance ensures your pieces remain as stunning as the day you received them.
           </p>
@@ -114,10 +114,10 @@ export default function CareGuidePage() {
       {/* Care Steps */}
       <section className="section-shell pb-16 lg:pb-24">
         <div className="text-center mb-12 lg:mb-16">
-          <h2 className="font-serif text-2xl lg:text-3xl font-light text-brown-dark mb-4">
+          <h2 className="font-serif text-2xl lg:text-3xl font-light text-black-dark mb-4">
             Essential Care Steps
           </h2>
-          <p className="text-brown/70 max-w-2xl mx-auto">
+          <p className="text-black/70 max-w-2xl mx-auto">
             Follow these four essential steps to maintain your jewelry's beauty and longevity
           </p>
         </div>
@@ -127,18 +127,18 @@ export default function CareGuidePage() {
             const Icon = step.icon
             return (
               <div key={index} className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-brown/5 rounded-full mb-6">
-                  <Icon size={24} className="text-brown-dark" />
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-black-light/5 rounded-full mb-6">
+                  <Icon size={24} className="text-black-dark" />
                 </div>
-                <h3 className="font-semibold text-lg text-brown-dark mb-3">
+                <h3 className="font-semibold text-lg text-black-dark mb-3">
                   {step.title}
                 </h3>
-                <p className="text-brown/70 text-sm leading-relaxed mb-4">
+                <p className="text-black/70 text-sm leading-relaxed mb-4">
                   {step.description}
                 </p>
                 <ul className="text-left space-y-2">
                   {step.details.map((detail, idx) => (
-                    <li key={idx} className="text-xs text-brown/60 leading-relaxed">
+                    <li key={idx} className="text-xs text-black/60 leading-relaxed">
                       • {detail}
                     </li>
                   ))}
@@ -150,23 +150,23 @@ export default function CareGuidePage() {
       </section>
 
       {/* Material-Specific Care */}
-      <section className="bg-brown-dark text-ivory section-shell py-16 lg:py-24">
+      <section className="bg-black-light-dark text-white section-shell py-16 lg:py-24">
         <div className="text-center mb-12 lg:mb-16">
           <h2 className="font-serif text-2xl lg:text-3xl font-light mb-4">
             Material-Specific Care
           </h2>
-          <p className="text-ivory/80 max-w-2xl mx-auto">
+          <p className="text-white/80 max-w-2xl mx-auto">
             Different materials require different care approaches for optimal maintenance
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {materialGuides.map((guide, index) => (
-            <div key={index} className="bg-ivory/5 rounded-lg p-6">
-              <h3 className="font-semibold text-lg text-ivory mb-3">
+            <div key={index} className="bg-white/5 rounded-lg p-6">
+              <h3 className="font-semibold text-lg text-white mb-3">
                 {guide.material}
               </h3>
-              <p className="text-ivory/80 text-sm leading-relaxed mb-4">
+              <p className="text-white/80 text-sm leading-relaxed mb-4">
                 {guide.care}
               </p>
               <div className="flex items-start gap-2">
@@ -183,10 +183,10 @@ export default function CareGuidePage() {
       {/* Do's and Don'ts */}
       <section className="section-shell py-16 lg:py-24">
         <div className="text-center mb-12 lg:mb-16">
-          <h2 className="font-serif text-2xl lg:text-3xl font-light text-brown-dark mb-4">
+          <h2 className="font-serif text-2xl lg:text-3xl font-light text-black-dark mb-4">
             Quick Reference
           </h2>
-          <p className="text-brown/70 max-w-2xl mx-auto">
+          <p className="text-black/70 max-w-2xl mx-auto">
             Essential do's and don'ts for everyday jewelry care
           </p>
         </div>
@@ -236,26 +236,26 @@ export default function CareGuidePage() {
 
       {/* Professional Services */}
       <section className="section-shell pb-16 lg:pb-24">
-        <div className="bg-brown/5 rounded-2xl p-8 lg:p-12">
+        <div className="bg-black-light/5 rounded-2xl p-8 lg:p-12">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-brown-dark rounded-full mb-6">
-              <Sparkles size={24} className="text-ivory" />
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-black-light-dark rounded-full mb-6">
+              <Sparkles size={24} className="text-white" />
             </div>
-            <h2 className="font-serif text-2xl lg:text-3xl font-light text-brown-dark mb-4">
+            <h2 className="font-serif text-2xl lg:text-3xl font-light text-black-dark mb-4">
               Professional Care Services
             </h2>
-            <p className="text-brown/70 leading-relaxed mb-6">
+            <p className="text-black/70 leading-relaxed mb-6">
               Our expert jewelers offer professional cleaning, repair, and restoration services. 
               Schedule an appointment to keep your AMAPELS jewelry in pristine condition.
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center text-sm text-brown/70 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center text-sm text-black/70 mb-8">
               <div>Professional Cleaning</div>
               <div>Stone Setting Repair</div>
               <div>Chain & Clasp Repair</div>
             </div>
             <a 
               href="mailto:care@amapels.com"
-              className="inline-flex items-center px-8 py-3 bg-brown-dark text-ivory text-sm font-medium rounded-md hover:bg-brown transition-colors btn-mobile"
+              className="inline-flex items-center px-8 py-3 bg-black-light-dark text-white text-sm font-medium rounded-md hover:bg-gold transition-colors btn-mobile"
             >
               Contact Care Team
             </a>

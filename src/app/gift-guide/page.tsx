@@ -82,20 +82,20 @@ export default function GiftGuidePage() {
   ]
 
   return (
-    <div className="min-h-screen bg-ivory">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="section-shell pt-12 pb-16 lg:pt-20 lg:pb-24">
         <div className="text-center max-w-4xl mx-auto">
-          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-brown-dark mb-6 lg:mb-8">
+          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-black-dark mb-6 lg:mb-8">
             The Perfect Gift
           </h1>
-          <p className="text-lg sm:text-xl text-brown/70 leading-relaxed mb-8">
+          <p className="text-lg sm:text-xl text-black/70 leading-relaxed mb-8">
             Discover jewelry that speaks to the heart. Our curated gift guide helps you 
             find meaningful pieces for every person and occasion.
           </p>
           <Link 
             href="/shop"
-            className="inline-flex items-center px-8 py-3 bg-brown-dark text-ivory text-sm font-medium rounded-md hover:bg-brown transition-colors btn-mobile"
+            className="inline-flex items-center px-8 py-3 bg-black-light-dark text-white text-sm font-medium rounded-md hover:bg-gold transition-colors btn-mobile"
           >
             Shop All Gifts
           </Link>
@@ -105,10 +105,10 @@ export default function GiftGuidePage() {
       {/* Gift Occasions */}
       <section className="section-shell pb-16 lg:pb-24">
         <div className="text-center mb-12 lg:mb-16">
-          <h2 className="font-serif text-2xl lg:text-3xl font-light text-brown-dark mb-4">
+          <h2 className="font-serif text-2xl lg:text-3xl font-light text-black-dark mb-4">
             Shop by Occasion
           </h2>
-          <p className="text-brown/70 max-w-2xl mx-auto">
+          <p className="text-black/70 max-w-2xl mx-auto">
             Find the perfect piece for life's special moments
           </p>
         </div>
@@ -124,23 +124,23 @@ export default function GiftGuidePage() {
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
-              <h3 className="font-serif text-xl font-light text-brown-dark mb-2">
+              <h3 className="font-serif text-xl font-light text-black-dark mb-2">
                 {occasion.title}
               </h3>
-              <p className="text-brown/70 text-sm leading-relaxed mb-3">
+              <p className="text-black/70 text-sm leading-relaxed mb-3">
                 {occasion.description}
               </p>
               <div className="space-y-1 mb-3">
                 {occasion.suggestions.map((suggestion, idx) => (
-                  <p key={idx} className="text-xs text-brown/60">• {suggestion}</p>
+                  <p key={idx} className="text-xs text-black/60">• {suggestion}</p>
                 ))}
               </div>
-              <p className="text-sm font-medium text-brown-dark mb-4">
+              <p className="text-sm font-medium text-black-dark mb-4">
                 {occasion.priceRange}
               </p>
               <Link 
                 href="/shop"
-                className="text-sm font-medium text-brown-dark hover:text-brown transition-colors"
+                className="text-sm font-medium text-black-dark hover:text-black transition-colors"
               >
                 Shop Collection →
               </Link>
@@ -150,12 +150,12 @@ export default function GiftGuidePage() {
       </section>
 
       {/* Budget Guide */}
-      <section className="bg-brown-dark text-ivory section-shell py-16 lg:py-24">
+      <section className="bg-black-light-dark text-white section-shell py-16 lg:py-24">
         <div className="text-center mb-12 lg:mb-16">
           <h2 className="font-serif text-2xl lg:text-3xl font-light mb-4">
             Shop by Budget
           </h2>
-          <p className="text-ivory/80 max-w-2xl mx-auto">
+          <p className="text-white/80 max-w-2xl mx-auto">
             Beautiful jewelry at every price point
           </p>
         </div>
@@ -165,18 +165,18 @@ export default function GiftGuidePage() {
             const Icon = guide.icon
             return (
               <div key={index} className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-ivory/10 rounded-full mb-4">
-                  <Icon size={24} className="text-ivory" />
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-full mb-4">
+                  <Icon size={24} className="text-white" />
                 </div>
-                <h3 className="font-semibold text-lg text-ivory mb-2">
+                <h3 className="font-semibold text-lg text-white mb-2">
                   {guide.range}
                 </h3>
-                <p className="text-ivory/70 text-sm leading-relaxed mb-4">
+                <p className="text-white/70 text-sm leading-relaxed mb-4">
                   {guide.description}
                 </p>
                 <ul className="space-y-1">
                   {guide.items.map((item, idx) => (
-                    <li key={idx} className="text-xs text-ivory/60">• {item}</li>
+                    <li key={idx} className="text-xs text-white/60">• {item}</li>
                   ))}
                 </ul>
               </div>
@@ -189,47 +189,47 @@ export default function GiftGuidePage() {
       <section className="section-shell py-16 lg:py-24">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="font-serif text-2xl lg:text-3xl font-light text-brown-dark mb-4">
+            <h2 className="font-serif text-2xl lg:text-3xl font-light text-black-dark mb-4">
               Gift Services
             </h2>
-            <p className="text-brown/70">
+            <p className="text-black/70">
               We make gifting effortless with our complimentary services
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-brown/5 rounded-full mb-4">
-                <Gift size={24} className="text-brown-dark" />
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-black-light/5 rounded-full mb-4">
+                <Gift size={24} className="text-black-dark" />
               </div>
-              <h3 className="font-semibold text-lg text-brown-dark mb-2">
+              <h3 className="font-semibold text-lg text-black-dark mb-2">
                 Gift Wrapping
               </h3>
-              <p className="text-brown/70 text-sm leading-relaxed">
+              <p className="text-black/70 text-sm leading-relaxed">
                 Complimentary luxury gift wrapping with every purchase
               </p>
             </div>
 
             <div className="text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-brown/5 rounded-full mb-4">
-                <Heart size={24} className="text-brown-dark" />
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-black-light/5 rounded-full mb-4">
+                <Heart size={24} className="text-black-dark" />
               </div>
-              <h3 className="font-semibold text-lg text-brown-dark mb-2">
+              <h3 className="font-semibold text-lg text-black-dark mb-2">
                 Personal Message
               </h3>
-              <p className="text-brown/70 text-sm leading-relaxed">
+              <p className="text-black/70 text-sm leading-relaxed">
                 Include a handwritten note with your heartfelt message
               </p>
             </div>
 
             <div className="text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-brown/5 rounded-full mb-4">
-                <Sparkles size={24} className="text-brown-dark" />
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-black-light/5 rounded-full mb-4">
+                <Sparkles size={24} className="text-black-dark" />
               </div>
-              <h3 className="font-semibold text-lg text-brown-dark mb-2">
+              <h3 className="font-semibold text-lg text-black-dark mb-2">
                 Gift Consultation
               </h3>
-              <p className="text-brown/70 text-sm leading-relaxed">
+              <p className="text-black/70 text-sm leading-relaxed">
                 Not sure what to choose? Our team is here to help
               </p>
             </div>
@@ -239,24 +239,24 @@ export default function GiftGuidePage() {
 
       {/* CTA Section */}
       <section className="section-shell pb-16 lg:pb-24">
-        <div className="bg-brown/5 rounded-2xl p-8 lg:p-12 text-center">
-          <h2 className="font-serif text-2xl lg:text-3xl font-light text-brown-dark mb-4">
+        <div className="bg-black-light/5 rounded-2xl p-8 lg:p-12 text-center">
+          <h2 className="font-serif text-2xl lg:text-3xl font-light text-black-dark mb-4">
             Need Help Choosing?
           </h2>
-          <p className="text-brown/70 mb-6 max-w-2xl mx-auto">
+          <p className="text-black/70 mb-6 max-w-2xl mx-auto">
             Our jewelry specialists are here to help you find the perfect gift. 
             Contact us for personalized recommendations.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               href="/contact"
-              className="inline-flex items-center px-8 py-3 bg-brown-dark text-ivory text-sm font-medium rounded-md hover:bg-brown transition-colors btn-mobile"
+              className="inline-flex items-center px-8 py-3 bg-black-light-dark text-white text-sm font-medium rounded-md hover:bg-gold transition-colors btn-mobile"
             >
               Get Expert Advice
             </Link>
             <Link 
               href="/shop"
-              className="inline-flex items-center px-8 py-3 border border-brown-dark text-brown-dark text-sm font-medium rounded-md hover:bg-brown-dark hover:text-ivory transition-colors btn-mobile"
+              className="inline-flex items-center px-8 py-3 border border-gray-800-dark text-black-dark text-sm font-medium rounded-md hover:bg-gold hover:text-white transition-colors btn-mobile"
             >
               Browse All Jewelry
             </Link>

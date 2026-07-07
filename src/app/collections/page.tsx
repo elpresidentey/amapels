@@ -46,9 +46,9 @@ export default function CollectionsPage() {
             transition={{ duration: 0.9 }}
             className="text-center mb-24"
           >
-            <p className="mb-6 text-[10px] font-semibold uppercase tracking-[0.45em] text-brown/50">CURATED FOR YOU</p>
-            <h1 className="font-serif text-5xl font-light leading-[1.1] text-brown-dark md:text-6xl lg:text-7xl">COLLECTIONS</h1>
-            <p className="mt-8 text-lg text-brown/70 max-w-2xl mx-auto leading-relaxed">
+            <p className="mb-6 text-[10px] font-semibold uppercase tracking-[0.45em] text-black/50">CURATED FOR YOU</p>
+            <h1 className="font-serif text-5xl font-light leading-[1.1] text-black-dark md:text-6xl lg:text-7xl">COLLECTIONS</h1>
+            <p className="mt-8 text-lg text-black/70 max-w-2xl mx-auto leading-relaxed">
               Explore our artisan-crafted collections, curated for everyday elegance, milestone celebrations, and treasured gifts.
             </p>
           </motion.div>
