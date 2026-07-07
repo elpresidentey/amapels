@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Plus, Edit2, Trash2, Save, X, Eye, EyeOff } from 'lucide-react'
 import Toast from '@/components/Toast'
+import ImageUpload from '@/components/ImageUpload'
 
 interface Product {
   _id?: string
@@ -642,33 +643,11 @@ export default function AdminProductsPage() {
                     <label className="block text-sm font-medium text-black-dark mb-2">
                       Product Images *
                     </label>
-                    {formData.images.map((image, index) => (
-                      <div key={index} className="flex gap-2 mb-2">
-                        <input
-                          type="text"
-                          value={image}
-                          onChange={(e) => handleArrayFieldChange('images', index, e.target.value)}
-                          className="flex-1 px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none"
-                          placeholder="/images/product-image.jpg"
-                        />
-                        {formData.images.length > 1 && (
-                          <button
-                            type="button"
-                            onClick={() => removeArrayFieldItem('images', index)}
-                            className="p-3 text-red-600 hover:bg-red-50 rounded-xl transition-colors"
-                          >
-                            <X size={16} />
-                          </button>
-                        )}
-                      </div>
-                    ))}
-                    <button
-                      type="button"
-                      onClick={() => addArrayFieldItem('images')}
-                      className="text-black-dark hover:text-black text-sm font-medium"
-                    >
-                      + Add Image
-                    </button>
+                    <ImageUpload
+                      images={formData.images.filter(img => img.trim())}
+                      onChange={(newImages) => handleInputChange('images', newImages)}
+                      maxImages={5}
+                    />
                   </div>
                   <div>
                     <label className="flex items-center gap-3">
