@@ -60,16 +60,16 @@ export default function CollectionsPage() {
                 initial={{ opacity: 0, y: 45 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: index * 0.18 }}
-                className="group"
+                className="group hover-lift card-premium"
               >
                 <Link href={collection.href}>
-                  <div className="relative aspect-[4/3] sm:aspect-[16/9] md:aspect-[21/10] lg:aspect-[21/9] overflow-hidden mb-5 rounded-2xl sm:mb-6 sm:rounded-3xl md:mb-7 md:rounded-[36px]">
+                  <div className="relative aspect-[4/3] sm:aspect-[16/9] md:aspect-[21/10] lg:aspect-[21/9] overflow-hidden mb-5 rounded-2xl sm:mb-6 sm:rounded-3xl md:mb-7 md:rounded-[36px] shadow-premium">
                     <Image 
                       src={collection.image}
                       alt={collection.name}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 90vw"
-                      className="object-cover transition-transform duration-900 group-hover:scale-108"
+                      className="object-cover img-premium"
                     />
                     <div className="absolute inset-0 bg-black/35 group-hover:bg-black/45 transition-all duration-300 flex items-center justify-center">
                       <div className="text-center text-white px-4 sm:px-6 md:px-8">

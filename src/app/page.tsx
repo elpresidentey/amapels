@@ -179,7 +179,7 @@ export default function Home() {
               >
                 <Link
                   href="/collections"
-                  className="group inline-flex items-center justify-center gap-2 sm:gap-3 bg-white px-5 py-3 sm:px-6 sm:py-4 md:px-8 md:py-5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.25em] sm:tracking-[0.3em] text-black-dark transition-all hover:bg-primary-light hover:shadow-xl"
+                  className="group btn-premium inline-flex items-center justify-center gap-2 sm:gap-3 bg-white px-5 py-3 sm:px-6 sm:py-4 md:px-8 md:py-5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.25em] sm:tracking-[0.3em] text-black-dark transition-all hover:bg-primary-light hover:shadow-gold"
                 >
                   <span className="hidden sm:inline">Discover Your Treasure</span>
                   <span className="sm:hidden">Shop Collection</span>
@@ -187,7 +187,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href="/shop"
-                  className="inline-flex items-center justify-center gap-2 sm:gap-3 border border-white/40 bg-white/8 px-5 py-3 sm:px-6 sm:py-4 md:px-8 md:py-5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.25em] sm:tracking-[0.3em] text-white backdrop-blur-sm transition-all hover:bg-white/16 hover:border-white/60"
+                  className="btn-premium inline-flex items-center justify-center gap-2 sm:gap-3 border border-white/40 bg-white/8 px-5 py-3 sm:px-6 sm:py-4 md:px-8 md:py-5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.25em] sm:tracking-[0.3em] text-white backdrop-blur-sm transition-all hover:bg-white/16 hover:border-white/60"
                 >
                   <span className="hidden sm:inline">View Most Loved Pieces</span>
                   <span className="sm:hidden">View Shop</span>
@@ -432,7 +432,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.85, delay: 0 }}
-              className="group relative overflow-hidden rounded-[34px] md:col-span-2"
+              className="group relative overflow-hidden rounded-[34px] md:col-span-2 hover-lift card-premium"
             >
               <div className="relative aspect-[4/5] md:aspect-auto md:h-full">
                 <Image
@@ -441,7 +441,7 @@ export default function Home() {
                   fill
                   priority={true}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 50vw"
-                  className="object-cover transition-transform duration-800 group-hover:scale-108"
+                  className="object-cover img-premium"
                 />
               </div>
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,15,10,0.25) 0%,rgba(20,15,10,0.92) 100%)]" />
@@ -459,7 +459,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.85, delay: 0.12 }}
-              className="group relative overflow-hidden rounded-[34px]"
+              className="group relative overflow-hidden rounded-[34px] hover-lift card-premium"
             >
               <div className="relative aspect-[4/5] md:aspect-auto md:h-full">
                 <Image
@@ -468,7 +468,7 @@ export default function Home() {
                   fill
                   priority={true}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
-                  className="object-cover transition-transform duration-800 group-hover:scale-108"
+                  className="object-cover img-premium"
                 />
               </div>
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,15,10,0.25) 0%,rgba(20,15,10,0.92) 100%)]" />
@@ -486,7 +486,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.85, delay: 0.24 }}
-              className="group relative overflow-hidden rounded-[34px]"
+              className="group relative overflow-hidden rounded-[34px] hover-lift card-premium"
             >
               <div className="relative aspect-[4/5] md:aspect-auto md:h-full">
                 <Image
@@ -494,7 +494,7 @@ export default function Home() {
                   alt={featuredCollections[2].title}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
-                  className="object-cover transition-transform duration-800 group-hover:scale-108"
+                  className="object-cover img-premium"
                 />
               </div>
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,15,10,0.25) 0%,rgba(20,15,10,0.92) 100%)]" />
@@ -512,7 +512,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.85, delay: 0.36 }}
-              className="group relative overflow-hidden rounded-[34px] md:col-span-2"
+              className="group relative overflow-hidden rounded-[34px] md:col-span-2 hover-lift card-premium"
             >
               <div className="relative aspect-[4/5] md:aspect-auto md:h-full">
                 <Image
@@ -520,7 +520,7 @@ export default function Home() {
                   alt={featuredCollections[3].title}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 50vw"
-                  className="object-cover transition-transform duration-800 group-hover:scale-108"
+                  className="object-cover img-premium"
                 />
               </div>
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,15,10,0.25) 0%,rgba(20,15,10,0.92) 100%)]" />
@@ -572,17 +572,17 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.85, delay: index * 0.12 }}
-                  className="group"
+                  className="group hover-lift card-premium"
                 >
                   <Link href={`/shop/${piece._id}`}>
-                    <div className="relative overflow-hidden rounded-[30px] bg-white shadow-sm">
+                    <div className="relative overflow-hidden rounded-[30px] bg-white shadow-premium">
                       <div className="relative aspect-[4/5]">
                         <Image
                           src={piece.images?.[0] || '/images/sabrianna-Y_bxfTa_iUA-unsplash.jpg'}
                           alt={piece.name}
                           fill
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          className="object-cover transition-transform duration-800 group-hover:scale-108"
+                          className="object-cover img-premium"
                         />
                       </div>
                     </div>
