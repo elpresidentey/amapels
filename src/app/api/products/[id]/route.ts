@@ -6,30 +6,23 @@ export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const fallbackProduct = getFallbackProductById(params.id)
-
   try {
-    if (!supabase) {
-      throw new Error('Supabase not configured')
-    }
+    // Always use fallback products for now
+    const fallbackProduct = getFallbackProductById(params.id)
     
-    const product = await getProduct(params.id)
-    
-    return NextResponse.json({
-      success: true,
-      data: product,
-      source: 'database',
-    })
-  } catch (error) {
     if (fallbackProduct) {
       return NextResponse.json({
         success: true,
         data: fallbackProduct,
         source: 'fallback',
-        fallbackReason: (error as Error).message,
       })
     }
 
+    return NextResponse.json(
+      { success: false, error: 'Product not found' },
+      { status: 404 }
+    )
+  } catch (error) {
     return NextResponse.json(
       { success: false, error: (error as Error).message },
       { status: 404 }

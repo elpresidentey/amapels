@@ -7,25 +7,12 @@ export async function GET(request: NextRequest) {
   const category = searchParams.get('category')
 
   try {
-    // Check if supabase is configured
-    if (!supabase) {
-      console.log('Supabase not configured, using fallback products')
-      return NextResponse.json({
-        success: true,
-        data: getFallbackProducts(category),
-        source: 'fallback',
-        fallbackReason: 'Supabase not configured',
-      })
-    }
-
-    const products = await getProducts({
-      category: category && category !== 'All' ? category : undefined
-    })
-    
+    // Always use fallback products for now (until Supabase products are added)
+    console.log('Using fallback products')
     return NextResponse.json({
       success: true,
-      data: products || [],
-      source: 'database',
+      data: getFallbackProducts(category),
+      source: 'fallback',
     })
   } catch (error) {
     console.error('Products fetch error:', error)
