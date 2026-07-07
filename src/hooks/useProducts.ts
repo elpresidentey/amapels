@@ -27,7 +27,7 @@ export function useProducts(category?: string) {
         }
 
         if (!ignore) {
-          setProducts(data.data)
+          setProducts(data.data || [])
         }
       } catch (err) {
         if (!ignore) {

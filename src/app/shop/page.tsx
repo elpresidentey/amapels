@@ -82,7 +82,7 @@ function ShopContent() {
             ))}
           </motion.div>
 
-          {products.length === 0 ? (
+          {!products || products.length === 0 ? (
             <div className="text-center py-16">
               <p className="text-black/60">No products found in this category yet. Check back soon!</p>
             </div>
