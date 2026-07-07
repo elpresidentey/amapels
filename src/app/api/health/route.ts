@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import dbConnect from '@/lib/mongodb'
+import { supabase } from '@/lib/supabase'
 import { validateEnvironment, checkPaystackService } from '@/lib/systemHealth'
 
 export async function GET(request: NextRequest) {
@@ -18,7 +18,13 @@ export async function GET(request: NextRequest) {
     // Database connectivity
     if (check === 'all' || check === 'db') {
       try {
-        await dbConnect()
+        if (!supabase) {
+          throw new Error('Supabase client not initialized')
+        }
+        // Test Supabase connection with a simple query
+        const { error } = await supabase.from('products').select('count').limit(1)
+        if (error) throw error
+        
         checks.push({
           name: 'Database Connection',
           status: 'pass',
