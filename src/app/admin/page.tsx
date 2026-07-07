@@ -95,29 +95,31 @@ export default function AdminDashboard() {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 gap-4 mb-8 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 lg:gap-8">
+        <div className="grid grid-cols-1 gap-4 mb-8 sm:grid-cols-2 sm:gap-5 md:gap-6 lg:grid-cols-4 lg:gap-6 xl:gap-8">
           {/* Total Products */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="bg-white rounded-2xl border border-sand/30 p-6 hover:shadow-lg transition-shadow"
+            className="bg-white rounded-xl sm:rounded-2xl border border-sand/30 p-5 sm:p-6 hover:shadow-lg transition-shadow min-h-[140px] flex flex-col justify-between"
           >
-            <div className="flex items-start justify-between mb-4">
-              <div className="p-3 bg-blue-50 rounded-xl">
-                <Package className="text-blue-600" size={24} />
+            <div className="flex items-start justify-between mb-3 sm:mb-4">
+              <div className="p-2.5 sm:p-3 bg-blue-50 rounded-lg sm:rounded-xl">
+                <Package className="text-blue-600" size={20} />
               </div>
               <Link
                 href="/admin/products"
-                className="text-brown/60 hover:text-brown-dark transition-colors"
+                className="text-brown/60 hover:text-brown-dark transition-colors p-1"
               >
-                <Eye size={18} />
+                <Eye size={16} className="sm:w-[18px] sm:h-[18px]" />
               </Link>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-bold text-brown-dark mb-1">
-              {stats.totalProducts}
-            </h3>
-            <p className="text-brown/70 text-sm">Total Products</p>
+            <div>
+              <h3 className="text-2xl sm:text-3xl font-bold text-brown-dark mb-1">
+                {stats.totalProducts}
+              </h3>
+              <p className="text-brown/70 text-xs sm:text-sm">Total Products</p>
+            </div>
           </motion.div>
 
           {/* Total Orders */}
@@ -125,23 +127,25 @@ export default function AdminDashboard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="bg-white rounded-2xl border border-sand/30 p-6 hover:shadow-lg transition-shadow"
+            className="bg-white rounded-xl sm:rounded-2xl border border-sand/30 p-5 sm:p-6 hover:shadow-lg transition-shadow min-h-[140px] flex flex-col justify-between"
           >
-            <div className="flex items-start justify-between mb-4">
-              <div className="p-3 bg-green-50 rounded-xl">
-                <ShoppingCart className="text-green-600" size={24} />
+            <div className="flex items-start justify-between mb-3 sm:mb-4">
+              <div className="p-2.5 sm:p-3 bg-green-50 rounded-lg sm:rounded-xl">
+                <ShoppingCart className="text-green-600" size={20} />
               </div>
               <Link
                 href="/admin/orders"
-                className="text-brown/60 hover:text-brown-dark transition-colors"
+                className="text-brown/60 hover:text-brown-dark transition-colors p-1"
               >
-                <Eye size={18} />
+                <Eye size={16} className="sm:w-[18px] sm:h-[18px]" />
               </Link>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-bold text-brown-dark mb-1">
-              {stats.totalOrders}
-            </h3>
-            <p className="text-brown/70 text-sm">Total Orders</p>
+            <div>
+              <h3 className="text-2xl sm:text-3xl font-bold text-brown-dark mb-1">
+                {stats.totalOrders}
+              </h3>
+              <p className="text-brown/70 text-xs sm:text-sm">Total Orders</p>
+            </div>
           </motion.div>
 
           {/* Total Revenue */}
@@ -149,23 +153,25 @@ export default function AdminDashboard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-white rounded-2xl border border-sand/30 p-6 hover:shadow-lg transition-shadow"
+            className="bg-white rounded-xl sm:rounded-2xl border border-sand/30 p-5 sm:p-6 hover:shadow-lg transition-shadow min-h-[140px] flex flex-col justify-between"
           >
-            <div className="flex items-start justify-between mb-4">
-              <div className="p-3 bg-accent-emerald/10 rounded-xl">
-                <DollarSign className="text-accent-emerald" size={24} />
+            <div className="flex items-start justify-between mb-3 sm:mb-4">
+              <div className="p-2.5 sm:p-3 bg-accent-emerald/10 rounded-lg sm:rounded-xl">
+                <DollarSign className="text-accent-emerald" size={20} />
               </div>
               <Link
                 href="/admin/sales"
-                className="text-brown/60 hover:text-brown-dark transition-colors"
+                className="text-brown/60 hover:text-brown-dark transition-colors p-1"
               >
-                <Eye size={18} />
+                <Eye size={16} className="sm:w-[18px] sm:h-[18px]" />
               </Link>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-bold text-brown-dark mb-1">
-              ₦{stats.totalRevenue.toLocaleString()}
-            </h3>
-            <p className="text-brown/70 text-sm">Total Revenue</p>
+            <div>
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-brown-dark mb-1 break-words">
+                ₦{stats.totalRevenue.toLocaleString()}
+              </h3>
+              <p className="text-brown/70 text-xs sm:text-sm">Total Revenue</p>
+            </div>
           </motion.div>
 
           {/* Growth */}
@@ -173,59 +179,61 @@ export default function AdminDashboard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="bg-white rounded-2xl border border-sand/30 p-6 hover:shadow-lg transition-shadow"
+            className="bg-white rounded-xl sm:rounded-2xl border border-sand/30 p-5 sm:p-6 hover:shadow-lg transition-shadow min-h-[140px] flex flex-col justify-between"
           >
-            <div className="flex items-start justify-between mb-4">
-              <div className="p-3 bg-accent-orange/10 rounded-xl">
-                <TrendingUp className="text-accent-orange" size={24} />
+            <div className="flex items-start justify-between mb-3 sm:mb-4">
+              <div className="p-2.5 sm:p-3 bg-accent-orange/10 rounded-lg sm:rounded-xl">
+                <TrendingUp className="text-accent-orange" size={20} />
               </div>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-bold text-brown-dark mb-1">
-              {stats.totalOrders > 0 ? '+' : ''}
-              {((stats.totalRevenue / Math.max(stats.totalOrders, 1))).toLocaleString('en-NG', { maximumFractionDigits: 0 })}
-            </h3>
-            <p className="text-brown/70 text-sm">Avg Order Value</p>
+            <div>
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-brown-dark mb-1 break-words">
+                ₦{stats.totalOrders > 0 ? '' : ''}
+                {((stats.totalRevenue / Math.max(stats.totalOrders, 1))).toLocaleString('en-NG', { maximumFractionDigits: 0 })}
+              </h3>
+              <p className="text-brown/70 text-xs sm:text-sm">Avg Order Value</p>
+            </div>
           </motion.div>
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 gap-4 mb-8 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 mb-8 sm:grid-cols-2 sm:gap-5 md:gap-6 lg:grid-cols-3">
           <Link
             href="/admin/products"
-            className="bg-white rounded-xl border border-sand/30 p-6 hover:border-brown-dark transition-all group"
+            className="bg-white rounded-xl border border-sand/30 p-5 sm:p-6 hover:border-brown-dark transition-all group min-h-[100px] flex items-center"
           >
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="font-medium text-brown-dark mb-1">Manage Products</h3>
-                <p className="text-brown/70 text-sm">Add, edit, or remove products</p>
+            <div className="flex items-center justify-between w-full gap-3">
+              <div className="flex-1 min-w-0">
+                <h3 className="font-medium text-brown-dark mb-1 text-sm sm:text-base">Manage Products</h3>
+                <p className="text-brown/70 text-xs sm:text-sm">Add, edit, or remove products</p>
               </div>
-              <ArrowRight className="text-brown/40 group-hover:text-brown-dark group-hover:translate-x-1 transition-all" size={20} />
+              <ArrowRight className="text-brown/40 group-hover:text-brown-dark group-hover:translate-x-1 transition-all flex-shrink-0" size={18} />
             </div>
           </Link>
 
           <Link
             href="/admin/orders"
-            className="bg-white rounded-xl border border-sand/30 p-6 hover:border-brown-dark transition-all group"
+            className="bg-white rounded-xl border border-sand/30 p-5 sm:p-6 hover:border-brown-dark transition-all group min-h-[100px] flex items-center"
           >
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="font-medium text-brown-dark mb-1">View Orders</h3>
-                <p className="text-brown/70 text-sm">Track and manage customer orders</p>
+            <div className="flex items-center justify-between w-full gap-3">
+              <div className="flex-1 min-w-0">
+                <h3 className="font-medium text-brown-dark mb-1 text-sm sm:text-base">View Orders</h3>
+                <p className="text-brown/70 text-xs sm:text-sm">Track and manage customer orders</p>
               </div>
-              <ArrowRight className="text-brown/40 group-hover:text-brown-dark group-hover:translate-x-1 transition-all" size={20} />
+              <ArrowRight className="text-brown/40 group-hover:text-brown-dark group-hover:translate-x-1 transition-all flex-shrink-0" size={18} />
             </div>
           </Link>
 
           <Link
             href="/admin/sales"
-            className="bg-white rounded-xl border border-sand/30 p-6 hover:border-brown-dark transition-all group"
+            className="bg-white rounded-xl border border-sand/30 p-5 sm:p-6 hover:border-brown-dark transition-all group min-h-[100px] flex items-center sm:col-span-2 lg:col-span-1"
           >
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="font-medium text-brown-dark mb-1">Sales Reports</h3>
-                <p className="text-brown/70 text-sm">View sales analytics and trends</p>
+            <div className="flex items-center justify-between w-full gap-3">
+              <div className="flex-1 min-w-0">
+                <h3 className="font-medium text-brown-dark mb-1 text-sm sm:text-base">Sales Reports</h3>
+                <p className="text-brown/70 text-xs sm:text-sm">View sales analytics and trends</p>
               </div>
-              <ArrowRight className="text-brown/40 group-hover:text-brown-dark group-hover:translate-x-1 transition-all" size={20} />
+              <ArrowRight className="text-brown/40 group-hover:text-brown-dark group-hover:translate-x-1 transition-all flex-shrink-0" size={18} />
             </div>
           </Link>
         </div>

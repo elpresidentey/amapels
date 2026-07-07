@@ -306,50 +306,50 @@ export default function AdminProductsPage() {
           <div className="block md:hidden">
             <div className="p-4 space-y-4">
               {products.map((product) => (
-                <div key={product._id} className="border border-sand/20 rounded-xl p-4">
-                  <div className="flex gap-3 mb-3">
+                <div key={product._id} className="border border-sand/20 rounded-xl p-3 sm:p-4">
+                  <div className="flex gap-2 mb-3 sm:gap-3">
                     {product.images[0] && (
                       <img
                         src={product.images[0]}
                         alt={product.name}
-                        className="w-16 h-16 object-cover rounded-lg flex-shrink-0"
+                        className="w-14 h-14 sm:w-16 sm:h-16 object-cover rounded-lg flex-shrink-0"
                       />
                     )}
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-medium text-brown-dark text-sm mb-1 line-clamp-2">{product.name}</h3>
-                      <p className="text-brown/70 text-xs mb-2 line-clamp-2">{product.description}</p>
-                      <div className="flex items-center justify-between">
-                        <span className="text-brown-dark font-medium text-sm">{product.price}</span>
-                        <span className="text-brown/70 text-xs">{product.category}</span>
+                      <h3 className="font-medium text-brown-dark text-xs mb-1 line-clamp-2 sm:text-sm">{product.name}</h3>
+                      <p className="text-brown/70 text-[10px] mb-1 line-clamp-2 sm:text-xs sm:mb-2">{product.description}</p>
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-brown-dark font-medium text-xs sm:text-sm truncate">{product.price}</span>
+                        <span className="text-brown/70 text-[10px] sm:text-xs flex-shrink-0">{product.category}</span>
                       </div>
                     </div>
                   </div>
                   
-                  <div className="flex items-center justify-between pt-3 border-t border-sand/20">
+                  <div className="flex items-center justify-between pt-2 border-t border-sand/20 sm:pt-3">
                     <button
                       onClick={() => toggleFeatured(product)}
-                      className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs transition-colors ${
+                      className={`flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] transition-colors sm:gap-1 sm:px-2 sm:py-1 sm:text-xs ${
                         product.featured
                           ? 'bg-accent-emerald/10 text-accent-emerald'
                           : 'bg-gray-100 text-gray-600'
                       }`}
                     >
-                      {product.featured ? <Eye size={12} /> : <EyeOff size={12} />}
-                      {product.featured ? 'Featured' : 'Not Featured'}
+                      {product.featured ? <Eye size={10} className="sm:w-3 sm:h-3" /> : <EyeOff size={10} className="sm:w-3 sm:h-3" />}
+                      <span className="hidden xs:inline">{product.featured ? 'Featured' : 'Hidden'}</span>
                     </button>
                     
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1 sm:gap-2">
                       <button
                         onClick={() => handleShowModal(product)}
-                        className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                        className="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors sm:p-2"
                       >
-                        <Edit2 size={16} />
+                        <Edit2 size={14} className="sm:w-4 sm:h-4" />
                       </button>
                       <button
                         onClick={() => handleDelete(product)}
-                        className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                        className="p-1.5 text-red-600 hover:bg-red-50 rounded-lg transition-colors sm:p-2"
                       >
-                        <Trash2 size={16} />
+                        <Trash2 size={14} className="sm:w-4 sm:h-4" />
                       </button>
                     </div>
                   </div>

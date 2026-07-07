@@ -63,20 +63,21 @@ export default function CartPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="flex gap-3 p-4 bg-white rounded-xl border border-sand/30 sm:gap-4 sm:p-5 md:gap-6 md:p-6 md:rounded-2xl"
+                  className="flex gap-3 p-4 bg-white rounded-xl border border-sand/30 sm:gap-4 sm:p-5 md:gap-5 md:p-6 md:rounded-2xl lg:gap-6"
                 >
-                  <div className="relative w-20 h-20 rounded-lg overflow-hidden bg-champagne/20 flex-shrink-0 sm:w-24 sm:h-24 sm:rounded-xl">
+                  <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-champagne/20 flex-shrink-0 sm:w-20 sm:h-20 sm:rounded-xl md:w-24 md:h-24">
                     <Image
                       src={item.image}
                       alt={item.name}
                       fill
+                      sizes="(max-width: 640px) 64px, (max-width: 768px) 80px, 96px"
                       className="object-cover"
                     />
                   </div>
                   
                   <div className="flex-1 min-w-0">
-                    <div className="flex justify-between items-start mb-1.5 sm:mb-2">
-                      <h3 className="font-serif text-base text-brown-dark sm:text-lg">{item.name}</h3>
+                    <div className="flex justify-between items-start mb-1.5 sm:mb-2 gap-2">
+                      <h3 className="font-serif text-sm text-brown-dark line-clamp-2 sm:text-base md:text-lg">{item.name}</h3>
                       <button
                         onClick={() => removeItem(item.id)}
                         className="p-1 text-brown/50 hover:text-brown-dark transition-colors flex-shrink-0"
@@ -124,8 +125,8 @@ export default function CartPage() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="lg:col-span-1"
           >
-            <div className="bg-white rounded-xl border border-sand/30 p-5 sticky top-24 sm:p-6 sm:top-28 md:rounded-2xl md:p-8 md:top-32">
-              <h2 className="font-serif text-lg text-brown-dark mb-4 sm:text-xl sm:mb-5 md:mb-6">Order Summary</h2>
+            <div className="bg-white rounded-xl border border-sand/30 p-4 sticky top-24 sm:p-5 sm:top-28 md:rounded-2xl md:p-6 lg:p-8 md:top-32">
+              <h2 className="font-serif text-base text-brown-dark mb-4 sm:text-lg sm:mb-5 md:text-xl md:mb-6">Order Summary</h2>
               
               <div className="space-y-3 mb-5 sm:space-y-4 sm:mb-6">
                 <div className="flex justify-between text-sm text-brown/70 sm:text-base">

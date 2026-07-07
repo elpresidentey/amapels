@@ -1,30 +1,39 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Check, Package, Truck, Mail, ArrowRight, Download, Calendar } from 'lucide-react'
 import Link from 'next/link'
 
 export default function OrderConfirmationPage() {
+  const searchParams = useSearchParams()
   const [orderNumber, setOrderNumber] = useState('')
   const [orderDate, setOrderDate] = useState('')
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Generate order number and date
-    const generateOrderNumber = () => {
+    // Get reference from URL
+    const reference = searchParams.get('ref')
+    
+    if (reference) {
+      setOrderNumber(reference)
+    } else {
+      // Fallback: Generate order number if no reference
       const timestamp = Date.now()
       const random = Math.random().toString(36).substr(2, 4).toUpperCase()
-      return `AMP-${timestamp}-${random}`
+      setOrderNumber(`AMP-${timestamp}-${random}`)
     }
     
-    setOrderNumber(generateOrderNumber())
     setOrderDate(new Date().toLocaleDateString('en-NG', {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
       day: 'numeric'
     }))
-  }, [])
+    
+    setLoading(false)
+  }, [searchParams])
 
   const nextSteps = [
     {
@@ -48,6 +57,17 @@ export default function OrderConfirmationPage() {
       timeframe: '3-5 business days'
     }
   ]
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-ivory pt-28 pb-16 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-8 h-8 border-2 border-brown-dark border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-brown/70">Loading your order details...</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-ivory pt-28 pb-16">

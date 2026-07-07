@@ -80,6 +80,54 @@
     @apply grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8;
   }
 
+  /* Improved card layout for mobile */
+  .card-mobile {
+    @apply rounded-xl sm:rounded-2xl lg:rounded-3xl;
+    @apply p-4 sm:p-5 md:p-6 lg:p-8;
+  }
+
+  /* Better aspect ratios for product images */
+  .aspect-product {
+    aspect-ratio: 3/4;
+  }
+
+  .aspect-product-wide {
+    aspect-ratio: 4/3;
+  }
+
+  /* Prevent card squeeze on mobile */
+  .min-card-height {
+    @apply min-h-[280px] sm:min-h-[320px] md:min-h-[360px];
+  }
+
+  /* Better image containers */
+  .img-container-mobile {
+    @apply w-full;
+    @apply overflow-hidden;
+    @apply rounded-lg sm:rounded-xl md:rounded-2xl;
+  }
+
+  /* Flexible grid for admin */
+  .admin-grid {
+    @apply grid;
+    @apply grid-cols-1;
+    @apply gap-4;
+    @apply sm:grid-cols-2 sm:gap-5;
+    @apply md:grid-cols-2 md:gap-6;
+    @apply lg:grid-cols-3 lg:gap-6;
+    @apply xl:grid-cols-4 xl:gap-8;
+  }
+
+  /* Admin card improvements */
+  .admin-card {
+    @apply bg-white;
+    @apply rounded-xl sm:rounded-2xl;
+    @apply border border-sand/30;
+    @apply p-5 sm:p-6;
+    @apply hover:shadow-lg;
+    @apply transition-all duration-200;
+  }
+
   /* Safe areas for mobile devices with notches */
   .safe-top {
     padding-top: env(safe-area-inset-top);

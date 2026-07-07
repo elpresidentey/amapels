@@ -141,15 +141,15 @@ export default function Home() {
         <div className="absolute inset-0 bg-[radial-gradient(circle at top right,rgba(212,175,55,0.06),transparent 40%)]" />
         </div>
 
-        <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-end px-4 pb-12 pt-28 sm:px-6 sm:pb-16 sm:pt-32 md:px-12 md:pt-36 lg:px-24 lg:pb-24">
-          <div className="grid gap-16 lg:grid-cols-[minmax(0,1.2fr)_360px] lg:items-end">
+        <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-end px-4 pb-8 pt-20 sm:px-6 sm:pb-12 sm:pt-28 md:px-12 md:pb-16 md:pt-32 lg:px-24 lg:pb-24 lg:pt-36">
+          <div className="grid gap-8 sm:gap-12 lg:gap-16 lg:grid-cols-[minmax(0,1.2fr)_360px] lg:items-end">
             <div className="max-w-3xl">
               <motion.p
                 key={`${activeSlide.id}-eyebrow`}
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9 }}
-                className="mb-7 text-[11px] font-semibold uppercase tracking-[0.45em] text-white/70"
+                className="mb-3 sm:mb-5 md:mb-7 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.35em] sm:tracking-[0.45em] text-white/70"
               >
                 {activeSlide.eyebrow}
               </motion.p>
@@ -158,7 +158,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.1 }}
-                className="font-serif text-3xl font-light leading-[1.1] tracking-tight sm:text-4xl md:text-5xl lg:text-6xl xl:text-[5.2rem]"
+                className="font-serif text-2xl font-light leading-[1.1] tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-[5.2rem]"
               >
                 {activeSlide.title}
               </motion.h1>
@@ -167,7 +167,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 28 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.2 }}
-                className="mt-5 max-w-xl text-sm leading-relaxed text-white/75 sm:mt-6 sm:text-base md:mt-7 md:text-lg"
+                className="mt-3 sm:mt-4 md:mt-5 lg:mt-6 max-w-xl text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed text-white/75"
               >
                 {activeSlide.description}
               </motion.p>
@@ -175,20 +175,22 @@ export default function Home() {
                 initial={{ opacity: 0, y: 28 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.3 }}
-                className="mt-8 flex flex-col gap-3 sm:mt-10 sm:gap-4 md:flex-row lg:mt-11"
+                className="mt-5 sm:mt-6 md:mt-8 lg:mt-10 flex flex-col gap-2 sm:gap-3 md:flex-row md:gap-4"
               >
                 <Link
                   href="/collections"
-                  className="group inline-flex items-center justify-center gap-3 bg-white px-6 py-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-brown-dark transition-all hover:bg-champagne hover:shadow-xl sm:px-8 sm:py-5"
+                  className="group inline-flex items-center justify-center gap-2 sm:gap-3 bg-white px-5 py-3 sm:px-6 sm:py-4 md:px-8 md:py-5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.25em] sm:tracking-[0.3em] text-brown-dark transition-all hover:bg-champagne hover:shadow-xl"
                 >
-                  Discover Your Treasure
-                  <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                  <span className="hidden sm:inline">Discover Your Treasure</span>
+                  <span className="sm:hidden">Shop Collection</span>
+                  <ArrowRight size={14} className="sm:w-4 sm:h-4 transition-transform group-hover:translate-x-1" />
                 </Link>
                 <Link
                   href="/shop"
-                  className="inline-flex items-center justify-center gap-3 border border-white/40 bg-white/8 px-6 py-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-white backdrop-blur-sm transition-all hover:bg-white/16 hover:border-white/60 sm:px-8 sm:py-5"
+                  className="inline-flex items-center justify-center gap-2 sm:gap-3 border border-white/40 bg-white/8 px-5 py-3 sm:px-6 sm:py-4 md:px-8 md:py-5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.25em] sm:tracking-[0.3em] text-white backdrop-blur-sm transition-all hover:bg-white/16 hover:border-white/60"
                 >
-                  View Most Loved Pieces
+                  <span className="hidden sm:inline">View Most Loved Pieces</span>
+                  <span className="sm:hidden">View Shop</span>
                 </Link>
               </motion.div>
             </div>
@@ -236,59 +238,59 @@ export default function Home() {
             </motion.div>
           </div>
 
-          <div className="mt-8 rounded-2xl border border-white/12 bg-white/8 p-3 backdrop-blur-md sm:mt-12 sm:rounded-[30px] sm:p-4 md:p-5 lg:mt-14">
-            <div className="grid gap-3 sm:gap-4 lg:grid-cols-[auto_1fr] lg:items-center">
-              <div className="flex items-center gap-2 sm:gap-3">
+          <div className="mt-5 sm:mt-6 md:mt-8 lg:mt-12 rounded-xl sm:rounded-2xl lg:rounded-[30px] border border-white/12 bg-white/8 p-2 sm:p-3 md:p-4 lg:p-5 backdrop-blur-md">
+            <div className="grid gap-2 sm:gap-3 md:gap-4 lg:grid-cols-[auto_1fr] lg:items-center">
+              <div className="flex items-center gap-2 justify-center lg:justify-start">
                 <button
                   type="button"
                   onClick={goToPrevious}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/18 text-white transition-all hover:bg-white/12 hover:border-white/30 sm:h-10 sm:w-10 md:h-11 md:w-11"
+                  className="inline-flex h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 lg:h-11 lg:w-11 items-center justify-center rounded-full border border-white/18 text-white transition-all hover:bg-white/12 hover:border-white/30"
                   aria-label="Previous slide"
                 >
-                  <ChevronLeft size={16} className="sm:w-[18px] sm:h-[18px]" />
+                  <ChevronLeft size={14} className="sm:w-4 sm:h-4 md:w-[18px] md:h-[18px]" />
                 </button>
                 <button
                   type="button"
                   onClick={goToNext}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/18 text-white transition-all hover:bg-white/12 hover:border-white/30 sm:h-10 sm:w-10 md:h-11 md:w-11"
+                  className="inline-flex h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 lg:h-11 lg:w-11 items-center justify-center rounded-full border border-white/18 text-white transition-all hover:bg-white/12 hover:border-white/30"
                   aria-label="Next slide"
                 >
-                  <ChevronRight size={16} className="sm:w-[18px] sm:h-[18px]" />
+                  <ChevronRight size={14} className="sm:w-4 sm:h-4 md:w-[18px] md:h-[18px]" />
                 </button>
               </div>
 
-              <div className="grid gap-2 sm:gap-3 md:grid-cols-3">
+              <div className="grid gap-2 sm:gap-2 md:gap-3 md:grid-cols-3">
               {heroSlides.map((slide, index) => (
                 <button
                   key={slide.id}
                   type="button"
                   onClick={() => goToSlide(index)}
-                  className={`group rounded-[24px] border px-5 py-5 text-left transition-all ${
+                  className={`group rounded-xl sm:rounded-2xl md:rounded-[24px] border px-3 py-3 sm:px-4 sm:py-4 md:px-5 md:py-5 text-left transition-all ${
                     currentSlide === index
                       ? 'border-white/25 bg-white/12'
                       : 'border-white/8 bg-black/10 hover:border-white/18 hover:bg-white/8'
                   }`}
                   aria-label={`Go to ${slide.eyebrow}`}
                 >
-                  <div className="mb-3 flex items-center justify-between gap-3">
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.35em] text-white/55 transition-colors group-hover:text-white/75">
+                  <div className="mb-2 sm:mb-3 flex items-center justify-between gap-2">
+                    <p className="text-[8px] sm:text-[9px] md:text-[10px] font-semibold uppercase tracking-[0.3em] sm:tracking-[0.35em] text-white/55 transition-colors group-hover:text-white/75">
                       {slide.eyebrow}
                     </p>
-                    <span className="text-[10px] font-semibold uppercase tracking-[0.32em] text-white/40">
+                    <span className="text-[8px] sm:text-[9px] md:text-[10px] font-semibold uppercase tracking-[0.28em] sm:tracking-[0.32em] text-white/40">
                       {String(index + 1).padStart(2, '0')}
                     </span>
                   </div>
-                  <div className="mb-4 h-px bg-white/18">
+                  <div className="mb-2 sm:mb-3 md:mb-4 h-px bg-white/18">
                     <motion.div
                       animate={{ width: currentSlide === index ? '100%' : '0%' }}
                       transition={{ duration: 0.5 }}
                       className="h-full bg-white"
                     />
                   </div>
-                  <p className="font-serif text-xl font-light text-white">
+                  <p className="font-serif text-sm sm:text-base md:text-lg lg:text-xl font-light text-white leading-tight">
                     {slide.title}
                   </p>
-                  <p className="mt-2 overflow-hidden text-ellipsis whitespace-nowrap text-sm text-white/65">
+                  <p className="mt-1 sm:mt-2 overflow-hidden text-ellipsis whitespace-nowrap text-[10px] sm:text-xs md:text-sm text-white/65">
                     {slide.ticker}
                   </p>
                 </button>

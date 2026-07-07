@@ -53,7 +53,7 @@ export default function CollectionsPage() {
             </p>
           </motion.div>
 
-          <div className="space-y-20">
+          <div className="space-y-8 sm:space-y-12 md:space-y-16 lg:space-y-20">
             {collections.map((collection, index) => (
               <motion.div
                 key={collection.id}
@@ -63,7 +63,7 @@ export default function CollectionsPage() {
                 className="group"
               >
                 <Link href={collection.href}>
-                  <div className="relative aspect-[21/9] overflow-hidden mb-7 rounded-[36px]">
+                  <div className="relative aspect-[4/3] sm:aspect-[16/9] md:aspect-[21/10] lg:aspect-[21/9] overflow-hidden mb-5 rounded-2xl sm:mb-6 sm:rounded-3xl md:mb-7 md:rounded-[36px]">
                     <Image 
                       src={collection.image}
                       alt={collection.name}
@@ -72,9 +72,9 @@ export default function CollectionsPage() {
                       className="object-cover transition-transform duration-900 group-hover:scale-108"
                     />
                     <div className="absolute inset-0 bg-black/35 group-hover:bg-black/45 transition-all duration-300 flex items-center justify-center">
-                      <div className="text-center text-white px-8">
-                        <h2 className="font-serif text-3xl font-light md:text-4xl lg:text-5xl mb-5">{collection.name}</h2>
-                        <p className="text-lg opacity-85 max-w-xl mx-auto leading-relaxed">{collection.description}</p>
+                      <div className="text-center text-white px-4 sm:px-6 md:px-8">
+                        <h2 className="font-serif text-xl font-light sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-3 sm:mb-4 md:mb-5">{collection.name}</h2>
+                        <p className="text-sm opacity-85 max-w-xl mx-auto leading-relaxed sm:text-base md:text-lg">{collection.description}</p>
                       </div>
                     </div>
                   </div>
