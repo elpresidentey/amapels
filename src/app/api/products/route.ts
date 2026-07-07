@@ -7,13 +7,24 @@ export async function GET(request: NextRequest) {
   const category = searchParams.get('category')
 
   try {
+    // Check if supabase is configured
+    if (!supabase) {
+      console.log('Supabase not configured, using fallback products')
+      return NextResponse.json({
+        success: true,
+        data: getFallbackProducts(category),
+        source: 'fallback',
+        fallbackReason: 'Supabase not configured',
+      })
+    }
+
     const products = await getProducts({
       category: category && category !== 'All' ? category : undefined
     })
     
     return NextResponse.json({
       success: true,
-      data: products,
+      data: products || [],
       source: 'database',
     })
   } catch (error) {
@@ -21,7 +32,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(
       {
         success: true,
-        data: getFallbackProducts(category),
+        data: getFallbackProducts(category) || [],
         source: 'fallback',
         fallbackReason: (error as Error).message,
       },
