@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import dbConnect from '@/lib/mongodb'
-import Order from '@/models/Order'
+import { createOrder, getOrders } from '@/lib/supabase'
 
 // Validation schemas
 const validateEmail = (email: string): boolean => {
@@ -117,126 +116,76 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Connect to database with retry
-    let dbConnected = false
-    let dbAttempts = 0
-    const maxDbAttempts = 3
-
-    while (!dbConnected && dbAttempts < maxDbAttempts) {
-      dbAttempts++
-      try {
-        await dbConnect()
-        dbConnected = true
-      } catch (error) {
-        console.error(`Database connection attempt ${dbAttempts}/${maxDbAttempts} failed:`, error)
-        if (dbAttempts >= maxDbAttempts) {
-          return NextResponse.json(
-            { 
-              error: 'Database connection failed',
-              code: 'DB_CONNECTION_ERROR'
-            },
-            { status: 503 }
-          )
-        }
-        // Wait before retry
-        await new Promise(resolve => setTimeout(resolve, 1000 * dbAttempts))
-      }
-    }
-
     // Sanitize and prepare order data
     const sanitizedOrderData = {
-      customerName: orderData.customerName.trim(),
-      customerEmail: orderData.customerEmail.trim().toLowerCase(),
-      customerPhone: orderData.customerPhone.trim(),
+      customer_name: orderData.customerName.trim(),
+      customer_email: orderData.customerEmail.trim().toLowerCase(),
+      customer_phone: orderData.customerPhone.trim(),
       items: orderData.items.map((item: any) => ({
-        productId: String(item.productId), // Ensure it's a string
+        productId: String(item.productId),
         name: item.name.trim(),
-        price: Math.round(item.price * 100) / 100, // Round to 2 decimal places
+        price: Math.round(item.price * 100) / 100,
         quantity: Math.floor(item.quantity),
         image: item.image || ''
       })),
-      shippingAddress: {
+      shipping_address: {
         street: orderData.shippingAddress.street.trim(),
         city: orderData.shippingAddress.city.trim(),
         state: orderData.shippingAddress.state.trim(),
         postalCode: orderData.shippingAddress.postalCode?.trim() || '',
         country: orderData.shippingAddress.country.trim()
       },
-      paymentReference: orderData.paymentReference?.trim() || '',
-      paymentStatus: orderData.paymentStatus || 'pending',
+      payment_reference: orderData.paymentReference?.trim() || null,
+      payment_status: orderData.paymentStatus || 'pending',
       subtotal: Math.round(orderData.subtotal * 100) / 100,
-      shippingCost: Math.round((orderData.shippingCost || 0) * 100) / 100,
+      shipping_cost: Math.round((orderData.shippingCost || 0) * 100) / 100,
       tax: Math.round((orderData.tax || 0) * 100) / 100,
       total: Math.round(orderData.total * 100) / 100,
       status: 'pending',
-      metadata: orderData.metadata || {}
+      metadata: orderData.metadata || null
     }
     
-    // Create new order with retry logic
-    let order
-    let saveAttempts = 0
-    const maxSaveAttempts = 3
-
-    while (saveAttempts < maxSaveAttempts) {
-      saveAttempts++
-      try {
-        order = new Order(sanitizedOrderData)
-        const savedOrder = await order.save()
-        
-        // Return success response
-        return NextResponse.json({
-          message: 'Order created successfully',
-          order: {
-            id: savedOrder._id,
-            customerName: savedOrder.customerName,
-            customerEmail: savedOrder.customerEmail,
-            total: savedOrder.total,
-            status: savedOrder.status,
-            paymentStatus: savedOrder.paymentStatus,
-            createdAt: savedOrder.createdAt
-          }
-        }, { status: 201 })
-
-      } catch (error: any) {
-        console.error(`Order save attempt ${saveAttempts}/${maxSaveAttempts} failed:`, error)
-        
-        // Handle specific MongoDB errors
-        if (error.code === 11000) {
-          // Duplicate key error
-          return NextResponse.json(
-            { 
-              error: 'Order with this reference already exists',
-              code: 'DUPLICATE_ORDER'
-            },
-            { status: 409 }
-          )
+    // Create order using Supabase
+    try {
+      const order = await createOrder(sanitizedOrderData)
+      
+      // Return success response
+      return NextResponse.json({
+        message: 'Order created successfully',
+        order: {
+          id: order.id,
+          customerName: order.customer_name,
+          customerEmail: order.customer_email,
+          total: order.total,
+          status: order.status,
+          paymentStatus: order.payment_status,
+          createdAt: order.created_at
         }
-        
-        if (error.name === 'ValidationError') {
-          const validationErrors = Object.values(error.errors).map((err: any) => err.message)
-          return NextResponse.json(
-            { 
-              error: 'Database validation failed',
-              code: 'DB_VALIDATION_ERROR',
-              details: validationErrors
-            },
-            { status: 400 }
-          )
-        }
+      }, { status: 201 })
 
-        if (saveAttempts >= maxSaveAttempts) {
-          return NextResponse.json(
-            { 
-              error: 'Failed to create order after multiple attempts',
-              code: 'ORDER_SAVE_ERROR'
-            },
-            { status: 500 }
-          )
-        }
-
-        // Wait before retry
-        await new Promise(resolve => setTimeout(resolve, 500 * saveAttempts))
+    } catch (error: any) {
+      console.error('Order creation failed:', error)
+      
+      // Handle specific Supabase/Postgres errors
+      if (error.code === '23505') {
+        // Unique constraint violation (duplicate payment reference)
+        return NextResponse.json(
+          { 
+            error: 'Order with this reference already exists',
+            code: 'DUPLICATE_ORDER'
+          },
+          { status: 409 }
+        )
       }
+      
+      return NextResponse.json(
+        { 
+          error: 'Failed to create order',
+          code: 'ORDER_SAVE_ERROR',
+          details: error.message
+        },
+        { status: 500 }
+      )
     }
     
   } catch (error) {
@@ -257,26 +206,17 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    await dbConnect()
-    
     const { searchParams } = new URL(request.url)
     const status = searchParams.get('status')
-    const limit = Math.min(parseInt(searchParams.get('limit') || '50'), 100) // Cap at 100
-    const page = Math.max(parseInt(searchParams.get('page') || '1'), 1) // Minimum 1
+    const limit = Math.min(parseInt(searchParams.get('limit') || '50'), 100)
+    const page = Math.max(parseInt(searchParams.get('page') || '1'), 1)
+    const offset = (page - 1) * limit
     
-    let query = {}
-    if (status && status !== 'all' && ['pending', 'processing', 'shipped', 'delivered', 'cancelled'].includes(status)) {
-      query = { status }
-    }
-    
-    const orders = await Order.find(query)
-      .sort({ createdAt: -1 })
-      .limit(limit)
-      .skip((page - 1) * limit)
-      .select('-__v') // Exclude version field
-      .lean() // Return plain objects for better performance
-    
-    const total = await Order.countDocuments(query)
+    const { orders, total } = await getOrders({
+      status: status || undefined,
+      limit,
+      offset
+    })
     
     return NextResponse.json({
       orders,

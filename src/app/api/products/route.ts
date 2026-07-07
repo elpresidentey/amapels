@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import dbConnect from '@/lib/mongodb'
-import Product from '@/models/Product'
+import { getProducts, supabase } from '@/lib/supabase'
 import { getFallbackProducts } from '@/lib/fallbackProducts'
 
 export async function GET(request: NextRequest) {
@@ -8,14 +7,9 @@ export async function GET(request: NextRequest) {
   const category = searchParams.get('category')
 
   try {
-    await dbConnect()
-
-    let query = {}
-    if (category && category !== 'All') {
-      query = { category }
-    }
-    
-    const products = await Product.find(query).sort({ createdAt: -1 })
+    const products = await getProducts({
+      category: category && category !== 'All' ? category : undefined
+    })
     
     return NextResponse.json({
       success: true,
@@ -23,6 +17,7 @@ export async function GET(request: NextRequest) {
       source: 'database',
     })
   } catch (error) {
+    console.error('Products fetch error:', error)
     return NextResponse.json(
       {
         success: true,
@@ -37,15 +32,30 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    await dbConnect()
     const body = await request.json()
-    const product = await Product.create(body)
+    
+    const { data: product, error } = await supabase
+      .from('products')
+      .insert([{
+        name: body.name,
+        description: body.description,
+        price: body.price,
+        image: body.image || body.imageUrl,
+        category: body.category,
+        stock: body.stock || 0,
+        featured: body.featured || false
+      }])
+      .select()
+      .single()
+    
+    if (error) throw error
     
     return NextResponse.json({
       success: true,
       data: product,
     }, { status: 201 })
   } catch (error) {
+    console.error('Product creation error:', error)
     return NextResponse.json(
       { success: false, error: (error as Error).message },
       { status: 400 }
