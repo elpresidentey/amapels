@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 import { Check, Package, Truck, Mail, ArrowRight, Download, Calendar } from 'lucide-react'
 import Link from 'next/link'
 
-export default function OrderConfirmationPage() {
+function OrderConfirmationContent() {
   const searchParams = useSearchParams()
   const [orderNumber, setOrderNumber] = useState('')
   const [orderDate, setOrderDate] = useState('')
@@ -249,5 +249,20 @@ export default function OrderConfirmationPage() {
         </motion.div>
       </div>
     </div>
+  )
+}
+
+export default function OrderConfirmationPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-white pt-28 pb-16 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    }>
+      <OrderConfirmationContent />
+    </Suspense>
   )
 }
