@@ -71,10 +71,10 @@ function ShopContent() {
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.3em] transition-all duration-300 sm:px-6 sm:py-2.5 sm:text-[11px] md:px-7 md:py-3 md:tracking-[0.35em] ${
+                className={`btn-premium px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.3em] transition-all duration-300 sm:px-6 sm:py-2.5 sm:text-[11px] md:px-7 md:py-3 md:tracking-[0.35em] ${
                   selectedCategory === category 
-                    ? 'bg-black text-white' 
-                    : 'border border-gold text-black/75 hover:border-black hover:text-black-dark'
+                    ? 'bg-black text-white shadow-gold-glow scale-105' 
+                    : 'border border-gold text-black/75 hover:border-black hover:text-black-dark hover:shadow-premium'
                 }`}
               >
                 {category}
@@ -94,7 +94,7 @@ function ShopContent() {
                   initial={{ opacity: 0, y: 45 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: index * 0.12 }}
-                  className="group cursor-pointer w-full"
+                  className="group cursor-pointer w-full hover-lift card-premium"
                 >
                   <Link href={`/shop/${product._id}`}>
                     <div className="relative w-full overflow-hidden mb-4 rounded-2xl bg-white shadow-sm sm:mb-5 sm:rounded-3xl md:mb-6 md:rounded-[32px]" style={{ aspectRatio: '3/4' }}>
@@ -103,13 +103,14 @@ function ShopContent() {
                         alt={product.name}
                         fill
                         sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover transition-transform duration-800 group-hover:scale-108"
+                        className="object-cover img-premium"
                       />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     </div>
                     <div className="px-2 sm:px-1">
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.32em] text-black/50 mb-1.5 sm:mb-2 sm:text-[10px]">{product.category}</p>
-                      <h3 className="font-serif text-base font-medium text-black-dark mb-1 line-clamp-2 sm:text-lg md:text-xl">{product.name}</h3>
-                      <p className="text-sm text-black-dark font-medium sm:text-base">{product.price}</p>
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.32em] text-black/50 mb-1.5 sm:mb-2 sm:text-[10px] transition-colors group-hover:text-gold">{product.category}</p>
+                      <h3 className="font-serif text-base font-medium text-black-dark mb-1 line-clamp-2 sm:text-lg md:text-xl transition-colors group-hover:text-gold">{product.name}</h3>
+                      <p className="text-sm text-black-dark font-medium sm:text-base text-gradient-gold">{product.price}</p>
                     </div>
                   </Link>
                 </motion.div>
