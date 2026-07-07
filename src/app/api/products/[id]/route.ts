@@ -35,15 +35,51 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
+    if (!supabase) {
+      return NextResponse.json({
+        success: false,
+        error: 'Database not configured'
+      }, { status: 500 })
+    }
+    
     const body = await request.json()
+    
+    // Extract price number from string
+    const priceString = body.price.replace(/[₦,]/g, '').trim()
+    const priceNumber = parseFloat(priceString)
+    
+    const { data: product, error } = await supabase
+      .from('products')
+      .update({
+        name: body.name,
+        description: body.description,
+        price: priceNumber,
+        image: body.images && body.images.length > 0 ? body.images[0] : null,
+        category: body.category,
+        stock: body.stock || 100,
+        featured: body.featured || false
+      })
+      .eq('id', params.id)
+      .select()
+      .single()
+    
+    if (error) throw error
+    
+    if (!product) {
+      return NextResponse.json(
+        { success: false, error: 'Product not found' },
+        { status: 404 }
+      )
+    }
     
     return NextResponse.json({
       success: true,
-      message: 'Product updates are currently disabled. Using fallback data.',
       data: {
-        id: params.id,
-        ...body
-      }
+        _id: product.id,
+        ...body,
+        updatedAt: product.updated_at
+      },
+      message: 'Product updated successfully!'
     })
   } catch (error) {
     return NextResponse.json(
@@ -58,10 +94,24 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
+    if (!supabase) {
+      return NextResponse.json({
+        success: false,
+        error: 'Database not configured'
+      }, { status: 500 })
+    }
+    
+    const { error } = await supabase
+      .from('products')
+      .delete()
+      .eq('id', params.id)
+    
+    if (error) throw error
+    
     return NextResponse.json({
       success: true,
-      message: 'Product deletion is currently disabled. Using fallback data.',
-      data: {}
+      data: {},
+      message: 'Product deleted successfully!'
     })
   } catch (error) {
     return NextResponse.json(
