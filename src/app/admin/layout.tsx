@@ -34,7 +34,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       } else {
         setIsAuthenticated(true)
         if (pathname === '/admin/login') {
-          router.push('/admin')
+          // Delay redirect to avoid React error #423
+          setTimeout(() => router.push('/admin'), 100)
         }
       }
       setLoading(false)
