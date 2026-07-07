@@ -7,7 +7,7 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    // Always use fallback products for now
+    // First try fallback products
     const fallbackProduct = getFallbackProductById(params.id)
     
     if (fallbackProduct) {
@@ -16,6 +16,40 @@ export async function GET(
         data: fallbackProduct,
         source: 'fallback',
       })
+    }
+
+    // If not found in fallback, try Supabase
+    if (supabase) {
+      try {
+        const product = await getProduct(params.id)
+        
+        // Transform Supabase product to match frontend format
+        const transformedProduct = {
+          _id: product.id,
+          name: product.name,
+          price: `₦${product.price.toLocaleString()}`,
+          category: product.category as any,
+          story: 'Handcrafted in Lagos',
+          material: product.description?.split('.')[0] || 'Premium materials',
+          description: product.description || '',
+          details: ['Handcrafted with care', 'Premium quality materials', 'Beautiful gift packaging'],
+          materials: product.description?.includes('gold') ? 'Gold-plated brass' : 'Premium materials',
+          care: 'Store in dry place. Wipe with soft cloth.',
+          options: ['Standard'],
+          images: product.image ? [product.image] : ['/images/sabrianna-Y_bxfTa_iUA-unsplash.jpg'],
+          featured: product.featured,
+          createdAt: product.created_at,
+          updatedAt: product.updated_at
+        }
+        
+        return NextResponse.json({
+          success: true,
+          data: transformedProduct,
+          source: 'supabase',
+        })
+      } catch (error) {
+        // Supabase query failed, product might not exist
+      }
     }
 
     return NextResponse.json(
