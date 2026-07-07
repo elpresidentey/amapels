@@ -578,7 +578,7 @@ export default function Home() {
                     <div className="relative overflow-hidden rounded-[30px] bg-white shadow-sm">
                       <div className="relative aspect-[4/5]">
                         <Image
-                          src={piece.images[0]}
+                          src={piece.images?.[0] || '/images/placeholder.jpg'}
                           alt={piece.name}
                           fill
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

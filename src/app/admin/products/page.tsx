@@ -308,7 +308,7 @@ export default function AdminProductsPage() {
               {products.map((product) => (
                 <div key={product._id} className="border border-gold/20 rounded-xl p-3 sm:p-4">
                   <div className="flex gap-2 mb-3 sm:gap-3">
-                    {product.images[0] && (
+                    {product.images?.[0] && (
                       <img
                         src={product.images[0]}
                         alt={product.name}
@@ -380,7 +380,7 @@ export default function AdminProductsPage() {
                   <tr key={product._id} className="border-b border-gold/20">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-4">
-                        {product.images[0] && (
+                        {product.images?.[0] && (
                           <img
                             src={product.images[0]}
                             alt={product.name}
