@@ -66,7 +66,7 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-brown-dark via-brown to-brown-dark flex items-center justify-center p-4">
+    <div className="min-h-screen bg-white flex items-center justify-center p-4">
       <Toast
         message={toastMessage}
         type={toastType}
@@ -76,20 +76,20 @@ export default function AdminLoginPage() {
       
       {/* Background Pattern */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.1),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(212,175,55,0.08),transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.15),transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(212,175,55,0.1),transparent_50%)]" />
       </div>
 
       <div className="relative w-full max-w-md">
         {/* Login Card */}
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border-2 border-gold">
           {/* Header Section */}
-          <div className="bg-gradient-to-r from-brown-dark to-brown p-8 text-center">
-            <div className="w-20 h-20 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4 border border-white/20">
-              <Lock className="w-10 h-10 text-white" />
+          <div className="bg-gradient-to-r from-black via-black to-gold p-8 text-center">
+            <div className="w-20 h-20 bg-gold/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-gold">
+              <Lock className="w-10 h-10 text-gold" />
             </div>
             <h1 className="font-serif text-3xl text-white mb-2">AMAPELS</h1>
-            <p className="text-white/70 text-sm uppercase tracking-widest">Admin Portal</p>
+            <p className="text-gold text-sm uppercase tracking-widest">Admin Portal</p>
           </div>
 
           {/* Form Section */}
@@ -112,7 +112,7 @@ export default function AdminLoginPage() {
                     type="email"
                     value={formData.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none text-base transition-all"
+                    className="w-full pl-10 pr-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-gold outline-none text-base transition-all"
                     placeholder="admin@amapels.com"
                     required
                     style={{ fontSize: '16px' }}
@@ -132,7 +132,7 @@ export default function AdminLoginPage() {
                     type={showPassword ? 'text' : 'password'}
                     value={formData.password}
                     onChange={(e) => handleInputChange('password', e.target.value)}
-                    className="w-full pl-10 pr-12 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none text-base transition-all"
+                    className="w-full pl-10 pr-12 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-gold outline-none text-base transition-all"
                     placeholder="Enter your password"
                     required
                     style={{ fontSize: '16px' }}
@@ -151,13 +151,13 @@ export default function AdminLoginPage() {
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="checkbox"
-                    className="w-4 h-4 text-black-dark border-gold rounded focus:ring-brown/20"
+                    className="w-4 h-4 text-gold border-gold rounded focus:ring-gold/20"
                   />
                   <span className="text-black/70">Remember me</span>
                 </label>
                 <button
                   type="button"
-                  className="text-black-dark hover:text-black transition-colors font-medium"
+                  className="text-gold hover:text-black transition-colors font-medium"
                 >
                   Forgot password?
                 </button>
@@ -166,11 +166,11 @@ export default function AdminLoginPage() {
               <button
                 type="submit"
                 disabled={loading || !formData.email || !formData.password}
-                className="w-full bg-black text-white py-3.5 px-4 rounded-xl font-medium hover:bg-gold transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                className="w-full bg-black text-white py-3.5 px-4 rounded-xl font-medium hover:bg-gold hover:text-black transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg hover:shadow-xl border-2 border-gold"
               >
                 {loading ? (
                   <>
-                    <div className="w-5 h-5 border-2 border-ivory border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                     Signing In...
                   </>
                 ) : (
@@ -181,8 +181,8 @@ export default function AdminLoginPage() {
 
             {/* Demo Info */}
             <div className="mt-6 pt-6 border-t border-gold/30">
-              <div className="bg-primary-light/20 rounded-xl p-4 text-center">
-                <p className="text-xs font-medium text-black-dark mb-2">Demo Credentials</p>
+              <div className="bg-gold/10 rounded-xl p-4 text-center border border-gold/20">
+                <p className="text-xs font-medium text-black mb-2">Demo Credentials</p>
                 <div className="space-y-1 text-xs text-black/70">
                   <p className="font-mono">Email: admin@amapels.com</p>
                   <p className="font-mono">Password: Amapels2024!</p>
@@ -192,9 +192,9 @@ export default function AdminLoginPage() {
           </div>
         </div>
 
-        {/* Footer */}
+        {/* Footer - Moved below the card */}
         <div className="text-center mt-6">
-          <p className="text-white/60 text-sm">
+          <p className="text-black/50 text-sm">
             © 2026 AMAPELS. All rights reserved.
           </p>
         </div>
