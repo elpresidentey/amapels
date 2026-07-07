@@ -157,7 +157,7 @@ export default function ArtisanProcessPage() {
       </section>
 
       {/* Heritage Section */}
-      <section className="bg-black-light-dark text-white section-shell py-16 lg:py-24">
+      <section className="bg-black text-white section-shell py-16 lg:py-24">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="font-serif text-2xl lg:text-3xl font-light mb-6 lg:mb-8">
             Honoring Nigerian Heritage

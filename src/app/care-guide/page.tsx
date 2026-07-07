@@ -150,7 +150,7 @@ export default function CareGuidePage() {
       </section>
 
       {/* Material-Specific Care */}
-      <section className="bg-black-light-dark text-white section-shell py-16 lg:py-24">
+      <section className="bg-black text-white section-shell py-16 lg:py-24">
         <div className="text-center mb-12 lg:mb-16">
           <h2 className="font-serif text-2xl lg:text-3xl font-light mb-4">
             Material-Specific Care
@@ -238,7 +238,7 @@ export default function CareGuidePage() {
       <section className="section-shell pb-16 lg:pb-24">
         <div className="bg-black-light/5 rounded-2xl p-8 lg:p-12">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-black-light-dark rounded-full mb-6">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-black rounded-full mb-6">
               <Sparkles size={24} className="text-white" />
             </div>
             <h2 className="font-serif text-2xl lg:text-3xl font-light text-black-dark mb-4">
@@ -255,7 +255,7 @@ export default function CareGuidePage() {
             </div>
             <a 
               href="mailto:care@amapels.com"
-              className="inline-flex items-center px-8 py-3 bg-black-light-dark text-white text-sm font-medium rounded-md hover:bg-gold transition-colors btn-mobile"
+              className="inline-flex items-center px-8 py-3 bg-black text-white text-sm font-medium rounded-md hover:bg-gold transition-colors btn-mobile"
             >
               Contact Care Team
             </a>

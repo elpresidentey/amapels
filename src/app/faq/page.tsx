@@ -220,7 +220,7 @@ export default function FAQPage() {
                 onClick={() => setActiveCategory(category.id)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all btn-mobile ${
                   activeCategory === category.id
-                    ? 'bg-black-light-dark text-white'
+                    ? 'bg-black text-white'
                     : 'bg-black-light/5 text-black hover:bg-gold/10'
                 }`}
               >
@@ -250,7 +250,7 @@ export default function FAQPage() {
       </section>
 
       {/* Contact Section */}
-      <section className="bg-black-light-dark text-white section-shell py-16 lg:py-24">
+      <section className="bg-black text-white section-shell py-16 lg:py-24">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="font-serif text-2xl lg:text-3xl font-light mb-6">
             Still Need Help?

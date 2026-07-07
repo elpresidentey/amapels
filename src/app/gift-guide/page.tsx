@@ -95,7 +95,7 @@ export default function GiftGuidePage() {
           </p>
           <Link 
             href="/shop"
-            className="inline-flex items-center px-8 py-3 bg-black-light-dark text-white text-sm font-medium rounded-md hover:bg-gold transition-colors btn-mobile"
+            className="inline-flex items-center px-8 py-3 bg-black text-white text-sm font-medium rounded-md hover:bg-gold transition-colors btn-mobile"
           >
             Shop All Gifts
           </Link>
@@ -150,7 +150,7 @@ export default function GiftGuidePage() {
       </section>
 
       {/* Budget Guide */}
-      <section className="bg-black-light-dark text-white section-shell py-16 lg:py-24">
+      <section className="bg-black text-white section-shell py-16 lg:py-24">
         <div className="text-center mb-12 lg:mb-16">
           <h2 className="font-serif text-2xl lg:text-3xl font-light mb-4">
             Shop by Budget
@@ -250,13 +250,13 @@ export default function GiftGuidePage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               href="/contact"
-              className="inline-flex items-center px-8 py-3 bg-black-light-dark text-white text-sm font-medium rounded-md hover:bg-gold transition-colors btn-mobile"
+              className="inline-flex items-center px-8 py-3 bg-black text-white text-sm font-medium rounded-md hover:bg-gold transition-colors btn-mobile"
             >
               Get Expert Advice
             </Link>
             <Link 
               href="/shop"
-              className="inline-flex items-center px-8 py-3 border border-gray-800-dark text-black-dark text-sm font-medium rounded-md hover:bg-gold hover:text-white transition-colors btn-mobile"
+              className="inline-flex items-center px-8 py-3 border border-black text-black-dark text-sm font-medium rounded-md hover:bg-gold hover:text-white transition-colors btn-mobile"
             >
               Browse All Jewelry
             </Link>

@@ -250,7 +250,7 @@ export default function NewCheckoutPage() {
     return (
       <div className="min-h-screen bg-white pt-28 pb-16 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-gray-800-dark border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-black/70">Loading checkout...</p>
         </div>
       </div>
@@ -293,7 +293,7 @@ export default function NewCheckoutPage() {
                   <div className={`flex flex-col items-center ${index < steps.length - 1 ? 'flex-1' : ''}`}>
                     <div className={`flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 transition-all duration-300 ${
                       isCompleted || isCurrent
-                        ? 'bg-black-light-dark border-gray-800-dark text-white'
+                        ? 'bg-black border-black text-white'
                         : 'border-gold text-black/50'
                     }`}>
                       {isCompleted ? (
@@ -309,7 +309,7 @@ export default function NewCheckoutPage() {
                   
                   {index < steps.length - 1 && (
                     <div className={`flex-1 h-0.5 mx-2 sm:mx-4 transition-all duration-300 ${
-                      isCompleted ? 'bg-black-light-dark' : 'bg-gray-100'
+                      isCompleted ? 'bg-black' : 'bg-gray-100'
                     }`} />
                   )}
                 </div>
@@ -345,7 +345,7 @@ export default function NewCheckoutPage() {
                         required
                         value={customerInfo.firstName}
                         onChange={(e) => setCustomerInfo(prev => ({ ...prev, firstName: e.target.value }))}
-                        className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none transition-colors ${
+                        className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none transition-colors ${
                           errors.firstName ? 'border-red-400' : 'border-gold'
                         }`}
                         placeholder="John"
@@ -362,7 +362,7 @@ export default function NewCheckoutPage() {
                         required
                         value={customerInfo.lastName}
                         onChange={(e) => setCustomerInfo(prev => ({ ...prev, lastName: e.target.value }))}
-                        className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none transition-colors ${
+                        className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none transition-colors ${
                           errors.lastName ? 'border-red-400' : 'border-gold'
                         }`}
                         placeholder="Doe"
@@ -380,7 +380,7 @@ export default function NewCheckoutPage() {
                       required
                       value={customerInfo.email}
                       onChange={(e) => setCustomerInfo(prev => ({ ...prev, email: e.target.value }))}
-                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none transition-colors ${
+                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none transition-colors ${
                         errors.email ? 'border-red-400' : 'border-gold'
                       }`}
                       placeholder="john@example.com"
@@ -397,7 +397,7 @@ export default function NewCheckoutPage() {
                       required
                       value={customerInfo.phone}
                       onChange={(e) => setCustomerInfo(prev => ({ ...prev, phone: e.target.value }))}
-                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none transition-colors ${
+                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none transition-colors ${
                         errors.phone ? 'border-red-400' : 'border-gold'
                       }`}
                       placeholder="+234 801 234 5678"
@@ -428,7 +428,7 @@ export default function NewCheckoutPage() {
                       required
                       value={shippingAddress.street}
                       onChange={(e) => setShippingAddress(prev => ({ ...prev, street: e.target.value }))}
-                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none transition-colors ${
+                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none transition-colors ${
                         errors.street ? 'border-red-400' : 'border-gold'
                       }`}
                       placeholder="123 Main Street"
@@ -446,7 +446,7 @@ export default function NewCheckoutPage() {
                         required
                         value={shippingAddress.city}
                         onChange={(e) => setShippingAddress(prev => ({ ...prev, city: e.target.value }))}
-                        className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none transition-colors ${
+                        className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none transition-colors ${
                           errors.city ? 'border-red-400' : 'border-gold'
                         }`}
                         placeholder="Lagos"
@@ -462,7 +462,7 @@ export default function NewCheckoutPage() {
                         required
                         value={shippingAddress.state}
                         onChange={(e) => setShippingAddress(prev => ({ ...prev, state: e.target.value }))}
-                        className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none transition-colors ${
+                        className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none transition-colors ${
                           errors.state ? 'border-red-400' : 'border-gold'
                         }`}
                       >
@@ -484,7 +484,7 @@ export default function NewCheckoutPage() {
                       required
                       value={shippingAddress.postalCode}
                       onChange={(e) => setShippingAddress(prev => ({ ...prev, postalCode: e.target.value }))}
-                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none transition-colors ${
+                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none transition-colors ${
                         errors.postalCode ? 'border-red-400' : 'border-gold'
                       }`}
                       placeholder="100001"
@@ -561,7 +561,7 @@ export default function NewCheckoutPage() {
                 {currentStep > 1 && (
                   <button
                     onClick={handlePreviousStep}
-                    className="flex-1 border border-gray-800-dark text-black-dark py-3 px-4 rounded-xl font-medium uppercase tracking-wider hover:bg-gold hover:text-white transition-colors"
+                    className="flex-1 border border-black text-black-dark py-3 px-4 rounded-xl font-medium uppercase tracking-wider hover:bg-gold hover:text-white transition-colors"
                   >
                     Back
                   </button>
@@ -570,7 +570,7 @@ export default function NewCheckoutPage() {
                 {currentStep < 4 ? (
                   <button
                     onClick={handleNextStep}
-                    className="flex-1 bg-black-light-dark text-white py-3 px-4 rounded-xl font-medium uppercase tracking-wider hover:bg-gold transition-colors flex items-center justify-center gap-2"
+                    className="flex-1 bg-black text-white py-3 px-4 rounded-xl font-medium uppercase tracking-wider hover:bg-gold transition-colors flex items-center justify-center gap-2"
                   >
                     Continue
                     <ArrowRight size={16} />

@@ -73,8 +73,8 @@ function ShopContent() {
                 onClick={() => setSelectedCategory(category)}
                 className={`px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.3em] transition-all duration-300 sm:px-6 sm:py-2.5 sm:text-[11px] md:px-7 md:py-3 md:tracking-[0.35em] ${
                   selectedCategory === category 
-                    ? 'bg-black-light-dark text-white' 
-                    : 'border border-gold text-black/75 hover:border-gray-800-dark hover:text-black-dark'
+                    ? 'bg-black text-white' 
+                    : 'border border-gold text-black/75 hover:border-black hover:text-black-dark'
                 }`}
               >
                 {category}
@@ -138,3 +138,4 @@ export default function ShopPage() {
     </Suspense>
   )
 }
+

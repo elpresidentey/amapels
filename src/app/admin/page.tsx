@@ -74,7 +74,7 @@ export default function AdminDashboard() {
     return (
       <div className="min-h-screen bg-white pt-28 pb-16 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-gray-800-dark border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-black/70">Loading dashboard...</p>
         </div>
       </div>
@@ -200,7 +200,7 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 gap-4 mb-8 sm:grid-cols-2 sm:gap-5 md:gap-6 lg:grid-cols-3">
           <Link
             href="/admin/products"
-            className="bg-white rounded-xl border border-gold/30 p-5 sm:p-6 hover:border-gray-800-dark transition-all group min-h-[100px] flex items-center"
+            className="bg-white rounded-xl border border-gold/30 p-5 sm:p-6 hover:border-black transition-all group min-h-[100px] flex items-center"
           >
             <div className="flex items-center justify-between w-full gap-3">
               <div className="flex-1 min-w-0">
@@ -213,7 +213,7 @@ export default function AdminDashboard() {
 
           <Link
             href="/admin/orders"
-            className="bg-white rounded-xl border border-gold/30 p-5 sm:p-6 hover:border-gray-800-dark transition-all group min-h-[100px] flex items-center"
+            className="bg-white rounded-xl border border-gold/30 p-5 sm:p-6 hover:border-black transition-all group min-h-[100px] flex items-center"
           >
             <div className="flex items-center justify-between w-full gap-3">
               <div className="flex-1 min-w-0">
@@ -226,7 +226,7 @@ export default function AdminDashboard() {
 
           <Link
             href="/admin/sales"
-            className="bg-white rounded-xl border border-gold/30 p-5 sm:p-6 hover:border-gray-800-dark transition-all group min-h-[100px] flex items-center sm:col-span-2 lg:col-span-1"
+            className="bg-white rounded-xl border border-gold/30 p-5 sm:p-6 hover:border-black transition-all group min-h-[100px] flex items-center sm:col-span-2 lg:col-span-1"
           >
             <div className="flex items-center justify-between w-full gap-3">
               <div className="flex-1 min-w-0">
@@ -310,3 +310,4 @@ export default function AdminDashboard() {
     </div>
   )
 }
+

@@ -116,7 +116,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative min-h-screen overflow-hidden bg-black-light-dark text-white">
+      <section className="relative min-h-screen overflow-hidden bg-black text-white">
         <div className="absolute inset-0">
           <AnimatePresence mode="wait">
             <motion.div
@@ -326,7 +326,7 @@ export default function Home() {
                 key={index}
                 onClick={() => setCurrentPillar(index)}
                 className={`h-1.5 rounded-full transition-all duration-300 ${
-                  currentPillar === index ? 'w-6 bg-black-light-dark' : 'w-1.5 bg-gray-100/50'
+                  currentPillar === index ? 'w-6 bg-black' : 'w-1.5 bg-gray-100/50'
                 }`}
                 aria-label={`Go to pillar ${index + 1}`}
               />
@@ -389,7 +389,7 @@ export default function Home() {
                     <h3 className="mt-4 font-serif text-2xl font-light">Close-up luxury with unmistakable shine</h3>
                   </div>
                 </div>
-              <div className="rounded-[32px] bg-black-light-dark px-8 py-9 text-white">
+              <div className="rounded-[32px] bg-black px-8 py-9 text-white">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.35em] text-white/50">Aesthetic</p>
                 <p className="mt-5 font-serif text-2xl font-light leading-snug">Less clutter, more shine and clarity.</p>
               </div>
@@ -639,3 +639,4 @@ export default function Home() {
     </div>
   )
 }
+

@@ -102,7 +102,7 @@ export default function AdminLoginPage() {
                     type="email"
                     value={formData.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none text-base transition-all"
+                    className="w-full pl-10 pr-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none text-base transition-all"
                     placeholder="admin@amapels.com"
                     required
                     style={{ fontSize: '16px' }}
@@ -122,7 +122,7 @@ export default function AdminLoginPage() {
                     type={showPassword ? 'text' : 'password'}
                     value={formData.password}
                     onChange={(e) => handleInputChange('password', e.target.value)}
-                    className="w-full pl-10 pr-12 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none text-base transition-all"
+                    className="w-full pl-10 pr-12 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none text-base transition-all"
                     placeholder="Enter your password"
                     required
                     style={{ fontSize: '16px' }}
@@ -156,7 +156,7 @@ export default function AdminLoginPage() {
               <button
                 type="submit"
                 disabled={loading || !formData.email || !formData.password}
-                className="w-full bg-black-light-dark text-white py-3.5 px-4 rounded-xl font-medium hover:bg-gold transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                className="w-full bg-black text-white py-3.5 px-4 rounded-xl font-medium hover:bg-gold transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
               >
                 {loading ? (
                   <>

@@ -272,7 +272,7 @@ export default function AdminProductsPage() {
     return (
       <div className="min-h-screen bg-white pt-28 pb-16 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-gray-800-dark border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-black/70">Loading products...</p>
         </div>
       </div>
@@ -293,7 +293,7 @@ export default function AdminProductsPage() {
           <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl text-black-dark">Product Management</h1>
           <button
             onClick={() => handleShowModal()}
-            className="bg-black-light-dark text-white px-4 py-2.5 sm:px-6 sm:py-3 rounded-xl font-medium hover:bg-gold transition-colors flex items-center justify-center gap-2 text-sm sm:text-base btn-mobile"
+            className="bg-black text-white px-4 py-2.5 sm:px-6 sm:py-3 rounded-xl font-medium hover:bg-gold transition-colors flex items-center justify-center gap-2 text-sm sm:text-base btn-mobile"
           >
             <Plus size={18} className="sm:w-5 sm:h-5" />
             <span className="hidden sm:inline">Add Product</span>
@@ -466,7 +466,7 @@ export default function AdminProductsPage() {
                         type="text"
                         value={formData.name}
                         onChange={(e) => handleInputChange('name', e.target.value)}
-                        className="w-full px-3 py-2.5 sm:px-4 sm:py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none text-base"
+                        className="w-full px-3 py-2.5 sm:px-4 sm:py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none text-base"
                         required
                         style={{ fontSize: '16px' }}
                       />
@@ -480,7 +480,7 @@ export default function AdminProductsPage() {
                         type="text"
                         value={formData.price}
                         onChange={(e) => handleInputChange('price', e.target.value)}
-                        className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none"
+                        className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none"
                         placeholder="₦250,000"
                         required
                       />
@@ -494,7 +494,7 @@ export default function AdminProductsPage() {
                     <select
                       value={formData.category}
                       onChange={(e) => handleInputChange('category', e.target.value)}
-                      className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none"
+                      className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none"
                       required
                     >
                       {CATEGORIES.map(category => (
@@ -510,7 +510,7 @@ export default function AdminProductsPage() {
                       value={formData.story}
                       onChange={(e) => handleInputChange('story', e.target.value)}
                       rows={3}
-                      className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none"
+                      className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none"
                       placeholder="Tell the story behind this product..."
                       required
                     />
@@ -524,7 +524,7 @@ export default function AdminProductsPage() {
                       value={formData.description}
                       onChange={(e) => handleInputChange('description', e.target.value)}
                       rows={3}
-                      className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none"
+                      className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none"
                       placeholder="Product description..."
                       required
                     />
@@ -539,7 +539,7 @@ export default function AdminProductsPage() {
                         type="text"
                         value={formData.material}
                         onChange={(e) => handleInputChange('material', e.target.value)}
-                        className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none"
+                        className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none"
                         placeholder="Gold, Silver, etc."
                         required
                       />
@@ -553,7 +553,7 @@ export default function AdminProductsPage() {
                         type="text"
                         value={formData.materials}
                         onChange={(e) => handleInputChange('materials', e.target.value)}
-                        className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none"
+                        className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none"
                         placeholder="Detailed materials information"
                         required
                       />
@@ -567,7 +567,7 @@ export default function AdminProductsPage() {
                       value={formData.care}
                       onChange={(e) => handleInputChange('care', e.target.value)}
                       rows={2}
-                      className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none"
+                      className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none"
                       placeholder="How to care for this product..."
                       required
                     />
@@ -583,7 +583,7 @@ export default function AdminProductsPage() {
                           type="text"
                           value={detail}
                           onChange={(e) => handleArrayFieldChange('details', index, e.target.value)}
-                          className="flex-1 px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none"
+                          className="flex-1 px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none"
                           placeholder="Product detail..."
                         />
                         {formData.details.length > 1 && (
@@ -615,7 +615,7 @@ export default function AdminProductsPage() {
                           type="text"
                           value={option}
                           onChange={(e) => handleArrayFieldChange('options', index, e.target.value)}
-                          className="flex-1 px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none"
+                          className="flex-1 px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none"
                           placeholder="Product option..."
                         />
                         {formData.options.length > 1 && (
@@ -648,7 +648,7 @@ export default function AdminProductsPage() {
                           type="text"
                           value={image}
                           onChange={(e) => handleArrayFieldChange('images', index, e.target.value)}
-                          className="flex-1 px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none"
+                          className="flex-1 px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none"
                           placeholder="/images/product-image.jpg"
                         />
                         {formData.images.length > 1 && (
@@ -690,14 +690,14 @@ export default function AdminProductsPage() {
                 <button
                   type="button"
                   onClick={handleCloseModal}
-                  className="px-6 py-3 border border-gray-800-dark text-black-dark rounded-xl font-medium hover:bg-gold hover:text-white transition-colors"
+                  className="px-6 py-3 border border-black text-black-dark rounded-xl font-medium hover:bg-gold hover:text-white transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleSubmit}
                   disabled={saving}
-                  className="px-6 py-3 bg-black-light-dark text-white rounded-xl font-medium hover:bg-gold transition-colors flex items-center gap-2 disabled:opacity-50"
+                  className="px-6 py-3 bg-black text-white rounded-xl font-medium hover:bg-gold transition-colors flex items-center gap-2 disabled:opacity-50"
                 >
                   {saving ? (
                     <>

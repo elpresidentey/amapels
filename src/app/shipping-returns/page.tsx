@@ -71,7 +71,7 @@ export default function ShippingReturnsPage() {
 
       {/* Free Shipping Banner */}
       <section className="section-shell pb-16">
-        <div className="bg-black-light-dark text-white rounded-2xl p-6 lg:p-8 text-center">
+        <div className="bg-black text-white rounded-2xl p-6 lg:p-8 text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-full mb-4">
             <Truck size={24} className="text-white" />
           </div>
@@ -99,7 +99,7 @@ export default function ShippingReturnsPage() {
           {shippingOptions.map((option, index) => {
             const Icon = option.icon
             return (
-              <div key={index} className="border border-gray-800/20 rounded-lg p-6 text-center hover:shadow-lg transition-shadow">
+              <div key={index} className="border border-gray-200 rounded-lg p-6 text-center hover:shadow-lg transition-shadow">
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-black-light/5 rounded-full mb-4">
                   <Icon size={24} className="text-black-dark" />
                 </div>
@@ -208,7 +208,7 @@ export default function ShippingReturnsPage() {
       </section>
 
       {/* Return Process */}
-      <section className="bg-black-light-dark text-white section-shell py-16 lg:py-24">
+      <section className="bg-black text-white section-shell py-16 lg:py-24">
         <div className="text-center mb-12 lg:mb-16">
           <h2 className="font-serif text-2xl lg:text-3xl font-light mb-4">
             How to Return

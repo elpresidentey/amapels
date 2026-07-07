@@ -54,7 +54,7 @@ const OptimizedInput = memo<{
         required={required}
         value={value}
         onChange={handleChange}
-        className={`w-full px-3 py-2.5 md:px-4 md:py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none transition-colors text-base ${
+        className={`w-full px-3 py-2.5 md:px-4 md:py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none transition-colors text-base ${
           error ? 'border-red-400' : 'border-gold'
         }`}
         placeholder={placeholder}
@@ -92,7 +92,7 @@ const OptimizedSelect = memo<{
         required={required}
         value={value}
         onChange={handleChange}
-        className={`w-full px-3 py-2.5 md:px-4 md:py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none transition-colors text-base ${
+        className={`w-full px-3 py-2.5 md:px-4 md:py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none transition-colors text-base ${
           error ? 'border-red-400' : 'border-gold'
         }`}
         style={{ fontSize: '16px' }} // Prevents zoom on iOS
@@ -527,7 +527,7 @@ export default function CheckoutPage() {
     return (
       <div className="min-h-screen bg-white pt-28 pb-16 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-gray-800-dark border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-black/70">Loading checkout...</p>
           {!isOnline && (
             <div className="flex items-center justify-center gap-2 mt-4 text-red-600">
@@ -597,7 +597,7 @@ export default function CheckoutPage() {
               </div>
               <div className="w-full bg-gray-100/30 rounded-full h-2">
                 <div 
-                  className="bg-black-light-dark h-2 rounded-full transition-all duration-300"
+                  className="bg-black h-2 rounded-full transition-all duration-300"
                   style={{ width: `${(currentStep / CHECKOUT_STEPS.length) * 100}%` }}
                 />
               </div>
@@ -616,7 +616,7 @@ export default function CheckoutPage() {
                   <div key={step.id} className="flex items-center">
                     <div className={`flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300 ${
                       isCompleted || isCurrent
-                        ? 'bg-black-light-dark border-gray-800-dark text-white'
+                        ? 'bg-black border-black text-white'
                         : 'border-gold text-black/50'
                     }`}>
                       {isCompleted ? (
@@ -628,7 +628,7 @@ export default function CheckoutPage() {
                     
                     {index < CHECKOUT_STEPS.length - 1 && (
                       <div className={`w-16 h-0.5 mx-4 transition-all duration-300 ${
-                        isCompleted ? 'bg-black-light-dark' : 'bg-gray-100'
+                        isCompleted ? 'bg-black' : 'bg-gray-100'
                       }`} />
                     )}
                   </div>
@@ -736,7 +736,7 @@ export default function CheckoutPage() {
                   
                   <button
                     type="submit"
-                    className="w-full bg-black-light-dark text-white py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl flex items-center justify-center gap-2"
+                    className="w-full bg-black text-white py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl flex items-center justify-center gap-2"
                   >
                     Continue to Payment
                     <ArrowRight size={16} />
@@ -817,7 +817,7 @@ export default function CheckoutPage() {
                     <button
                       type="button"
                       onClick={goToShipping}
-                      className="flex-1 border border-gray-800-dark text-black-dark py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-white transition-colors rounded-xl"
+                      className="flex-1 border border-black text-black-dark py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-white transition-colors rounded-xl"
                     >
                       Back
                     </button>
@@ -825,7 +825,7 @@ export default function CheckoutPage() {
                     <button
                       type="button"
                       onClick={() => nextStep()}
-                      className="flex-1 bg-black-light-dark text-white py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl flex items-center justify-center gap-2"
+                      className="flex-1 bg-black text-white py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl flex items-center justify-center gap-2"
                     >
                       Review Order
                       <ArrowRight size={16} />
@@ -873,7 +873,7 @@ export default function CheckoutPage() {
                   <button
                     type="button"
                     onClick={goToPayment}
-                    className="flex-1 border border-gray-800-dark text-black-dark py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-white transition-colors rounded-xl"
+                    className="flex-1 border border-black text-black-dark py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-white transition-colors rounded-xl"
                   >
                     Back
                   </button>

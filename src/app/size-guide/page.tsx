@@ -142,8 +142,8 @@ export default function SizeGuidePage() {
 
         {/* Ring Size Chart */}
         <div className="overflow-x-auto">
-          <table className="w-full bg-white border border-gray-800/20 rounded-lg">
-            <thead className="bg-black-light-dark text-white">
+          <table className="w-full bg-white border border-gray-200 rounded-lg">
+            <thead className="bg-black text-white">
               <tr>
                 <th className="px-4 py-3 text-left text-sm font-semibold">US Size</th>
                 <th className="px-4 py-3 text-left text-sm font-semibold">UK Size</th>
@@ -166,7 +166,7 @@ export default function SizeGuidePage() {
       </section>
 
       {/* Necklace Length Guide */}
-      <section className="bg-black-light-dark text-white section-shell py-16 lg:py-24">
+      <section className="bg-black text-white section-shell py-16 lg:py-24">
         <div className="text-center mb-12 lg:mb-16">
           <h2 className="font-serif text-2xl lg:text-3xl font-light mb-4">
             Necklace Length Guide
@@ -227,8 +227,8 @@ export default function SizeGuidePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {braceletSizes.map((bracelet, index) => (
-              <div key={index} className="border border-gray-800/20 rounded-lg p-4 text-center">
-                <div className="w-12 h-12 bg-black-light-dark text-white rounded-full flex items-center justify-center font-semibold mb-3 mx-auto">
+              <div key={index} className="border border-gray-200 rounded-lg p-4 text-center">
+                <div className="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center font-semibold mb-3 mx-auto">
                   {bracelet.size}
                 </div>
                 <p className="font-medium text-black-dark mb-1">
@@ -280,7 +280,7 @@ export default function SizeGuidePage() {
       {/* Size Help */}
       <section className="section-shell py-16 lg:pb-24">
         <div className="max-w-4xl mx-auto">
-          <div className="bg-black-light-dark text-white rounded-2xl p-8 lg:p-12 text-center">
+          <div className="bg-black text-white rounded-2xl p-8 lg:p-12 text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-full mb-6">
               <Heart size={24} />
             </div>

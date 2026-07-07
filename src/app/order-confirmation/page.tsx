@@ -62,7 +62,7 @@ export default function OrderConfirmationPage() {
     return (
       <div className="min-h-screen bg-white pt-28 pb-16 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-gray-800-dark border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-black/70">Loading your order details...</p>
         </div>
       </div>
@@ -149,14 +149,14 @@ export default function OrderConfirmationPage() {
               <div>
                 <h3 className="font-serif text-xl text-black-dark mb-6">Quick Actions</h3>
                 <div className="space-y-4">
-                  <button className="w-full bg-black-light-dark text-white py-4 px-6 rounded-xl text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors flex items-center justify-center gap-2">
+                  <button className="w-full bg-black text-white py-4 px-6 rounded-xl text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors flex items-center justify-center gap-2">
                     <Download size={16} />
                     Download Receipt
                   </button>
                   
                   <Link 
                     href="/shop"
-                    className="w-full border border-gray-800-dark text-black-dark py-4 px-6 rounded-xl text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-white transition-colors flex items-center justify-center gap-2"
+                    className="w-full border border-black text-black-dark py-4 px-6 rounded-xl text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-white transition-colors flex items-center justify-center gap-2"
                   >
                     Continue Exploring
                     <ArrowRight size={16} />
@@ -232,7 +232,7 @@ export default function OrderConfirmationPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
                 href="/contact"
-                className="inline-flex items-center gap-2 bg-black-light-dark text-white px-6 py-3 rounded-xl text-sm font-medium hover:bg-gold transition-colors"
+                className="inline-flex items-center gap-2 bg-black text-white px-6 py-3 rounded-xl text-sm font-medium hover:bg-gold transition-colors"
               >
                 <Mail size={16} />
                 Contact Support
@@ -240,7 +240,7 @@ export default function OrderConfirmationPage() {
               
               <a 
                 href="tel:+2348123456789"
-                className="inline-flex items-center gap-2 border border-gray-800-dark text-black-dark px-6 py-3 rounded-xl text-sm font-medium hover:bg-gold hover:text-white transition-colors"
+                className="inline-flex items-center gap-2 border border-black text-black-dark px-6 py-3 rounded-xl text-sm font-medium hover:bg-gold hover:text-white transition-colors"
               >
                 Call Us: +234 812 345 6789
               </a>

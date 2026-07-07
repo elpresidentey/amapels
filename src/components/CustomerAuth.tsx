@@ -104,7 +104,7 @@ export default function CustomerAuth() {
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full px-3 py-2.5 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none transition-colors"
+                      className="w-full px-3 py-2.5 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none transition-colors"
                       placeholder="your@email.com"
                     />
                   </div>
@@ -117,7 +117,7 @@ export default function CustomerAuth() {
                       type="text"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full px-3 py-2.5 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none transition-colors"
+                      className="w-full px-3 py-2.5 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none transition-colors"
                       placeholder="Your name"
                     />
                   </div>
@@ -135,7 +135,7 @@ export default function CustomerAuth() {
                   <button
                     type="submit"
                     disabled={loading || !email.trim()}
-                    className="w-full bg-black-light-dark text-white py-2.5 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="w-full bg-black text-white py-2.5 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {loading ? (
                       <>

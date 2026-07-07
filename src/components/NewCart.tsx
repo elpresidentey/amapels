@@ -89,7 +89,7 @@ export default function NewCart() {
                   <Link
                     href="/shop"
                     onClick={closeCart}
-                    className="bg-black-light-dark text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-medium uppercase tracking-wider hover:bg-gold transition-colors text-sm sm:text-base"
+                    className="bg-black text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-medium uppercase tracking-wider hover:bg-gold transition-colors text-sm sm:text-base"
                   >
                     Shop Now
                   </Link>
@@ -182,7 +182,7 @@ export default function NewCart() {
                   <Link
                     href="/checkout"
                     onClick={closeCart}
-                    className="w-full bg-black-light-dark text-white py-3 px-4 rounded-xl font-medium uppercase tracking-wider hover:bg-gold transition-colors text-center block"
+                    className="w-full bg-black text-white py-3 px-4 rounded-xl font-medium uppercase tracking-wider hover:bg-gold transition-colors text-center block"
                   >
                     Proceed to Checkout
                   </Link>
@@ -190,7 +190,7 @@ export default function NewCart() {
                     <Link
                       href="/cart"
                       onClick={closeCart}
-                      className="flex-1 border border-gray-800-dark text-black-dark py-2 px-4 rounded-xl font-medium text-center hover:bg-gold hover:text-white transition-colors"
+                      className="flex-1 border border-black text-black-dark py-2 px-4 rounded-xl font-medium text-center hover:bg-gold hover:text-white transition-colors"
                     >
                       View Cart
                     </Link>

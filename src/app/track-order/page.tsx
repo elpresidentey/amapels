@@ -185,7 +185,7 @@ export default function TrackOrderPage() {
       {/* Tracking Form */}
       <section className="section-shell pb-16">
         <div className="max-w-2xl mx-auto">
-          <div className="bg-white border border-gray-800/20 rounded-lg p-6 lg:p-8">
+          <div className="bg-white border border-gray-200 rounded-lg p-6 lg:p-8">
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="flex-1">
                 <label htmlFor="orderNumber" className="block text-sm font-medium text-black-dark mb-2">
@@ -197,7 +197,7 @@ export default function TrackOrderPage() {
                   value={orderNumber}
                   onChange={(e) => setOrderNumber(e.target.value)}
                   placeholder="e.g., AMP2024001 or TRK789012345"
-                  className="w-full px-4 py-3 border border-gray-800/20 rounded-md text-black-dark placeholder:text-black/40 focus:ring-2 focus:ring-brown/20 focus:border-gray-800 min-h-[44px] text-base"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-md text-black-dark placeholder:text-black/40 focus:ring-2 focus:ring-brown/20 focus:border-gray-800 min-h-[44px] text-base"
                   onKeyPress={(e) => e.key === 'Enter' && handleTrackOrder()}
                 />
               </div>
@@ -205,7 +205,7 @@ export default function TrackOrderPage() {
                 <button
                   onClick={handleTrackOrder}
                   disabled={isLoading}
-                  className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3 bg-black-light-dark text-white text-sm font-medium rounded-md hover:bg-gold transition-colors disabled:opacity-50 btn-mobile"
+                  className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3 bg-black text-white text-sm font-medium rounded-md hover:bg-gold transition-colors disabled:opacity-50 btn-mobile"
                 >
                   {isLoading ? (
                     <>
@@ -237,7 +237,7 @@ export default function TrackOrderPage() {
         <section className="section-shell pb-16 lg:pb-24">
           <div className="max-w-4xl mx-auto">
             {/* Order Summary */}
-            <div className="bg-white border border-gray-800/20 rounded-lg p-6 lg:p-8 mb-8">
+            <div className="bg-white border border-gray-200 rounded-lg p-6 lg:p-8 mb-8">
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
                 <div>
                   <h2 className="font-serif text-xl lg:text-2xl font-light text-black-dark mb-2">
@@ -293,7 +293,7 @@ export default function TrackOrderPage() {
             </div>
 
             {/* Timeline */}
-            <div className="bg-white border border-gray-800/20 rounded-lg p-6 lg:p-8">
+            <div className="bg-white border border-gray-200 rounded-lg p-6 lg:p-8">
               <h3 className="font-semibold text-black-dark mb-6">Delivery Timeline</h3>
               
               <div className="relative">
@@ -351,7 +351,7 @@ export default function TrackOrderPage() {
       )}
 
       {/* Help Section */}
-      <section className="bg-black-light-dark text-white section-shell py-16 lg:py-24">
+      <section className="bg-black text-white section-shell py-16 lg:py-24">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="font-serif text-2xl lg:text-3xl font-light mb-6">
             Need Help with Your Order?

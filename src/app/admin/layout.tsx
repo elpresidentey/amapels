@@ -59,7 +59,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <body>
           <div className="min-h-screen bg-white flex items-center justify-center">
             <div className="text-center">
-              <div className="w-8 h-8 border-2 border-gray-800-dark border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+              <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
               <p className="text-black/70">Loading...</p>
             </div>
           </div>
@@ -91,7 +91,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <body>
         <div className="min-h-screen bg-white">
           {/* Admin Navbar */}
-          <nav className="fixed top-0 left-0 right-0 z-50 bg-black-light-dark border-b border-ivory/10">
+          <nav className="fixed top-0 left-0 right-0 z-50 bg-black border-b border-ivory/10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex items-center justify-between h-16 sm:h-20">
                 {/* Logo */}
@@ -160,7 +160,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
-                  className="md:hidden border-t border-ivory/10 bg-black-light-dark/98 backdrop-blur-xl"
+                  className="md:hidden border-t border-ivory/10 bg-black/98 backdrop-blur-xl"
                 >
                   <div className="px-4 py-4 space-y-2">
                     {navItems.map((item) => {
@@ -217,3 +217,4 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     </html>
   )
 }
+

@@ -25,7 +25,7 @@ export default function CartPage() {
             <p className="text-black/70 mb-6 md:mb-8 px-4 text-sm sm:text-base">Timeless treasures await your discovery - explore pieces to wear, love, and cherish.</p>
             <Link 
               href="/shop"
-              className="inline-flex items-center gap-2 bg-black-light-dark text-white px-6 py-3 sm:px-8 sm:py-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl btn-mobile"
+              className="inline-flex items-center gap-2 bg-black text-white px-6 py-3 sm:px-8 sm:py-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl btn-mobile"
             >
               <ArrowLeft size={16} />
               <span className="hidden sm:inline">Discover Treasures</span>
@@ -147,7 +147,7 @@ export default function CartPage() {
               
               <Link 
                 href="/checkout"
-                className="w-full bg-black-light-dark text-white py-3 text-xs font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl flex items-center justify-center btn-mobile sm:py-3.5 sm:text-sm md:py-4"
+                className="w-full bg-black text-white py-3 text-xs font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl flex items-center justify-center btn-mobile sm:py-3.5 sm:text-sm md:py-4"
               >
                 Proceed to Checkout
               </Link>

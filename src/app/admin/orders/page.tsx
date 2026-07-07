@@ -153,7 +153,7 @@ export default function AdminOrdersPage() {
     return (
       <div className="min-h-screen bg-white pt-20 sm:pt-24 md:pt-28 pb-8 sm:pb-12 md:pb-16 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-gray-800-dark border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-black/70">Loading orders...</p>
         </div>
       </div>
@@ -177,7 +177,7 @@ export default function AdminOrdersPage() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-4 py-2 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-gray-800-dark outline-none text-sm"
+              className="px-4 py-2 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none text-sm"
             >
               <option value="all">All Orders</option>
               {ORDER_STATUSES.map(status => (
@@ -402,7 +402,7 @@ export default function AdminOrdersPage() {
                         onClick={() => updateOrderStatus(selectedOrder._id, status)}
                         className={`px-3 py-2 rounded-xl text-sm font-medium transition-colors ${
                           selectedOrder.status === status
-                            ? 'bg-black-light-dark text-white'
+                            ? 'bg-black text-white'
                             : 'bg-gray-100/20 text-black-dark hover:bg-gray-100/40'
                         }`}
                       >
