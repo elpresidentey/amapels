@@ -66,19 +66,6 @@ export async function PUT(
     if (error) throw error
     
     if (!product) {
-      if (fallbackProduct) {
-        return NextResponse.json({
-          success: true,
-          data: {
-            ...fallbackProduct,
-            ...body,
-            _id: fallbackProduct._id,
-            updatedAt: new Date().toISOString(),
-          },
-          source: 'fallback',
-        })
-      }
-
       return NextResponse.json(
         { success: false, error: 'Product not found' },
         { status: 404 }
@@ -101,26 +88,17 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const fallbackProduct = getFallbackProductById(params.id)
-
   try {
-    await dbConnect()
-    const product = await Product.findByIdAndDelete(params.id)
-    
-    if (!product) {
-      if (fallbackProduct) {
-        return NextResponse.json({
-          success: true,
-          data: {},
-          source: 'fallback',
-        })
-      }
-
-      return NextResponse.json(
-        { success: false, error: 'Product not found' },
-        { status: 404 }
-      )
+    if (!supabase) {
+      throw new Error('Supabase not configured')
     }
+    
+    const { error } = await supabase
+      .from('products')
+      .delete()
+      .eq('id', params.id)
+    
+    if (error) throw error
     
     return NextResponse.json({
       success: true,
