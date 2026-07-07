@@ -11,15 +11,15 @@ interface Product {
   name: string
   price: string
   category: string
-  story: string
-  material: string
   description: string
-  details: string[]
-  materials: string
-  care: string
-  options: string[]
   images: string[]
   featured?: boolean
+  story?: string
+  material?: string
+  details?: string[]
+  materials?: string
+  care?: string
+  options?: string[]
   createdAt?: string
   updatedAt?: string
 }
@@ -30,15 +30,15 @@ const initialFormData: Omit<Product, '_id' | 'createdAt' | 'updatedAt'> = {
   name: '',
   price: '',
   category: 'Earrings',
-  story: '',
-  material: '',
   description: '',
-  details: [''],
-  materials: '',
-  care: '',
-  options: [''],
   images: [''],
-  featured: false
+  featured: false,
+  story: 'Handcrafted with care',
+  material: 'Gold-tone alloy',
+  details: ['Lightweight and comfortable', 'Elegant design', 'Perfect for any occasion'],
+  materials: 'Premium materials with attention to detail',
+  care: 'Store in a dry place and wipe gently with a soft cloth after wearing.',
+  options: ['Standard Size', 'Gift Box']
 }
 
 export default function AdminProductsPage() {
@@ -96,15 +96,15 @@ export default function AdminProductsPage() {
         name: product.name,
         price: product.price,
         category: product.category,
-        story: product.story,
-        material: product.material,
         description: product.description,
-        details: [...product.details],
-        materials: product.materials,
-        care: product.care,
-        options: [...product.options],
         images: [...product.images],
-        featured: product.featured || false
+        featured: product.featured || false,
+        story: product.story || 'Handcrafted with care',
+        material: product.material || 'Gold-tone alloy',
+        details: product.details || ['Lightweight and comfortable', 'Elegant design', 'Perfect for any occasion'],
+        materials: product.materials || 'Premium materials with attention to detail',
+        care: product.care || 'Store in a dry place and wipe gently with a soft cloth after wearing.',
+        options: product.options || ['Standard Size', 'Gift Box']
       })
     } else {
       setEditingProduct(null)
@@ -124,42 +124,12 @@ export default function AdminProductsPage() {
     }))
   }
 
-  const handleArrayFieldChange = (field: 'details' | 'options' | 'images', index: number, value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: prev[field].map((item, i) => i === index ? value : item)
-    }))
-  }
-
-  const addArrayFieldItem = (field: 'details' | 'options' | 'images') => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: [...prev[field], '']
-    }))
-  }
-
-  const removeArrayFieldItem = (field: 'details' | 'options' | 'images', index: number) => {
-    if (formData[field].length > 1) {
-      setFormData(prev => ({
-        ...prev,
-        [field]: prev[field].filter((_, i) => i !== index)
-      }))
-    }
-  }
-
   const validateForm = (): string[] => {
     const errors: string[] = []
     
     if (!formData.name.trim()) errors.push('Product name is required')
     if (!formData.price.trim()) errors.push('Price is required')
-    if (!formData.story.trim()) errors.push('Story is required')
-    if (!formData.material.trim()) errors.push('Material is required')
     if (!formData.description.trim()) errors.push('Description is required')
-    if (!formData.materials.trim()) errors.push('Materials information is required')
-    if (!formData.care.trim()) errors.push('Care instructions are required')
-    
-    if (formData.details.every(d => !d.trim())) errors.push('At least one detail is required')
-    if (formData.options.every(o => !o.trim())) errors.push('At least one option is required')
     if (formData.images.every(i => !i.trim())) errors.push('At least one image is required')
 
     return errors
@@ -179,9 +149,13 @@ export default function AdminProductsPage() {
       // Clean up array fields (remove empty items)
       const cleanedData = {
         ...formData,
-        details: formData.details.filter(d => d.trim()),
-        options: formData.options.filter(o => o.trim()),
-        images: formData.images.filter(i => i.trim())
+        details: formData.details && formData.details.length > 0 ? formData.details.filter(d => d.trim()) : ['Lightweight and comfortable', 'Elegant design', 'Perfect for any occasion'],
+        options: formData.options && formData.options.length > 0 ? formData.options.filter(o => o.trim()) : ['Standard Size', 'Gift Box'],
+        images: formData.images.filter(i => i.trim()),
+        story: formData.story || 'Handcrafted with care',
+        material: formData.material || 'Gold-tone alloy',
+        materials: formData.materials || 'Premium materials with attention to detail',
+        care: formData.care || 'Store in a dry place and wipe gently with a soft cloth after wearing.'
       }
 
       const url = editingProduct 
@@ -458,6 +432,13 @@ export default function AdminProductsPage() {
               
               <div className="p-4 sm:p-6 overflow-y-auto" style={{ maxHeight: 'calc(90vh - 140px)' }}>
                 <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+                  {/* Essential Fields Only */}
+                  <div className="bg-gold/5 border border-gold/20 rounded-xl p-4 mb-4">
+                    <p className="text-sm text-black/70">
+                      <strong>Quick Add:</strong> Just fill in the basics below. Advanced details are set automatically!
+                    </p>
+                  </div>
+
                   <div className="grid gap-4 sm:gap-6 sm:grid-cols-2">
                     <div>
                       <label className="block text-sm font-medium text-black-dark mb-2">
@@ -468,6 +449,7 @@ export default function AdminProductsPage() {
                         value={formData.name}
                         onChange={(e) => handleInputChange('name', e.target.value)}
                         className="w-full px-3 py-2.5 sm:px-4 sm:py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none text-base"
+                        placeholder="e.g., Gold Hoop Earrings"
                         required
                         style={{ fontSize: '16px' }}
                       />
@@ -503,19 +485,6 @@ export default function AdminProductsPage() {
                       ))}
                     </select>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-black-dark mb-2">
-                      Story *
-                    </label>
-                    <textarea
-                      value={formData.story}
-                      onChange={(e) => handleInputChange('story', e.target.value)}
-                      rows={3}
-                      className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none"
-                      placeholder="Tell the story behind this product..."
-                      required
-                    />
-                  </div>
 
                   <div>
                     <label className="block text-sm font-medium text-black-dark mb-2">
@@ -524,119 +493,11 @@ export default function AdminProductsPage() {
                     <textarea
                       value={formData.description}
                       onChange={(e) => handleInputChange('description', e.target.value)}
-                      rows={3}
+                      rows={4}
                       className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none"
-                      placeholder="Product description..."
+                      placeholder="Describe your product... What makes it special?"
                       required
                     />
-                  </div>
-
-                  <div className="grid gap-6 md:grid-cols-2">
-                    <div>
-                      <label className="block text-sm font-medium text-black-dark mb-2">
-                        Material *
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.material}
-                        onChange={(e) => handleInputChange('material', e.target.value)}
-                        className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none"
-                        placeholder="Gold, Silver, etc."
-                        required
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-black-dark mb-2">
-                        Materials Info *
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.materials}
-                        onChange={(e) => handleInputChange('materials', e.target.value)}
-                        className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none"
-                        placeholder="Detailed materials information"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-black-dark mb-2">
-                      Care Instructions *
-                    </label>
-                    <textarea
-                      value={formData.care}
-                      onChange={(e) => handleInputChange('care', e.target.value)}
-                      rows={2}
-                      className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none"
-                      placeholder="How to care for this product..."
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-black-dark mb-2">
-                      Product Details *
-                    </label>
-                    {formData.details.map((detail, index) => (
-                      <div key={index} className="flex gap-2 mb-2">
-                        <input
-                          type="text"
-                          value={detail}
-                          onChange={(e) => handleArrayFieldChange('details', index, e.target.value)}
-                          className="flex-1 px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none"
-                          placeholder="Product detail..."
-                        />
-                        {formData.details.length > 1 && (
-                          <button
-                            type="button"
-                            onClick={() => removeArrayFieldItem('details', index)}
-                            className="p-3 text-red-600 hover:bg-red-50 rounded-xl transition-colors"
-                          >
-                            <X size={16} />
-                          </button>
-                        )}
-                      </div>
-                    ))}
-                    <button
-                      type="button"
-                      onClick={() => addArrayFieldItem('details')}
-                      className="text-black-dark hover:text-black text-sm font-medium"
-                    >
-                      + Add Detail
-                    </button>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-black-dark mb-2">
-                      Product Options *
-                    </label>
-                    {formData.options.map((option, index) => (
-                      <div key={index} className="flex gap-2 mb-2">
-                        <input
-                          type="text"
-                          value={option}
-                          onChange={(e) => handleArrayFieldChange('options', index, e.target.value)}
-                          className="flex-1 px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none"
-                          placeholder="Product option..."
-                        />
-                        {formData.options.length > 1 && (
-                          <button
-                            type="button"
-                            onClick={() => removeArrayFieldItem('options', index)}
-                            className="p-3 text-red-600 hover:bg-red-50 rounded-xl transition-colors"
-                          >
-                            <X size={16} />
-                          </button>
-                        )}
-                      </div>
-                    ))}
-                    <button
-                      type="button"
-                      onClick={() => addArrayFieldItem('options')}
-                      className="text-black-dark hover:text-black text-sm font-medium"
-                    >
-                      + Add Option
-                    </button>
                   </div>
 
                   <div>
@@ -649,6 +510,7 @@ export default function AdminProductsPage() {
                       maxImages={5}
                     />
                   </div>
+
                   <div>
                     <label className="flex items-center gap-3">
                       <input
@@ -662,6 +524,40 @@ export default function AdminProductsPage() {
                       </span>
                     </label>
                   </div>
+
+                  {/* Collapsible Advanced Options */}
+                  <details className="border border-gold/20 rounded-xl overflow-hidden">
+                    <summary className="cursor-pointer bg-gold/5 px-4 py-3 font-medium text-black-dark hover:bg-gold/10 transition-colors">
+                      Advanced Options (Optional)
+                    </summary>
+                    <div className="p-4 space-y-4 bg-white">
+                      <div>
+                        <label className="block text-sm font-medium text-black-dark mb-2">
+                          Product Story
+                        </label>
+                        <textarea
+                          value={formData.story}
+                          onChange={(e) => handleInputChange('story', e.target.value)}
+                          rows={2}
+                          className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none"
+                          placeholder="Optional backstory or inspiration"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-black-dark mb-2">
+                          Material
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.material}
+                          onChange={(e) => handleInputChange('material', e.target.value)}
+                          className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none"
+                          placeholder="e.g., Gold-tone alloy"
+                        />
+                      </div>
+                    </div>
+                  </details>
                 </form>
               </div>
 
