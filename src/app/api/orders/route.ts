@@ -218,8 +218,27 @@ export async function GET(request: NextRequest) {
       offset
     })
     
+    // Transform snake_case to camelCase for frontend
+    const transformedOrders = orders.map(order => ({
+      _id: order.id,
+      customerName: order.customer_name,
+      customerEmail: order.customer_email,
+      customerPhone: order.customer_phone,
+      items: order.items,
+      shippingAddress: order.shipping_address,
+      paymentReference: order.payment_reference,
+      paymentStatus: order.payment_status,
+      status: order.status,
+      subtotal: order.subtotal,
+      shippingCost: order.shipping_cost,
+      tax: order.tax,
+      total: order.total,
+      createdAt: order.created_at,
+      updatedAt: order.updated_at
+    }))
+    
     return NextResponse.json({
-      orders,
+      orders: transformedOrders,
       pagination: {
         page,
         limit,
