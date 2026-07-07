@@ -99,7 +99,7 @@ function ShopContent() {
                   <Link href={`/shop/${product._id}`}>
                     <div className="relative w-full overflow-hidden mb-4 rounded-2xl bg-white shadow-sm sm:mb-5 sm:rounded-3xl md:mb-6 md:rounded-[32px]" style={{ aspectRatio: '3/4' }}>
                       <Image 
-                        src={product.images?.[0] || '/images/placeholder.jpg'}
+                        src={product.images?.[0] || '/images/sabrianna-Y_bxfTa_iUA-unsplash.jpg'}
                         alt={product.name}
                         fill
                         sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 50vw, 33vw"
