@@ -30,10 +30,20 @@ export default function AdminLoginPage() {
     try {
       // Admin credentials - email based login
       if (formData.email.toLowerCase() === 'admin@amapels.com' && formData.password === 'Amapels2024!') {
-        localStorage.setItem('admin_session', JSON.stringify({
+        const sessionId = Math.random().toString(36).substring(2) + Date.now().toString(36)
+        const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString() // 24 hours
+        
+        const sessionData = {
           email: formData.email,
-          loginTime: new Date().toISOString()
-        }))
+          name: 'Admin',
+          loginTime: new Date().toISOString(),
+          sessionId,
+          expiresAt
+        }
+        
+        localStorage.setItem('admin_session', JSON.stringify(sessionData))
+        sessionStorage.setItem('admin_active', 'true')
+        
         showToastMessage('Login successful! Redirecting...')
         setTimeout(() => {
           router.push('/admin')
