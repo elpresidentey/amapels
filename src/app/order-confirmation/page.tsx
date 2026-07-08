@@ -259,3 +259,130 @@ export default function OrderConfirmationPage() {
     </Suspense>
   )
 }
+  const [orderItems, setOrderItems] = useState<any[]>([])
+  const [showPrint, setShowPrint] = useState(false)
+  useEffect(() => {
+    const reference = searchParams.get('ref')
+    const itemsParam = searchParams.get('items')
+    
+    if (reference) {
+      setOrderNumber(reference)
+    } else {
+      const timestamp = Date.now()
+      const random = Math.random().toString(36).substr(2, 4).toUpperCase()
+      setOrderNumber(`AMP-${timestamp}-${random}`)
+    }
+    
+    setOrderDate(new Date().toLocaleDateString('en-NG', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    }))
+    
+    // Parse items from URL parameter if available
+    if (itemsParam) {
+      try {
+        const parsedItems = JSON.parse(itemsParam)
+        setOrderItems(parsedItems)
+      } catch (error) {
+        console.error('Error parsing order items:', error)
+      }
+    }
+    
+    setLoading(false)
+  }, [searchParams])
+              <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
+                <Mail size={20} className="text-black" />
+              </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Order Items Section */}
+              {orderItems.length > 0 && (
+                <div className="mt-8 pt-8 border-t border-gold/30">
+                  <h2 className="font-serif text-2xl text-black mb-6">Your Order Items</h2>
+                  <div className="space-y-4">
+                    {orderItems.map((item, index) => (
+                      <div key={index} className="flex gap-4 p-4 bg-gray-50 rounded-xl">
+                        <div className="w-16 h-16 bg-white rounded-lg overflow-hidden flex-shrink-0">
+                          <Image
+                            src={item.image || '/images/sabrianna-Y_bxfTa_iUA-unsplash.jpg'}
+                            alt={item.name}
+                            width={64}
+                            height={64}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-medium text-black">{item.name}</h3>
+                          <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
+                          <p className="text-sm font-medium text-black mt-1">
+                            ₦{parseInt(item.price).toLocaleString()}
+                          </p>
+                        </div>
+                        <div className="text-right font-medium text-black">
+                          ₦{(parseInt(item.price) * item.quantity).toLocaleString()}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </motion.div>
+
+          <motion.div
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="text-left"
+          >
+            <h2 className="font-serif text-3xl text-black mb-8 text-center">What You Ordered</h2>
+            <h2 className="font-serif text-3xl text-black mb-8 text-center">What Happens Next?</h2>
+  // Print receipt
+  const handlePrint = () => {
+    window.print()
+  }
+  
+  if (loading) {
+              <div>
+                <h3 className="font-serif text-xl text-black mb-6">Quick Actions</h3>
+                <div className="space-y-4">
+                  <button 
+                    onClick={handlePrint}
+                    className="w-full bg-black text-white py-4 px-6 rounded-xl text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-black transition-colors flex items-center justify-center gap-2 border border-gold"
+                  >
+                    <Download size={16} />
+                    Download Receipt
+                  </button>
+                  <p className="text-xs text-center text-gray-600">Click to print your order summary</p>
+      </div>
+    </div>
+
+    {/* Print Styles */}
+    <style>{`
+      @media print {
+        body * {
+          visibility: hidden;
+        }
+        .printable-area, .printable-area * {
+          visibility: visible;
+        }
+        .printable-area {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          background: white;
+        }
+        .no-print {
+          display: none !important;
+        }
+      }
+    `}</style>
