@@ -421,7 +421,9 @@ export default function CheckoutPage() {
                         setTimeout(() => {
                           clearCart()
                           resetCheckout()
-                          router.push(`/order-confirmation?ref=${response.reference}`)
+                          // Pass items to order confirmation
+                          const itemsParam = encodeURIComponent(JSON.stringify(items))
+                          router.push(`/order-confirmation?ref=${response.reference}&items=${itemsParam}`)
                         }, 2000)
                       } else {
                         throw new Error(`Order creation failed: ${orderResponse.status}`)

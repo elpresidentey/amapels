@@ -11,9 +11,11 @@ function OrderConfirmationContent() {
   const [orderNumber, setOrderNumber] = useState('')
   const [orderDate, setOrderDate] = useState('')
   const [loading, setLoading] = useState(true)
+  const [orderItems, setOrderItems] = useState<any[]>([])
 
   useEffect(() => {
     const reference = searchParams.get('ref')
+    const itemsParam = searchParams.get('items')
     
     if (reference) {
       setOrderNumber(reference)
@@ -30,8 +32,23 @@ function OrderConfirmationContent() {
       day: 'numeric'
     }))
     
+    // Parse items from URL parameter if available
+    if (itemsParam) {
+      try {
+        const parsedItems = JSON.parse(itemsParam)
+        setOrderItems(parsedItems)
+      } catch (error) {
+        console.error('Error parsing order items:', error)
+      }
+    }
+    
     setLoading(false)
   }, [searchParams])
+
+  // Print receipt
+  const handlePrint = () => {
+    window.print()
+  }
 
   const nextSteps = [
     {
@@ -142,12 +159,48 @@ function OrderConfirmationContent() {
               </div>
 
               <div>
+                {/* Order Items Display */}
+                {orderItems.length > 0 && (
+                  <div className="mt-8 pt-8 border-t border-gold/30">
+                    <h3 className="font-serif text-2xl text-black mb-6">Your Order Items</h3>
+                    <div className="space-y-4">
+                      {orderItems.map((item, index) => (
+                        <div key={index} className="flex gap-4 p-4 bg-gray-50 rounded-xl">
+                          <div className="w-16 h-16 bg-white rounded-lg overflow-hidden flex-shrink-0">
+                            <img
+                              src={item.image || '/images/sabrianna-Y_bxfTa_iUA-unsplash.jpg'}
+                              alt={item.name}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <div className="flex-1">
+                            <h4 className="font-medium text-black">{item.name}</h4>
+                            <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
+                            <p className="text-sm font-medium text-black mt-1">
+                              ₦{parseInt(item.price).toLocaleString()}
+                            </p>
+                          </div>
+                          <div className="text-right font-medium text-black">
+                            ₦{(parseInt(item.price) * item.quantity).toLocaleString()}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div>
                 <h3 className="font-serif text-xl text-black mb-6">Quick Actions</h3>
                 <div className="space-y-4">
-                  <button className="w-full bg-black text-white py-4 px-6 rounded-xl text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-black transition-colors flex items-center justify-center gap-2 border border-gold">
+                  <button 
+                    onClick={handlePrint}
+                    className="w-full bg-black text-white py-4 px-6 rounded-xl text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-black transition-colors flex items-center justify-center gap-2 border border-gold"
+                  >
                     <Download size={16} />
                     Download Receipt
                   </button>
+                  <p className="text-xs text-center text-gray-600">Click to print your order summary</p>
                   
                   <Link 
                     href="/shop"
