@@ -421,9 +421,7 @@ export default function CheckoutPage() {
                         setTimeout(() => {
                           clearCart()
                           resetCheckout()
-                          // Pass items to order confirmation
-                          const itemsParam = encodeURIComponent(JSON.stringify(items))
-                          router.push(`/order-confirmation?ref=${response.reference}&items=${itemsParam}`)
+                          router.push(`/order-confirmation?ref=${response.reference}`)
                         }, 2000)
                       } else {
                         throw new Error(`Order creation failed: ${orderResponse.status}`)
@@ -1038,31 +1036,3 @@ export default function CheckoutPage() {
     </div>
   )
 }
-                          subtotal,
-                          shippingCost: shipping,
-                          total,
-                          metadata: {
-                            paymentAttempt: paymentAttemptRef.current,
-                            verifyAttempts,
-                            orderAttempts
-                          }
-                        }),
-                        signal: orderController.signal
-                      })
-                      
-                      clearTimeout(orderTimeout)
-                      
-                      if (orderResponse.ok) {
-                        orderSuccess = true
-                        
-                        setToastMessage('✨ Order placed successfully! Redirecting...')
-                        setToastType('success')
-                        setShowToast(true)
-                        
-                        setTimeout(() => {
-                          clearCart()
-                          resetCheckout()
-                          // Pass items to order confirmation
-                          const itemsParam = encodeURIComponent(JSON.stringify(items))
-                          router.push(`/order-confirmation?ref=${response.reference}&items=${itemsParam}`)
-                        }, 2000)
