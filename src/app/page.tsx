@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, Heart, Star } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useProducts } from '@/hooks/useProducts'
@@ -12,10 +12,10 @@ const heroSlides = [
     id: 1,
     src: '/images/evie-martinez-mCjEVrBS1bM-unsplash.jpg',
     alt: 'Amapels crystal bracelet close-up',
-    eyebrow: 'Everyday Radiance',
-    title: 'Where Elegance Meets Artistry',
+    eyebrow: 'Lagos Crafted Excellence',
+    title: 'Nigerian Artistry, Global Elegance',
     description:
-      'Exquisite jewelry crafted in Lagos to celebrate your most treasured moments, from quiet confidence to joyful celebrations.',
+      'Handcrafted in Lagos with passion and precision, each piece tells a story of heritage transformed into contemporary luxury.',
     accent: 'Crystal brilliance and luminous detail',
     ticker: 'Crystal radiance, timeless elegance, crafted for every cherished moment.'
   },
@@ -23,10 +23,10 @@ const heroSlides = [
     id: 2,
     src: '/images/sabrianna-Y_bxfTa_iUA-unsplash.jpg',
     alt: 'Amapels gold stud earrings close-up',
-    eyebrow: 'Timeless Treasures',
-    title: 'Grace In Every Detail',
+    eyebrow: 'African Luxury Redefined',
+    title: 'Wear Your Story',
     description:
-      'From delicate studs to striking accents, each piece is designed to make you feel extraordinary every single day.',
+      'More than jewelry—each piece is a conversation starter, a confidence builder, and a celebration of who you are.',
     accent: 'Luminous gold, artisan-crafted',
     ticker: 'Refined gold treasures for moments that matter most.'
   },
@@ -34,10 +34,10 @@ const heroSlides = [
     id: 3,
     src: '/images/andres-vera-202NAwjisYA-unsplash.jpg',
     alt: 'AMAPELS occasion jewellery portrait',
-    eyebrow: 'Celebrate In Style',
-    title: 'Jewelry That Marks The Moment',
+    eyebrow: 'Moments Made Memorable',
+    title: 'Celebrate With AMAPELS',
     description:
-      'Artfully designed for life\'s milestones: birthdays, weddings, anniversaries. Each piece becomes a lasting memory.',
+      'From intimate gatherings to grand celebrations, our pieces become part of your most cherished memories.',
     accent: 'Statement pieces, timeless elegance',
     ticker: 'Treasured designs for celebrations, gifting, and unforgettable evenings.'
   }
@@ -45,36 +45,40 @@ const heroSlides = [
 
 const featuredCollections = [
   {
-    title: 'Statement Earrings',
-    description: 'Luminous designs that frame your face with grace and capture every glance with effortless elegance.',
+    title: 'Lagos Luxe Earrings',
+    description: 'Bold designs crafted with Nigerian artistry, framing your face with confidence and capturing every admiring glance.',
     image: '/images/gabriel-ogulu-r0bH4hAVBmk-unsplash.jpg',
+    link: '/shop?category=Earrings',
     span: 'md:col-span-2'
   },
   {
-    title: 'Bracelets & Shine',
-    description: 'Radiant adornments that dance with your every movement, crafted with exquisite detail.',
+    title: 'Radiant Bracelets',
+    description: 'Handcrafted adornments that dance with your every movement, telling stories of tradition and modern elegance.',
     image: '/images/lisa-marie-theck-pxg9jOgPzK4-unsplash.jpg',
+    link: '/shop?category=Bracelets',
     span: ''
   },
   {
-    title: 'Treasured Occasions',
-    description: 'Exceptional pieces chosen for celebrations, gifting moments, and memories that last forever.',
+    title: 'Celebration Pieces',
+    description: 'Exceptional designs for life\'s milestones—weddings, anniversaries, and moments that become treasured memories.',
     image: '/images/julie-sd--Njp0M9Rzhc-unsplash.jpg',
+    link: '/shop',
     span: ''
   },
   {
-    title: 'Necklaces & Sets',
-    description: 'Graceful chains and harmonious collections that rest close to your heart and complete your story.',
+    title: 'Heritage Necklaces',
+    description: 'Graceful chains and harmonious collections that rest close to your heart, completing your unique story.',
     image: '/images/andres-vera-202NAwjisYA-unsplash.jpg',
+    link: '/shop?category=Necklaces',
     span: 'md:col-span-2'
   }
 ]
 
 const brandPillars = [
-  'Handcrafted in Lagos',
-  'Artisan Craftsmanship',
-  'Luxury Gift Presentation',
-  'Worldwide Delivery'
+  'Handcrafted in Lagos, Nigeria',
+  'African Artisan Excellence',
+  'Premium Gift Packaging',
+  'Global Shipping Available'
 ]
 
 export default function Home() {
@@ -434,23 +438,45 @@ export default function Home() {
               transition={{ duration: 0.85, delay: 0 }}
               className="group relative overflow-hidden rounded-[34px] md:col-span-2 hover-lift card-premium"
             >
-              <div className="relative aspect-[4/5] md:aspect-auto md:h-full">
-                <Image
-                  src={featuredCollections[0].image}
-                  alt={featuredCollections[0].title}
-                  fill
-                  priority={true}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 50vw"
-                  className="object-cover img-premium"
-                />
-              </div>
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,15,10,0.25) 0%,rgba(20,15,10,0.92) 100%)]" />
-              <div className="absolute bottom-0 left-0 p-8 text-white">
-                <h3 className="font-serif text-2xl font-light">{featuredCollections[0].title}</h3>
-                <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/70">
-                  {featuredCollections[0].description}
-                </p>
-              </div>
+              <Link href={featuredCollections[0].link}>
+                <div className="relative aspect-[4/5] md:aspect-auto md:h-full">
+                  <Image
+                    src={featuredCollections[0].image}
+                    alt={featuredCollections[0].title}
+                    fill
+                    priority={true}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 50vw"
+                    className="object-cover img-premium transition-transform duration-700 group-hover:scale-110"
+                  />
+                </div>
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,15,10,0.25) 0%,rgba(20,15,10,0.92) 100%)] transition-opacity duration-500 group-hover:opacity-90" />
+                
+                {/* Quick Actions on Hover */}
+                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <button className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-colors">
+                    <Heart size={18} className="text-black/60 hover:text-red-500 transition-colors" />
+                  </button>
+                </div>
+
+                <div className="absolute bottom-0 left-0 p-8 text-white">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="flex items-center gap-0.5">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} size={14} className="fill-gold text-gold" />
+                      ))}
+                    </div>
+                    <span className="text-xs text-white/70">(24 reviews)</span>
+                  </div>
+                  <h3 className="font-serif text-2xl font-light">{featuredCollections[0].title}</h3>
+                  <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/70">
+                    {featuredCollections[0].description}
+                  </p>
+                  <div className="mt-4 flex items-center gap-2 text-gold font-semibold text-sm uppercase tracking-wider">
+                    Explore Collection
+                    <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                  </div>
+                </div>
+              </Link>
             </motion.div>
 
             {/* Bracelets & Shine - single column */}
@@ -461,23 +487,44 @@ export default function Home() {
               transition={{ duration: 0.85, delay: 0.12 }}
               className="group relative overflow-hidden rounded-[34px] hover-lift card-premium"
             >
-              <div className="relative aspect-[4/5] md:aspect-auto md:h-full">
-                <Image
-                  src={featuredCollections[1].image}
-                  alt={featuredCollections[1].title}
-                  fill
-                  priority={true}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
-                  className="object-cover img-premium"
-                />
-              </div>
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,15,10,0.25) 0%,rgba(20,15,10,0.92) 100%)]" />
-              <div className="absolute bottom-0 left-0 p-8 text-white">
-                <h3 className="font-serif text-2xl font-light">{featuredCollections[1].title}</h3>
-                <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/70">
-                  {featuredCollections[1].description}
-                </p>
-              </div>
+              <Link href={featuredCollections[1].link}>
+                <div className="relative aspect-[4/5] md:aspect-auto md:h-full">
+                  <Image
+                    src={featuredCollections[1].image}
+                    alt={featuredCollections[1].title}
+                    fill
+                    priority={true}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+                    className="object-cover img-premium transition-transform duration-700 group-hover:scale-110"
+                  />
+                </div>
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,15,10,0.25) 0%,rgba(20,15,10,0.92) 100%)] transition-opacity duration-500 group-hover:opacity-90" />
+                
+                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <button className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-colors">
+                    <Heart size={18} className="text-black/60 hover:text-red-500 transition-colors" />
+                  </button>
+                </div>
+
+                <div className="absolute bottom-0 left-0 p-8 text-white">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="flex items-center gap-0.5">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} size={14} className="fill-gold text-gold" />
+                      ))}
+                    </div>
+                    <span className="text-xs text-white/70">(18 reviews)</span>
+                  </div>
+                  <h3 className="font-serif text-2xl font-light">{featuredCollections[1].title}</h3>
+                  <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/70">
+                    {featuredCollections[1].description}
+                  </p>
+                  <div className="mt-4 flex items-center gap-2 text-gold font-semibold text-sm uppercase tracking-wider">
+                    Explore Collection
+                    <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                  </div>
+                </div>
+              </Link>
             </motion.div>
 
             {/* Occasion Favourites - single column */}
@@ -488,22 +535,43 @@ export default function Home() {
               transition={{ duration: 0.85, delay: 0.24 }}
               className="group relative overflow-hidden rounded-[34px] hover-lift card-premium"
             >
-              <div className="relative aspect-[4/5] md:aspect-auto md:h-full">
-                <Image
-                  src={featuredCollections[2].image}
-                  alt={featuredCollections[2].title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
-                  className="object-cover img-premium"
-                />
-              </div>
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,15,10,0.25) 0%,rgba(20,15,10,0.92) 100%)]" />
-              <div className="absolute bottom-0 left-0 p-8 text-white">
-                <h3 className="font-serif text-2xl font-light">{featuredCollections[2].title}</h3>
-                <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/70">
-                  {featuredCollections[2].description}
-                </p>
-              </div>
+              <Link href={featuredCollections[2].link}>
+                <div className="relative aspect-[4/5] md:aspect-auto md:h-full">
+                  <Image
+                    src={featuredCollections[2].image}
+                    alt={featuredCollections[2].title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+                    className="object-cover img-premium transition-transform duration-700 group-hover:scale-110"
+                  />
+                </div>
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,15,10,0.25) 0%,rgba(20,15,10,0.92) 100%)] transition-opacity duration-500 group-hover:opacity-90" />
+                
+                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <button className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-colors">
+                    <Heart size={18} className="text-black/60 hover:text-red-500 transition-colors" />
+                  </button>
+                </div>
+
+                <div className="absolute bottom-0 left-0 p-8 text-white">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="flex items-center gap-0.5">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} size={14} className="fill-gold text-gold" />
+                      ))}
+                    </div>
+                    <span className="text-xs text-white/70">(32 reviews)</span>
+                  </div>
+                  <h3 className="font-serif text-2xl font-light">{featuredCollections[2].title}</h3>
+                  <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/70">
+                    {featuredCollections[2].description}
+                  </p>
+                  <div className="mt-4 flex items-center gap-2 text-gold font-semibold text-sm uppercase tracking-wider">
+                    Explore Collection
+                    <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                  </div>
+                </div>
+              </Link>
             </motion.div>
 
             {/* Necklaces & Sets - spans 2 columns */}
@@ -514,22 +582,43 @@ export default function Home() {
               transition={{ duration: 0.85, delay: 0.36 }}
               className="group relative overflow-hidden rounded-[34px] md:col-span-2 hover-lift card-premium"
             >
-              <div className="relative aspect-[4/5] md:aspect-auto md:h-full">
-                <Image
-                  src={featuredCollections[3].image}
-                  alt={featuredCollections[3].title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 50vw"
-                  className="object-cover img-premium"
-                />
-              </div>
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,15,10,0.25) 0%,rgba(20,15,10,0.92) 100%)]" />
-              <div className="absolute bottom-0 left-0 p-8 text-white">
-                <h3 className="font-serif text-2xl font-light">{featuredCollections[3].title}</h3>
-                <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/70">
-                  {featuredCollections[3].description}
-                </p>
-              </div>
+              <Link href={featuredCollections[3].link}>
+                <div className="relative aspect-[4/5] md:aspect-auto md:h-full">
+                  <Image
+                    src={featuredCollections[3].image}
+                    alt={featuredCollections[3].title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 50vw"
+                    className="object-cover img-premium transition-transform duration-700 group-hover:scale-110"
+                  />
+                </div>
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,15,10,0.25) 0%,rgba(20,15,10,0.92) 100%)] transition-opacity duration-500 group-hover:opacity-90" />
+                
+                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <button className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-colors">
+                    <Heart size={18} className="text-black/60 hover:text-red-500 transition-colors" />
+                  </button>
+                </div>
+
+                <div className="absolute bottom-0 left-0 p-8 text-white">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="flex items-center gap-0.5">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} size={14} className="fill-gold text-gold" />
+                      ))}
+                    </div>
+                    <span className="text-xs text-white/70">(45 reviews)</span>
+                  </div>
+                  <h3 className="font-serif text-2xl font-light">{featuredCollections[3].title}</h3>
+                  <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/70">
+                    {featuredCollections[3].description}
+                  </p>
+                  <div className="mt-4 flex items-center gap-2 text-gold font-semibold text-sm uppercase tracking-wider">
+                    Explore Collection
+                    <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                  </div>
+                </div>
+              </Link>
             </motion.div>
           </div>
         </div>

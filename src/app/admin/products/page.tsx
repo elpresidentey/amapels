@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Plus, Edit2, Trash2, Save, X, Eye, EyeOff } from 'lucide-react'
+import { Plus, Edit2, Trash2, Save, X, Eye, EyeOff, Search, Filter, Download, Copy, ChevronDown, ChevronUp } from 'lucide-react'
 import Toast from '@/components/Toast'
 import ImageUpload from '@/components/ImageUpload'
 
@@ -46,23 +46,95 @@ export default function AdminProductsPage() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [products, setProducts] = useState<Product[]>([])
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
   const [showModal, setShowModal] = useState(false)
   const [editingProduct, setEditingProduct] = useState<Product | null>(null)
   const [formData, setFormData] = useState<Omit<Product, '_id' | 'createdAt' | 'updatedAt'>>(initialFormData)
   const [showToast, setShowToast] = useState(false)
   const [toastMessage, setToastMessage] = useState('')
   const [toastType, setToastType] = useState<'success' | 'error'>('success')
+  const [searchTerm, setSearchTerm] = useState('')
+  const [categoryFilter, setCategoryFilter] = useState('all')
+  const [featuredFilter, setFeaturedFilter] = useState('all')
+  const [sortBy, setSortBy] = useState('name')
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
+  const [selectedProducts, setSelectedProducts] = useState<Set<string>>(new Set())
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(10)
 
   useEffect(() => {
     checkAuth()
     fetchProducts()
   }, [])
+
+  useEffect(() => {
+    filterAndSortProducts()
+  }, [products, searchTerm, categoryFilter, featuredFilter, sortBy, sortOrder])
+
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [searchTerm, categoryFilter, featuredFilter, sortBy, sortOrder])
   const checkAuth = () => {
     const session = localStorage.getItem('admin_session')
     if (!session) {
       router.push('/admin/login')
     }
   }
+
+  const filterAndSortProducts = () => {
+    let filtered = [...products]
+
+    // Search filter
+    if (searchTerm) {
+      filtered = filtered.filter(product =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    }
+
+    // Category filter
+    if (categoryFilter !== 'all') {
+      filtered = filtered.filter(product => product.category === categoryFilter)
+    }
+
+    // Featured filter
+    if (featuredFilter !== 'all') {
+      filtered = filtered.filter(product =>
+        featuredFilter === 'featured' ? product.featured : !product.featured
+      )
+    }
+
+    // Sorting
+    filtered.sort((a, b) => {
+      let comparison = 0
+      switch (sortBy) {
+        case 'name':
+          comparison = a.name.localeCompare(b.name)
+          break
+        case 'price':
+          comparison = a.price.localeCompare(b.price)
+          break
+        case 'category':
+          comparison = a.category.localeCompare(b.category)
+          break
+        case 'featured':
+          comparison = (a.featured ? 1 : 0) - (b.featured ? 1 : 0)
+          break
+        default:
+          comparison = 0
+      }
+      return sortOrder === 'asc' ? comparison : -comparison
+    })
+
+    setFilteredProducts(filtered)
+  }
+
+  const paginatedProducts = filteredProducts.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  )
+
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage)
 
   const showToastMessage = (message: string, type: 'success' | 'error' = 'success') => {
     setToastMessage(message)
@@ -78,6 +150,7 @@ export default function AdminProductsPage() {
 
       if (result.success) {
         setProducts(result.data || [])
+        setFilteredProducts(result.data || [])
       } else {
         throw new Error('Failed to fetch products')
       }
@@ -243,6 +316,104 @@ export default function AdminProductsPage() {
       showToastMessage('Failed to update product', 'error')
     }
   }
+
+  const handleSelectProduct = (productId: string) => {
+    setSelectedProducts(prev => {
+      const newSet = new Set(prev)
+      if (newSet.has(productId)) {
+        newSet.delete(productId)
+      } else {
+        newSet.add(productId)
+      }
+      return newSet
+    })
+  }
+
+  const handleSelectAll = () => {
+    if (selectedProducts.size === filteredProducts.length) {
+      setSelectedProducts(new Set())
+    } else {
+      setSelectedProducts(new Set(filteredProducts.map(p => p._id!)))
+    }
+  }
+
+  const handleBulkDelete = async () => {
+    if (selectedProducts.size === 0) return
+    if (!window.confirm(`Are you sure you want to delete ${selectedProducts.size} products?`)) return
+
+    try {
+      const promises = Array.from(selectedProducts).map(id =>
+        fetch(`/api/products/${id}`, { method: 'DELETE' })
+      )
+      await Promise.all(promises)
+      showToastMessage(`${selectedProducts.size} products deleted successfully!`)
+      setSelectedProducts(new Set())
+      fetchProducts()
+    } catch (error) {
+      console.error('Error deleting products:', error)
+      showToastMessage('Failed to delete products', 'error')
+    }
+  }
+
+  const handleDuplicate = async (product: Product) => {
+    if (!window.confirm(`Duplicate "${product.name}"?`)) return
+
+    try {
+      const { _id, createdAt, updatedAt, ...productData } = product
+      const response = await fetch('/api/products', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          ...productData,
+          name: `${product.name} (Copy)`
+        })
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        showToastMessage('Product duplicated successfully!')
+        fetchProducts()
+      } else {
+        throw new Error(result.error || 'Failed to duplicate product')
+      }
+    } catch (error) {
+      console.error('Error duplicating product:', error)
+      showToastMessage('Failed to duplicate product', 'error')
+    }
+  }
+
+  const handleExportCSV = () => {
+    const headers = ['Name', 'Price', 'Category', 'Description', 'Featured']
+    const rows = filteredProducts.map(p => [
+      p.name,
+      p.price,
+      p.category,
+      p.description.replace(/,/g, ';'),
+      p.featured ? 'Yes' : 'No'
+    ])
+
+    const csvContent = [headers.join(','), ...rows.map(row => row.join(','))].join('\n')
+    const blob = new Blob([csvContent], { type: 'text/csv' })
+    const url = window.URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'products.csv'
+    a.click()
+    window.URL.revokeObjectURL(url)
+    showToastMessage('Products exported successfully!')
+  }
+
+  const handleSort = (field: string) => {
+    if (sortBy === field) {
+      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
+    } else {
+      setSortBy(field)
+      setSortOrder('asc')
+    }
+  }
   if (loading) {
     return (
       <div className="min-h-screen bg-white pt-28 pb-16 flex items-center justify-center">
@@ -266,23 +437,149 @@ export default function AdminProductsPage() {
       <div className="section-shell">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6 md:mb-8">
           <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl text-black-dark">Product Management</h1>
-          <button
-            onClick={() => handleShowModal()}
-            className="bg-black text-white px-4 py-2.5 sm:px-6 sm:py-3 rounded-xl font-medium hover:bg-gold transition-colors flex items-center justify-center gap-2 text-sm sm:text-base btn-mobile"
-          >
-            <Plus size={18} className="sm:w-5 sm:h-5" />
-            <span className="hidden sm:inline">Add Product</span>
-            <span className="sm:hidden">Add</span>
-          </button>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <button
+              onClick={handleExportCSV}
+              className="bg-white border border-gold text-black-dark px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl font-medium hover:bg-gold/10 transition-colors flex items-center justify-center gap-2 text-sm sm:text-base"
+              title="Export to CSV"
+            >
+              <Download size={16} className="sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">Export</span>
+            </button>
+            <button
+              onClick={() => handleShowModal()}
+              className="bg-black text-white px-4 py-2.5 sm:px-6 sm:py-3 rounded-xl font-medium hover:bg-gold transition-colors flex items-center justify-center gap-2 text-sm sm:text-base btn-mobile"
+            >
+              <Plus size={18} className="sm:w-5 sm:h-5" />
+              <span className="hidden sm:inline">Add Product</span>
+              <span className="sm:hidden">Add</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Search and Filters */}
+        <div className="bg-white rounded-2xl md:rounded-3xl border border-gold/30 p-4 mb-6">
+          <div className="flex flex-col lg:flex-row gap-4">
+            {/* Search */}
+            <div className="flex-1">
+              <div className="relative">
+                <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-black/40" />
+                <input
+                  type="text"
+                  placeholder="Search products..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2.5 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none text-sm"
+                />
+              </div>
+            </div>
+
+            {/* Category Filter */}
+            <div className="flex-1 lg:flex-none lg:w-48">
+              <select
+                value={categoryFilter}
+                onChange={(e) => setCategoryFilter(e.target.value)}
+                className="w-full px-4 py-2.5 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none text-sm bg-white"
+              >
+                <option value="all">All Categories</option>
+                {CATEGORIES.map(category => (
+                  <option key={category} value={category}>{category}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Featured Filter */}
+            <div className="flex-1 lg:flex-none lg:w-48">
+              <select
+                value={featuredFilter}
+                onChange={(e) => setFeaturedFilter(e.target.value)}
+                className="w-full px-4 py-2.5 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none text-sm bg-white"
+              >
+                <option value="all">All Products</option>
+                <option value="featured">Featured Only</option>
+                <option value="not-featured">Not Featured</option>
+              </select>
+            </div>
+
+            {/* Sort */}
+            <div className="flex-1 lg:flex-none lg:w-48">
+              <select
+                value={`${sortBy}-${sortOrder}`}
+                onChange={(e) => {
+                  const [field, order] = e.target.value.split('-')
+                  setSortBy(field)
+                  setSortOrder(order as 'asc' | 'desc')
+                }}
+                className="w-full px-4 py-2.5 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none text-sm bg-white"
+              >
+                <option value="name-asc">Name (A-Z)</option>
+                <option value="name-desc">Name (Z-A)</option>
+                <option value="price-asc">Price (Low-High)</option>
+                <option value="price-desc">Price (High-Low)</option>
+                <option value="category-asc">Category (A-Z)</option>
+                <option value="featured-desc">Featured First</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Results count and bulk actions */}
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mt-4 pt-4 border-t border-gold/20">
+            <p className="text-sm text-black/70">
+              Showing {filteredProducts.length} of {products.length} products
+            </p>
+            <div className="flex items-center gap-2">
+              {selectedProducts.size > 0 && (
+                <>
+                  <span className="text-sm text-black/70">
+                    {selectedProducts.size} selected
+                  </span>
+                  <button
+                    onClick={handleBulkDelete}
+                    className="px-3 py-1.5 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 transition-colors flex items-center gap-1"
+                  >
+                    <Trash2 size={14} />
+                    Delete Selected
+                  </button>
+                </>
+              )}
+              {totalPages > 1 && (
+                <div className="flex items-center gap-1 ml-4">
+                  <button
+                    onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                    disabled={currentPage === 1}
+                    className="px-3 py-1 border border-gold rounded-lg text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gold/10"
+                  >
+                    Previous
+                  </button>
+                  <span className="px-3 py-1 text-sm text-black/70">
+                    Page {currentPage} of {totalPages}
+                  </span>
+                  <button
+                    onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                    disabled={currentPage === totalPages}
+                    className="px-3 py-1 border border-gold rounded-lg text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gold/10"
+                  >
+                    Next
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
 
         <div className="bg-white rounded-2xl md:rounded-3xl border border-gold/30 overflow-hidden">
           {/* Mobile Table */}
           <div className="block md:hidden">
             <div className="p-4 space-y-4">
-              {products.map((product) => (
+              {paginatedProducts.map((product) => (
                 <div key={product._id} className="border border-gold/20 rounded-xl p-3 sm:p-4">
                   <div className="flex gap-2 mb-3 sm:gap-3">
+                    <input
+                      type="checkbox"
+                      checked={selectedProducts.has(product._id!)}
+                      onChange={() => handleSelectProduct(product._id!)}
+                      className="w-4 h-4 mt-1 border-gold rounded"
+                    />
                     {product.images?.[0] && (
                       <img
                         src={product.images[0]}
@@ -315,6 +612,13 @@ export default function AdminProductsPage() {
                     
                     <div className="flex items-center gap-1 sm:gap-2">
                       <button
+                        onClick={() => handleDuplicate(product)}
+                        className="p-1.5 text-purple-600 hover:bg-purple-50 rounded-lg transition-colors sm:p-2"
+                        title="Duplicate"
+                      >
+                        <Copy size={14} className="sm:w-4 sm:h-4" />
+                      </button>
+                      <button
                         onClick={() => handleShowModal(product)}
                         className="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors sm:p-2"
                       >
@@ -330,9 +634,9 @@ export default function AdminProductsPage() {
                   </div>
                 </div>
               ))}
-              {products.length === 0 && (
+              {filteredProducts.length === 0 && (
                 <div className="text-center py-8 text-black/70">
-                  No products yet. Create your first product to get started.
+                  {products.length === 0 ? 'No products yet. Create your first product to get started.' : 'No products match your filters.'}
                 </div>
               )}
             </div>
@@ -343,16 +647,40 @@ export default function AdminProductsPage() {
             <table className="w-full">
               <thead className="bg-gray-100/20">
                 <tr>
-                  <th className="px-6 py-4 text-left text-black-dark font-medium">Product</th>
-                  <th className="px-6 py-4 text-left text-black-dark font-medium">Category</th>
-                  <th className="px-6 py-4 text-left text-black-dark font-medium">Price</th>
-                  <th className="px-6 py-4 text-left text-black-dark font-medium">Featured</th>
+                  <th className="px-4 py-4 text-left">
+                    <input
+                      type="checkbox"
+                      checked={selectedProducts.size === paginatedProducts.length && paginatedProducts.length > 0}
+                      onChange={handleSelectAll}
+                      className="w-4 h-4 border-gold rounded"
+                    />
+                  </th>
+                  <th className="px-6 py-4 text-left text-black-dark font-medium cursor-pointer hover:bg-gray-100/30" onClick={() => handleSort('name')}>
+                    Product {sortBy === 'name' && (sortOrder === 'asc' ? <ChevronUp size={14} className="inline" /> : <ChevronDown size={14} className="inline" />)}
+                  </th>
+                  <th className="px-6 py-4 text-left text-black-dark font-medium cursor-pointer hover:bg-gray-100/30" onClick={() => handleSort('category')}>
+                    Category {sortBy === 'category' && (sortOrder === 'asc' ? <ChevronUp size={14} className="inline" /> : <ChevronDown size={14} className="inline" />)}
+                  </th>
+                  <th className="px-6 py-4 text-left text-black-dark font-medium cursor-pointer hover:bg-gray-100/30" onClick={() => handleSort('price')}>
+                    Price {sortBy === 'price' && (sortOrder === 'asc' ? <ChevronUp size={14} className="inline" /> : <ChevronDown size={14} className="inline" />)}
+                  </th>
+                  <th className="px-6 py-4 text-left text-black-dark font-medium cursor-pointer hover:bg-gray-100/30" onClick={() => handleSort('featured')}>
+                    Featured {sortBy === 'featured' && (sortOrder === 'asc' ? <ChevronUp size={14} className="inline" /> : <ChevronDown size={14} className="inline" />)}
+                  </th>
                   <th className="px-6 py-4 text-left text-black-dark font-medium">Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {products.map((product) => (
-                  <tr key={product._id} className="border-b border-gold/20">
+                {paginatedProducts.map((product) => (
+                  <tr key={product._id} className="border-b border-gold/20 hover:bg-gray-50/30">
+                    <td className="px-4 py-4">
+                      <input
+                        type="checkbox"
+                        checked={selectedProducts.has(product._id!)}
+                        onChange={() => handleSelectProduct(product._id!)}
+                        className="w-4 h-4 border-gold rounded"
+                      />
+                    </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-4">
                         {product.images?.[0] && (
@@ -388,6 +716,13 @@ export default function AdminProductsPage() {
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
                         <button
+                          onClick={() => handleDuplicate(product)}
+                          className="p-2 text-purple-600 hover:bg-purple-50 rounded-lg transition-colors"
+                          title="Duplicate"
+                        >
+                          <Copy size={16} />
+                        </button>
+                        <button
                           onClick={() => handleShowModal(product)}
                           className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                         >
@@ -403,10 +738,10 @@ export default function AdminProductsPage() {
                     </td>
                   </tr>
                 ))}
-                {products.length === 0 && (
+                {filteredProducts.length === 0 && (
                   <tr>
-                    <td colSpan={5} className="px-6 py-12 text-center text-black/70">
-                      No products yet. Create your first product to get started.
+                    <td colSpan={6} className="px-6 py-12 text-center text-black/70">
+                      {products.length === 0 ? 'No products yet. Create your first product to get started.' : 'No products match your filters.'}
                     </td>
                   </tr>
                 )}

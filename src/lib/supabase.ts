@@ -31,6 +31,7 @@ export interface Product {
 
 export interface Order {
   id: string
+  order_number: string
   customer_name: string
   customer_email: string
   customer_phone: string
@@ -43,6 +44,8 @@ export interface Order {
   shipping_cost: number
   tax: number
   total: number
+  tracking_number: string | null
+  estimated_delivery: string | null
   metadata: Record<string, any> | null
   created_at: string
   updated_at: string
@@ -105,10 +108,13 @@ export async function getProduct(id: string) {
   return data as Product
 }
 
-export async function createOrder(orderData: Omit<Order, 'id' | 'created_at' | 'updated_at'>) {
+export async function createOrder(orderData: Omit<Order, 'id' | 'created_at' | 'updated_at' | 'order_number'>) {
+  // Generate unique order number
+  const orderNumber = `AMP${new Date().getFullYear()}${String(Math.floor(Math.random() * 10000)).padStart(4, '0')}`
+  
   const { data, error } = await supabase
     .from('orders')
-    .insert([orderData])
+    .insert([{ ...orderData, order_number: orderNumber }])
     .select()
     .single()
 

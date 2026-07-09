@@ -106,17 +106,24 @@ export default function TrackOrderPage() {
     setIsLoading(true)
     setError('')
 
-    // Simulate API call
-    setTimeout(() => {
-      if (orderNumber.toLowerCase().includes('amp') || orderNumber === 'TRK789012345') {
-        setTrackingData(mockTrackingData)
+    try {
+      const response = await fetch(`/api/orders/track?orderNumber=${encodeURIComponent(orderNumber)}`)
+      const result = await response.json()
+
+      if (result.success) {
+        setTrackingData(result.data)
         setError('')
       } else {
-        setError('Order not found. Please check your order number and try again.')
+        setError(result.error || 'Order not found. Please check your order number and try again.')
         setTrackingData(null)
       }
+    } catch (error) {
+      console.error('Error tracking order:', error)
+      setError('Failed to track order. Please try again later.')
+      setTrackingData(null)
+    } finally {
       setIsLoading(false)
-    }, 1500)
+    }
   }
 
   const getStatusIcon = (status: OrderStatusType) => {

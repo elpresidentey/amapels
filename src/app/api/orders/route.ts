@@ -142,6 +142,8 @@ export async function POST(request: NextRequest) {
       tax: Math.round((orderData.tax || 0) * 100) / 100,
       total: Math.round(orderData.total * 100) / 100,
       status: 'pending',
+      tracking_number: null,
+      estimated_delivery: null,
       metadata: orderData.metadata || null
     }
     
@@ -154,6 +156,7 @@ export async function POST(request: NextRequest) {
         message: 'Order created successfully',
         order: {
           id: order.id,
+          orderNumber: order.order_number,
           customerName: order.customer_name,
           customerEmail: order.customer_email,
           total: order.total,
