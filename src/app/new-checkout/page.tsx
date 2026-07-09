@@ -153,6 +153,20 @@ export default function NewCheckoutPage() {
 
   const createOrder = useCallback(async (paymentReference: string) => {
     try {
+      const verifyResponse = await fetch('/api/verify-payment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ reference: paymentReference })
+      })
+
+      const verifyResult = await verifyResponse.json().catch(() => null)
+
+      if (!verifyResponse.ok || !verifyResult?.success) {
+        throw new Error(verifyResult?.message || verifyResult?.error || 'Payment verification failed')
+      }
+
       const orderData = {
         customerName: `${customerInfo.firstName} ${customerInfo.lastName}`,
         customerEmail: customerInfo.email,
@@ -182,13 +196,33 @@ export default function NewCheckoutPage() {
       })
 
       if (response.ok) {
+        const result = await response.json()
+        const orderNumber = result?.order?.orderNumber || paymentReference
+        const amount = new Intl.NumberFormat('en-NG', {
+          style: 'currency',
+          currency: 'NGN',
+          maximumFractionDigits: 0
+        }).format(getTotalPrice())
+        const confirmationParams = new URLSearchParams({
+          ref: orderNumber,
+          payment_ref: paymentReference,
+          amount,
+          email: customerInfo.email
+        })
+
         clearCart()
-        router.push(`/order-confirmation?ref=${paymentReference}`)
+        router.push(`/order-confirmation?${confirmationParams.toString()}`)
       } else {
         throw new Error('Order creation failed')
       }
     } catch (error) {
       console.error('Order creation error:', error)
+      setErrors({
+        payment: error instanceof Error
+          ? error.message
+          : 'Payment confirmed, but order processing failed. Please contact support with your payment reference.'
+      })
+      setLoading(false)
     }
   }, [customerInfo, items, shippingAddress, getSubtotal, getShipping, getTax, getTotalPrice, clearCart, router])
 
@@ -212,7 +246,7 @@ export default function NewCheckoutPage() {
           email: customerInfo.email,
           amount: getTotalPrice() * 100, // Convert to kobo
           currency: 'NGN',
-          ref: `AMP-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
+          ref: `AMP-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`.toUpperCase(),
           metadata: {
             custom_fields: [
               {
@@ -557,6 +591,12 @@ export default function NewCheckoutPage() {
               )}
 
               {/* Navigation Buttons */}
+              {errors.payment && (
+                <div className="mt-8 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                  {errors.payment}
+                </div>
+              )}
+
               <div className="flex gap-4 mt-8">
                 {currentStep > 1 && (
                   <button

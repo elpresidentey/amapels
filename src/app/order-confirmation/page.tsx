@@ -32,7 +32,7 @@ function OrderConfirmationContent() {
     if (paymentRef) {
       setPaymentReference(paymentRef)
     } else {
-      setPaymentReference(`PAY-${Date.now()}-${Math.random().toString(36).substr(2, 6).toUpperCase()}`)
+      setPaymentReference(reference || '')
     }
     
     if (amount) {
@@ -205,7 +205,7 @@ For inquiries, contact: orders@amapels.com
                   
                   <div>
                     <p className="text-sm text-gray-600 mb-1">Payment Reference</p>
-                    <p className="font-mono font-medium text-black">{paymentReference}</p>
+                    <p className="font-mono font-medium text-black">{paymentReference || 'Confirmed'}</p>
                   </div>
                   
                   {totalAmount && (

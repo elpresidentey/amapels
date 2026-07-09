@@ -413,6 +413,19 @@ export default function CheckoutPage() {
                       
                       if (orderResponse.ok) {
                         orderSuccess = true
+                        const orderResult = await orderResponse.json()
+                        const orderNumber = orderResult?.order?.orderNumber || response.reference
+                        const amount = new Intl.NumberFormat('en-NG', {
+                          style: 'currency',
+                          currency: 'NGN',
+                          maximumFractionDigits: 0
+                        }).format(total)
+                        const confirmationParams = new URLSearchParams({
+                          ref: orderNumber,
+                          payment_ref: response.reference,
+                          amount,
+                          email: shippingData.email.trim()
+                        })
                         
                         setToastMessage('✨ Order placed successfully! Redirecting...')
                         setToastType('success')
@@ -421,7 +434,7 @@ export default function CheckoutPage() {
                         setTimeout(() => {
                           clearCart()
                           resetCheckout()
-                          router.push(`/order-confirmation?ref=${response.reference}`)
+                          router.push(`/order-confirmation?${confirmationParams.toString()}`)
                         }, 2000)
                       } else {
                         throw new Error(`Order creation failed: ${orderResponse.status}`)
