@@ -27,6 +27,10 @@ interface TrackingInfo {
   trackingNumber: string
   courierName: string
   courierPhone: string
+  paymentReference: string
+  paymentStatus: string
+  totalAmount: string
+  customerEmail: string
   timeline: {
     date: string
     time: string
@@ -268,6 +272,31 @@ export default function TrackOrderPage() {
                   <div>
                     <p className="text-black/70 text-sm mb-1">Estimated Delivery</p>
                     <p className="font-medium text-black-dark">{trackingData.estimatedDelivery}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Payment Information */}
+              <div className="mt-6 pt-6 border-t border-gray-200">
+                <h3 className="font-semibold text-black-dark mb-4">Payment Information</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-black/70 text-sm mb-1">Payment Reference</p>
+                    <p className="font-mono font-medium text-black-dark">{trackingData.paymentReference}</p>
+                  </div>
+                  <div>
+                    <p className="text-black/70 text-sm mb-1">Payment Status</p>
+                    <p className={`font-medium ${trackingData.paymentStatus === 'paid' ? 'text-green-600' : 'text-yellow-600'}`}>
+                      {trackingData.paymentStatus === 'paid' ? 'Paid' : 'Pending'}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-black/70 text-sm mb-1">Total Amount</p>
+                    <p className="font-bold text-black-dark">{trackingData.totalAmount}</p>
+                  </div>
+                  <div>
+                    <p className="text-black/70 text-sm mb-1">Customer Email</p>
+                    <p className="font-medium text-black-dark">{trackingData.customerEmail}</p>
                   </div>
                 </div>
               </div>

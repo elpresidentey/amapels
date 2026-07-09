@@ -10,10 +10,16 @@ function OrderConfirmationContent() {
   const searchParams = useSearchParams()
   const [orderNumber, setOrderNumber] = useState('')
   const [orderDate, setOrderDate] = useState('')
+  const [paymentReference, setPaymentReference] = useState('')
+  const [totalAmount, setTotalAmount] = useState('')
+  const [customerEmail, setCustomerEmail] = useState('')
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const reference = searchParams.get('ref')
+    const paymentRef = searchParams.get('payment_ref')
+    const amount = searchParams.get('amount')
+    const email = searchParams.get('email')
     
     if (reference) {
       setOrderNumber(reference)
@@ -21,6 +27,20 @@ function OrderConfirmationContent() {
       const timestamp = Date.now()
       const random = Math.random().toString(36).substr(2, 4).toUpperCase()
       setOrderNumber(`AMP-${timestamp}-${random}`)
+    }
+    
+    if (paymentRef) {
+      setPaymentReference(paymentRef)
+    } else {
+      setPaymentReference(`PAY-${Date.now()}-${Math.random().toString(36).substr(2, 6).toUpperCase()}`)
+    }
+    
+    if (amount) {
+      setTotalAmount(amount)
+    }
+    
+    if (email) {
+      setCustomerEmail(email)
     }
     
     setOrderDate(new Date().toLocaleDateString('en-NG', {
@@ -32,6 +52,37 @@ function OrderConfirmationContent() {
     
     setLoading(false)
   }, [searchParams])
+
+  const handleDownloadReceipt = () => {
+    const receiptContent = `
+AMAPELS JEWELRY - ORDER RECEIPT
+================================
+Order Number: ${orderNumber}
+Payment Reference: ${paymentReference}
+Order Date: ${orderDate}
+Customer Email: ${customerEmail}
+
+PAYMENT DETAILS
+---------------
+Payment Method: Bank Transfer / Card
+Payment Reference: ${paymentReference}
+Payment Status: SUCCESSFUL
+Total Amount: ${totalAmount || '₦0.00'}
+
+Thank you for your purchase!
+For inquiries, contact: orders@amapels.com
+    `.trim()
+
+    const blob = new Blob([receiptContent], { type: 'text/plain' })
+    const url = window.URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `AMAPELS-Receipt-${orderNumber}.txt`
+    document.body.appendChild(a)
+    a.click()
+    window.URL.revokeObjectURL(url)
+    document.body.removeChild(a)
+  }
 
   const nextSteps = [
     {
@@ -135,33 +186,59 @@ function OrderConfirmationContent() {
                     </div>
                     <div>
                       <p className="text-sm text-gray-600">Confirmation Email</p>
-                      <p className="font-medium text-black">Sent to your email address</p>
+                      <p className="font-medium text-black">{customerEmail || 'Sent to your email'}</p>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div>
-                <h3 className="font-serif text-xl text-black mb-6">Quick Actions</h3>
+                <h3 className="font-serif text-xl text-black mb-6">Payment Information</h3>
+                <div className="space-y-4 mb-6">
+                  <div className="bg-green-50 border border-green-200 rounded-xl p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Check size={16} className="text-green-600" />
+                      <span className="text-sm font-semibold text-green-800">Payment Successful</span>
+                    </div>
+                    <p className="text-xs text-green-700">Your payment has been processed successfully</p>
+                  </div>
+                  
+                  <div>
+                    <p className="text-sm text-gray-600 mb-1">Payment Reference</p>
+                    <p className="font-mono font-medium text-black">{paymentReference}</p>
+                  </div>
+                  
+                  {totalAmount && (
+                    <div>
+                      <p className="text-sm text-gray-600 mb-1">Total Amount</p>
+                      <p className="font-bold text-xl text-black">{totalAmount}</p>
+                    </div>
+                  )}
+                </div>
+
+                <h3 className="font-serif text-xl text-black mb-4">Quick Actions</h3>
                 <div className="space-y-4">
-                  <button className="w-full bg-black text-white py-4 px-6 rounded-xl text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-black transition-colors flex items-center justify-center gap-2 border border-gold">
+                  <button 
+                    onClick={handleDownloadReceipt}
+                    className="w-full bg-black text-white py-4 px-6 rounded-xl text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-black transition-colors flex items-center justify-center gap-2 border border-gold"
+                  >
                     <Download size={16} />
                     Download Receipt
                   </button>
                   
                   <Link 
-                    href="/shop"
+                    href="/track-order"
                     className="w-full border-2 border-gold text-black py-4 px-6 rounded-xl text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors flex items-center justify-center gap-2"
                   >
-                    Continue Exploring
+                    Track Order
                     <ArrowRight size={16} />
                   </Link>
                   
                   <Link 
-                    href="/contact"
+                    href="/shop"
                     className="w-full text-center text-gray-600 hover:text-black transition-colors text-sm"
                   >
-                    Need help? Contact us
+                    Continue Shopping
                   </Link>
                 </div>
               </div>

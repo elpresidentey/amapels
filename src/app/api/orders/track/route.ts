@@ -54,6 +54,9 @@ export async function GET(request: NextRequest) {
       trackingNumber: order.tracking_number || 'Pending',
       courierName: order.metadata?.courier_name || 'AMAPELS Logistics',
       courierPhone: order.metadata?.courier_phone || '+234-800-123-4567',
+      paymentReference: order.payment_reference || 'N/A',
+      paymentStatus: order.payment_status,
+      totalAmount: `₦${order.total.toLocaleString()}`,
       customerName: order.customer_name,
       customerEmail: order.customer_email,
       customerPhone: order.customer_phone,
@@ -63,7 +66,6 @@ export async function GET(request: NextRequest) {
       shippingCost: order.shipping_cost,
       tax: order.tax,
       total: order.total,
-      paymentStatus: order.payment_status,
       createdAt: order.created_at,
       timeline: order.metadata?.timeline || [
         {
