@@ -55,6 +55,10 @@ export default function TrackOrderPage() {
     trackingNumber: 'TRK789012345',
     courierName: 'Express Logistics',
     courierPhone: '+234-800-123-4567',
+    paymentReference: 'PAY-20240703-ABC123',
+    paymentStatus: 'paid',
+    totalAmount: '₦85,000',
+    customerEmail: 'customer@example.com',
     timeline: [
       {
         date: '2026-07-03',
