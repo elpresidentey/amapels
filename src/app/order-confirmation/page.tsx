@@ -13,10 +13,12 @@ function OrderConfirmationContent() {
   const [paymentReference, setPaymentReference] = useState('')
   const [totalAmount, setTotalAmount] = useState('')
   const [customerEmail, setCustomerEmail] = useState('')
+  const [trackingNumber, setTrackingNumber] = useState('')
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const reference = searchParams.get('ref')
+    const tracking = searchParams.get('tracking')
     const paymentRef = searchParams.get('payment_ref')
     const amount = searchParams.get('amount')
     const email = searchParams.get('email')
@@ -27,6 +29,14 @@ function OrderConfirmationContent() {
       const timestamp = Date.now()
       const random = Math.random().toString(36).substr(2, 4).toUpperCase()
       setOrderNumber(`AMP-${timestamp}-${random}`)
+    }
+    
+    if (tracking) {
+      setTrackingNumber(tracking)
+    } else if (reference) {
+      setTrackingNumber(`TRK-${reference.replace(/[^a-zA-Z0-9]/g, '').toUpperCase()}-${Date.now().toString().slice(-6)}`)
+    } else {
+      setTrackingNumber(`TRK-${Date.now()}-${Math.random().toString(36).substr(2, 6).toUpperCase()}`)
     }
     
     if (paymentRef) {
@@ -58,6 +68,7 @@ function OrderConfirmationContent() {
 AMAPELS JEWELRY - ORDER RECEIPT
 ================================
 Order Number: ${orderNumber}
+Tracking Number: ${trackingNumber}
 Payment Reference: ${paymentReference}
 Order Date: ${orderDate}
 Customer Email: ${customerEmail}
@@ -171,6 +182,16 @@ For inquiries, contact: orders@amapels.com
                   </div>
                   
                   <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                      <Truck size={20} className="text-blue-600" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-600">Tracking Number</p>
+                      <p className="font-mono font-medium text-blue-600">{trackingNumber}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
                       <Calendar size={20} className="text-black" />
                     </div>
@@ -227,7 +248,7 @@ For inquiries, contact: orders@amapels.com
                   </button>
                   
                   <Link 
-                    href="/track-order"
+                    href={`/track-order?orderNumber=${orderNumber}`}
                     className="w-full border-2 border-gold text-black py-4 px-6 rounded-xl text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors flex items-center justify-center gap-2"
                   >
                     Track Order
