@@ -11,12 +11,15 @@ import SessionInitializer from "@/components/SessionInitializer"
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
+  display: "swap",
+  preload: true,
 })
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-serif",
   display: "swap",
+  preload: true,
 })
 
 export const metadata: Metadata = {

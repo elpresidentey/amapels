@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, Heart, Star } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import ProductCard, { ProductCardSkeleton } from '@/components/ProductCard'
 import { useProducts } from '@/hooks/useProducts'
 
 const heroSlides = [
@@ -137,6 +138,7 @@ export default function Home() {
                 fill
                 priority={true}
                 sizes="100vw"
+                quality={85}
                 className="object-cover"
               />
             </motion.div>
@@ -636,54 +638,30 @@ export default function Home() {
                 Treasures to wear, treasures to give.
               </h2>
             </div>
-            <p className="max-w-md text-sm leading-relaxed text-black/70">
-              Artfully curated jewelry for those who appreciate timeless elegance, meaningful moments, and the perfect gift.
-            </p>
+            <div className="flex flex-col items-start gap-5 md:items-end">
+              <p className="max-w-md text-sm leading-relaxed text-black/70 md:text-right">
+                Artfully curated jewelry for those who appreciate timeless elegance, meaningful moments, and the perfect gift.
+              </p>
+              <Link
+                href="/shop"
+                className="group inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-black-dark transition-colors hover:text-accent-orange"
+              >
+                View All Pieces
+                <ArrowUpRight size={16} className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
+              </Link>
+            </div>
           </div>
 
           {loading ? (
             <div className="grid gap-10 md:grid-cols-3">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="animate-pulse">
-                  <div className="relative aspect-[4/5] bg-gray-100/30 rounded-[30px] mb-6"></div>
-                  <div className="h-3 bg-gray-100/30 rounded w-1/3 mb-2"></div>
-                  <div className="h-5 bg-gray-100/30 rounded w-2/3 mb-2"></div>
-                  <div className="h-4 bg-gray-100/30 rounded w-1/4"></div>
-                </div>
+                <ProductCardSkeleton key={i} variant="curated" />
               ))}
             </div>
           ) : curatedPieces.length > 0 ? (
             <div className="grid gap-10 md:grid-cols-3">
               {curatedPieces.map((piece, index) => (
-                <motion.div
-                  key={piece._id}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.85, delay: index * 0.12 }}
-                  className="group hover-lift card-premium"
-                >
-                  <Link href={`/shop/${piece._id}`}>
-                    <div className="relative overflow-hidden rounded-[30px] bg-white shadow-premium">
-                      <div className="relative aspect-[4/5]">
-                        <Image
-                          src={piece.images?.[0] || '/images/sabrianna-Y_bxfTa_iUA-unsplash.jpg'}
-                          alt={piece.name}
-                          fill
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          className="object-cover img-premium"
-                        />
-                      </div>
-                    </div>
-                    <div className="mt-6 flex items-start justify-between gap-5">
-                      <div>
-                        <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-black/50">{piece.category}</p>
-                        <h3 className="mt-2 font-serif text-xl font-medium text-black-dark">{piece.name}</h3>
-                      </div>
-                      <p className="pt-1 text-sm font-medium text-black-dark">{piece.price}</p>
-                    </div>
-                  </Link>
-                </motion.div>
+                <ProductCard key={piece._id} product={piece} index={index} variant="curated" />
               ))}
             </div>
           ) : (

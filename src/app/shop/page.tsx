@@ -1,20 +1,16 @@
 'use client'
 
 import { Suspense, useEffect, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useSearchParams } from 'next/navigation'
-import Image from 'next/image'
-import Link from 'next/link'
 import { useProducts } from '@/hooks/useProducts'
-import { Heart, ShoppingCart, Eye, Star } from 'lucide-react'
+import ProductCard, { ProductCardSkeleton } from '@/components/ProductCard'
 
 const categories = ['All', 'Earrings', 'Necklaces', 'Bracelets', 'Jewellery Sets']
 
 function ShopContent() {
   const searchParams = useSearchParams()
   const [selectedCategory, setSelectedCategory] = useState('All')
-  const [hoveredProduct, setHoveredProduct] = useState<string | null>(null)
-  const [wishlist, setWishlist] = useState<Set<string>>(new Set())
 
   useEffect(() => {
     const categoryFromQuery = searchParams.get('category')
@@ -27,27 +23,28 @@ function ShopContent() {
 
   const { products, loading, error } = useProducts(selectedCategory)
 
-  const toggleWishlist = (e: React.MouseEvent, productId: string) => {
-    e.preventDefault()
-    e.stopPropagation()
-    setWishlist(prev => {
-      const newSet = new Set(prev)
-      if (newSet.has(productId)) {
-        newSet.delete(productId)
-      } else {
-        newSet.add(productId)
-      }
-      return newSet
-    })
-  }
-
   if (loading) {
     return (
-      <div className="pt-32 min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-gold border-t-brown-dark rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-black/70">Loading products...</p>
-        </div>
+      <div className="min-h-screen bg-primary-light/15 pt-16 sm:pt-20 md:pt-24">
+        <section className="px-4 py-16 sm:px-6 sm:py-20 md:px-8 md:py-24 lg:px-12 xl:px-24">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-12 animate-pulse text-center sm:mb-16 md:mb-20">
+              <div className="mx-auto mb-4 h-2.5 w-36 rounded bg-black/5" />
+              <div className="mx-auto h-10 w-32 rounded bg-black/5 sm:h-12" />
+              <div className="mx-auto mt-6 h-4 w-80 max-w-full rounded bg-black/5" />
+            </div>
+            <div className="mb-12 flex flex-wrap justify-center gap-2 sm:mb-16 md:mb-20">
+              {categories.map((category) => (
+                <div key={category} className="h-10 w-24 animate-pulse rounded-full bg-black/5 sm:w-28" />
+              ))}
+            </div>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7 md:gap-8 lg:grid-cols-3 lg:gap-9 xl:gap-10">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <ProductCardSkeleton key={i} />
+              ))}
+            </div>
+          </div>
+        </section>
       </div>
     )
   }
@@ -64,8 +61,8 @@ function ShopContent() {
   }
 
   return (
-    <div className="pt-16 min-h-screen sm:pt-20 md:pt-24">
-      <section className="py-16 px-4 sm:py-20 sm:px-6 md:py-24 md:px-8 lg:py-28 lg:px-12 xl:px-24">
+    <div className="min-h-screen bg-primary-light/15 pt-16 sm:pt-20 md:pt-24">
+      <section className="px-4 py-16 sm:px-6 sm:py-20 md:px-8 md:py-24 lg:px-12 lg:py-28 xl:px-24">
         <div className="max-w-7xl mx-auto">
           <motion.div 
             initial={{ opacity: 0, y: 45 }}
@@ -99,6 +96,18 @@ function ShopContent() {
             ))}
           </motion.div>
 
+          {products && products.length > 0 && (
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.25 }}
+              className="mb-10 text-center text-[10px] font-semibold uppercase tracking-[0.35em] text-black/45 sm:mb-12 md:mb-14"
+            >
+              {products.length} {products.length === 1 ? 'Piece' : 'Pieces'}
+              {selectedCategory !== 'All' ? ` in ${selectedCategory}` : ' to Discover'}
+            </motion.p>
+          )}
+
           {!products || products.length === 0 ? (
             <div className="text-center py-16">
               <p className="text-black/60">No products found in this category yet. Check back soon!</p>
@@ -106,114 +115,7 @@ function ShopContent() {
           ) : (
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7 md:gap-8 lg:grid-cols-3 lg:gap-9 xl:gap-10">
               {products.map((product, index) => (
-                <motion.div
-                  key={product._id}
-                  initial={{ opacity: 0, y: 45 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: index * 0.12 }}
-                  className="group cursor-pointer w-full"
-                  onMouseEnter={() => setHoveredProduct(product._id)}
-                  onMouseLeave={() => setHoveredProduct(null)}
-                >
-                  <Link href={`/shop/${product._id}`}>
-                    <div className="relative w-full overflow-hidden rounded-2xl bg-white shadow-lg sm:rounded-3xl md:rounded-[32px] transition-all duration-500 group-hover:shadow-2xl" style={{ aspectRatio: '3/4' }}>
-                      {/* Badge */}
-                      {product.featured && (
-                        <div className="absolute top-3 left-3 z-20 bg-gold text-black-dark px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider shadow-lg">
-                          Featured
-                        </div>
-                      )}
-
-                      {/* Wishlist Button */}
-                      <button
-                        onClick={(e) => toggleWishlist(e, product._id)}
-                        className="absolute top-3 right-3 z-20 w-9 h-9 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg transition-all duration-300 hover:bg-white hover:scale-110 sm:w-10 sm:h-10"
-                      >
-                        <Heart 
-                          size={16} 
-                          className={`sm:w-5 sm:h-5 transition-colors ${
-                            wishlist.has(product._id) ? 'fill-red-500 text-red-500' : 'text-black/60'
-                          }`}
-                        />
-                      </button>
-
-                      {/* Quick Actions Overlay */}
-                      <AnimatePresence>
-                        {hoveredProduct === product._id && (
-                          <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: 20 }}
-                            transition={{ duration: 0.3 }}
-                            className="absolute bottom-0 left-0 right-0 z-10 p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent"
-                          >
-                            <div className="flex gap-2 justify-center">
-                              <button className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-gold transition-colors sm:w-12 sm:h-12">
-                                <ShoppingCart size={18} className="sm:w-5 sm:h-5" />
-                              </button>
-                              <button className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-gold transition-colors sm:w-12 sm:h-12">
-                                <Eye size={18} className="sm:w-5 sm:h-5" />
-                              </button>
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-
-                      {/* Product Image */}
-                      <div className="relative w-full h-full">
-                        <Image 
-                          src={product.images?.[0] || '/images/sabrianna-Y_bxfTa_iUA-unsplash.jpg'}
-                          alt={product.name}
-                          fill
-                          sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 50vw, 33vw"
-                          className="object-cover transition-transform duration-700 group-hover:scale-110"
-                        />
-                        {/* Secondary Image on Hover */}
-                        {product.images?.[1] && (
-                          <Image
-                            src={product.images[1]}
-                            alt={`${product.name} alternate view`}
-                            fill
-                            sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 50vw, 33vw"
-                            className="object-cover absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                          />
-                        )}
-                      </div>
-
-                      {/* Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    </div>
-
-                    {/* Product Info */}
-                    <div className="mt-4 px-1">
-                      <div className="flex items-start justify-between gap-2 mb-2">
-                        <p className="text-[10px] font-semibold uppercase tracking-[0.32em] text-black/50 transition-colors group-hover:text-gold">
-                          {product.category}
-                        </p>
-                        <div className="flex items-center gap-0.5">
-                          {[...Array(5)].map((_, i) => (
-                            <Star 
-                              key={i} 
-                              size={12} 
-                              className={`fill-gold text-gold ${i < 4 ? '' : 'text-gold/30'}`}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                      <h3 className="font-serif text-base font-medium text-black-dark mb-2 line-clamp-2 sm:text-lg md:text-xl transition-colors group-hover:text-gold">
-                        {product.name}
-                      </h3>
-                      <div className="flex items-center justify-between">
-                        <p className="text-lg font-bold text-black-dark sm:text-xl text-gradient-gold">
-                          {product.price}
-                        </p>
-                        <button className="text-xs text-gold font-semibold uppercase tracking-wider hover:text-black transition-colors">
-                          View Details
-                        </button>
-                      </div>
-                    </div>
-                  </Link>
-                </motion.div>
+                <ProductCard key={product._id} product={product} index={index} />
               ))}
             </div>
           )}
