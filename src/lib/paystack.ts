@@ -156,6 +156,13 @@ export const initializePaystackPayment = async (config: PaystackConfig) => {
 
   } catch (error) {
     console.error('Paystack setup error:', error)
+    
+    // Handle browser extension interference errors
+    if (error instanceof Error && error.message.includes('message channel')) {
+      console.warn('Browser extension interference detected. Please disable ad blockers or privacy extensions and try again.')
+      throw new Error('Payment was interrupted by a browser extension. Please disable ad blockers or privacy extensions and try again.')
+    }
+    
     if (error instanceof Error) {
       throw error
     } else {
