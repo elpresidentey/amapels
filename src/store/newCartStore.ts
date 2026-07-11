@@ -16,12 +16,14 @@ interface CartState {
   items: CartItem[]
   isOpen: boolean
   isLoaded: boolean
+  sessionId: string | null
   
   // Actions
   addItem: (product: Omit<CartItem, 'quantity'>) => void
   removeItem: (id: string) => void
   updateQuantity: (id: string, quantity: number) => void
   clearCart: () => void
+  clearCartOnNewSession: () => void
   
   // UI
   openCart: () => void
@@ -78,6 +80,7 @@ export const useCartStore = create<CartState>()(
       items: [],
       isOpen: false,
       isLoaded: false,
+      sessionId: null,
 
       addItem: (product) => {
         set((state) => {
@@ -124,6 +127,45 @@ export const useCartStore = create<CartState>()(
         set({ items: [] })
       },
 
+      clearCartOnNewSession: () => {
+        try {
+          if (typeof window === 'undefined') return
+          
+          const currentSessionId = sessionStorage.getItem('cart_session_id')
+          const storedSessionId = get().sessionId
+          
+          if (!currentSessionId) {
+            const newSessionId = `session_${Date.now()}_${Math.random().toString(36).substring(2)}`
+            sessionStorage.setItem('cart_session_id', newSessionId)
+            
+            // First visit - clear any existing cart data
+            if (get().items.length > 0) {
+              console.log('First visit detected, clearing cart')
+              set({ 
+                items: [], 
+                sessionId: newSessionId 
+              })
+            } else {
+              set({ sessionId: newSessionId })
+            }
+            return
+          }
+          
+          // If session IDs don't match, clear cart
+          if (storedSessionId && currentSessionId !== storedSessionId) {
+            console.log('New session detected, clearing cart')
+            set({ 
+              items: [], 
+              sessionId: currentSessionId 
+            })
+          } else {
+            set({ sessionId: currentSessionId })
+          }
+        } catch (error) {
+          console.error('Error checking session:', error)
+        }
+      },
+
       openCart: () => set({ isOpen: true }),
       closeCart: () => set({ isOpen: false }),
       toggleCart: () => set((state) => ({ isOpen: !state.isOpen })),
@@ -161,6 +203,7 @@ export const useCartStore = create<CartState>()(
       storage: createJSONStorage(() => safeLocalStorage),
       partialize: (state) => ({
         items: state.items,
+        sessionId: state.sessionId,
       }),
       onRehydrateStorage: () => (state, error) => {
         if (error) {
@@ -168,10 +211,12 @@ export const useCartStore = create<CartState>()(
           return
         }
         
-        // Simple post-rehydration setup
+        // Post-rehydration setup
         if (state) {
           state.closeCart()
           state.setLoaded(true)
+          // Check for new session and clear cart if needed
+          state.clearCartOnNewSession()
         }
       },
     }

@@ -114,17 +114,49 @@ export async function getProduct(id: string) {
 }
 
 export async function createOrder(orderData: Omit<Order, 'id' | 'created_at' | 'updated_at' | 'order_number'>) {
-  // Generate unique order number
-  const orderNumber = `AMP${new Date().getFullYear()}${String(Math.floor(Math.random() * 10000)).padStart(4, '0')}`
-  
-  const { data, error } = await supabase
-    .from('orders')
-    .insert([{ ...orderData, order_number: orderNumber }])
-    .select()
-    .single()
+  if (!supabase) {
+    throw new Error('Supabase client not initialized')
+  }
 
-  if (error) throw error
-  return data as Order
+  // Generate unique order number with retry logic for uniqueness
+  let orderNumber: string
+  let attempts = 0
+  const maxAttempts = 5
+  
+  while (attempts < maxAttempts) {
+    orderNumber = `AMP${new Date().getFullYear()}${String(Math.floor(Math.random() * 100000)).padStart(5, '0')}`
+    
+    try {
+      const { data, error } = await supabase
+        .from('orders')
+        .insert([{ ...orderData, order_number: orderNumber }])
+        .select()
+        .single()
+
+      if (error) {
+        // If it's a unique constraint violation, try with a different number
+        if (error.code === '23505' && error.message.includes('order_number')) {
+          attempts++
+          console.log(`Order number conflict, retrying (attempt ${attempts}/${maxAttempts})`)
+          continue
+        }
+        throw error
+      }
+      
+      return data as Order
+    } catch (error: any) {
+      // If it's not a unique constraint error, throw immediately
+      if (error.code !== '23505') {
+        throw error
+      }
+      attempts++
+      if (attempts >= maxAttempts) {
+        throw new Error('Failed to generate unique order number after multiple attempts')
+      }
+    }
+  }
+  
+  throw new Error('Failed to create order')
 }
 
 export async function getOrders(options?: {

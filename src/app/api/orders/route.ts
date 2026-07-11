@@ -168,16 +168,33 @@ export async function POST(request: NextRequest) {
 
     } catch (error: any) {
       console.error('Order creation failed:', error)
+      console.error('Error details:', {
+        message: error.message,
+        code: error.code,
+        details: error.details,
+        hint: error.hint
+      })
       
       // Handle specific Supabase/Postgres errors
       if (error.code === '23505') {
-        // Unique constraint violation (duplicate payment reference)
+        // Unique constraint violation (duplicate payment reference or order number)
         return NextResponse.json(
           { 
             error: 'Order with this reference already exists',
             code: 'DUPLICATE_ORDER'
           },
           { status: 409 }
+        )
+      }
+      
+      // Handle connection errors
+      if (error.code === 'PGRST116') {
+        return NextResponse.json(
+          { 
+            error: 'Database connection error',
+            code: 'CONNECTION_ERROR'
+          },
+          { status: 503 }
         )
       }
       

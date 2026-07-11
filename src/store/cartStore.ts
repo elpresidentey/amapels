@@ -222,6 +222,19 @@ const useCartStoreBase = create<CartStore>()(
           if (!currentSessionId) {
             const newSessionId = `session_${Date.now()}_${Math.random().toString(36).substring(2)}`
             sessionStorage.setItem('cart_session_id', newSessionId)
+            
+            // First visit - clear any existing cart data
+            if (get().items.length > 0) {
+              console.log('First visit detected, clearing cart')
+              set({ 
+                items: [], 
+                error: null, 
+                sessionId: newSessionId 
+              })
+            } else {
+              set({ sessionId: newSessionId })
+            }
+            return
           }
           
           // If session IDs don't match, clear cart (new session detected)
