@@ -15,8 +15,15 @@ function OrderConfirmationContent() {
   const [customerEmail, setCustomerEmail] = useState('')
   const [trackingNumber, setTrackingNumber] = useState('')
   const [loading, setLoading] = useState(true)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!mounted) return
+    
     const reference = searchParams.get('ref')
     const tracking = searchParams.get('tracking')
     const paymentRef = searchParams.get('payment_ref')
@@ -61,7 +68,7 @@ function OrderConfirmationContent() {
     }))
     
     setLoading(false)
-  }, [searchParams])
+  }, [searchParams, mounted])
 
   const handleDownloadReceipt = () => {
     const receiptContent = `
@@ -118,7 +125,7 @@ For inquiries, contact: orders@amapels.com
     }
   ]
 
-  if (loading) {
+  if (loading || !mounted) {
     return (
       <div className="min-h-screen bg-white pt-28 pb-16 flex items-center justify-center">
         <div className="text-center">
