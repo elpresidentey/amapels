@@ -429,15 +429,18 @@ export default function CheckoutPage() {
                           email: shippingData.email.trim()
                         })
                         
+                        console.log('Order successful, redirecting to confirmation with params:', confirmationParams.toString())
+                        
                         setToastMessage('✨ Order placed successfully! Redirecting...')
                         setToastType('success')
                         setShowToast(true)
                         
-                        setTimeout(() => {
-                          clearCart()
-                          resetCheckout()
-                          router.push(`/order-confirmation?${confirmationParams.toString()}`)
-                        }, 2000)
+                        // Clear cart and redirect immediately
+                        clearCart()
+                        resetCheckout()
+                        
+                        // Immediate redirect without delay
+                        window.location.href = `/order-confirmation?${confirmationParams.toString()}`
                       } else {
                         throw new Error(`Order creation failed: ${orderResponse.status}`)
                       }
