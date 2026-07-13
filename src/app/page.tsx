@@ -18,7 +18,9 @@ const heroSlides = [
     description:
       'Handcrafted in Lagos with passion and precision, each piece tells a story of heritage transformed into contemporary luxury.',
     accent: 'Crystal brilliance and luminous detail',
-    ticker: 'Crystal radiance, timeless elegance, crafted for every cherished moment.'
+    ticker: 'Crystal radiance, timeless elegance, crafted for every cherished moment.',
+    width: 1920,
+    height: 1080
   },
   {
     id: 2,
@@ -29,7 +31,9 @@ const heroSlides = [
     description:
       'More than jewelry—each piece is a conversation starter, a confidence builder, and a celebration of who you are.',
     accent: 'Luminous gold, artisan-crafted',
-    ticker: 'Refined gold treasures for moments that matter most.'
+    ticker: 'Refined gold treasures for moments that matter most.',
+    width: 1920,
+    height: 1080
   },
   {
     id: 3,
@@ -40,7 +44,9 @@ const heroSlides = [
     description:
       'From intimate gatherings to grand celebrations, our pieces become part of your most cherished memories.',
     accent: 'Statement pieces, timeless elegance',
-    ticker: 'Treasured designs for celebrations, gifting, and unforgettable evenings.'
+    ticker: 'Treasured designs for celebrations, gifting, and unforgettable evenings.',
+    width: 1920,
+    height: 1080
   }
 ]
 
@@ -140,6 +146,9 @@ export default function Home() {
                 sizes="100vw"
                 quality={85}
                 className="object-cover"
+                style={{ objectFit: 'cover' }}
+                placeholder="blur"
+                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCgAB//Z"
               />
             </motion.div>
           </AnimatePresence>
@@ -310,7 +319,7 @@ export default function Home() {
       {/* Brand Pillars */}
       <section className="border-y border-gold/35 bg-white/40">
         <div className="mx-auto max-w-7xl px-6 py-6 md:px-12 lg:px-24">
-          <div className="relative h-8 overflow-hidden">
+          <div className="relative h-8 min-h-[32px] overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentPillar}
@@ -386,7 +395,9 @@ export default function Home() {
                       alt="Amapels bracelet detail"
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      quality={85}
                       className="object-cover transition-transform duration-700 hover:scale-105"
+                      style={{ objectFit: 'cover' }}
                     />
                   </div>
                   <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent 40%,rgba(20,15,10,0.85) 100%)]" />
@@ -448,7 +459,9 @@ export default function Home() {
                     fill
                     priority={true}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 50vw"
+                    quality={85}
                     className="object-cover img-premium transition-transform duration-700 group-hover:scale-110"
+                    style={{ objectFit: 'cover' }}
                   />
                 </div>
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,15,10,0.25) 0%,rgba(20,15,10,0.92) 100%)] transition-opacity duration-500 group-hover:opacity-90" />
@@ -497,7 +510,9 @@ export default function Home() {
                     fill
                     priority={true}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+                    quality={85}
                     className="object-cover img-premium transition-transform duration-700 group-hover:scale-110"
+                    style={{ objectFit: 'cover' }}
                   />
                 </div>
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,15,10,0.25) 0%,rgba(20,15,10,0.92) 100%)] transition-opacity duration-500 group-hover:opacity-90" />
@@ -544,7 +559,9 @@ export default function Home() {
                     alt={featuredCollections[2].title}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+                    quality={85}
                     className="object-cover img-premium transition-transform duration-700 group-hover:scale-110"
+                    style={{ objectFit: 'cover' }}
                   />
                 </div>
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,15,10,0.25) 0%,rgba(20,15,10,0.92) 100%)] transition-opacity duration-500 group-hover:opacity-90" />
@@ -591,7 +608,9 @@ export default function Home() {
                     alt={featuredCollections[3].title}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 50vw"
+                    quality={85}
                     className="object-cover img-premium transition-transform duration-700 group-hover:scale-110"
+                    style={{ objectFit: 'cover' }}
                   />
                 </div>
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,15,10,0.25) 0%,rgba(20,15,10,0.92) 100%)] transition-opacity duration-500 group-hover:opacity-90" />

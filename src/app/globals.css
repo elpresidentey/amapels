@@ -16,6 +16,8 @@
     overflow-x: hidden;
     /* Better touch scrolling on iOS */
     -webkit-overflow-scrolling: touch;
+    /* Prevent layout shift during font loading */
+    font-synthesis: none;
   }
 
   ::selection {
