@@ -10,32 +10,39 @@
   }
 
   body {
-    @apply bg-primary text-black antialiased;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    @apply bg-primary text-black-dark antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
     /* Prevent horizontal scroll */
     overflow-x: hidden;
     /* Better touch scrolling on iOS */
     -webkit-overflow-scrolling: touch;
     /* Prevent layout shift during font loading */
     font-synthesis: none;
+    letter-spacing: 0.01em;
   }
 
   ::selection {
-    @apply bg-gold text-black;
+    @apply bg-gold/30 text-black-dark;
   }
 
   /* Better focus styles for accessibility */
-  button:focus,
-  input:focus,
-  textarea:focus,
-  select:focus {
-    @apply outline-none ring-2 ring-brown/20 ring-offset-2;
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible,
+  a:focus-visible {
+    @apply outline-none ring-1 ring-gold/50 ring-offset-2 ring-offset-primary;
   }
 
   /* Ensure images don't break layout */
   img {
     max-width: 100%;
     height: auto;
+  }
+
+  /* Editorial serif defaults for headings */
+  h1, h2, h3 {
+    text-wrap: balance;
   }
 
   /* Better mobile typography */
@@ -195,30 +202,30 @@
    PREMIUM SMOOTH SCROLLING & MICRO-INTERACTIONS
    ======================================== */
 
-/* Custom premium scrollbar */
+/* Custom premium scrollbar — muted gold */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f5f5f5;
+  background: #F9F6F1;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #D4AF37;
-  border-radius: 4px;
+  background: #C4A35A;
+  border-radius: 3px;
   transition: background 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #B8941F;
+  background: #9A7B32;
 }
 
 /* Firefox scrollbar */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #D4AF37 #f5f5f5;
+  scrollbar-color: #C4A35A #F9F6F1;
 }
 
 @layer components {
@@ -262,65 +269,53 @@
     }
   }
 
-  /* Premium hover effects */
+  /* Quiet-luxury hover — subtle lift only */
   .hover-lift {
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
-                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .hover-lift:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(212, 175, 55, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 18px 48px rgba(12, 10, 8, 0.07);
   }
 
-  /* Button ripple effect */
+  /* Editorial buttons — clean, no ripple flash */
   .btn-premium {
     position: relative;
     overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .btn-premium::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s, height 0.6s;
-  }
-
-  .btn-premium:hover::before {
-    width: 300px;
-    height: 300px;
+    letter-spacing: 0.22em;
+    transition: color 0.35s ease, background-color 0.35s ease,
+                border-color 0.35s ease, box-shadow 0.35s ease,
+                transform 0.25s ease;
   }
 
   .btn-premium:active {
-    transform: scale(0.98);
+    transform: scale(0.985);
   }
 
-  /* Card premium interactions */
+  /* Card premium — magazine stillness with soft depth */
   .card-premium {
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+                border-color 0.4s ease;
   }
 
   .card-premium:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 
-                0 0 0 1px rgba(212, 175, 55, 0.1);
+    transform: translateY(-4px);
+    box-shadow: 0 24px 56px rgba(12, 10, 8, 0.08),
+                0 0 0 1px rgba(196, 163, 90, 0.12);
   }
 
-  /* Image zoom effect */
+  /* Image zoom — restrained editorial crop */
   .img-premium {
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
     will-change: transform;
   }
 
+  .group:hover .img-premium,
   .img-premium:hover {
-    transform: scale(1.08);
+    transform: scale(1.04);
   }
 
   /* Link underline animation */
@@ -335,13 +330,29 @@
     bottom: -2px;
     left: 0;
     width: 0;
-    height: 2px;
-    background: #D4AF37;
-    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    height: 1px;
+    background: #C4A35A;
+    transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .link-premium:hover::after {
     width: 100%;
+  }
+
+  /* Editorial section eyebrow */
+  .eyebrow {
+    @apply text-[10px] font-medium uppercase tracking-[0.38em] text-black/45;
+  }
+
+  /* Thin gold hairline rule */
+  .rule-gold {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(196, 163, 90, 0.55), transparent);
+  }
+
+  .rule-gold-solid {
+    height: 1px;
+    background: rgba(196, 163, 90, 0.35);
   }
 
   /* Input focus glow */
@@ -438,43 +449,39 @@
     transform: scale(1.08);
   }
 
-  /* Premium shadows */
+  /* Premium shadows — softer editorial depth */
   .shadow-premium {
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 1px 0 rgba(12, 10, 8, 0.04), 0 14px 36px rgba(12, 10, 8, 0.05);
   }
 
   .shadow-premium-lg {
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.10);
+    box-shadow: 0 2px 0 rgba(12, 10, 8, 0.03), 0 28px 64px rgba(12, 10, 8, 0.08);
   }
 
   .shadow-gold {
-    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+    box-shadow: 0 12px 36px rgba(196, 163, 90, 0.14);
   }
 
   .shadow-gold-glow {
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3),
-                0 10px 30px rgba(212, 175, 55, 0.15);
+    box-shadow: 0 8px 28px rgba(196, 163, 90, 0.16);
   }
 
-  /* Text gradients */
+  /* Solid antique gold type (editorial, not neon gradient) */
   .text-gradient-gold {
-    background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #9A7B32;
   }
 
-  /* Pulse effect for CTAs */
+  /* Pulse effect for CTAs — subtle */
   .pulse-gold {
-    animation: pulseGold 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation: pulseGold 2.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
   @keyframes pulseGold {
     0%, 100% {
-      box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4);
+      box-shadow: 0 0 0 0 rgba(196, 163, 90, 0.28);
     }
     50% {
-      box-shadow: 0 0 0 8px rgba(212, 175, 55, 0);
+      box-shadow: 0 0 0 6px rgba(196, 163, 90, 0);
     }
   }
 }

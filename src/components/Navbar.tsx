@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { ShoppingBag, Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useCartStore } from '@/store/newCartStore'
@@ -11,7 +12,8 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [mounted, setMounted] = useState(false)
-  
+  const pathname = usePathname()
+
   const { getTotalItems, isLoaded, items, toggleCart } = useCartStore()
   const [cartItemCount, setCartItemCount] = useState(0)
 
@@ -24,23 +26,22 @@ export default function Navbar() {
 
   useEffect(() => {
     setMounted(true)
-    
+
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
+      setScrolled(window.scrollY > 16)
     }
-    
-    window.addEventListener('scroll', handleScroll)
+
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Update cart count when store changes
   useEffect(() => {
     if (mounted && isLoaded) {
       setCartItemCount(getTotalItems())
     }
   }, [mounted, isLoaded, getTotalItems])
 
-  // Listen for cart changes by checking items length
   const itemsLength = items?.length ?? 0
   useEffect(() => {
     if (mounted && isLoaded) {
@@ -48,104 +49,125 @@ export default function Navbar() {
     }
   }, [itemsLength, mounted, isLoaded, getTotalItems])
 
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMenuOpen(false)
+  }, [pathname])
+
   const closeMenu = useCallback(() => {
     setIsMenuOpen(false)
   }, [])
 
+  const isActive = (href: string) => {
+    if (href === '/') return pathname === '/'
+    return pathname.startsWith(href)
+  }
+
   return (
-    <nav 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 safe-top ${
-        scrolled 
-          ? 'bg-black/95 backdrop-blur-xl py-3 md:py-3.5' 
-          : 'bg-black/80 backdrop-blur-sm py-4 md:py-5'
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 safe-top transition-all duration-500 ease-out ${
+        scrolled
+          ? 'border-b border-white/[0.06] bg-black-dark/90 py-3 backdrop-blur-2xl md:py-3.5'
+          : 'border-b border-transparent bg-gradient-to-b from-black-dark/70 to-transparent py-4 md:py-5'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 xl:px-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12 xl:px-24">
         <div className="flex items-center justify-between">
-          {/* Brand Logo - Cleaner */}
-          <Link href="/" className="flex-shrink-0">
-            <span className="font-serif text-xl font-light tracking-[0.25em] text-white uppercase md:text-2xl">
+          {/* Brand */}
+          <Link href="/" className="group flex-shrink-0" aria-label="AMAPELS home">
+            <span className="font-serif text-xl font-light tracking-[0.28em] text-white uppercase transition-opacity duration-300 group-hover:opacity-85 md:text-2xl">
               AMAPELS
             </span>
           </Link>
 
-          {/* Desktop Navigation - Better Spacing */}
-          <div className="hidden lg:flex items-center space-x-12">
-            {navItems.map((item) => (
-              <Link 
-                key={item.name}
-                href={item.href}
-                className="text-xs font-medium uppercase tracking-[0.15em] text-champagne/90 hover:text-white transition-colors duration-200"
-              >
-                {item.name}
-              </Link>
-            ))}
+          {/* Desktop Navigation */}
+          <div className="hidden items-center gap-10 lg:flex xl:gap-12">
+            {navItems.map((item) => {
+              const active = isActive(item.href)
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`group relative py-1 text-[11px] font-medium uppercase tracking-[0.18em] transition-colors duration-300 ${
+                    active ? 'text-white' : 'text-champagne/75 hover:text-white'
+                  }`}
+                >
+                  {item.name}
+                  <span
+                    className={`absolute -bottom-0.5 left-0 h-px bg-gold transition-all duration-300 ${
+                      active ? 'w-full' : 'w-0 group-hover:w-full'
+                    }`}
+                  />
+                </Link>
+              )
+            })}
           </div>
 
-          {/* Right Actions - Simplified and Cleaner */}
-          <div className="flex items-center gap-6">
-            {/* Customer Auth - Desktop Only */}
+          {/* Right Actions */}
+          <div className="flex items-center gap-5 md:gap-6">
             <div className="hidden lg:block">
               <CustomerAuth />
             </div>
-            
-            {/* Cart Button - Cleaner Design */}
-            <button 
+
+            <button
               onClick={toggleCart}
-              className="text-champagne hover:text-white transition-colors duration-200 relative"
+              className="relative text-champagne/85 transition-colors duration-300 hover:text-white"
               aria-label="Shopping cart"
             >
-              <ShoppingBag size={20} strokeWidth={1.5} />
+              <ShoppingBag size={19} strokeWidth={1.4} />
               {mounted && cartItemCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-accent-orange text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-semibold">
+                <span className="absolute -right-2.5 -top-2 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-gold px-1 text-[9px] font-semibold leading-none text-black-dark">
                   {cartItemCount > 9 ? '9+' : cartItemCount}
                 </span>
               )}
             </button>
-            
-            {/* Mobile Menu Toggle */}
-            <button 
-              className="text-white lg:hidden"
+
+            <button
+              className="text-white/90 transition-colors hover:text-white lg:hidden"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle menu"
+              aria-expanded={isMenuOpen}
             >
-              {isMenuOpen ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
+              {isMenuOpen ? <X size={22} strokeWidth={1.4} /> : <Menu size={22} strokeWidth={1.4} />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Menu - Cleaner */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25 }}
-            className="overflow-hidden bg-black/98 backdrop-blur-xl border-t border-ivory/10 lg:hidden"
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden border-t border-white/[0.06] bg-black-dark/98 backdrop-blur-2xl lg:hidden"
           >
-            <div className="max-w-7xl mx-auto px-4 sm:px-6">
-              <div className="py-6 space-y-2">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6">
+              <div className="space-y-1 py-8">
                 {navItems.map((item, index) => (
                   <motion.div
                     key={`mobile-${item.name}`}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.2, delay: index * 0.05 }}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.25, delay: index * 0.04 }}
                   >
-                    <Link 
+                    <Link
                       href={item.href}
                       onClick={closeMenu}
-                      className="block text-lg font-light uppercase tracking-wide text-champagne hover:text-white transition-colors duration-200 py-3 px-4 rounded-lg hover:bg-white/5"
+                      className={`block border-l-2 py-3.5 pl-5 text-base font-light tracking-[0.12em] uppercase transition-colors duration-200 ${
+                        isActive(item.href)
+                          ? 'border-gold text-white'
+                          : 'border-transparent text-champagne/80 hover:border-gold/40 hover:text-white'
+                      }`}
                     >
                       {item.name}
                     </Link>
                   </motion.div>
                 ))}
-                
-                {/* Mobile Customer Auth */}
-                <div className="pt-4 border-t border-ivory/10 px-4">
+
+                <div className="mt-4 border-t border-white/[0.06] px-5 pt-6">
                   <CustomerAuth />
                 </div>
               </div>
@@ -156,4 +178,3 @@ export default function Navbar() {
     </nav>
   )
 }
-

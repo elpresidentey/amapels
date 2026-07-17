@@ -9,51 +9,51 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Primary: White
+        // Primary: warm off-white editorial base
         primary: {
-          DEFAULT: '#FFFFFF',
-          light: '#FAFAFA',
-          dark: '#F5F5F5',
+          DEFAULT: '#FFFEFB',
+          light: '#F9F6F1',
+          dark: '#F3EEE6',
         },
         // Brand: Black
         black: {
           DEFAULT: '#000000',
           light: '#1A1A1A',
-          dark: '#0A0A0A',
+          dark: '#0C0A08',
         },
-        // Brand: Gold
+        // Brand: muted antique gold (quiet luxury)
         gold: {
-          light: '#FFD700',
-          DEFAULT: '#D4AF37',
-          dark: '#B8860B',
-          metallic: '#AA8B2E',
+          light: '#E8D5A3',
+          DEFAULT: '#C4A35A',
+          dark: '#9A7B32',
+          metallic: '#B8954A',
         },
         // Gray scale
         gray: {
-          50: '#FAFAFA',
-          100: '#F5F5F5',
-          200: '#E5E5E5',
-          300: '#D4D4D4',
-          400: '#A3A3A3',
-          500: '#737373',
-          600: '#525252',
-          700: '#404040',
-          800: '#262626',
-          900: '#171717',
+          50: '#FAFAF8',
+          100: '#F5F3EF',
+          200: '#E8E4DC',
+          300: '#D4CFC4',
+          400: '#A39E93',
+          500: '#73706A',
+          600: '#52504B',
+          700: '#3F3D39',
+          800: '#262522',
+          900: '#171614',
         },
         // Supporting colors (kept for backward compatibility)
         ivory: "#FDF8F3",
-        champagne: "#F5E6D3",
+        champagne: "#F0E6D6",
         sand: "#D4C4B0",
         brown: {
           DEFAULT: "#5D4E37",
           dark: "#3D3125",
         },
         accent: {
-          orange: "#D2691E",
+          orange: "#C4A35A",
           emerald: "#2E8B57",
           burgundy: "#800020",
-          gold: "#D4AF37",
+          gold: "#C4A35A",
         },
       },
       fontFamily: {
@@ -65,6 +65,11 @@ const config: Config = {
         wide: "0.1em",
         wider: "0.2em",
         widest: "0.3em",
+      },
+      boxShadow: {
+        editorial: "0 1px 0 rgba(12, 10, 8, 0.04), 0 18px 48px rgba(12, 10, 8, 0.06)",
+        "editorial-lg": "0 2px 0 rgba(12, 10, 8, 0.03), 0 28px 64px rgba(12, 10, 8, 0.08)",
+        "gold-soft": "0 12px 40px rgba(196, 163, 90, 0.12)",
       },
     },
   },
