@@ -215,7 +215,7 @@ export default function ProductCard({ product, index = 0, variant = 'shop' }: Pr
                   type="button"
                   onClick={handleAddToCart}
                   aria-label="Add to cart"
-                  className="btn-premium inline-flex items-center gap-2 rounded-full bg-white px-4 py-2.5 text-[10px] font-medium uppercase tracking-[0.18em] text-black-dark shadow-premium transition-colors hover:bg-gold hover:text-black-dark sm:px-5"
+                  className="btn-premium inline-flex items-center gap-2 bg-white px-4 py-2.5 text-[10px] font-medium uppercase tracking-[0.18em] text-black-dark shadow-premium transition-colors hover:bg-gold hover:text-black-dark sm:px-5"
                 >
                   {addedToCart ? <Check size={13} strokeWidth={1.75} /> : <ShoppingCart size={13} strokeWidth={1.5} />}
                   <span className="hidden sm:inline">{addedToCart ? 'Added' : 'Add'}</span>
@@ -224,7 +224,7 @@ export default function ProductCard({ product, index = 0, variant = 'shop' }: Pr
                   type="button"
                   onClick={handleQuickView}
                   aria-label="Quick view"
-                  className="btn-premium inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2.5 text-[10px] font-medium uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-colors hover:bg-white hover:text-black-dark sm:px-5"
+                  className="btn-premium inline-flex items-center gap-2 border border-white/30 bg-white/10 px-4 py-2.5 text-[10px] font-medium uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-colors hover:bg-white hover:text-black-dark sm:px-5"
                 >
                   <Eye size={13} strokeWidth={1.5} />
                   <span className="hidden sm:inline">View</span>

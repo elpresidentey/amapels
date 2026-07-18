@@ -403,7 +403,7 @@ export default function Home() {
               <div className="bg-black-dark px-7 py-8 text-white">
                 <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-white/40">Aesthetic</p>
                 <p className="mt-4 font-serif text-xl font-light leading-snug sm:text-2xl">
-                  Less clutter. More clarity and light.
+                  Less noise. More shine.
                 </p>
               </div>
               <div className="border border-gold/30 bg-white px-7 py-8">

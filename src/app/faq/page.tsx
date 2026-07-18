@@ -218,7 +218,7 @@ export default function FAQPage() {
               <button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all btn-mobile ${
+                className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-all btn-mobile ${
                   activeCategory === category.id
                     ? 'bg-black text-white'
                     : 'bg-black-light/5 text-black hover:bg-gold/10'

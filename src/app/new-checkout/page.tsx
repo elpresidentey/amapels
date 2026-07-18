@@ -379,7 +379,7 @@ export default function NewCheckoutPage() {
                         required
                         value={customerInfo.firstName}
                         onChange={(e) => setCustomerInfo(prev => ({ ...prev, firstName: e.target.value }))}
-                        className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none transition-colors ${
+                        className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-black outline-none transition-colors ${
                           errors.firstName ? 'border-red-400' : 'border-gold'
                         }`}
                         placeholder="John"
@@ -396,7 +396,7 @@ export default function NewCheckoutPage() {
                         required
                         value={customerInfo.lastName}
                         onChange={(e) => setCustomerInfo(prev => ({ ...prev, lastName: e.target.value }))}
-                        className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none transition-colors ${
+                        className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-black outline-none transition-colors ${
                           errors.lastName ? 'border-red-400' : 'border-gold'
                         }`}
                         placeholder="Doe"
@@ -414,7 +414,7 @@ export default function NewCheckoutPage() {
                       required
                       value={customerInfo.email}
                       onChange={(e) => setCustomerInfo(prev => ({ ...prev, email: e.target.value }))}
-                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none transition-colors ${
+                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-black outline-none transition-colors ${
                         errors.email ? 'border-red-400' : 'border-gold'
                       }`}
                       placeholder="john@example.com"
@@ -431,7 +431,7 @@ export default function NewCheckoutPage() {
                       required
                       value={customerInfo.phone}
                       onChange={(e) => setCustomerInfo(prev => ({ ...prev, phone: e.target.value }))}
-                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none transition-colors ${
+                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-black outline-none transition-colors ${
                         errors.phone ? 'border-red-400' : 'border-gold'
                       }`}
                       placeholder="+234 801 234 5678"
@@ -462,7 +462,7 @@ export default function NewCheckoutPage() {
                       required
                       value={shippingAddress.street}
                       onChange={(e) => setShippingAddress(prev => ({ ...prev, street: e.target.value }))}
-                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none transition-colors ${
+                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-black outline-none transition-colors ${
                         errors.street ? 'border-red-400' : 'border-gold'
                       }`}
                       placeholder="123 Main Street"
@@ -480,7 +480,7 @@ export default function NewCheckoutPage() {
                         required
                         value={shippingAddress.city}
                         onChange={(e) => setShippingAddress(prev => ({ ...prev, city: e.target.value }))}
-                        className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none transition-colors ${
+                        className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-black outline-none transition-colors ${
                           errors.city ? 'border-red-400' : 'border-gold'
                         }`}
                         placeholder="Lagos"
@@ -496,7 +496,7 @@ export default function NewCheckoutPage() {
                         required
                         value={shippingAddress.state}
                         onChange={(e) => setShippingAddress(prev => ({ ...prev, state: e.target.value }))}
-                        className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none transition-colors ${
+                        className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-black outline-none transition-colors ${
                           errors.state ? 'border-red-400' : 'border-gold'
                         }`}
                       >
@@ -518,7 +518,7 @@ export default function NewCheckoutPage() {
                       required
                       value={shippingAddress.postalCode}
                       onChange={(e) => setShippingAddress(prev => ({ ...prev, postalCode: e.target.value }))}
-                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none transition-colors ${
+                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-black outline-none transition-colors ${
                         errors.postalCode ? 'border-red-400' : 'border-gold'
                       }`}
                       placeholder="100001"
@@ -542,7 +542,7 @@ export default function NewCheckoutPage() {
                   
                   <div className="bg-primary-light/10 rounded-xl p-6 border border-gold/30">
                     <div className="flex items-center gap-4 mb-4">
-                      <div className="w-12 h-12 bg-accent-emerald/10 rounded-full flex items-center justify-center">
+                      <div className="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center">
                         <Lock size={20} className="text-accent-emerald" />
                       </div>
                       <div>
@@ -601,7 +601,7 @@ export default function NewCheckoutPage() {
                 {currentStep > 1 && (
                   <button
                     onClick={handlePreviousStep}
-                    className="flex-1 border border-black text-black-dark py-3 px-4 rounded-xl font-medium uppercase tracking-wider hover:bg-gold hover:text-white transition-colors"
+                    className="flex-1 border border-black text-black-dark py-3 px-4 font-medium uppercase tracking-wider hover:bg-gold hover:text-white transition-colors"
                   >
                     Back
                   </button>
@@ -610,7 +610,7 @@ export default function NewCheckoutPage() {
                 {currentStep < 4 ? (
                   <button
                     onClick={handleNextStep}
-                    className="flex-1 bg-black text-white py-3 px-4 rounded-xl font-medium uppercase tracking-wider hover:bg-gold transition-colors flex items-center justify-center gap-2"
+                    className="flex-1 bg-black text-white py-3 px-4 font-medium uppercase tracking-wider hover:bg-gold transition-colors flex items-center justify-center gap-2"
                   >
                     Continue
                     <ArrowRight size={16} />
@@ -619,7 +619,7 @@ export default function NewCheckoutPage() {
                   <button
                     onClick={handlePayment}
                     disabled={loading}
-                    className="flex-1 bg-accent-emerald text-white py-3 px-4 rounded-xl font-medium uppercase tracking-wider hover:bg-accent-emerald/90 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+                    className="flex-1 bg-black text-white py-3 px-4 font-medium uppercase tracking-wider hover:bg-gold transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
                   >
                     {loading ? (
                       <>

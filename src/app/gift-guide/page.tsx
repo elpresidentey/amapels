@@ -250,13 +250,13 @@ export default function GiftGuidePage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               href="/contact"
-              className="inline-flex items-center px-8 py-3 bg-black text-white text-sm font-medium rounded-md hover:bg-gold transition-colors btn-mobile"
+className="inline-flex items-center px-8 py-3 bg-black text-white text-sm font-medium hover:bg-gold transition-colors btn-mobile"
             >
               Get Expert Advice
             </Link>
             <Link 
               href="/shop"
-              className="inline-flex items-center px-8 py-3 border border-black text-black-dark text-sm font-medium rounded-md hover:bg-gold hover:text-white transition-colors btn-mobile"
+              className="inline-flex items-center px-8 py-3 border border-black text-black-dark text-sm font-medium hover:bg-gold hover:text-white transition-colors btn-mobile"
             >
               Browse All Jewelry
             </Link>

@@ -99,7 +99,7 @@ function ShopContent() {
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  className={`btn-premium rounded-full px-4 py-2 text-[10px] font-medium uppercase tracking-[0.2em] transition-all duration-300 sm:px-5 sm:py-2.5 sm:text-[11px] ${
+                  className={`btn-premium px-4 py-2 text-[10px] font-medium uppercase tracking-[0.2em] transition-all duration-300 sm:px-5 sm:py-2.5 sm:text-[11px] ${
                     active
                       ? 'bg-black-dark text-white shadow-premium'
                       : 'border border-black/10 text-black/55 hover:border-gold/50 hover:text-black-dark'
