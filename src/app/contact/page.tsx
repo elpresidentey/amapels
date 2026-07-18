@@ -111,8 +111,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-medium text-black-dark mb-2">Call Us</h3>
-                    <p className="text-black/70">+234 (0) 812 345 6789</p>
-                    <p className="text-black/70">+234 (0) 901 234 5678</p>
+                    <p className="text-black/70">+234-809-123-4567</p>
                   </div>
                 </motion.div>
 

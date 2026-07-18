@@ -98,7 +98,7 @@ export default function TermsPage() {
                 </p>
                 <div className="mt-4 text-black/80">
                   <p>Email: legal@amapels.com</p>
-                  <p>Phone: +234 (0) 812 345 6789</p>
+                  <p>Phone: +234-809-123-4567</p>
                   <p>Address: 123 Victoria Island, Lagos, Nigeria</p>
                 </div>
               </section>

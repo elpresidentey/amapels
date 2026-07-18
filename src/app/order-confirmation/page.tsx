@@ -3,7 +3,7 @@
 import { Suspense, useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
-import { Check, Package, Truck, Mail, ArrowRight, Download, Calendar } from 'lucide-react'
+import { Check, Package, Truck, Mail, ArrowRight, Download, Calendar, Phone } from 'lucide-react'
 import Link from 'next/link'
 
 function OrderConfirmationContent() {
@@ -23,13 +23,13 @@ function OrderConfirmationContent() {
 
   useEffect(() => {
     if (!mounted) return
-    
+
     const reference = searchParams.get('ref')
     const tracking = searchParams.get('tracking')
     const paymentRef = searchParams.get('payment_ref')
     const amount = searchParams.get('amount')
     const email = searchParams.get('email')
-    
+
     if (reference) {
       setOrderNumber(reference)
     } else {
@@ -37,7 +37,7 @@ function OrderConfirmationContent() {
       const random = Math.random().toString(36).substr(2, 4).toUpperCase()
       setOrderNumber(`AMP-${timestamp}-${random}`)
     }
-    
+
     if (tracking) {
       setTrackingNumber(tracking)
     } else if (reference) {
@@ -45,28 +45,28 @@ function OrderConfirmationContent() {
     } else {
       setTrackingNumber(`TRK-${Date.now()}-${Math.random().toString(36).substr(2, 6).toUpperCase()}`)
     }
-    
+
     if (paymentRef) {
       setPaymentReference(paymentRef)
     } else {
       setPaymentReference(reference || '')
     }
-    
+
     if (amount) {
       setTotalAmount(amount)
     }
-    
+
     if (email) {
       setCustomerEmail(email)
     }
-    
+
     setOrderDate(new Date().toLocaleDateString('en-NG', {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
       day: 'numeric'
     }))
-    
+
     setLoading(false)
   }, [searchParams, mounted])
 
@@ -81,7 +81,7 @@ Order Date: ${orderDate}
 Customer Email: ${customerEmail}
 
 PAYMENT DETAILS
----------------
+----------------
 Payment Method: Bank Transfer / Card
 Payment Reference: ${paymentReference}
 Payment Status: SUCCESSFUL
@@ -104,20 +104,20 @@ For inquiries, contact: orders@amapels.com
 
   const nextSteps = [
     {
-      icon: <Mail size={24} />,
+      icon: <Mail size={20} strokeWidth={1.5} />,
       title: 'Order Confirmation',
       description: 'Your confirmation email with complete order details is on its way to your inbox.',
       status: 'completed'
     },
     {
-      icon: <Package size={24} />,
+      icon: <Package size={20} strokeWidth={1.5} />,
       title: 'Artisan Preparation',
       description: 'Our artisans will carefully prepare your jewelry with meticulous attention to every detail.',
       status: 'pending',
       timeframe: '1-2 business days'
     },
     {
-      icon: <Truck size={24} />,
+      icon: <Truck size={20} strokeWidth={1.5} />,
       title: 'Secure Delivery',
       description: 'Your treasures will be beautifully packaged and delivered with care to your doorstep.',
       status: 'pending',
@@ -127,31 +127,31 @@ For inquiries, contact: orders@amapels.com
 
   if (loading || !mounted) {
     return (
-      <div className="min-h-screen bg-white pt-28 pb-16 flex items-center justify-center">
+      <div className="min-h-screen bg-primary pt-24 pb-16 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading your order details...</p>
+          <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-black/50 text-sm">Loading your order details...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-white pt-28 pb-16">
+    <div className="min-h-screen bg-primary pt-24 pb-16">
       <div className="section-shell">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="max-w-4xl mx-auto text-center"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="w-20 h-20 bg-accent-emerald rounded-full flex items-center justify-center mx-auto mb-8"
+            className="w-20 h-20 bg-gold rounded-full flex items-center justify-center mx-auto mb-8"
           >
-            <Check size={40} className="text-white" />
+            <Check size={36} className="text-white" strokeWidth={2} />
           </motion.div>
 
           <motion.div
@@ -160,11 +160,11 @@ For inquiries, contact: orders@amapels.com
             transition={{ duration: 0.6, delay: 0.4 }}
             className="mb-12"
           >
-            <h1 className="font-serif text-4xl md:text-5xl font-light text-black mb-4">
-              Your Order is Confirmed!
+            <h1 className="font-serif text-4xl md:text-5xl font-light text-black-dark mb-4">
+              Your Order is Confirmed
             </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Thank you for choosing Amapels. We're honored to craft and deliver your exquisite jewelry with care.
+            <p className="text-lg text-black/55 max-w-2xl mx-auto">
+              Thank you for choosing AMAPELS. We are honored to craft and deliver your exquisite jewelry with care.
             </p>
           </motion.div>
 
@@ -172,99 +172,99 @@ For inquiries, contact: orders@amapels.com
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="bg-white rounded-3xl border border-gold/30 p-8 md:p-12 mb-12 text-left"
+            className="bg-white border border-gold/20 p-8 md:p-12 mb-12 text-left"
           >
             <div className="grid gap-8 md:grid-cols-2">
               <div>
-                <h2 className="font-serif text-2xl text-black mb-6">Order Details</h2>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
-                      <Package size={20} className="text-black" />
+                <h2 className="font-serif text-xl text-black-dark mb-6">Order Details</h2>
+                <div className="space-y-5">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 bg-primary-light rounded-full flex items-center justify-center flex-shrink-0">
+                      <Package size={18} className="text-black/55" strokeWidth={1.5} />
                     </div>
                     <div>
-                      <p className="text-sm text-gray-600">Order Number</p>
-                      <p className="font-mono font-medium text-black">{orderNumber}</p>
+                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-black/40 mb-1">Order Number</p>
+                      <p className="font-mono font-medium text-black-dark text-sm">{orderNumber}</p>
                     </div>
                   </div>
-                  
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                      <Truck size={20} className="text-blue-600" />
+
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 bg-primary-light rounded-full flex items-center justify-center flex-shrink-0">
+                      <Truck size={18} className="text-black/55" strokeWidth={1.5} />
                     </div>
                     <div>
-                      <p className="text-sm text-gray-600">Tracking Number</p>
-                      <p className="font-mono font-medium text-blue-600">{trackingNumber}</p>
+                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-black/40 mb-1">Tracking Number</p>
+                      <p className="font-mono font-medium text-gold-dark text-sm">{trackingNumber}</p>
                     </div>
                   </div>
-                  
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
-                      <Calendar size={20} className="text-black" />
+
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 bg-primary-light rounded-full flex items-center justify-center flex-shrink-0">
+                      <Calendar size={18} className="text-black/55" strokeWidth={1.5} />
                     </div>
                     <div>
-                      <p className="text-sm text-gray-600">Order Date</p>
-                      <p className="font-medium text-black">{orderDate}</p>
+                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-black/40 mb-1">Order Date</p>
+                      <p className="font-medium text-black-dark text-sm">{orderDate}</p>
                     </div>
                   </div>
-                  
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
-                      <Mail size={20} className="text-black" />
+
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 bg-primary-light rounded-full flex items-center justify-center flex-shrink-0">
+                      <Mail size={18} className="text-black/55" strokeWidth={1.5} />
                     </div>
                     <div>
-                      <p className="text-sm text-gray-600">Confirmation Email</p>
-                      <p className="font-medium text-black">{customerEmail || 'Sent to your email'}</p>
+                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-black/40 mb-1">Confirmation Email</p>
+                      <p className="font-medium text-black-dark text-sm">{customerEmail || 'Sent to your email'}</p>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div>
-                <h3 className="font-serif text-xl text-black mb-6">Payment Information</h3>
+                <h3 className="font-serif text-xl text-black-dark mb-6">Payment Information</h3>
                 <div className="space-y-4 mb-6">
-                  <div className="bg-green-50 border border-green-200 rounded-xl p-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Check size={16} className="text-green-600" />
-                      <span className="text-sm font-semibold text-green-800">Payment Successful</span>
+                  <div className="bg-primary-light/60 border border-gold/20 p-4">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Check size={14} className="text-gold-dark" />
+                      <span className="text-sm font-medium text-black-dark">Payment Successful</span>
                     </div>
-                    <p className="text-xs text-green-700">Your payment has been processed successfully</p>
+                    <p className="text-xs text-black/50">Your payment has been processed successfully</p>
                   </div>
-                  
+
                   <div>
-                    <p className="text-sm text-gray-600 mb-1">Payment Reference</p>
-                    <p className="font-mono font-medium text-black">{paymentReference || 'Confirmed'}</p>
+                    <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-black/40 mb-1">Payment Reference</p>
+                    <p className="font-mono font-medium text-black-dark text-sm">{paymentReference || 'Confirmed'}</p>
                   </div>
-                  
+
                   {totalAmount && (
                     <div>
-                      <p className="text-sm text-gray-600 mb-1">Total Amount</p>
-                      <p className="font-bold text-xl text-black">{totalAmount}</p>
+                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-black/40 mb-1">Total Amount</p>
+                      <p className="font-medium text-xl text-black-dark">{totalAmount}</p>
                     </div>
                   )}
                 </div>
 
-                <h3 className="font-serif text-xl text-black mb-4">Quick Actions</h3>
-                <div className="space-y-4">
-                  <button 
+                <h3 className="font-serif text-xl text-black-dark mb-4">Quick Actions</h3>
+                <div className="space-y-3">
+                  <button
                     onClick={handleDownloadReceipt}
-                    className="w-full bg-black text-white py-4 px-6 rounded-xl text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-black transition-colors flex items-center justify-center gap-2 border border-gold"
+                    className="w-full bg-black text-white py-3.5 px-6 text-[10px] font-medium uppercase tracking-[0.22em] hover:bg-gold hover:text-black-dark transition-all flex items-center justify-center gap-2.5 sm:text-[11px]"
                   >
-                    <Download size={16} />
+                    <Download size={14} />
                     Download Receipt
                   </button>
-                  
-                  <Link 
+
+                  <Link
                     href={`/track-order?orderNumber=${orderNumber}`}
-                    className="w-full border-2 border-gold text-black py-4 px-6 rounded-xl text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors flex items-center justify-center gap-2"
+                    className="w-full border border-black/15 text-black-dark py-3.5 px-6 text-[10px] font-medium uppercase tracking-[0.22em] hover:border-gold hover:text-gold-dark transition-all flex items-center justify-center gap-2.5 sm:text-[11px]"
                   >
                     Track Order
-                    <ArrowRight size={16} />
+                    <ArrowRight size={13} />
                   </Link>
-                  
-                  <Link 
+
+                  <Link
                     href="/shop"
-                    className="w-full text-center text-gray-600 hover:text-black transition-colors text-sm"
+                    className="w-full text-center text-black/45 hover:text-black-dark transition-colors text-xs font-medium uppercase tracking-[0.18em]"
                   >
                     Continue Shopping
                   </Link>
@@ -279,8 +279,8 @@ For inquiries, contact: orders@amapels.com
             transition={{ duration: 0.6, delay: 0.8 }}
             className="text-left"
           >
-            <h2 className="font-serif text-3xl text-black mb-8 text-center">What Happens Next?</h2>
-            
+            <h2 className="font-serif text-2xl md:text-3xl text-black-dark mb-8 text-center">What Happens Next?</h2>
+
             <div className="grid gap-6 md:grid-cols-3">
               {nextSteps.map((step, index) => (
                 <motion.div
@@ -288,27 +288,27 @@ For inquiries, contact: orders@amapels.com
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.8 + (index * 0.1) }}
-                  className="bg-white rounded-2xl border border-gold/30 p-6 relative"
+                  className="border border-gold/20 bg-white p-6 relative"
                 >
                   {step.status === 'completed' && (
-                    <div className="absolute top-4 right-4 w-6 h-6 bg-accent-emerald rounded-full flex items-center justify-center">
-                      <Check size={14} className="text-white" />
+                    <div className="absolute top-4 right-4 w-6 h-6 bg-gold rounded-full flex items-center justify-center">
+                      <Check size={12} className="text-white" strokeWidth={2} />
                     </div>
                   )}
-                  
+
                   <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-4 ${
-                    step.status === 'completed' ? 'bg-accent-emerald text-white' : 'bg-gray-100 text-black'
+                    step.status === 'completed' ? 'bg-gold text-white' : 'bg-primary-light text-black/55'
                   }`}>
                     {step.icon}
                   </div>
-                  
-                  <h3 className="font-serif text-xl text-black mb-3">{step.title}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed mb-3">{step.description}</p>
-                  
+
+                  <h3 className="font-serif text-lg text-black-dark mb-2">{step.title}</h3>
+                  <p className="text-black/50 text-sm leading-relaxed mb-3">{step.description}</p>
+
                   {step.timeframe && (
-                    <div className="inline-flex items-center gap-2 bg-gray-100 px-3 py-1 rounded-full">
-                      <div className="w-2 h-2 bg-accent-orange rounded-full"></div>
-                      <span className="text-xs font-medium text-black">{step.timeframe}</span>
+                    <div className="inline-flex items-center gap-2 bg-primary-light px-3 py-1.5">
+                      <div className="w-1.5 h-1.5 bg-gold rounded-full" />
+                      <span className="text-[10px] font-medium text-black/60 uppercase tracking-wider">{step.timeframe}</span>
                     </div>
                   )}
                 </motion.div>
@@ -320,27 +320,28 @@ For inquiries, contact: orders@amapels.com
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.2 }}
-            className="mt-16 bg-gray-50 rounded-2xl p-8 text-center"
+            className="mt-16 bg-primary-light/50 border border-gold/15 p-8 text-center"
           >
-            <h3 className="font-serif text-xl text-black mb-4">We're Here to Help</h3>
-            <p className="text-gray-600 mb-6">
+            <h3 className="font-serif text-xl text-black-dark mb-3">We Are Here to Help</h3>
+            <p className="text-black/50 text-sm mb-6 max-w-lg mx-auto">
               Our dedicated team is ready to assist you with any questions about your order or jewelry care.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link 
+              <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 bg-black text-white px-6 py-3 rounded-xl text-sm font-medium hover:bg-gold hover:text-black transition-colors border border-gold"
+                className="btn-premium inline-flex items-center gap-2.5 bg-black text-white px-6 py-3.5 text-[10px] font-medium uppercase tracking-[0.22em] hover:bg-gold hover:text-black-dark transition-all sm:text-[11px]"
               >
-                <Mail size={16} />
+                <Mail size={13} />
                 Contact Support
               </Link>
-              
-              <a 
-                href="tel:+2348123456789"
-                className="inline-flex items-center gap-2 border-2 border-gold text-black px-6 py-3 rounded-xl text-sm font-medium hover:bg-gold transition-colors"
+
+              <a
+                href="tel:+234-809-123-4567"
+                className="btn-premium inline-flex items-center gap-2.5 border border-black/15 text-black-dark px-6 py-3.5 text-[10px] font-medium uppercase tracking-[0.22em] hover:border-gold hover:text-gold-dark transition-all sm:text-[11px]"
               >
-                Call Us: +234 812 345 6789
+                <Phone size={13} />
+                Call Us: +234-809-123-4567
               </a>
             </div>
           </motion.div>
@@ -353,10 +354,10 @@ For inquiries, contact: orders@amapels.com
 export default function OrderConfirmationPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-white pt-28 pb-16 flex items-center justify-center">
+      <div className="min-h-screen bg-primary pt-24 pb-16 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading...</p>
+          <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-black/50 text-sm">Loading...</p>
         </div>
       </div>
     }>

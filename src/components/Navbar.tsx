@@ -42,13 +42,6 @@ export default function Navbar() {
     }
   }, [mounted, isLoaded, getTotalItems])
 
-  const itemsLength = items?.length ?? 0
-  useEffect(() => {
-    if (mounted && isLoaded) {
-      setCartItemCount(getTotalItems())
-    }
-  }, [itemsLength, mounted, isLoaded, getTotalItems])
-
   // Close mobile menu on route change
   useEffect(() => {
     setIsMenuOpen(false)
@@ -111,7 +104,7 @@ export default function Navbar() {
 
             <button
               onClick={toggleCart}
-              className="relative text-champagne/85 transition-colors duration-300 hover:text-white"
+              className="relative text-white/75 transition-colors duration-300 hover:text-white"
               aria-label="Shopping cart"
             >
               <ShoppingBag size={19} strokeWidth={1.4} />
@@ -159,7 +152,7 @@ export default function Navbar() {
                       className={`block border-l-2 py-3.5 pl-5 text-base font-light tracking-[0.12em] uppercase transition-colors duration-200 ${
                         isActive(item.href)
                           ? 'border-gold text-white'
-                          : 'border-transparent text-champagne/80 hover:border-gold/40 hover:text-white'
+                          : 'border-transparent text-white/75 hover:border-gold/40 hover:text-white'
                       }`}
                     >
                       {item.name}

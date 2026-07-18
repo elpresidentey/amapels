@@ -28,7 +28,7 @@ export default function GiftGuidePage() {
       title: 'Graduation Success',
       description: 'Commemorate achievements with jewelry for the next chapter',
       image: '/images/julie-sd--Njp0M9Rzhc-unsplash.jpg',
-      suggestions: ['Professional Studs', 'Minimalist Chains', 'Classic Watches'],
+        suggestions: ['Professional Studs', 'Minimalist Chains', 'Elegant Bracelets'],
       priceRange: '₦18,000 - ₦65,000'
     },
     {

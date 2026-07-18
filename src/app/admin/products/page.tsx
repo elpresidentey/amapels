@@ -35,10 +35,10 @@ const initialFormData: Omit<Product, '_id' | 'createdAt' | 'updatedAt'> = {
   featured: false,
   story: 'Handcrafted with care',
   material: 'Gold-tone alloy',
-  details: ['Lightweight and comfortable', 'Elegant design', 'Perfect for any occasion'],
-  materials: 'Premium materials with attention to detail',
-  care: 'Store in a dry place and wipe gently with a soft cloth after wearing.',
-  options: ['Standard Size', 'Gift Box']
+        details: ['Handcrafted quality', 'Polished finish', 'Ideal for gifting'],
+        materials: 'Premium materials with artisan attention to detail',
+        care: 'Store in a dry place and wipe gently with a soft cloth after wearing.',
+        options: ['Gold Finish', 'Gift Box']
 }
 
 export default function AdminProductsPage() {
@@ -222,12 +222,12 @@ export default function AdminProductsPage() {
       // Clean up array fields (remove empty items)
       const cleanedData = {
         ...formData,
-        details: formData.details && formData.details.length > 0 ? formData.details.filter(d => d.trim()) : ['Lightweight and comfortable', 'Elegant design', 'Perfect for any occasion'],
-        options: formData.options && formData.options.length > 0 ? formData.options.filter(o => o.trim()) : ['Standard Size', 'Gift Box'],
+        details: formData.details && formData.details.length > 0 ? formData.details.filter(d => d.trim()) : ['Handcrafted quality', 'Polished finish', 'Ideal for gifting'],
+        options: formData.options && formData.options.length > 0 ? formData.options.filter(o => o.trim()) : ['Gold Finish', 'Gift Box'],
         images: formData.images.filter(i => i.trim()),
         story: formData.story || 'Handcrafted with care',
         material: formData.material || 'Gold-tone alloy',
-        materials: formData.materials || 'Premium materials with attention to detail',
+        materials: formData.materials || 'Premium materials with artisan attention to detail',
         care: formData.care || 'Store in a dry place and wipe gently with a soft cloth after wearing.'
       }
 

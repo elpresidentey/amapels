@@ -237,7 +237,7 @@ export default function Home() {
                   </button>
                 </div>
                 <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-white/40">
-                  Amapels NG
+                  AMAPELS NG
                 </span>
               </div>
             </motion.div>

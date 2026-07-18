@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 import { ArrowLeft, ArrowRight, Check, Lock, CreditCard, Truck, AlertCircle, WifiOff } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useCartStore } from '@/store/cartStore'
+import { useCartStore } from '@/store/newCartStore'
 import { 
   useCheckoutStore, 
   type ShippingData
@@ -54,7 +54,7 @@ const OptimizedInput = memo<{
         required={required}
         value={value}
         onChange={handleChange}
-        className={`w-full px-3 py-2.5 md:px-4 md:py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none transition-colors text-base ${
+        className={`w-full px-3 py-2.5 md:px-4 md:py-3 border rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-black outline-none transition-colors text-base ${
           error ? 'border-red-400' : 'border-gold'
         }`}
         placeholder={placeholder}
@@ -92,7 +92,7 @@ const OptimizedSelect = memo<{
         required={required}
         value={value}
         onChange={handleChange}
-        className={`w-full px-3 py-2.5 md:px-4 md:py-3 border rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none transition-colors text-base ${
+        className={`w-full px-3 py-2.5 md:px-4 md:py-3 border rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-black outline-none transition-colors text-base ${
           error ? 'border-red-400' : 'border-gold'
         }`}
         style={{ fontSize: '16px' }} // Prevents zoom on iOS
@@ -778,8 +778,8 @@ export default function CheckoutPage() {
                   {/* Paystack Info */}
                   <div className="bg-primary-light/10 rounded-xl md:rounded-2xl p-4 md:p-6 border border-gold/30">
                     <div className="flex items-start gap-3 md:gap-4 mb-4">
-                      <div className="w-10 h-10 md:w-12 md:h-12 bg-accent-emerald/10 rounded-full flex items-center justify-center flex-shrink-0">
-                        <Lock size={16} className="md:w-5 md:h-5 text-accent-emerald" />
+                      <div className="w-10 h-10 md:w-12 md:h-12 bg-gold/10 rounded-full flex items-center justify-center flex-shrink-0">
+                        <Lock size={16} className="md:w-5 md:h-5 text-gold-dark" />
                       </div>
                       <div>
                         <h3 className="font-medium text-black-dark mb-2 text-sm md:text-base">Secure Payment with Paystack</h3>
@@ -792,15 +792,15 @@ export default function CheckoutPage() {
                     
                     <div className="grid gap-2 md:gap-3 mt-4">
                       <div className="flex items-center gap-2 text-xs md:text-sm text-black/70">
-                        <Check size={14} className="md:w-4 md:h-4 text-accent-emerald" />
+                        <Check size={14} className="md:w-4 md:h-4 text-gold-dark" />
                         <span>Bank-grade SSL encryption</span>
                       </div>
                       <div className="flex items-center gap-2 text-xs md:text-sm text-black/70">
-                        <Check size={14} className="md:w-4 md:h-4 text-accent-emerald" />
+                        <Check size={14} className="md:w-4 md:h-4 text-gold-dark" />
                         <span>PCI DSS compliant</span>
                       </div>
                       <div className="flex items-center gap-2 text-xs md:text-sm text-black/70">
-                        <Check size={14} className="md:w-4 md:h-4 text-accent-emerald" />
+                        <Check size={14} className="md:w-4 md:h-4 text-gold-dark" />
                         <span>Supports all Nigerian banks & cards</span>
                       </div>
                     </div>
@@ -876,8 +876,8 @@ export default function CheckoutPage() {
                   <div className="border border-gold/30 rounded-xl p-4 md:p-6">
                     <h3 className="font-medium text-black-dark mb-3 md:mb-4 text-sm md:text-base">Payment Method</h3>
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 md:w-10 md:h-10 bg-accent-emerald/10 rounded-full flex items-center justify-center">
-                        <CreditCard size={16} className="md:w-5 md:h-5 text-accent-emerald" />
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gold/10 rounded-full flex items-center justify-center">
+                        <CreditCard size={16} className="md:w-5 md:h-5 text-gold-dark" />
                       </div>
                       <div>
                         <p className="font-medium text-black-dark text-sm md:text-base">Paystack</p>
@@ -899,7 +899,7 @@ export default function CheckoutPage() {
                   <button
                     onClick={handlePaystackPayment}
                     disabled={loading || paymentProcessing || !isOnline || systemErrors.length > 0 || !paystackReady}
-                    className="flex-1 bg-accent-emerald text-white py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-accent-emerald/90 transition-colors rounded-xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 bg-black text-white py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading || paymentProcessing ? (
                       <>

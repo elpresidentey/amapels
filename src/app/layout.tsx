@@ -24,14 +24,13 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: "AMAPELS - Modern Nigerian Elegance",
-  description: "A Nigerian luxury fashion house with a digital flagship store. Discover beautiful jewelry, statement pieces, and elegant accessories crafted in Lagos.",
-  keywords: "Nigerian jewelry, luxury accessories, Lagos fashion, African jewelry, statement pieces, elegant jewelry",
+  description: "A Nigerian luxury jewelry house with a digital flagship store. Discover handcrafted earrings, necklaces, bracelets, and jewellery sets crafted in Lagos.",
+  keywords: "Nigerian jewelry, Lagos jewelry, African jewelry, handcrafted jewelry, gold earrings, pearl necklaces, statement jewelry, elegant jewelry",
   authors: [{ name: "AMAPELS" }],
   creator: "AMAPELS",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
   openGraph: {
     title: "AMAPELS - Modern Nigerian Elegance",
-    description: "Discover beautiful Nigerian jewelry and luxury accessories crafted in Lagos.",
+    description: "Discover handcrafted Nigerian jewelry made in Lagos.",
     url: "https://amapels.com",
     siteName: "AMAPELS",
     locale: "en_NG",
@@ -41,6 +40,13 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+}
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 }
 
 export default function RootLayout({

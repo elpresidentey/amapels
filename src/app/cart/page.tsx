@@ -2,34 +2,49 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Minus, Plus, X, ShoppingBag, ArrowLeft } from 'lucide-react'
+import { Minus, Plus, X, ShoppingBag, ArrowLeft, ArrowRight, Shield, Truck } from 'lucide-react'
 import { motion } from 'framer-motion'
-import { useCartStore } from '@/store/cartStore'
+import { useCartStore } from '@/store/newCartStore'
 
 export default function CartPage() {
-  const { items, updateQuantity, removeItem, getTotalPrice } = useCartStore()
+  const { items, updateQuantity, removeItem, getSubtotal, getShipping, getTax, getTotalPrice, isLoaded } = useCartStore()
 
-  const subtotal = getTotalPrice()
-  const shipping = subtotal > 0 ? 2500 : 0
-  const total = subtotal + shipping
+  const subtotal = getSubtotal()
+  const shipping = getShipping()
+  const tax = getTax()
+  const total = getTotalPrice()
+
+  if (!isLoaded) {
+    return (
+      <div className="min-h-screen bg-primary pt-16 sm:pt-20 md:pt-24 pb-8 sm:pb-12">
+        <div className="section-shell">
+          <div className="text-center py-20">
+            <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+            <p className="text-black/50 text-sm">Loading your selections...</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-white pt-16 pb-6 sm:pt-20 sm:pb-8 md:pt-24 md:pb-12 lg:pt-28 lg:pb-16">
+      <div className="min-h-screen bg-primary pt-16 sm:pt-20 md:pt-24 pb-8 sm:pb-12">
         <div className="section-shell">
-          <div className="text-center py-12 sm:py-16 md:py-20">
+          <div className="text-center py-16 sm:py-20 md:py-24">
             <div className="mb-6 md:mb-8">
-              <ShoppingBag size={48} className="sm:w-16 sm:h-16 text-black/30 mx-auto" />
+              <ShoppingBag size={48} className="text-black/20 mx-auto" strokeWidth={1} />
             </div>
-            <h1 className="font-serif text-2xl sm:text-3xl font-light text-black-dark mb-4">Begin Your Collection</h1>
-            <p className="text-black/70 mb-6 md:mb-8 px-4 text-sm sm:text-base">Timeless treasures await your discovery - explore pieces to wear, love, and cherish.</p>
-            <Link 
+            <h1 className="font-serif text-3xl sm:text-4xl font-light text-black-dark mb-4">Your Collection Awaits</h1>
+            <p className="text-black/55 mb-8 md:mb-10 px-4 text-sm sm:text-base max-w-md mx-auto leading-relaxed">
+              Discover handcrafted jewelry to wear, love, and cherish. Every piece tells a story.
+            </p>
+            <Link
               href="/shop"
-              className="inline-flex items-center gap-2 bg-black text-white px-6 py-3 sm:px-8 sm:py-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl btn-mobile"
+              className="btn-premium inline-flex items-center gap-2.5 bg-black px-8 py-4 text-[10px] font-medium uppercase tracking-[0.22em] text-white hover:bg-gold hover:text-black-dark transition-all sm:text-[11px]"
             >
-              <ArrowLeft size={16} />
-              <span className="hidden sm:inline">Discover Treasures</span>
-              <span className="sm:hidden">Shop Now</span>
+              <ArrowLeft size={14} />
+              Explore the Collection
             </Link>
           </div>
         </div>
@@ -38,79 +53,87 @@ export default function CartPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white pt-20 sm:pt-24 md:pt-28 pb-8 sm:pb-12 md:pb-16">
+    <div className="min-h-screen bg-primary pt-16 sm:pt-20 md:pt-24 pb-8 sm:pb-12 md:pb-16">
       <div className="section-shell">
         <div className="mb-6 md:mb-8">
-          <Link 
+          <Link
             href="/shop"
-            className="inline-flex items-center gap-2 text-black/70 hover:text-black-dark transition-colors text-sm uppercase tracking-wider"
+            className="inline-flex items-center gap-2 text-black/55 hover:text-black-dark transition-colors text-[10px] font-medium uppercase tracking-[0.22em] sm:text-[11px]"
           >
-            <ArrowLeft size={16} />
-            <span className="hidden sm:inline">Continue Exploring</span>
-            <span className="sm:hidden">Back</span>
+            <ArrowLeft size={13} />
+            Continue Exploring
           </Link>
         </div>
 
-        <div className="grid gap-8 sm:gap-10 md:gap-12 lg:grid-cols-3">
+        <div className="mb-10 border-b border-black/[0.06] pb-8 sm:mb-12 sm:pb-10 md:mb-14">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-black-dark">Your Selections</h1>
+          <p className="mt-3 text-sm text-black/50">{items.length} {items.length === 1 ? 'piece' : 'pieces'} in your collection</p>
+        </div>
+
+        <div className="grid gap-8 sm:gap-10 lg:grid-cols-[1fr_380px] lg:gap-12 xl:gap-16">
           {/* Cart Items */}
-          <div className="lg:col-span-2">
-            <h1 className="font-serif text-2xl font-light text-black-dark mb-6 sm:text-3xl sm:mb-8">Your Selections</h1>
-            
-            <div className="space-y-4 sm:space-y-6">
+          <div className="lg:col-span-1">
+            <div className="divide-y divide-black/[0.06]">
               {items.map((item, index) => (
                 <motion.div
                   key={item.id}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="flex gap-3 p-4 bg-white rounded-xl border border-gold/30 sm:gap-4 sm:p-5 md:gap-5 md:p-6 md:rounded-2xl lg:gap-6"
+                  transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                  className="flex gap-4 py-6 first:pt-0 last:pb-0 sm:gap-5 md:gap-6"
                 >
-                  <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-primary-light/20 flex-shrink-0 sm:w-20 sm:h-20 sm:rounded-xl md:w-24 md:h-24">
+                  <Link href={`/shop/${item.id}`} className="relative w-20 h-24 rounded-sm overflow-hidden bg-primary-light flex-shrink-0 sm:w-24 sm:h-28 md:w-28 md:h-32">
                     <Image
                       src={item.image}
                       alt={item.name}
                       fill
-                      sizes="(max-width: 640px) 64px, (max-width: 768px) 80px, 96px"
+                      sizes="(max-width: 640px) 80px, (max-width: 768px) 96px, 112px"
                       className="object-cover"
                     />
-                  </div>
-                  
-                  <div className="flex-1 min-w-0">
-                    <div className="flex justify-between items-start mb-1.5 sm:mb-2 gap-2">
-                      <h3 className="font-serif text-sm text-black-dark line-clamp-2 sm:text-base md:text-lg">{item.name}</h3>
-                      <button
-                        onClick={() => removeItem(item.id)}
-                        className="p-1 text-black/50 hover:text-black-dark transition-colors flex-shrink-0"
-                        aria-label="Remove item"
-                      >
-                        <X size={14} className="sm:w-4 sm:h-4" />
-                      </button>
-                    </div>
-                    
-                    <div className="flex items-center gap-3 text-xs text-black/70 mb-3 sm:gap-4 sm:text-sm sm:mb-4">
-                      {item.size && <span>Size: {item.size}</span>}
-                      {item.color && <span>Color: {item.color}</span>}
-                    </div>
-                    
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2 sm:gap-3">
+                  </Link>
+
+                  <div className="flex-1 min-w-0 flex flex-col justify-between">
+                    <div>
+                      <div className="flex justify-between items-start gap-3 mb-1.5">
+                        <Link href={`/shop/${item.id}`} className="font-serif text-sm sm:text-base md:text-lg font-light text-black-dark leading-snug hover:text-gold-dark transition-colors line-clamp-2">
+                          {item.name}
+                        </Link>
                         <button
-                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                          className="w-7 h-7 rounded-full border border-gold flex items-center justify-center text-black hover:bg-gray-100/30 transition-colors sm:w-8 sm:h-8"
-                          aria-label="Decrease quantity"
+                          onClick={() => removeItem(item.id)}
+                          className="p-1 text-black/30 hover:text-black-dark transition-colors flex-shrink-0"
+                          aria-label="Remove item"
                         >
-                          <Minus size={12} className="sm:w-[14px] sm:h-[14px]" />
-                        </button>
-                        <span className="w-6 text-center font-medium text-black-dark text-sm sm:w-8 sm:text-base">{item.quantity}</span>
-                        <button
-                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                          className="w-7 h-7 rounded-full border border-gold flex items-center justify-center text-black hover:bg-gray-100/30 transition-colors sm:w-8 sm:h-8"
-                          aria-label="Increase quantity"
-                        >
-                          <Plus size={12} className="sm:w-[14px] sm:h-[14px]" />
+                          <X size={14} strokeWidth={1.5} />
                         </button>
                       </div>
-                      <p className="font-medium text-black-dark text-sm sm:text-base">{item.price}</p>
+                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-black/35 sm:text-[11px]">{item.category}</p>
+                      {(item.size || item.color) && (
+                        <div className="flex items-center gap-3 mt-2 text-xs text-black/45">
+                          {item.size && <span>Size: {item.size}</span>}
+                          {item.color && <span>Color: {item.color}</span>}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="flex items-center justify-between mt-3">
+                      <div className="inline-flex items-center border border-black/10">
+                        <button
+                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          className="w-8 h-8 flex items-center justify-center text-black/50 hover:text-black-dark hover:bg-black/[0.03] transition-colors"
+                          aria-label="Decrease quantity"
+                        >
+                          <Minus size={12} strokeWidth={1.5} />
+                        </button>
+                        <span className="w-10 text-center font-medium text-black-dark text-xs tabular-nums">{item.quantity}</span>
+                        <button
+                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          className="w-8 h-8 flex items-center justify-center text-black/50 hover:text-black-dark hover:bg-black/[0.03] transition-colors"
+                          aria-label="Increase quantity"
+                        >
+                          <Plus size={12} strokeWidth={1.5} />
+                        </button>
+                      </div>
+                      <p className="font-medium text-black-dark text-sm tracking-wide">{item.price}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -120,41 +143,61 @@ export default function CartPage() {
 
           {/* Order Summary */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="lg:col-span-1"
           >
-            <div className="bg-white rounded-xl border border-gold/30 p-4 sticky top-24 sm:p-5 sm:top-28 md:rounded-2xl md:p-6 lg:p-8 md:top-32">
-              <h2 className="font-serif text-base text-black-dark mb-4 sm:text-lg sm:mb-5 md:text-xl md:mb-6">Order Summary</h2>
-              
-              <div className="space-y-3 mb-5 sm:space-y-4 sm:mb-6">
-                <div className="flex justify-between text-sm text-black/70 sm:text-base">
+            <div className="bg-white border border-gold/20 p-6 sm:p-8 lg:sticky lg:top-32">
+              <h2 className="font-serif text-lg sm:text-xl font-light text-black-dark mb-6">Order Summary</h2>
+
+              <div className="space-y-3 mb-6">
+                <div className="flex justify-between text-sm text-black/60">
                   <span>Subtotal</span>
-                  <span>₦{subtotal.toLocaleString()}</span>
+                  <span className="tabular-nums">₦{subtotal.toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between text-sm text-black/70 sm:text-base">
+                <div className="flex justify-between text-sm text-black/60">
                   <span>Shipping</span>
-                  <span>₦{shipping.toLocaleString()}</span>
+                  <span className="tabular-nums">{shipping > 0 ? `₦${shipping.toLocaleString()}` : 'Complimentary'}</span>
                 </div>
-                <div className="border-t border-gold pt-3 sm:pt-4">
-                  <div className="flex justify-between font-medium text-black-dark text-base sm:text-lg">
-                    <span>Total</span>
-                    <span>₦{total.toLocaleString()}</span>
+                <div className="flex justify-between text-sm text-black/60">
+                  <span>VAT (7.5%)</span>
+                  <span className="tabular-nums">₦{tax.toLocaleString()}</span>
+                </div>
+                <div className="border-t border-black/[0.06] pt-4 mt-4">
+                  <div className="flex justify-between">
+                    <span className="font-medium text-black-dark">Total</span>
+                    <span className="font-medium text-black-dark tabular-nums">₦{total.toLocaleString()}</span>
                   </div>
                 </div>
               </div>
-              
-              <Link 
+
+              {subtotal < 50000 && (
+                <div className="bg-primary-light/60 border border-gold/15 px-4 py-3 mb-6">
+                  <p className="text-xs text-black/55 text-center">
+                    Add ₦{(50000 - subtotal).toLocaleString()} more for complimentary shipping
+                  </p>
+                </div>
+              )}
+
+              <Link
                 href="/checkout"
-                className="w-full bg-black text-white py-3 text-xs font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl flex items-center justify-center btn-mobile sm:py-3.5 sm:text-sm md:py-4"
+                className="btn-premium w-full bg-black text-white py-4 px-6 text-[10px] font-medium uppercase tracking-[0.22em] hover:bg-gold hover:text-black-dark transition-all flex items-center justify-center gap-2.5 sm:text-[11px]"
               >
                 Proceed to Checkout
+                <ArrowRight size={13} className="transition-transform group-hover:translate-x-1" />
               </Link>
-              
-              <p className="text-[10px] text-black/60 text-center mt-3 sm:text-xs sm:mt-4">
-                Secure checkout protected with SSL encryption
-              </p>
+
+              <div className="mt-6 space-y-2.5">
+                <div className="flex items-center gap-2.5 text-[10px] text-black/40 sm:text-[11px]">
+                  <Shield size={12} strokeWidth={1.5} className="flex-shrink-0" />
+                  <span>Secure SSL encrypted checkout</span>
+                </div>
+                <div className="flex items-center gap-2.5 text-[10px] text-black/40 sm:text-[11px]">
+                  <Truck size={12} strokeWidth={1.5} className="flex-shrink-0" />
+                  <span>Complimentary shipping on orders over ₦50,000</span>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
