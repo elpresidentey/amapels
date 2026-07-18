@@ -109,10 +109,11 @@ export default function ProductCard({ product, index = 0, variant = 'shop' }: Pr
                   className="absolute inset-0 object-cover opacity-0 transition-opacity duration-700 group-hover:opacity-100"
                 />
               )}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
             </div>
             {product.featured && (
-              <span className="absolute left-4 top-4 z-10 border border-gold/40 bg-white/95 px-3 py-1 text-[9px] font-medium uppercase tracking-[0.22em] text-black-dark backdrop-blur-sm">
+              <span className="absolute left-3 top-3 z-10 border border-gold/40 bg-white/95 px-2 py-0.5 text-[8px] font-medium uppercase tracking-[0.2em] text-black-dark backdrop-blur-sm sm:left-4 sm:top-4 sm:px-2.5 sm:py-0.5">
                 Featured
               </span>
             )}
@@ -175,11 +176,12 @@ export default function ProductCard({ product, index = 0, variant = 'shop' }: Pr
               />
             )}
           </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
         </Link>
 
         {product.featured && (
-          <span className="pointer-events-none absolute left-3 top-3 z-20 border border-gold/40 bg-white/95 px-2.5 py-1 text-[9px] font-medium uppercase tracking-[0.2em] text-black-dark backdrop-blur-sm sm:left-4 sm:top-4 sm:px-3">
+          <span className="pointer-events-none absolute left-2 top-2 z-20 border border-gold/40 bg-white/95 px-2 py-0.5 text-[8px] font-medium uppercase tracking-[0.2em] text-black-dark backdrop-blur-sm sm:left-3 sm:top-3 sm:px-2.5">
             Featured
           </span>
         )}
