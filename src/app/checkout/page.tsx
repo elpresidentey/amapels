@@ -754,7 +754,7 @@ export default function CheckoutPage() {
                   
                   <button
                     type="submit"
-                    className="w-full bg-black text-white py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors flex items-center justify-center gap-2"
+                    className="w-full bg-black text-white py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl flex items-center justify-center gap-2"
                   >
                     Continue to Payment
                     <ArrowRight size={16} />
@@ -835,7 +835,7 @@ export default function CheckoutPage() {
                     <button
                       type="button"
                       onClick={goToShipping}
-className="flex-1 border border-black text-black-dark py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-white transition-colors"
+                      className="flex-1 border border-black text-black-dark py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-white transition-colors rounded-xl"
                     >
                       Back
                     </button>
@@ -843,7 +843,7 @@ className="flex-1 border border-black text-black-dark py-3 md:py-4 px-4 text-sm 
                     <button
                       type="button"
                       onClick={() => nextStep()}
-                      className="flex-1 bg-black text-white py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors flex items-center justify-center gap-2"
+                      className="flex-1 bg-black text-white py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl flex items-center justify-center gap-2"
                     >
                       Review Order
                       <ArrowRight size={16} />
@@ -891,7 +891,7 @@ className="flex-1 border border-black text-black-dark py-3 md:py-4 px-4 text-sm 
                   <button
                     type="button"
                     onClick={goToPayment}
-                    className="flex-1 border border-black text-black-dark py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-white transition-colors"
+                    className="flex-1 border border-black text-black-dark py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-white transition-colors rounded-xl"
                   >
                     Back
                   </button>
@@ -899,7 +899,7 @@ className="flex-1 border border-black text-black-dark py-3 md:py-4 px-4 text-sm 
                   <button
                     onClick={handlePaystackPayment}
                     disabled={loading || paymentProcessing || !isOnline || systemErrors.length > 0 || !paystackReady}
-                    className="flex-1 bg-black text-white py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 bg-black text-white py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading || paymentProcessing ? (
                       <>

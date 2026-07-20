@@ -185,11 +185,14 @@ export default function ProductPage() {
                   Details
                 </h3>
                 <ul className="space-y-3 text-sm text-black/60">
-                  {[
-                    'Premium quality materials',
-                    'Elegant design perfect for any occasion',
-                    'Beautiful gift packaging included',
-                  ].map((item) => (
+                  {(product.details && product.details.length > 0
+                    ? product.details
+                    : [
+                        'Premium quality materials',
+                        'Elegant design perfect for any occasion',
+                        'Beautiful gift packaging included',
+                      ]
+                  ).map((item) => (
                     <li key={item} className="flex items-start gap-3">
                       <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-gold" />
                       <span>{item}</span>
@@ -197,6 +200,22 @@ export default function ProductPage() {
                   ))}
                 </ul>
               </div>
+              {product.materials && (
+                <div>
+                  <h3 className="mb-3 text-[10px] font-medium uppercase tracking-[0.28em] text-black/40">
+                    Materials
+                  </h3>
+                  <p className="text-sm leading-relaxed text-black/55">{product.materials}</p>
+                </div>
+              )}
+              {product.care && (
+                <div>
+                  <h3 className="mb-3 text-[10px] font-medium uppercase tracking-[0.28em] text-black/40">
+                    Care
+                  </h3>
+                  <p className="text-sm leading-relaxed text-black/55">{product.care}</p>
+                </div>
+              )}
               <div>
                 <h3 className="mb-3 text-[10px] font-medium uppercase tracking-[0.28em] text-black/40">
                   Care
