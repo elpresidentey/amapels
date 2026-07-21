@@ -457,7 +457,7 @@ export default function Home() {
                       priority={index < 2}
                       sizes={collection.span ? '(max-width: 768px) 100vw, 66vw' : '(max-width: 768px) 100vw, 33vw'}
                       quality={85}
-                      className="object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.04]"
+                      className={`object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.04] ${index === 0 ? 'object-[center_25%]' : ''}`}
                     />
                   </div>
                   <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,10,8,0.1)_0%,rgba(12,10,8,0.75)_100%)] transition-opacity duration-500 group-hover:opacity-95" />
