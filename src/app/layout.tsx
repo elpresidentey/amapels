@@ -4,6 +4,7 @@ import "./globals.css"
 import Navbar from "@/components/Navbar"
 import NewCart from "@/components/NewCart"
 import Footer from "@/components/Footer"
+import IntroOverlay from "@/components/IntroOverlay"
 import ErrorBoundary from "@/components/ErrorBoundary"
 import PerformanceMonitor from "@/components/PerformanceMonitor"
 import SessionInitializer from "@/components/SessionInitializer"
@@ -61,6 +62,7 @@ export default function RootLayout({
         suppressHydrationWarning={true}
       >
         <ErrorBoundary>
+          <IntroOverlay />
           <SessionInitializer />
           <PerformanceMonitor />
           <Navbar />
