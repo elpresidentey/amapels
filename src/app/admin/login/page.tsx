@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Eye, EyeOff, Lock, Mail } from 'lucide-react'
+import { setAdminSession } from '@/lib/auth'
 import Toast from '@/components/Toast'
 
 export default function AdminLoginPage() {
@@ -28,29 +29,24 @@ export default function AdminLoginPage() {
     setLoading(true)
 
     try {
-      // Admin credentials - email based login
-      if (formData.email.toLowerCase() === 'admin@amapels.com' && formData.password === 'Amapels2024!') {
-        const sessionId = Math.random().toString(36).substring(2) + Date.now().toString(36)
-        const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString() // 24 hours
-        
-        const sessionData = {
-          email: formData.email,
-          name: 'Admin',
-          loginTime: new Date().toISOString(),
-          sessionId,
-          expiresAt
-        }
-        
-        localStorage.setItem('admin_session', JSON.stringify(sessionData))
-        sessionStorage.setItem('admin_active', 'true')
-        
-        showToastMessage('Login successful! Redirecting...')
-        setTimeout(() => {
-          router.push('/admin')
-        }, 1000)
-      } else {
-        throw new Error('Invalid credentials')
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: formData.email, password: formData.password }),
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Invalid credentials')
       }
+
+      setAdminSession(data.session)
+
+      showToastMessage('Login successful! Redirecting...')
+      setTimeout(() => {
+        router.push('/admin')
+      }, 1000)
     } catch (error) {
       showToastMessage('Invalid email or password', 'error')
     } finally {
@@ -179,16 +175,7 @@ export default function AdminLoginPage() {
               </button>
             </form>
 
-            {/* Demo Info */}
-            <div className="mt-6 pt-6 border-t border-gold/30">
-              <div className="bg-gold/10 rounded-xl p-4 text-center border border-gold/20">
-                <p className="text-xs font-medium text-black mb-2">Demo Credentials</p>
-                <div className="space-y-1 text-xs text-black/70">
-                  <p className="font-mono">Email: admin@amapels.com</p>
-                  <p className="font-mono">Password: Amapels2024!</p>
-                </div>
-              </div>
-            </div>
+
           </div>
         </div>
 
