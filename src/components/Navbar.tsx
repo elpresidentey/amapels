@@ -5,8 +5,14 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ShoppingBag, Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Cabin } from 'next/font/google'
 import { useCartStore } from '@/store/newCartStore'
 import CustomerAuth from '@/components/CustomerAuth'
+
+const cabin = Cabin({
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -58,7 +64,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 safe-top transition-all duration-500 ease-out ${
+      className={`${cabin.className} fixed top-0 left-0 right-0 z-50 safe-top transition-all duration-500 ease-out ${
         scrolled
           ? 'border-b border-white/[0.06] bg-black-dark/90 py-3 backdrop-blur-2xl md:py-3.5'
           : 'border-b border-transparent bg-gradient-to-b from-black-dark/70 to-transparent py-4 md:py-5'
@@ -82,7 +88,7 @@ export default function Navbar() {
                   key={item.name}
                   href={item.href}
                   className={`group relative py-1 text-[11px] font-medium uppercase tracking-[0.18em] transition-colors duration-300 ${
-                    active ? 'text-white' : 'text-champagne/75 hover:text-white'
+                    active ? 'text-white' : 'text-white/70 hover:text-white'
                   }`}
                 >
                   {item.name}
