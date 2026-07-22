@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { Package, ShoppingCart, DollarSign, TrendingUp, ArrowRight, Eye } from 'lucide-react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import { getAdminAuthHeaders } from '@/lib/admin-api'
 
 interface DashboardStats {
   totalProducts: number
@@ -43,7 +44,7 @@ export default function AdminDashboard() {
       const totalProducts = productsData.success ? productsData.data.length : 0
 
       // Fetch orders
-      const ordersRes = await fetch('/api/orders')
+      const ordersRes = await fetch('/api/orders', { headers: getAdminAuthHeaders() })
       const ordersData = await ordersRes.json()
       const orders = ordersData.success ? ordersData.data : []
       

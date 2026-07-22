@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Package, Eye, CheckCircle, Clock, X } from 'lucide-react'
+import { getAdminAuthHeaders } from '@/lib/admin-api'
 import Toast from '@/components/Toast'
 
 interface Order {
@@ -94,7 +95,7 @@ export default function AdminOrdersPage() {
         ? '/api/orders'
         : `/api/orders?status=${statusFilter}`
       
-      const response = await fetch(url)
+      const response = await fetch(url, { headers: getAdminAuthHeaders() })
       const result = await response.json()
 
       if (result.orders) {
@@ -115,7 +116,8 @@ export default function AdminOrdersPage() {
       const response = await fetch(`/api/orders/${orderId}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          ...getAdminAuthHeaders(),
         },
         body: JSON.stringify({ status: newStatus })
       })

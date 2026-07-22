@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getProducts, supabase } from '@/lib/supabase'
 import { getFallbackProducts } from '@/lib/fallbackProducts'
+import { requireAdmin } from '@/lib/admin-guard'
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
@@ -65,6 +66,9 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  const authError = requireAdmin(request)
+  if (authError) return authError
+
   try {
     if (!supabase) {
       return NextResponse.json({

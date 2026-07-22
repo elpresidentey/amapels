@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Plus, Edit2, Trash2, Save, X, Eye, EyeOff, Search, Filter, Download, Copy, ChevronDown, ChevronUp } from 'lucide-react'
 import Toast from '@/components/Toast'
+import { getAdminAuthHeaders } from '@/lib/admin-api'
 import ImageUpload from '@/components/ImageUpload'
 
 interface Product {
@@ -240,7 +241,8 @@ export default function AdminProductsPage() {
       const response = await fetch(url, {
         method,
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          ...getAdminAuthHeaders(),
         },
         body: JSON.stringify(cleanedData)
       })
@@ -271,7 +273,8 @@ export default function AdminProductsPage() {
 
     try {
       const response = await fetch(`/api/products/${product._id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: getAdminAuthHeaders(),
       })
 
       const result = await response.json()
@@ -293,7 +296,8 @@ export default function AdminProductsPage() {
       const response = await fetch(`/api/products/${product._id}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          ...getAdminAuthHeaders(),
         },
         body: JSON.stringify({
           ...product,
@@ -342,8 +346,9 @@ export default function AdminProductsPage() {
     if (!window.confirm(`Are you sure you want to delete ${selectedProducts.size} products?`)) return
 
     try {
+      const authHeaders = getAdminAuthHeaders()
       const promises = Array.from(selectedProducts).map(id =>
-        fetch(`/api/products/${id}`, { method: 'DELETE' })
+        fetch(`/api/products/${id}`, { method: 'DELETE', headers: authHeaders })
       )
       await Promise.all(promises)
       showToastMessage(`${selectedProducts.size} products deleted successfully!`)
