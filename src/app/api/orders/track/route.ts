@@ -10,7 +10,9 @@ export async function GET(request: NextRequest) {
     const orderNumber = searchParams.get('orderNumber')
     const trackingNumber = searchParams.get('trackingNumber')
 
-    if (!orderNumber && !trackingNumber) {
+    const input = orderNumber || trackingNumber
+
+    if (!input) {
       return NextResponse.json(
         { error: 'Order number or tracking number is required' },
         { status: 400 }
@@ -18,10 +20,10 @@ export async function GET(request: NextRequest) {
     }
 
     let order
-    if (orderNumber) {
-      order = await Order.findOne({ orderNumber }).lean()
+    if (input.startsWith('TRK-')) {
+      order = await Order.findOne({ trackingNumber: input }).lean()
     } else {
-      order = await Order.findOne({ trackingNumber }).lean()
+      order = await Order.findOne({ orderNumber: input }).lean()
     }
 
     if (!order) {
