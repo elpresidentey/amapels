@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { User, Mail, LogOut, ShoppingBag } from 'lucide-react'
+import Link from 'next/link'
+import { User, Mail, LogOut, ShoppingBag, UserCircle } from 'lucide-react'
 import { 
   customerLogin, 
   customerLogout, 
@@ -160,13 +161,21 @@ export default function CustomerAuth() {
         </>
       ) : (
         <div className="flex items-center gap-3">
-          <span className="text-sm text-champagne/80 hidden md:inline">
+          <span className="text-sm text-white/80 hidden md:inline">
             Hello, {customerName}
           </span>
+          <Link
+            href="/account"
+            className="flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm uppercase tracking-wider"
+            aria-label="My account"
+          >
+            <UserCircle size={16} />
+            <span className="hidden md:inline">Account</span>
+          </Link>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-2 text-champagne hover:text-white transition-colors text-sm uppercase tracking-wider"
-            title="Logout"
+            className="flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm uppercase tracking-wider"
+            aria-label="Sign out"
           >
             <LogOut size={16} />
             <span className="hidden md:inline">Logout</span>

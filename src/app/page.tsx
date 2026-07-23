@@ -101,9 +101,16 @@ export default function Home() {
     target: heroRef,
     offset: ['start start', 'end start'],
   })
-  const heroScale = useTransform(scrollYProgress, [0, 1], [1, 1.08])
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0.6])
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, 80])
+  const heroScale = useTransform(scrollYProgress, [0, 1], [1, 1.1])
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0.5])
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 100])
+
+  const storyRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress: storyProgress } = useScroll({
+    target: storyRef,
+    offset: ['start end', 'end start'],
+  })
+  const storyImageParallax = useTransform(storyProgress, [0, 1], [1, 1.08])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -357,14 +364,14 @@ export default function Home() {
       </section>
 
       {/* Our Story */}
-      <section className="overflow-hidden px-4 py-20 sm:px-6 sm:py-24 md:px-12 md:py-28 lg:px-24 lg:py-32">
+      <section ref={storyRef} className="overflow-hidden px-4 py-20 sm:px-6 sm:py-24 md:px-12 md:py-28 lg:px-24 lg:py-32">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-14 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-20">
             <motion.div
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.85, ease }}
+              transition={{ duration: 1, ease }}
             >
               <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
                 Our Story
@@ -385,18 +392,30 @@ export default function Home() {
                 </p>
               </div>
               <div className="mt-10 space-y-6">
-                <div className="border-l border-gold/50 pl-5">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2, ease }}
+                  className="border-l border-gold/50 pl-5"
+                >
                   <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-black/40">Made in Lagos</p>
                   <p className="text-sm leading-relaxed text-black/65">
                     Handcrafted by Nigerian artisans who pour generations of skill into every piece. Our hands carry the legacy of a continent.
                   </p>
-                </div>
-                <div className="border-l border-gold/50 pl-5">
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.35, ease }}
+                  className="border-l border-gold/50 pl-5"
+                >
                   <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-black/40">Worn Everywhere</p>
                   <p className="text-sm leading-relaxed text-black/65">
                     From the streets of Surulere to the avenues of New York — our pieces travel with women who move through the world with grace and intention.
                   </p>
-                </div>
+                </motion.div>
               </div>
               <Link
                 href="/story"
@@ -408,27 +427,27 @@ export default function Home() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.85, delay: 0.1, ease }}
+              transition={{ duration: 1.2, ease }}
               className="relative lg:h-[600px]"
             >
-              <div className="relative aspect-[4/5] overflow-hidden lg:absolute lg:inset-0">
+              <motion.div className="relative aspect-[4/5] overflow-hidden lg:absolute lg:inset-0" style={{ scale: storyImageParallax }}>
                 <Image
                   src="/images/pexels-vedat-28933799.jpg"
                   alt="AMAPELS craftsmanship detail"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   quality={90}
-                  className="object-cover transition-transform duration-1000 hover:scale-[1.03]"
+                  className="object-cover"
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(12,10,8,0.3)_0%,transparent_60%)]" />
                 <div className="absolute bottom-0 left-0 right-0 bg-[linear-gradient(180deg,transparent_50%,rgba(12,10,8,0.85)_100%)] p-8 text-white">
                   <p className="mb-2 font-serif text-2xl font-light italic text-gold/80">&ldquo;Crafted in Lagos, worn by the world.&rdquo;</p>
                   <p className="text-xs text-white/50">— Handmade with intent, finished with love</p>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           </div>
         </div>
@@ -569,13 +588,13 @@ export default function Home() {
           {loading ? (
             <div className="grid gap-10 md:grid-cols-3 md:gap-8">
               {[1, 2, 3].map((i) => (
-                <ProductCardSkeleton key={i} variant="curated" />
+                <ProductCardSkeleton key={i} />
               ))}
             </div>
           ) : curatedPieces.length > 0 ? (
             <div className="grid gap-10 md:grid-cols-3 md:gap-8 lg:gap-10">
               {curatedPieces.map((piece, index) => (
-                <ProductCard key={piece._id} product={piece} index={index} variant="curated" />
+                <ProductCard key={piece._id} product={piece} index={index} />
               ))}
             </div>
           ) : (
@@ -590,10 +609,10 @@ export default function Home() {
       <section className="bg-black-dark px-4 py-20 sm:px-6 sm:py-24 md:px-12 md:py-28 lg:px-24 lg:py-32">
         <div className="mx-auto max-w-7xl">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7, ease }}
+            transition={{ duration: 1, ease }}
             className="mb-16 text-center"
           >
             <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-gold/50">
@@ -604,6 +623,13 @@ export default function Home() {
               <br />
               <span className="text-gold/80">without saying a word.</span>
             </h2>
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, delay: 0.3, ease }}
+              className="mx-auto mt-6 h-px w-16 bg-gold/40"
+            />
           </motion.div>
 
           <div className="grid gap-8 md:grid-cols-3 md:gap-10">
@@ -629,13 +655,21 @@ export default function Home() {
             ].map((item, index) => (
               <motion.div
                 key={item.title}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: index * 0.1, ease }}
+                transition={{ duration: 0.9, delay: 0.15 + index * 0.12, ease }}
                 className="group border border-white/[0.08] bg-white/[0.03] px-7 py-10 backdrop-blur-sm transition-all duration-500 hover:border-gold/20 hover:bg-white/[0.06] sm:px-8 sm:py-12"
               >
-                <span className="mb-6 block font-serif text-4xl text-gold/50">{item.icon}</span>
+                <motion.span
+                  initial={{ opacity: 0, scale: 0 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.3 + index * 0.12, ease }}
+                  className="mb-6 block font-serif text-4xl text-gold/50"
+                >
+                  {item.icon}
+                </motion.span>
                 <h3 className="mb-4 font-serif text-xl font-light text-white sm:text-2xl">
                   {item.title}
                 </h3>
@@ -649,7 +683,13 @@ export default function Home() {
       {/* From Our Journal */}
       <section className="px-4 py-20 sm:px-6 sm:py-24 md:px-12 md:py-28 lg:px-24 lg:py-32">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-14 flex flex-col gap-5 border-b border-black/[0.06] pb-10 sm:mb-16 md:flex-row md:items-end md:justify-between">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease }}
+            className="mb-14 flex flex-col gap-5 border-b border-black/[0.06] pb-10 sm:mb-16 md:flex-row md:items-end md:justify-between"
+          >
             <div>
               <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
                 From Our Journal
@@ -665,7 +705,7 @@ export default function Home() {
               Read the Journal
               <ArrowUpRight size={14} strokeWidth={1.5} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </Link>
-          </div>
+          </motion.div>
 
           <div className="grid gap-8 md:grid-cols-3 md:gap-10">
             {[
@@ -690,14 +730,20 @@ export default function Home() {
             ].map((article, index) => (
               <motion.div
                 key={article.title}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 32 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: index * 0.08, ease }}
+                transition={{ duration: 0.9, delay: index * 0.12, ease }}
                 className="group cursor-default border border-transparent p-6 transition-all duration-500 hover:border-gold/20 hover:bg-white sm:p-8"
               >
                 <div className="mb-4 flex items-center gap-3">
-                  <span className="h-px flex-1 bg-gold/20" />
+                  <motion.span
+                    initial={{ scaleX: 0 }}
+                    whileInView={{ scaleX: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: 0.2 + index * 0.12, ease }}
+                    className="h-px flex-1 origin-left bg-gold/40"
+                  />
                   <span className="text-[9px] font-medium uppercase tracking-[0.22em] text-black/30">
                     {article.date}
                   </span>
@@ -706,10 +752,16 @@ export default function Home() {
                   {article.title}
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-black/55">{article.excerpt}</p>
-                <span className="mt-4 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-black/40 transition-colors duration-300 group-hover:text-gold-dark">
+                <motion.span
+                  initial={{ opacity: 0, x: -8 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.4 + index * 0.12, ease }}
+                  className="mt-4 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-black/40 transition-colors duration-300 group-hover:text-gold-dark"
+                >
                   Read More
                   <ArrowRight size={12} className="transition-transform group-hover:translate-x-1" />
-                </span>
+                </motion.span>
               </motion.div>
             ))}
           </div>
