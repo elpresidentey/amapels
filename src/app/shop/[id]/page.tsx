@@ -147,6 +147,17 @@ export default function ProductPage() {
               {product.description}
             </p>
 
+            <div className="mt-8 border-l-2 border-gold/40 bg-[#faf8f5] px-5 py-5 sm:px-6 sm:py-6">
+              <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-gold/70">
+                The Inspiration
+              </p>
+              <p className="text-sm leading-relaxed italic text-black/65">
+                {product.materials
+                  ? `Inspired by the interplay of ${product.materials.toLowerCase()}, this piece captures the essence of Nigerian elegance — where tradition meets the contemporary woman who moves through the world with grace and intention.`
+                  : `Every curve and contour of this piece is a conversation between heritage and the modern woman — designed for moments that deserve to be remembered.`}
+              </p>
+            </div>
+
             <div className="mt-10 flex gap-3 sm:mt-12">
               <button
                 onClick={handleAddToCart}

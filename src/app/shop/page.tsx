@@ -74,14 +74,20 @@ function ShopContent() {
             <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
               <div>
                 <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
-                  The Collection
+                  {selectedCategory === 'All' ? 'The Collection' : selectedCategory}
                 </p>
                 <h1 className="font-serif text-4xl font-light tracking-tight text-black-dark sm:text-5xl md:text-6xl">
-                  Shop
+                  {selectedCategory === 'All'
+                    ? 'Shop'
+                    : selectedCategory}
                 </h1>
               </div>
               <p className="max-w-sm text-sm leading-relaxed text-black/55 md:text-right">
-                Explore artisan craftsmanship and timeless pieces — for everyday radiance or gifting with intention.
+                {selectedCategory === 'All' && 'Explore artisan craftsmanship and timeless pieces — for everyday radiance or gifting with intention.'}
+                {selectedCategory === 'Earrings' && 'Earrings that frame your face, catch the light, and whisper confidence. From sculptural drops to luminous studs — find the pair that speaks your language.'}
+                {selectedCategory === 'Necklaces' && 'Necklaces that rest close to the heart. Each chain, each pendant, each strand designed to complete your story — whether layered or worn alone.'}
+                {selectedCategory === 'Bracelets' && 'Bracelets that dance with your every movement. Handcrafted adornments for wrists that gesture, write, wave, and hold the ones you love.'}
+                {selectedCategory === 'Jewellery Sets' && 'Curated with intention. Our jewellery sets are more than matching pieces — they are a complete statement, a mood, a moment already made.'}
               </p>
             </div>
           </motion.div>

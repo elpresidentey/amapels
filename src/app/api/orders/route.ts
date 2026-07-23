@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createOrder, getOrders } from '@/lib/supabase'
 import { requireAdmin } from '@/lib/admin-guard'
+import { sendOrderConfirmation } from '@/lib/email'
 
 // Validation schemas
 const validateEmail = (email: string): boolean => {
@@ -152,6 +153,16 @@ export async function POST(request: NextRequest) {
     try {
       const order = await createOrder(sanitizedOrderData)
       
+      // Send order confirmation email (fire-and-forget)
+      sendOrderConfirmation({
+        customerName: order.customer_name,
+        customerEmail: order.customer_email,
+        orderNumber: order.order_number,
+        items: order.items,
+        total: order.total,
+        shippingAddress: order.shipping_address
+      })
+
       // Return success response
       return NextResponse.json({
         message: 'Order created successfully',

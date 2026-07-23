@@ -341,10 +341,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Brand perspective */}
-      <section className="px-4 py-20 sm:px-6 sm:py-24 md:px-12 md:py-28 lg:px-24 lg:py-32">
+      {/* Our Story */}
+      <section className="overflow-hidden px-4 py-20 sm:px-6 sm:py-24 md:px-12 md:py-28 lg:px-24 lg:py-32">
         <div className="mx-auto max-w-7xl">
-          <div className="grid gap-14 lg:grid-cols-[0.95fr_1.05fr] lg:items-start lg:gap-20">
+          <div className="grid gap-14 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-20">
             <motion.div
               initial={{ opacity: 0, y: 32 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -352,28 +352,44 @@ export default function Home() {
               transition={{ duration: 0.85, ease }}
             >
               <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
-                Brand Perspective
+                Our Story
               </p>
               <h2 className="font-serif text-3xl font-light leading-[1.15] text-black-dark sm:text-4xl md:text-[2.75rem]">
-                Exquisite jewelry, artfully crafted to celebrate every woman who loves to shine.
+                It began in Lagos — a city that wears its soul on every street.
               </h2>
-              <p className="mt-6 max-w-xl text-base leading-relaxed text-black/60">
-                We create timeless pieces that make you feel radiant and confident — for everyday grace and milestone celebrations.
-              </p>
+              <div className="mt-6 space-y-4 text-base leading-relaxed text-black/60">
+                <p>
+                  In the golden light of a Lagos evening, surrounded by the rhythm of market songs
+                  and the laughter of women who knew the weight of resilience, the first AMAPELS
+                  piece was born. It was never meant to be a brand. It was meant to be a feeling.
+                </p>
+                <p>
+                  A feeling that grew into something bigger — a home for women who wear their
+                  stories as proudly as their gold. Every curve, every clasp, every shimmering
+                  stone is a conversation between heritage and the woman who dares to shine.
+                </p>
+              </div>
               <div className="mt-10 space-y-6">
                 <div className="border-l border-gold/50 pl-5">
-                  <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-black/40">Our Philosophy</p>
+                  <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-black/40">Made in Lagos</p>
                   <p className="text-sm leading-relaxed text-black/65">
-                    Artisan craftsmanship, luminous designs, and quiet elegance that lets each piece tell its own story.
+                    Handcrafted by Nigerian artisans who pour generations of skill into every piece. Our hands carry the legacy of a continent.
                   </p>
                 </div>
                 <div className="border-l border-gold/50 pl-5">
-                  <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-black/40">Growing With You</p>
+                  <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-black/40">Worn Everywhere</p>
                   <p className="text-sm leading-relaxed text-black/65">
-                    As our collection grows, we continue to discover treasures that celebrate your unique journey and style.
+                    From the streets of Surulere to the avenues of New York — our pieces travel with women who move through the world with grace and intention.
                   </p>
                 </div>
               </div>
+              <Link
+                href="/story"
+                className="group mt-10 inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.24em] text-black-dark transition-colors hover:text-gold-dark"
+              >
+                Read the Full Story
+                <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
+              </Link>
             </motion.div>
 
             <motion.div
@@ -381,36 +397,22 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.85, delay: 0.1, ease }}
-              className="grid gap-4 md:grid-cols-2"
+              className="relative lg:h-[600px]"
             >
-              <div className="relative overflow-hidden md:col-span-2">
-                <div className="relative aspect-[16/10]">
-                  <Image
-                    src="/images/pexels-vedat-28933799.jpg"
-                    alt="Amapels bracelet detail"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    quality={85}
-                    className="object-cover transition-transform duration-1000 hover:scale-[1.03]"
-                  />
+              <div className="relative aspect-[4/5] overflow-hidden lg:absolute lg:inset-0">
+                <Image
+                  src="/images/pexels-vedat-28933799.jpg"
+                  alt="AMAPELS craftsmanship detail"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  quality={90}
+                  className="object-cover transition-transform duration-1000 hover:scale-[1.03]"
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(12,10,8,0.3)_0%,transparent_60%)]" />
+                <div className="absolute bottom-0 left-0 right-0 bg-[linear-gradient(180deg,transparent_50%,rgba(12,10,8,0.85)_100%)] p-8 text-white">
+                  <p className="mb-2 font-serif text-2xl font-light italic text-gold/80">&ldquo;Crafted in Lagos, worn by the world.&rdquo;</p>
+                  <p className="text-xs text-white/50">— Handmade with intent, finished with love</p>
                 </div>
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(12,10,8,0.82)_100%)]" />
-                <div className="absolute bottom-0 left-0 p-7 text-white sm:p-8">
-                  <p className="text-[10px] font-medium uppercase tracking-[0.32em] text-gold/70">Signature Mood</p>
-                  <h3 className="mt-3 font-serif text-xl font-light sm:text-2xl">Close-up luxury with unmistakable shine</h3>
-                </div>
-              </div>
-              <div className="bg-black-dark px-7 py-8 text-white">
-                <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-white/40">Aesthetic</p>
-                <p className="mt-4 font-serif text-xl font-light leading-snug sm:text-2xl">
-                  Less noise. More shine.
-                </p>
-              </div>
-              <div className="border border-gold/30 bg-white px-7 py-8">
-                <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-black/40">Craft</p>
-                <p className="mt-4 font-serif text-xl font-light leading-snug text-black-dark sm:text-2xl">
-                  Every detail considered — from metalwork to the final polish.
-                </p>
               </div>
             </motion.div>
           </div>
@@ -525,8 +527,138 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Brand story CTA */}
+      {/* Jewellery With Meaning */}
+      <section className="bg-black-dark px-4 py-20 sm:px-6 sm:py-24 md:px-12 md:py-28 lg:px-24 lg:py-32">
+        <div className="mx-auto max-w-7xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease }}
+            className="mb-16 text-center"
+          >
+            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-gold/50">
+              Jewellery With Meaning
+            </p>
+            <h2 className="font-serif text-3xl font-light leading-[1.15] text-white sm:text-4xl md:text-5xl">
+              Pieces that speak
+              <br />
+              <span className="text-gold/80">without saying a word.</span>
+            </h2>
+          </motion.div>
+
+          <div className="grid gap-8 md:grid-cols-3 md:gap-10">
+            {[
+              {
+                icon: '✦',
+                title: 'For the Milestones',
+                description:
+                  'The promotion you fought for. The anniversary you never thought you\'d reach. The first piece of jewellery you bought yourself. Every AMAPELS piece is designed to be there for the moments that matter most.',
+              },
+              {
+                icon: '♦',
+                title: 'For the Everyday',
+                description:
+                  'A gold chain that catches the light during a Monday meeting. Studs that make you feel put-together on a lazy Sunday. Jewellery shouldn\'t wait for special occasions — it should make every day feel special.',
+              },
+              {
+                icon: '∞',
+                title: 'For the Gifting',
+                description:
+                  'The best gifts are the ones that say "I know you." A piece chosen with intention — for a sister, a mother, a friend who has been there through everything. Wrapped in our signature packaging, with a note that speaks from the heart.',
+              },
+            ].map((item, index) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: index * 0.1, ease }}
+                className="group border border-white/[0.08] bg-white/[0.03] px-7 py-10 backdrop-blur-sm transition-all duration-500 hover:border-gold/20 hover:bg-white/[0.06] sm:px-8 sm:py-12"
+              >
+                <span className="mb-6 block font-serif text-4xl text-gold/50">{item.icon}</span>
+                <h3 className="mb-4 font-serif text-xl font-light text-white sm:text-2xl">
+                  {item.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-white/55">{item.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* From Our Journal */}
       <section className="px-4 py-20 sm:px-6 sm:py-24 md:px-12 md:py-28 lg:px-24 lg:py-32">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-14 flex flex-col gap-5 border-b border-black/[0.06] pb-10 sm:mb-16 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
+                From Our Journal
+              </p>
+              <h2 className="max-w-xl font-serif text-3xl font-light text-black-dark sm:text-4xl md:text-5xl">
+                Thoughts on craft, culture, and the stories we wear.
+              </h2>
+            </div>
+            <Link
+              href="/journal"
+              className="group inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.24em] text-black-dark transition-colors hover:text-gold-dark"
+            >
+              Read the Journal
+              <ArrowUpRight size={14} strokeWidth={1.5} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </Link>
+          </div>
+
+          <div className="grid gap-8 md:grid-cols-3 md:gap-10">
+            {[
+              {
+                title: 'The Art of Adornment: Why We Wear What We Wear',
+                excerpt:
+                  'From the courts of Benin to the streets of Lagos, jewellery has always been more than decoration. It is identity, power, and poetry we explore the deep-rooted tradition of adornment in Nigerian culture.',
+                date: 'Coming Soon',
+              },
+              {
+                title: 'Behind the Piece: The Journey of a Single Necklace',
+                excerpt:
+                  'From sketch to skin — follow one AMAPELS necklace as it travels through the hands of six artisans, across three Nigerian cities, and into the life of the woman who will wear it for years.',
+                date: 'Coming Soon',
+              },
+              {
+                title: 'Gifting With Intention: Choosing Jewellery That Means Something',
+                excerpt:
+                  'The best gifts say "I know you." Whether for a birthday, an anniversary, or no occasion at all — we share how to choose a piece that tells the right story.',
+                date: 'Coming Soon',
+              },
+            ].map((article, index) => (
+              <motion.div
+                key={article.title}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: index * 0.08, ease }}
+                className="group cursor-default border border-transparent p-6 transition-all duration-500 hover:border-gold/20 hover:bg-white sm:p-8"
+              >
+                <div className="mb-4 flex items-center gap-3">
+                  <span className="h-px flex-1 bg-gold/20" />
+                  <span className="text-[9px] font-medium uppercase tracking-[0.22em] text-black/30">
+                    {article.date}
+                  </span>
+                </div>
+                <h3 className="font-serif text-lg font-light leading-snug text-black-dark transition-colors duration-300 group-hover:text-gold-dark sm:text-xl">
+                  {article.title}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-black/55">{article.excerpt}</p>
+                <span className="mt-4 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-black/40 transition-colors duration-300 group-hover:text-gold-dark">
+                  Read More
+                  <ArrowRight size={12} className="transition-transform group-hover:translate-x-1" />
+                </span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="px-4 pb-20 sm:px-6 sm:pb-24 md:px-12 md:pb-28 lg:px-24 lg:pb-32">
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -536,22 +668,24 @@ export default function Home() {
         >
           <div>
             <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
-              The Brand Story
+              Ready to find your piece?
             </p>
             <h2 className="font-serif text-3xl font-light leading-snug text-black-dark sm:text-4xl md:text-[2.6rem]">
-              More than jewelry — a celebration of your story, style, and moments.
+              Your story is waiting
+              <br />
+              <span className="text-gold-dark">to be worn.</span>
             </h2>
           </div>
           <div className="flex flex-col justify-between">
             <p className="text-sm leading-relaxed text-black/60 sm:text-base">
-              A place to discover timeless treasures, find the perfect gift, and celebrate beauty with confidence.
+              Every piece of jewellery tells a story. Find the one that tells yours — crafted in Lagos, made with meaning, and designed for the woman who knows her worth.
             </p>
             <div className="mt-8">
               <Link
-                href="/story"
-                className="group inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.24em] text-black-dark transition-colors hover:text-gold-dark"
+                href="/shop"
+                className="btn-premium group inline-flex items-center gap-2.5 bg-black-dark px-7 py-4 text-[10px] font-medium uppercase tracking-[0.22em] text-white transition-all hover:bg-black sm:text-[11px]"
               >
-                Discover Our Story
+                Browse the Collection
                 <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
