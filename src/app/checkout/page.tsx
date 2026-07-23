@@ -503,6 +503,30 @@ export default function CheckoutPage() {
                           email: shippingData.email.trim()
                         })
                         
+                        // Store order data for receipt
+                        try {
+                          sessionStorage.setItem('lastOrder', JSON.stringify({
+                            customerName: `${shippingData.firstName.trim()} ${shippingData.lastName.trim()}`,
+                            customerEmail: shippingData.email.trim(),
+                            customerPhone: shippingData.phone.trim(),
+                            items: items.map(item => ({
+                              name: item.name,
+                              quantity: item.quantity,
+                              price: parseInt(item.price.replace(/[₦,]/g, ''))
+                            })),
+                            shippingAddress: {
+                              street: shippingData.address.trim(),
+                              city: shippingData.city.trim(),
+                              state: shippingData.state.trim(),
+                              postalCode: shippingData.postalCode.trim(),
+                              country: shippingData.country.trim()
+                            },
+                            subtotal,
+                            shippingCost: shipping,
+                            tax
+                          }))
+                        } catch {}
+                        
                         console.log('Order successful, redirecting to confirmation with params:', confirmationParams.toString())
                         
                         setToastMessage('✨ Order placed successfully! Redirecting...')

@@ -3,8 +3,9 @@
 import { Suspense, useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
-import { Check, Package, Truck, Mail, ArrowRight, Download, Calendar, Phone } from 'lucide-react'
+import { Check, Package, Truck, Mail, ArrowRight, Calendar, Phone } from 'lucide-react'
 import Link from 'next/link'
+import PrintableReceipt from '@/components/PrintableReceipt'
 
 function OrderConfirmationContent() {
   const searchParams = useSearchParams()
@@ -70,37 +71,29 @@ function OrderConfirmationContent() {
     setLoading(false)
   }, [searchParams, mounted])
 
-  const handleDownloadReceipt = () => {
-    const receiptContent = `
-AMAPELS JEWELRY - ORDER RECEIPT
-================================
-Order Number: ${orderNumber}
-Tracking Number: ${trackingNumber}
-Payment Reference: ${paymentReference}
-Order Date: ${orderDate}
-Customer Email: ${customerEmail}
+  const [customerName, setCustomerName] = useState('')
+  const [customerPhone, setCustomerPhone] = useState('')
+  const [orderItems, setOrderItems] = useState<Array<{ name: string; quantity: number; price: number }>>([])
+  const [orderSubtotal, setOrderSubtotal] = useState(0)
+  const [orderShipping, setOrderShipping] = useState(0)
+  const [orderTax, setOrderTax] = useState(0)
+  const [shippingAddr, setShippingAddr] = useState<{ street: string; city: string; state: string; postalCode?: string; country: string } | undefined>(undefined)
 
-PAYMENT DETAILS
-----------------
-Payment Method: Bank Transfer / Card
-Payment Reference: ${paymentReference}
-Payment Status: SUCCESSFUL
-Total Amount: ${totalAmount || '₦0.00'}
-
-Thank you for your purchase!
-For inquiries, contact: orders@amapels.com
-    `.trim()
-
-    const blob = new Blob([receiptContent], { type: 'text/plain' })
-    const url = window.URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = `AMAPELS-Receipt-${orderNumber}.txt`
-    document.body.appendChild(a)
-    a.click()
-    window.URL.revokeObjectURL(url)
-    document.body.removeChild(a)
-  }
+  useEffect(() => {
+    const stored = sessionStorage.getItem('lastOrder')
+    if (stored) {
+      try {
+        const data = JSON.parse(stored)
+        if (data.customerName) setCustomerName(data.customerName)
+        if (data.customerPhone) setCustomerPhone(data.customerPhone)
+        if (data.items) setOrderItems(data.items)
+        if (data.subtotal) setOrderSubtotal(data.subtotal)
+        if (data.shippingCost) setOrderShipping(data.shippingCost)
+        if (data.tax) setOrderTax(data.tax)
+        if (data.shippingAddress) setShippingAddr(data.shippingAddress)
+      } catch {}
+    }
+  }, [])
 
   const nextSteps = [
     {
@@ -246,13 +239,21 @@ For inquiries, contact: orders@amapels.com
 
                 <h3 className="font-serif text-xl text-black-dark mb-4">Quick Actions</h3>
                 <div className="space-y-3">
-                  <button
-                    onClick={handleDownloadReceipt}
-                    className="w-full bg-black text-white py-3.5 px-6 text-[10px] font-medium uppercase tracking-[0.22em] hover:bg-gold hover:text-black-dark transition-all flex items-center justify-center gap-2.5 sm:text-[11px]"
-                  >
-                    <Download size={14} />
-                    Download Receipt
-                  </button>
+                  <PrintableReceipt
+                    orderNumber={orderNumber}
+                    trackingNumber={trackingNumber}
+                    paymentReference={paymentReference}
+                    orderDate={orderDate}
+                    customerEmail={customerEmail}
+                    customerName={customerName}
+                    customerPhone={customerPhone}
+                    totalAmount={totalAmount || '₦0.00'}
+                    items={orderItems}
+                    subtotal={orderSubtotal}
+                    shippingCost={orderShipping}
+                    tax={orderTax}
+                    shippingAddress={shippingAddr}
+                  />
 
                   <Link
                     href={`/track-order?orderNumber=${orderNumber}`}
