@@ -251,7 +251,7 @@ export default function TrackOrderPage() {
                   onChange={(e) => setOrderNumber(e.target.value)}
                   placeholder="e.g., AMP2024001 or TRK789012345"
                   className="w-full px-4 py-3 border border-gray-200 rounded-md text-black-dark placeholder:text-black/40 focus:ring-2 focus:ring-brown/20 focus:border-gray-800 min-h-[44px] text-base"
-                  onKeyPress={(e) => e.key === 'Enter' && handleTrackOrder()}
+                   onKeyDown={(e) => e.key === 'Enter' && handleTrackOrder()}
                 />
               </div>
               <div className="sm:pt-7">
