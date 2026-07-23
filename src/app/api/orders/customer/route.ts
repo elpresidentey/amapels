@@ -1,19 +1,20 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
+import { getSessionFromCookies } from '@/lib/customer-session'
 
-export async function GET(request: NextRequest) {
+export const dynamic = 'force-dynamic'
+
+export async function GET() {
   try {
-    const { searchParams } = new URL(request.url)
-    const email = searchParams.get('email')
-
-    if (!email) {
-      return NextResponse.json({ error: 'Email is required' }, { status: 400 })
+    const session = getSessionFromCookies()
+    if (!session?.email) {
+      return NextResponse.json({ error: 'Authentication required' }, { status: 401 })
     }
 
     const { data: orders, error } = await supabase
       .from('orders')
       .select('*')
-      .eq('customer_email', email.toLowerCase().trim())
+      .eq('customer_email', session.email)
       .order('created_at', { ascending: false })
       .limit(50)
 

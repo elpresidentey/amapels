@@ -1,122 +1,72 @@
 export interface CustomerSession {
   email: string
   name: string
-  loginTime: string
-  sessionId: string
-  expiresAt: string
 }
 
-// Generate a unique session ID
-export function generateSessionId(): string {
-  return `customer_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`
-}
+let cachedSession: CustomerSession | null = null
+let sessionPromise: Promise<CustomerSession | null> | null = null
 
-// Create a customer session (login)
-export function createCustomerSession(email: string, name: string): CustomerSession {
-  const sessionId = generateSessionId()
-  const loginTime = new Date().toISOString()
-  const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString() // 24 hours
-  
-  const session: CustomerSession = {
-    email,
-    name,
-    loginTime,
-    sessionId,
-    expiresAt
-  }
-  
-  // Store in both localStorage (persistent) and sessionStorage (session-based)
-  localStorage.setItem('customer_session', JSON.stringify(session))
-  sessionStorage.setItem('customer_active', 'true')
-  sessionStorage.setItem('cart_session_id', sessionId)
-  
-  return session
-}
-
-// Get current customer session
-export function getCustomerSession(): CustomerSession | null {
-  if (typeof window === 'undefined') return null
-  
+async function fetchSession(): Promise<CustomerSession | null> {
   try {
-    const sessionData = localStorage.getItem('customer_session')
-    const isActive = sessionStorage.getItem('customer_active')
-    
-    if (!sessionData || !isActive) return null
-    
-    const session: CustomerSession = JSON.parse(sessionData)
-    
-    // Check if session is expired
-    if (new Date() > new Date(session.expiresAt)) {
-      clearCustomerSession()
-      return null
+    const res = await fetch('/api/auth/session', { credentials: 'include' })
+    if (!res.ok) return null
+    const data = await res.json()
+    if (data.authenticated && data.user) {
+      return { email: data.user.email, name: data.user.name }
     }
-    
-    return session
-  } catch (error) {
-    console.error('Error getting customer session:', error)
-    clearCustomerSession()
+    return null
+  } catch {
     return null
   }
 }
 
-// Clear customer session (logout)
-export function clearCustomerSession(): void {
-  if (typeof window === 'undefined') return
-  
-  localStorage.removeItem('customer_session')
-  sessionStorage.removeItem('customer_active')
-  sessionStorage.removeItem('cart_session_id')
+export async function getServerSession(): Promise<CustomerSession | null> {
+  if (sessionPromise) return sessionPromise
+  sessionPromise = fetchSession().then((s) => {
+    cachedSession = s
+    sessionPromise = null
+    return s
+  })
+  return sessionPromise
 }
 
-// Check if customer is authenticated
-export function isCustomerAuthenticated(): boolean {
-  return getCustomerSession() !== null
+export function getCachedSession(): CustomerSession | null {
+  return cachedSession
 }
 
-// Login function (simple email-based for now)
-export function customerLogin(email: string, name?: string): CustomerSession {
-  const customerName = name || email.split('@')[0] // Use email prefix if no name provided
-  return createCustomerSession(email, customerName)
-}
+export async function customerLogin(email: string, name?: string): Promise<CustomerSession> {
+  const displayName = name || email.split('@')[0]
+  const res = await fetch('/api/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify({ email, name: displayName }),
+  })
 
-// Logout function
-export function customerLogout(): void {
-  clearCustomerSession()
-}
-
-// Check if this is a new session (for cart clearing)
-export function isNewSession(): boolean {
-  if (typeof window === 'undefined') return false
-  
-  const currentSession = getCustomerSession()
-  const cartSessionId = sessionStorage.getItem('cart_session_id')
-  
-  // If no current session but there's a cart session, it's a returning visitor
-  if (!currentSession && cartSessionId) {
-    return false
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}))
+    throw new Error(data.error || 'Login failed')
   }
-  
-  // If no cart session ID, it's definitely new
-  if (!cartSessionId) {
-    return true
-  }
-  
-  // If session exists, compare session IDs
-  if (currentSession) {
-    return currentSession.sessionId !== cartSessionId
-  }
-  
-  return false
+
+  const data = await res.json()
+  const session: CustomerSession = { email: data.user.email, name: data.user.name }
+  cachedSession = session
+  return session
 }
 
-// Initialize session tracking (call this on app start)
-export function initializeSession(): void {
-  if (typeof window === 'undefined') return
-  
-  const existingSession = getCustomerSession()
-  if (!existingSession) {
-    // Create anonymous session for cart tracking
-    const sessionId = generateSessionId()
-    sessionStorage.setItem('cart_session_id', sessionId)
+export async function customerLogout(): Promise<void> {
+  try {
+    await fetch('/api/auth/logout', {
+      method: 'POST',
+      credentials: 'include',
+    })
+  } catch {
+    // Ignore logout errors
   }
+  cachedSession = null
+}
+
+export async function isCustomerAuthenticated(): Promise<boolean> {
+  const session = await getServerSession()
+  return session !== null
 }

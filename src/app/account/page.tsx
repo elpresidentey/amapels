@@ -9,9 +9,10 @@ import {
   ShoppingBag, MapPin, CreditCard, AlertCircle, ChevronDown, ChevronUp
 } from 'lucide-react'
 import {
-  getCustomerSession,
+  getCachedSession,
   customerLogout,
   isCustomerAuthenticated,
+  getServerSession,
 } from '@/lib/customerAuth'
 
 const ease = [0.22, 1, 0.36, 1] as const
@@ -139,7 +140,7 @@ function OrderCard({ order, index }: { order: OrderSummary; index: number }) {
 
 export default function AccountPage() {
   const router = useRouter()
-  const [session, setSession] = useState<ReturnType<typeof getCustomerSession>>(null)
+  const [session, setSession] = useState<{ email: string; name: string } | null>(null)
   const [orders, setOrders] = useState<OrderSummary[]>([])
   const [loading, setLoading] = useState(true)
   const [ordersLoading, setOrdersLoading] = useState(true)
@@ -147,19 +148,23 @@ export default function AccountPage() {
   const [checkingAuth, setCheckingAuth] = useState(true)
 
   useEffect(() => {
-    if (!isCustomerAuthenticated()) {
-      router.push('/')
-      return
+    const init = async () => {
+      const authenticated = await isCustomerAuthenticated()
+      if (!authenticated) {
+        router.push('/')
+        return
+      }
+      const s = getCachedSession() || await getServerSession()
+      setSession(s)
+      setCheckingAuth(false)
     }
-    setSession(getCustomerSession())
-    setCheckingAuth(false)
+    init()
   }, [router])
 
   const fetchOrders = useCallback(async () => {
-    if (!session?.email) return
     setOrdersLoading(true)
     try {
-      const res = await fetch(`/api/orders/customer?email=${encodeURIComponent(session.email)}`)
+      const res = await fetch('/api/orders/customer', { credentials: 'include' })
       const data = await res.json()
       if (res.ok) {
         setOrders(data.orders || [])
@@ -172,14 +177,14 @@ export default function AccountPage() {
       setOrdersLoading(false)
       setLoading(false)
     }
-  }, [session?.email])
+  }, [])
 
   useEffect(() => {
-    if (session?.email) fetchOrders()
-  }, [fetchOrders, session?.email])
+    if (!checkingAuth && session) fetchOrders()
+  }, [fetchOrders, checkingAuth, session])
 
-  const handleLogout = () => {
-    customerLogout()
+  const handleLogout = async () => {
+    await customerLogout()
     router.push('/')
   }
 

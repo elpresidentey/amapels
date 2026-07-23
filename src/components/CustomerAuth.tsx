@@ -4,11 +4,11 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { User, Mail, LogOut, ShoppingBag, UserCircle } from 'lucide-react'
-import { 
-  customerLogin, 
-  customerLogout, 
-  getCustomerSession, 
-  isCustomerAuthenticated 
+import {
+  customerLogin,
+  customerLogout,
+  isCustomerAuthenticated,
+  getCachedSession,
 } from '@/lib/customerAuth'
 import { useCartStore } from '@/store/newCartStore'
 
@@ -19,21 +19,27 @@ export default function CustomerAuth() {
   const [name, setName] = useState('')
   const [customerName, setCustomerName] = useState('')
   const [loading, setLoading] = useState(false)
+  const [authLoading, setAuthLoading] = useState(true)
   const { clearCart } = useCartStore()
 
   useEffect(() => {
     checkAuthStatus()
   }, [])
 
-  const checkAuthStatus = () => {
-    const authenticated = isCustomerAuthenticated()
-    setIsAuthenticated(authenticated)
-    
-    if (authenticated) {
-      const session = getCustomerSession()
-      if (session) {
-        setCustomerName(session.name)
+  const checkAuthStatus = async () => {
+    setAuthLoading(true)
+    try {
+      const authenticated = await isCustomerAuthenticated()
+      setIsAuthenticated(authenticated)
+
+      if (authenticated) {
+        const session = getCachedSession()
+        if (session) {
+          setCustomerName(session.name)
+        }
       }
+    } finally {
+      setAuthLoading(false)
     }
   }
 
@@ -42,20 +48,16 @@ export default function CustomerAuth() {
     if (!email.trim()) return
 
     setLoading(true)
-    
+
     try {
-      // Clear cart before login (this is what you requested)
       clearCart()
-      
-      // Create customer session
-      const session = customerLogin(email, name || undefined)
-      
+      const session = await customerLogin(email, name || undefined)
+
       setIsAuthenticated(true)
       setCustomerName(session.name)
       setShowLogin(false)
       setEmail('')
       setName('')
-      
     } catch (error) {
       console.error('Login failed:', error)
     } finally {
@@ -63,14 +65,20 @@ export default function CustomerAuth() {
     }
   }
 
-  const handleLogout = () => {
-    customerLogout()
+  const handleLogout = async () => {
+    await customerLogout()
     setIsAuthenticated(false)
     setCustomerName('')
     setShowLogin(false)
-    
-    // Clear cart on logout
     clearCart()
+  }
+
+  if (authLoading) {
+    return (
+      <div className="flex items-center gap-2 text-white/50">
+        <div className="h-3 w-3 animate-pulse rounded-full bg-white/20" />
+      </div>
+    )
   }
 
   return (
@@ -78,8 +86,10 @@ export default function CustomerAuth() {
       {!isAuthenticated ? (
         <>
           <button
+            type="button"
             onClick={() => setShowLogin(!showLogin)}
-            className="flex items-center gap-2 text-champagne hover:text-white transition-colors text-sm uppercase tracking-wider"
+            className="flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm uppercase tracking-wider"
+            aria-label="Login to your account"
           >
             <User size={16} />
             <span className="hidden md:inline">Login</span>
@@ -94,27 +104,30 @@ export default function CustomerAuth() {
                 className="absolute top-full right-0 mt-2 w-80 bg-white border border-gold/30 shadow-lg p-6 z-50"
               >
                 <h3 className="font-serif text-lg text-black-dark mb-4">Welcome Back</h3>
-                
+
                 <form onSubmit={handleLogin} className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-black-dark mb-2">
+                    <label htmlFor="auth-email" className="block text-sm font-medium text-black-dark mb-2">
                       Email Address *
                     </label>
                     <input
+                      id="auth-email"
                       type="email"
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       className="w-full px-3 py-2.5 border border-gold focus:ring-2 focus:ring-gold/20 focus:border-black outline-none transition-colors"
                       placeholder="your@email.com"
+                      aria-required="true"
                     />
                   </div>
-                  
+
                   <div>
-                    <label className="block text-sm font-medium text-black-dark mb-2">
+                    <label htmlFor="auth-name" className="block text-sm font-medium text-black-dark mb-2">
                       Name (Optional)
                     </label>
                     <input
+                      id="auth-name"
                       type="text"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
@@ -127,12 +140,12 @@ export default function CustomerAuth() {
                     <div className="flex items-start gap-2 text-xs text-black/70">
                       <ShoppingBag size={14} className="mt-0.5 flex-shrink-0" />
                       <p>
-                        <strong>Note:</strong> Logging in will clear your current cart items. 
+                        <strong>Note:</strong> Logging in will clear your current cart items.
                         This ensures a fresh shopping session.
                       </p>
                     </div>
                   </div>
-                  
+
                   <button
                     type="submit"
                     disabled={loading || !email.trim()}
@@ -140,7 +153,7 @@ export default function CustomerAuth() {
                   >
                     {loading ? (
                       <>
-                        <div className="w-4 h-4 border-2 border-ivory border-t-transparent rounded-full animate-spin"></div>
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" role="status" aria-label="Signing in" />
                         Signing In...
                       </>
                     ) : (
@@ -173,6 +186,7 @@ export default function CustomerAuth() {
             <span className="hidden md:inline">Account</span>
           </Link>
           <button
+            type="button"
             onClick={handleLogout}
             className="flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm uppercase tracking-wider"
             aria-label="Sign out"
