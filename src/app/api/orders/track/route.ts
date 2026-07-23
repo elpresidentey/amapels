@@ -1,17 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-
-const supabase = createClient(supabaseUrl, supabaseKey)
+import dbConnect from '@/lib/mongodb'
+import Order from '@/models/Order'
 
 export async function GET(request: NextRequest) {
   try {
+    await dbConnect()
+
     const searchParams = request.nextUrl.searchParams
     const orderNumber = searchParams.get('orderNumber')
     const trackingNumber = searchParams.get('trackingNumber')
-    const email = searchParams.get('email')
 
     if (!orderNumber && !trackingNumber) {
       return NextResponse.json(
@@ -20,30 +17,35 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    let query = supabase
-      .from('orders')
-      .select('*')
-      .or(`order_number.eq.${orderNumber},tracking_number.eq.${trackingNumber}`)
-
-    if (email) {
-      query = query.eq('customer_email', email)
+    let order
+    if (orderNumber) {
+      order = await Order.findOne({ orderNumber }).lean()
+    } else {
+      order = await Order.findOne({ trackingNumber }).lean()
     }
 
-    const { data: order, error } = await query.single()
-
-    if (error || !order) {
+    if (!order) {
       return NextResponse.json(
         { error: 'Order not found' },
         { status: 404 }
       )
     }
 
-    // Format the response for the frontend
+    const timeline = order.metadata?.timeline || [
+      {
+        date: new Date(order.createdAt).toLocaleDateString(),
+        time: new Date(order.createdAt).toLocaleTimeString(),
+        status: 'Order confirmed',
+        location: 'AMAPELS',
+        completed: true
+      }
+    ]
+
     const trackingData = {
-      orderId: order.order_number,
+      orderId: order.orderNumber,
       status: order.status,
-      estimatedDelivery: order.estimated_delivery 
-        ? new Date(order.estimated_delivery).toLocaleDateString('en-US', {
+      estimatedDelivery: order.estimatedDelivery
+        ? new Date(order.estimatedDelivery).toLocaleDateString('en-US', {
             weekday: 'long',
             year: 'numeric',
             month: 'long',
@@ -51,31 +53,23 @@ export async function GET(request: NextRequest) {
           })
         : 'To be determined',
       currentLocation: order.metadata?.current_location || 'Processing',
-      trackingNumber: order.tracking_number || 'Pending',
+      trackingNumber: order.trackingNumber || 'Pending',
       courierName: order.metadata?.courier_name || 'AMAPELS Logistics',
       courierPhone: order.metadata?.courier_phone || '+234-800-123-4567',
-      paymentReference: order.payment_reference || 'N/A',
-      paymentStatus: order.payment_status,
+      paymentReference: order.paymentReference || 'N/A',
+      paymentStatus: order.paymentStatus,
       totalAmount: `₦${order.total.toLocaleString()}`,
-      customerName: order.customer_name,
-      customerEmail: order.customer_email,
-      customerPhone: order.customer_phone,
+      customerName: order.customerName,
+      customerEmail: order.customerEmail,
+      customerPhone: order.customerPhone,
       items: order.items,
-      shippingAddress: order.shipping_address,
+      shippingAddress: order.shippingAddress,
       subtotal: order.subtotal,
-      shippingCost: order.shipping_cost,
+      shippingCost: order.shippingCost,
       tax: order.tax,
       total: order.total,
-      createdAt: order.created_at,
-      timeline: order.metadata?.timeline || [
-        {
-          date: new Date(order.created_at).toLocaleDateString(),
-          time: new Date(order.created_at).toLocaleTimeString(),
-          status: 'Order confirmed',
-          location: 'AMAPELS',
-          completed: true
-        }
-      ]
+      createdAt: order.createdAt,
+      timeline
     }
 
     return NextResponse.json({ success: true, data: trackingData })

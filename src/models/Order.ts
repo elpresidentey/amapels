@@ -9,7 +9,7 @@ export interface IOrderItem {
 }
 
 export interface IOrder {
-  orderNumber?: string // Make optional since it's auto-generated
+  orderNumber?: string
   customerEmail: string
   customerName: string
   customerPhone?: string
@@ -29,13 +29,15 @@ export interface IOrder {
     country: string
   }
   subtotal: number
-  shippingCost?: number // Make optional with default
-  tax?: number // Add tax field
+  shippingCost?: number
+  tax?: number
   total: number
   status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled'
   paymentStatus: 'pending' | 'paid' | 'failed' | 'refunded'
   paymentReference?: string
-  metadata?: Record<string, any> // Add metadata field for checkout data
+  trackingNumber?: string
+  estimatedDelivery?: string
+  metadata?: Record<string, any>
   notes?: string
   createdAt?: Date
   updatedAt?: Date
@@ -124,6 +126,12 @@ const OrderSchema = new mongoose.Schema<IOrder>({
   paymentReference: {
     type: String,
   },
+  trackingNumber: {
+    type: String,
+  },
+  estimatedDelivery: {
+    type: String,
+  },
   metadata: {
     type: mongoose.Schema.Types.Mixed,
     default: {},
@@ -135,10 +143,12 @@ const OrderSchema = new mongoose.Schema<IOrder>({
   timestamps: true,
 })
 
-// Generate order number before saving
 OrderSchema.pre('save', function() {
   if (!this.orderNumber) {
-    this.orderNumber = `AMP-${Date.now()}-${Math.random().toString(36).substr(2, 4).toUpperCase()}`
+    this.orderNumber = `AMP${new Date().getFullYear()}${String(Math.floor(Math.random() * 100000)).padStart(5, '0')}`
+  }
+  if (!this.trackingNumber) {
+    this.trackingNumber = `TRK-${Date.now().toString().slice(-8)}`
   }
 })
 

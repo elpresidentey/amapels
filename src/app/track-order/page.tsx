@@ -30,7 +30,27 @@ interface TrackingInfo {
   paymentReference: string
   paymentStatus: string
   totalAmount: string
+  customerName: string
   customerEmail: string
+  customerPhone: string
+  items: Array<{
+    productId: string
+    name: string
+    price: number
+    quantity: number
+    image: string
+  }>
+  shippingAddress: {
+    street: string
+    city: string
+    state: string
+    postalCode: string
+    country: string
+  }
+  subtotal: number
+  shippingCost: number
+  tax: number
+  total: number
   timeline: {
     date: string
     time: string
@@ -58,7 +78,25 @@ export default function TrackOrderPage() {
     paymentReference: 'PAY-20240703-ABC123',
     paymentStatus: 'paid',
     totalAmount: '₦85,000',
+    customerName: 'Chioma Okafor',
     customerEmail: 'customer@example.com',
+    customerPhone: '+234-809-123-4567',
+    items: [
+      { productId: '1', name: 'Royal Gold Pendant', price: 45000, quantity: 1, image: '' },
+      { productId: '2', name: 'Diamond Stud Earrings', price: 28000, quantity: 1, image: '' },
+      { productId: '3', name: 'Silver Cuff Bracelet', price: 12000, quantity: 1, image: '' }
+    ],
+    shippingAddress: {
+      street: '42 Awolowo Road',
+      city: 'Ikeja',
+      state: 'Lagos',
+      postalCode: '234001',
+      country: 'Nigeria'
+    },
+    subtotal: 85000,
+    shippingCost: 2500,
+    tax: 6375,
+    total: 93875,
     timeline: [
       {
         date: '2026-07-03',
@@ -305,6 +343,67 @@ export default function TrackOrderPage() {
                 </div>
               </div>
             </div>
+
+            {/* Shipping Address */}
+            {trackingData.shippingAddress && (
+              <div className="bg-white border border-gray-200 rounded-lg p-6 mb-8">
+                <h3 className="font-semibold text-black-dark mb-4">Shipping Address</h3>
+                <div className="text-sm text-black-dark space-y-1">
+                  <p>{trackingData.customerName}</p>
+                  <p>{trackingData.shippingAddress.street}</p>
+                  <p>{trackingData.shippingAddress.city}, {trackingData.shippingAddress.state} {trackingData.shippingAddress.postalCode}</p>
+                  <p>{trackingData.shippingAddress.country}</p>
+                  <p className="text-black/70 mt-2">{trackingData.customerPhone}</p>
+                </div>
+              </div>
+            )}
+
+            {/* Order Items */}
+            {trackingData.items && trackingData.items.length > 0 && (
+              <div className="bg-white border border-gray-200 rounded-lg p-6 lg:p-8 mb-8">
+                <h3 className="font-semibold text-black-dark mb-4">Order Items ({trackingData.items.length})</h3>
+                <div className="space-y-4">
+                  {trackingData.items.map((item, index) => (
+                    <div key={index} className="flex gap-4 pb-4 border-b border-gray-100 last:border-0 last:pb-0">
+                      {item.image && (
+                        <div className="w-16 h-16 flex-shrink-0 bg-gray-50 rounded-lg overflow-hidden">
+                          <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                        </div>
+                      )}
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-black-dark">{item.name}</p>
+                        <p className="text-black/70 text-sm mt-1">
+                          Qty: {item.quantity} × ₦{item.price.toLocaleString()}
+                        </p>
+                      </div>
+                      <div className="text-right flex-shrink-0">
+                        <p className="font-medium text-black-dark">₦{(item.price * item.quantity).toLocaleString()}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-4 pt-4 border-t border-gray-200 space-y-1">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-black/70">Subtotal</span>
+                    <span>₦{trackingData.subtotal?.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-black/70">Shipping</span>
+                    <span>₦{trackingData.shippingCost?.toLocaleString()}</span>
+                  </div>
+                  {trackingData.tax > 0 && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-black/70">Tax</span>
+                      <span>₦{trackingData.tax?.toLocaleString()}</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between font-medium pt-2 border-t border-gray-200">
+                    <span>Total</span>
+                    <span>{trackingData.totalAmount}</span>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Courier Info */}
             <div className="bg-black-light/5 rounded-lg p-6 mb-8">

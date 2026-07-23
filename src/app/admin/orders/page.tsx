@@ -1,13 +1,14 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { Package, Eye, CheckCircle, Clock, X } from 'lucide-react'
+import { Package, Eye, CheckCircle, Clock, X, Truck, Copy } from 'lucide-react'
 import { getAdminAuthHeaders } from '@/lib/admin-api'
 import Toast from '@/components/Toast'
 
 interface Order {
   _id: string
+  orderNumber?: string
   customerName: string
   customerEmail: string
   customerPhone: string
@@ -30,14 +31,16 @@ interface Order {
   status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled'
   subtotal: number
   shippingCost: number
+  tax: number
   total: number
+  trackingNumber?: string
   createdAt: string
   updatedAt: string
 }
 
 const ORDER_STATUSES = [
   'pending',
-  'processing', 
+  'processing',
   'shipped',
   'delivered',
   'cancelled'
@@ -69,11 +72,21 @@ export default function AdminOrdersPage() {
   const [toastMessage, setToastMessage] = useState('')
   const [toastType, setToastType] = useState<'success' | 'error'>('success')
   const [statusFilter, setStatusFilter] = useState<string>('all')
+  const [trackingInput, setTrackingInput] = useState('')
+  const [deliveryInput, setDeliveryInput] = useState('')
+  const [savingTracking, setSavingTracking] = useState(false)
 
   useEffect(() => {
     checkAuth()
     fetchOrders()
   }, [statusFilter])
+
+  useEffect(() => {
+    if (selectedOrder) {
+      setTrackingInput(selectedOrder.trackingNumber || '')
+      setDeliveryInput('')
+    }
+  }, [selectedOrder])
 
   const checkAuth = () => {
     const session = localStorage.getItem('admin_session')
@@ -91,10 +104,10 @@ export default function AdminOrdersPage() {
   const fetchOrders = async () => {
     try {
       setLoading(true)
-      const url = statusFilter === 'all' 
+      const url = statusFilter === 'all'
         ? '/api/orders'
         : `/api/orders?status=${statusFilter}`
-      
+
       const response = await fetch(url, { headers: getAdminAuthHeaders() })
       const result = await response.json()
 
@@ -113,19 +126,23 @@ export default function AdminOrdersPage() {
 
   const updateOrderStatus = async (orderId: string, newStatus: string) => {
     try {
+      const body: Record<string, any> = { status: newStatus }
+      if (trackingInput.trim()) body.trackingNumber = trackingInput.trim()
+      if (deliveryInput.trim()) body.estimatedDelivery = deliveryInput.trim()
+
       const response = await fetch(`/api/orders/${orderId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           ...getAdminAuthHeaders(),
         },
-        body: JSON.stringify({ status: newStatus })
+        body: JSON.stringify(body)
       })
 
       const result = await response.json()
 
       if (result.success) {
-        showToastMessage('Order status updated successfully!')
+        showToastMessage(`Order updated: ${newStatus}`)
         fetchOrders()
         setShowModal(false)
       } else {
@@ -135,6 +152,44 @@ export default function AdminOrdersPage() {
       console.error('Error updating order status:', error)
       showToastMessage('Failed to update order status', 'error')
     }
+  }
+
+  const saveTrackingInfo = async () => {
+    if (!selectedOrder) return
+    setSavingTracking(true)
+    try {
+      const response = await fetch(`/api/orders/${selectedOrder._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAdminAuthHeaders(),
+        },
+        body: JSON.stringify({
+          status: selectedOrder.status,
+          trackingNumber: trackingInput.trim() || undefined,
+          estimatedDelivery: deliveryInput.trim() || undefined
+        })
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        showToastMessage('Tracking info saved')
+        fetchOrders()
+      } else {
+        throw new Error(result.error || 'Failed to save tracking info')
+      }
+    } catch (error) {
+      console.error('Error saving tracking info:', error)
+      showToastMessage('Failed to save tracking info', 'error')
+    } finally {
+      setSavingTracking(false)
+    }
+  }
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text)
+    showToastMessage('Copied to clipboard')
   }
 
   const formatDate = (dateString: string) => {
@@ -170,11 +225,11 @@ export default function AdminOrdersPage() {
         isVisible={showToast}
         onClose={() => setShowToast(false)}
       />
-      
+
       <div className="section-shell">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6 md:mb-8">
           <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl text-black-dark">Order Management</h1>
-          
+
           <div className="flex gap-3">
             <select
               value={statusFilter}
@@ -201,6 +256,7 @@ export default function AdminOrdersPage() {
                   <div key={order._id} className="border border-gold/20 rounded-xl p-4">
                     <div className="flex justify-between items-start mb-3">
                       <div>
+                        <p className="text-xs text-black/50 font-mono mb-1">#{order.orderNumber || order._id.slice(-8)}</p>
                         <h3 className="font-medium text-black-dark text-sm mb-1">
                           {order.customerName}
                         </h3>
@@ -213,7 +269,7 @@ export default function AdminOrdersPage() {
                         {order.status}
                       </div>
                     </div>
-                    
+
                     <div className="flex justify-between items-center pt-3 border-t border-gold/20">
                       <div className="text-black-dark font-medium text-sm">
                         {formatCurrency(order.total)}
@@ -244,10 +300,11 @@ export default function AdminOrdersPage() {
             <table className="w-full">
               <thead className="bg-gray-100/20">
                 <tr>
-                  <th className="px-6 py-4 text-left text-black-dark font-medium">Order</th>
+                  <th className="px-6 py-4 text-left text-black-dark font-medium">Order #</th>
                   <th className="px-6 py-4 text-left text-black-dark font-medium">Customer</th>
                   <th className="px-6 py-4 text-left text-black-dark font-medium">Status</th>
                   <th className="px-6 py-4 text-left text-black-dark font-medium">Total</th>
+                  <th className="px-6 py-4 text-left text-black-dark font-medium">Tracking</th>
                   <th className="px-6 py-4 text-left text-black-dark font-medium">Date</th>
                   <th className="px-6 py-4 text-left text-black-dark font-medium">Actions</th>
                 </tr>
@@ -258,8 +315,8 @@ export default function AdminOrdersPage() {
                   return (
                     <tr key={order._id} className="border-b border-gold/20">
                       <td className="px-6 py-4">
-                        <div className="font-medium text-black-dark text-sm">
-                          #{order._id.slice(-8)}
+                        <div className="font-mono text-xs text-black-dark">
+                          #{order.orderNumber || order._id.slice(-8)}
                         </div>
                         <div className="text-black/70 text-xs">
                           {order.items.length} item{order.items.length !== 1 ? 's' : ''}
@@ -282,6 +339,13 @@ export default function AdminOrdersPage() {
                       <td className="px-6 py-4 font-medium text-black-dark">
                         {formatCurrency(order.total)}
                       </td>
+                      <td className="px-6 py-4">
+                        {order.trackingNumber ? (
+                          <span className="text-xs font-mono text-purple-700">{order.trackingNumber}</span>
+                        ) : (
+                          <span className="text-xs text-black/40">Not set</span>
+                        )}
+                      </td>
                       <td className="px-6 py-4 text-black/70 text-sm">
                         {formatDate(order.createdAt)}
                       </td>
@@ -301,7 +365,7 @@ export default function AdminOrdersPage() {
                 })}
                 {orders.length === 0 && (
                   <tr>
-                    <td colSpan={6} className="px-6 py-12 text-center text-black/70">
+                    <td colSpan={7} className="px-6 py-12 text-center text-black/70">
                       No orders found.
                     </td>
                   </tr>
@@ -316,9 +380,14 @@ export default function AdminOrdersPage() {
           <div className="fixed inset-0 bg-black/50 flex items-end sm:items-center justify-center p-0 sm:p-4 z-50">
             <div className="bg-white rounded-t-3xl sm:rounded-3xl border border-gold/30 w-full max-w-2xl max-h-[90vh] overflow-hidden">
               <div className="p-4 sm:p-6 border-b border-gold/20 flex justify-between items-center">
-                <h2 className="font-serif text-xl sm:text-2xl text-black-dark">
-                  Order Details
-                </h2>
+                <div>
+                  <h2 className="font-serif text-xl sm:text-2xl text-black-dark">
+                    Order Details
+                  </h2>
+                  <p className="text-xs font-mono text-black/50 mt-1">
+                    #{selectedOrder.orderNumber || selectedOrder._id.slice(-8)}
+                  </p>
+                </div>
                 <button
                   onClick={() => setShowModal(false)}
                   className="p-2 text-black/70 hover:text-black-dark hover:bg-gray-100/20 rounded-lg transition-colors"
@@ -326,7 +395,7 @@ export default function AdminOrdersPage() {
                   <X size={20} />
                 </button>
               </div>
-              
+
               <div className="p-4 sm:p-6 overflow-y-auto max-h-[calc(90vh-140px)] space-y-6">
                 {/* Customer Info */}
                 <div>
@@ -354,7 +423,7 @@ export default function AdminOrdersPage() {
                   <div className="space-y-3">
                     {selectedOrder.items.map((item, index) => (
                       <div key={index} className="flex gap-3 p-3 bg-gray-100/10 rounded-xl">
-                        <div className="w-12 h-12 bg-primary-light/20 rounded-lg overflow-hidden">
+                        <div className="w-12 h-12 bg-primary-light/20 rounded-lg overflow-hidden flex-shrink-0">
                           {item.image && (
                             <img
                               src={item.image}
@@ -363,15 +432,32 @@ export default function AdminOrdersPage() {
                             />
                           )}
                         </div>
-                        <div className="flex-1">
-                          <p className="font-medium text-sm">{item.name}</p>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium text-sm truncate">{item.name}</p>
                           <p className="text-black/70 text-xs">Qty: {item.quantity} × {formatCurrency(item.price)}</p>
                         </div>
-                        <div className="text-right">
+                        <div className="text-right flex-shrink-0">
                           <p className="font-medium text-sm">{formatCurrency(item.price * item.quantity)}</p>
                         </div>
                       </div>
                     ))}
+                  </div>
+                </div>
+
+                {/* Payment Info */}
+                <div>
+                  <h3 className="font-medium text-black-dark mb-3">Payment</h3>
+                  <div className="bg-gray-100/10 rounded-xl p-4 space-y-2">
+                    <div className="flex justify-between">
+                      <span className="text-black/70">Reference:</span>
+                      <span className="font-mono text-xs">{selectedOrder.paymentReference || 'N/A'}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-black/70">Status:</span>
+                      <span className={`font-medium text-xs ${selectedOrder.paymentStatus === 'paid' ? 'text-green-600' : 'text-yellow-600'}`}>
+                        {selectedOrder.paymentStatus}
+                      </span>
+                    </div>
                   </div>
                 </div>
 
@@ -387,10 +473,63 @@ export default function AdminOrdersPage() {
                       <span>Shipping:</span>
                       <span>{formatCurrency(selectedOrder.shippingCost)}</span>
                     </div>
+                    {selectedOrder.tax > 0 && (
+                      <div className="flex justify-between">
+                        <span>Tax:</span>
+                        <span>{formatCurrency(selectedOrder.tax)}</span>
+                      </div>
+                    )}
                     <div className="flex justify-between font-medium pt-2 border-t border-gold/30">
                       <span>Total:</span>
                       <span>{formatCurrency(selectedOrder.total)}</span>
                     </div>
+                  </div>
+                </div>
+
+                {/* Tracking Info */}
+                <div>
+                  <h3 className="font-medium text-black-dark mb-3">Tracking Information</h3>
+                  <div className="bg-gray-100/10 rounded-xl p-4 space-y-3">
+                    <div>
+                      <label className="block text-xs text-black/70 mb-1">Tracking Number</label>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={trackingInput}
+                          onChange={(e) => setTrackingInput(e.target.value)}
+                          placeholder="e.g., TRK-12345678"
+                          className="flex-1 px-3 py-2 border border-gold/30 rounded-lg text-sm focus:ring-2 focus:ring-brown/20 focus:border-black outline-none"
+                        />
+                        <button
+                          onClick={saveTrackingInfo}
+                          disabled={savingTracking}
+                          className="px-3 py-2 bg-black text-white text-xs rounded-lg hover:bg-gold transition-colors disabled:opacity-50"
+                        >
+                          {savingTracking ? '...' : 'Save'}
+                        </button>
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-xs text-black/70 mb-1">Estimated Delivery Date</label>
+                      <input
+                        type="date"
+                        value={deliveryInput}
+                        onChange={(e) => setDeliveryInput(e.target.value)}
+                        className="w-full px-3 py-2 border border-gold/30 rounded-lg text-sm focus:ring-2 focus:ring-brown/20 focus:border-black outline-none"
+                      />
+                    </div>
+                    {selectedOrder.trackingNumber && (
+                      <div className="flex items-center gap-2 pt-2 border-t border-gold/20">
+                        <Truck size={14} className="text-purple-600" />
+                        <span className="text-xs font-mono text-purple-700">{selectedOrder.trackingNumber}</span>
+                        <button
+                          onClick={() => copyToClipboard(selectedOrder.trackingNumber || '')}
+                          className="p-1 hover:bg-gray-200 rounded transition-colors ml-auto"
+                        >
+                          <Copy size={12} className="text-black/50" />
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
 

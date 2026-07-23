@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getOrder, updateOrderStatus } from '@/lib/supabase'
+import dbConnect from '@/lib/mongodb'
+import Order from '@/models/Order'
 import { requireAdmin } from '@/lib/admin-guard'
 
 export async function GET(
@@ -8,28 +9,37 @@ export async function GET(
 ) {
   const authError = requireAdmin(request)
   if (authError) return authError
+
   try {
-    const order = await getOrder(params.id)
-    
-    // Transform snake_case to camelCase
+    await dbConnect()
+
+    const order = await Order.findById(params.id).lean()
+
+    if (!order) {
+      return NextResponse.json({ error: 'Order not found' }, { status: 404 })
+    }
+
     const transformedOrder = {
-      _id: order.id,
-      customerName: order.customer_name,
-      customerEmail: order.customer_email,
-      customerPhone: order.customer_phone,
+      _id: order._id.toString(),
+      customerName: order.customerName,
+      customerEmail: order.customerEmail,
+      customerPhone: order.customerPhone,
       items: order.items,
-      shippingAddress: order.shipping_address,
-      paymentReference: order.payment_reference,
-      paymentStatus: order.payment_status,
+      shippingAddress: order.shippingAddress,
+      paymentReference: order.paymentReference,
+      paymentStatus: order.paymentStatus,
       status: order.status,
       subtotal: order.subtotal,
-      shippingCost: order.shipping_cost,
+      shippingCost: order.shippingCost,
       tax: order.tax,
       total: order.total,
-      createdAt: order.created_at,
-      updatedAt: order.updated_at
+      orderNumber: order.orderNumber,
+      trackingNumber: order.trackingNumber,
+      estimatedDelivery: order.estimatedDelivery,
+      createdAt: order.createdAt,
+      updatedAt: order.updatedAt
     }
-    
+
     return NextResponse.json({ order: transformedOrder })
   } catch (error) {
     console.error('Order fetch error:', error)
@@ -48,20 +58,37 @@ export async function PUT(
   if (authError) return authError
 
   try {
-    const { status } = await request.json()
-    
+    const body = await request.json()
+    const { status, trackingNumber, estimatedDelivery } = body
+
     if (!status) {
       return NextResponse.json(
         { error: 'Status is required' },
         { status: 400 }
       )
     }
-    
-    await updateOrderStatus(params.id, status)
-    
+
+    await dbConnect()
+
+    const updateData: Record<string, any> = { status }
+    if (trackingNumber) updateData.trackingNumber = trackingNumber
+    if (estimatedDelivery) updateData.estimatedDelivery = estimatedDelivery
+
+    const order = await Order.findByIdAndUpdate(params.id, updateData, { new: true }).lean()
+
+    if (!order) {
+      return NextResponse.json({ error: 'Order not found' }, { status: 404 })
+    }
+
     return NextResponse.json({
       success: true,
-      message: 'Order status updated successfully'
+      message: 'Order updated successfully',
+      order: {
+        _id: order._id.toString(),
+        status: order.status,
+        trackingNumber: order.trackingNumber,
+        estimatedDelivery: order.estimatedDelivery
+      }
     })
   } catch (error) {
     console.error('Order update error:', error)

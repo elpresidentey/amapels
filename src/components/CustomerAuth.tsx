@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
-import { User, Mail, LogOut, ShoppingBag, UserCircle } from 'lucide-react'
+import { User, Mail, LogOut, ShoppingBag, UserCircle, CheckCircle, AlertCircle } from 'lucide-react'
 import {
   customerLogin,
   customerLogout,
@@ -20,6 +20,8 @@ export default function CustomerAuth() {
   const [customerName, setCustomerName] = useState('')
   const [loading, setLoading] = useState(false)
   const [authLoading, setAuthLoading] = useState(true)
+  const [loginSuccess, setLoginSuccess] = useState(false)
+  const [loginError, setLoginError] = useState('')
   const { clearCart } = useCartStore()
 
   useEffect(() => {
@@ -48,6 +50,8 @@ export default function CustomerAuth() {
     if (!email.trim()) return
 
     setLoading(true)
+    setLoginError('')
+    setLoginSuccess(false)
 
     try {
       clearCart()
@@ -55,11 +59,17 @@ export default function CustomerAuth() {
 
       setIsAuthenticated(true)
       setCustomerName(session.name)
-      setShowLogin(false)
-      setEmail('')
-      setName('')
+      setLoginSuccess(true)
+
+      // Show success briefly then close
+      setTimeout(() => {
+        setShowLogin(false)
+        setLoginSuccess(false)
+        setEmail('')
+        setName('')
+      }, 1500)
     } catch (error) {
-      console.error('Login failed:', error)
+      setLoginError(error instanceof Error ? error.message : 'Login failed. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -105,68 +115,86 @@ export default function CustomerAuth() {
               >
                 <h3 className="font-serif text-lg text-black-dark mb-4">Welcome Back</h3>
 
-                <form onSubmit={handleLogin} className="space-y-4">
-                  <div>
-                    <label htmlFor="auth-email" className="block text-sm font-medium text-black-dark mb-2">
-                      Email Address *
-                    </label>
-                    <input
-                      id="auth-email"
-                      type="email"
-                      required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="w-full px-3 py-2.5 border border-gold focus:ring-2 focus:ring-gold/20 focus:border-black outline-none transition-colors"
-                      placeholder="your@email.com"
-                      aria-required="true"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="auth-name" className="block text-sm font-medium text-black-dark mb-2">
-                      Name (Optional)
-                    </label>
-                    <input
-                      id="auth-name"
-                      type="text"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      className="w-full px-3 py-2.5 border border-gold focus:ring-2 focus:ring-gold/20 focus:border-black outline-none transition-colors"
-                      placeholder="Your name"
-                    />
-                  </div>
-
-                  <div className="bg-primary-light/10 rounded-xl p-3 border border-gold/30">
-                    <div className="flex items-start gap-2 text-xs text-black/70">
-                      <ShoppingBag size={14} className="mt-0.5 flex-shrink-0" />
-                      <p>
-                        <strong>Note:</strong> Logging in will clear your current cart items.
-                        This ensures a fresh shopping session.
-                      </p>
+                {/* Success State */}
+                {loginSuccess ? (
+                  <div className="flex flex-col items-center gap-3 py-6">
+                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                      <CheckCircle size={24} className="text-green-600" />
                     </div>
+                    <p className="font-medium text-green-700 text-sm">Signed in successfully!</p>
+                    <p className="text-xs text-black/50">Redirecting to your account...</p>
                   </div>
-
-                  <button
-                    type="submit"
-                    disabled={loading || !email.trim()}
-                    className="w-full bg-black text-white py-2.5 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                  >
-                    {loading ? (
-                      <>
-                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" role="status" aria-label="Signing in" />
-                        Signing In...
-                      </>
-                    ) : (
-                      <>
-                        <Mail size={16} />
-                        Sign In
-                      </>
+                ) : (
+                  <form onSubmit={handleLogin} className="space-y-4">
+                    {loginError && (
+                      <div className="flex items-start gap-2 p-3 bg-red-50 border border-red-200 rounded-lg">
+                        <AlertCircle size={14} className="mt-0.5 flex-shrink-0 text-red-500" />
+                        <p className="text-xs text-red-700">{loginError}</p>
+                      </div>
                     )}
-                  </button>
-                </form>
+
+                    <div>
+                      <label htmlFor="auth-email" className="block text-sm font-medium text-black-dark mb-2">
+                        Email Address *
+                      </label>
+                      <input
+                        id="auth-email"
+                        type="email"
+                        required
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="w-full px-3 py-2.5 border border-gold focus:ring-2 focus:ring-gold/20 focus:border-black outline-none transition-colors"
+                        placeholder="your@email.com"
+                        aria-required="true"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="auth-name" className="block text-sm font-medium text-black-dark mb-2">
+                        Your Name <span className="text-black/40">(for a personal touch)</span>
+                      </label>
+                      <input
+                        id="auth-name"
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        className="w-full px-3 py-2.5 border border-gold focus:ring-2 focus:ring-gold/20 focus:border-black outline-none transition-colors"
+                        placeholder="Chioma"
+                      />
+                    </div>
+
+                    <div className="bg-primary-light/10 rounded-xl p-3 border border-gold/30">
+                      <div className="flex items-start gap-2 text-xs text-black/70">
+                        <ShoppingBag size={14} className="mt-0.5 flex-shrink-0" />
+                        <p>
+                          <strong>Note:</strong> Logging in will clear your current cart items.
+                          This ensures a fresh shopping session.
+                        </p>
+                      </div>
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={loading || !email.trim()}
+                      className="w-full bg-black text-white py-2.5 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    >
+                      {loading ? (
+                        <>
+                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" role="status" aria-label="Signing in" />
+                          Signing In...
+                        </>
+                      ) : (
+                        <>
+                          <Mail size={16} />
+                          Sign In
+                        </>
+                      )}
+                    </button>
+                  </form>
+                )}
 
                 <p className="text-xs text-black/60 text-center mt-4">
-                  Simple email-based login. No password required for this demo.
+                  Email-based access. No password needed — we'll remember you.
                 </p>
               </motion.div>
             )}

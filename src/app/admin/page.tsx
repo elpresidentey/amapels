@@ -46,7 +46,7 @@ export default function AdminDashboard() {
       // Fetch orders
       const ordersRes = await fetch('/api/orders', { headers: getAdminAuthHeaders() })
       const ordersData = await ordersRes.json()
-      const orders = ordersData.success ? ordersData.data : []
+      const orders = ordersData.orders || []
       
       // Calculate revenue
       const totalRevenue = orders.reduce((sum: number, order: any) => {
@@ -54,9 +54,7 @@ export default function AdminDashboard() {
       }, 0)
 
       // Get recent orders (last 5)
-      const recentOrders = orders
-        .sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-        .slice(0, 5)
+      const recentOrders = orders.slice(0, 5)
 
       setStats({
         totalProducts,

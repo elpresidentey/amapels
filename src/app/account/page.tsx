@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import {
   User, Mail, Package, Clock, ChevronRight, ArrowRight, LogOut,
-  ShoppingBag, MapPin, CreditCard, AlertCircle, ChevronDown, ChevronUp
+  ShoppingBag, MapPin, CreditCard, AlertCircle, ChevronDown, ChevronUp, Truck, ExternalLink
 } from 'lucide-react'
 import {
   getCachedSession,
@@ -20,11 +20,12 @@ const ease = [0.22, 1, 0.36, 1] as const
 interface OrderSummary {
   id: string
   orderNumber: string
-  items: Array<{ name: string; quantity: number; price: number }>
+  items: Array<{ name: string; quantity: number; price: number; image?: string }>
   total: number
   subtotal: number
   status: string
   paymentStatus: string
+  trackingNumber?: string
   createdAt: string
   shippingAddress: {
     street: string
@@ -121,6 +122,24 @@ function OrderCard({ order, index }: { order: OrderSummary; index: number }) {
                 </div>
               </div>
 
+              {order.trackingNumber && (
+                <div className="mb-4 rounded border border-purple/10 bg-purple-50/30 px-4 py-3">
+                  <div className="flex items-start gap-3">
+                    <Truck size={14} strokeWidth={1.3} className="mt-0.5 shrink-0 text-purple-600" />
+                    <div className="text-[11px] leading-relaxed">
+                      <p className="font-medium text-purple-800">Tracking Number</p>
+                      <p className="font-mono text-purple-700 mt-0.5">{order.trackingNumber}</p>
+                      <Link
+                        href={`/track-order?orderNumber=${order.orderNumber}&trackingNumber=${order.trackingNumber}`}
+                        className="inline-flex items-center gap-1 mt-2 text-[10px] font-medium uppercase tracking-wider text-purple-700 hover:text-purple-900 underline underline-offset-2"
+                      >
+                        Track Package <ExternalLink size={10} />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               <div className="rounded border border-black/[0.06] bg-[#faf8f5] px-4 py-3">
                 <div className="flex items-start gap-3">
                   <MapPin size={14} strokeWidth={1.3} className="mt-0.5 shrink-0 text-black/40" />
@@ -130,6 +149,18 @@ function OrderCard({ order, index }: { order: OrderSummary; index: number }) {
                   </div>
                 </div>
               </div>
+
+              {!order.trackingNumber && (
+                <div className="mt-4">
+                  <Link
+                    href={`/track-order?orderNumber=${order.orderNumber}`}
+                    className="inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-gold-dark hover:text-black-dark transition-colors"
+                  >
+                    <Truck size={12} strokeWidth={1.5} />
+                    Track Order <ArrowRight size={11} />
+                  </Link>
+                </div>
+              )}
             </div>
           </motion.div>
         )}
