@@ -170,7 +170,7 @@ export default function Home() {
           style={{ y: heroY }}
           className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-end px-4 pb-8 pt-24 sm:px-6 sm:pb-12 sm:pt-28 md:px-12 md:pb-16 lg:px-24 lg:pb-20"
         >
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1.25fr)_320px] lg:items-end lg:gap-16">
+          <div className="grid gap-10 lg:grid-cols-[1fr_320px] lg:items-start lg:gap-16">
             <div className="max-w-3xl">
               <motion.p
                 key={`${activeSlide.id}-eyebrow`}
@@ -226,20 +226,22 @@ export default function Home() {
               initial={{ opacity: 0, y: 32 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.3, ease }}
-              className="hidden border border-white/10 bg-white/[0.05] p-7 backdrop-blur-md lg:block"
+              className="hidden border border-white/10 bg-white/[0.05] p-7 backdrop-blur-md lg:flex lg:flex-col"
             >
-              <div className="mb-10 flex items-center justify-between text-[10px] font-medium uppercase tracking-[0.32em] text-white/45">
+              <div className="flex items-center justify-between text-[10px] font-medium uppercase tracking-[0.32em] text-white/45">
                 <span>Current Edit</span>
                 <span className="text-gold/80">{String(currentSlide + 1).padStart(2, '0')} / 03</span>
               </div>
-              <p className="text-xs tracking-wide text-gold/70">{activeSlide.accent}</p>
-              <h2 className="mt-3 font-serif text-2xl font-light leading-snug">
-                {activeSlide.eyebrow}
-              </h2>
-              <p className="mt-4 text-sm leading-relaxed text-white/55">
-                Thoughtfully composed to showcase craftsmanship and details you&apos;ll love wearing.
-              </p>
-              <div className="mt-10 flex items-center justify-between border-t border-white/10 pt-6">
+              <div className="mt-10 flex-1">
+                <p className="text-xs tracking-wide text-gold/70">{activeSlide.accent}</p>
+                <h2 className="mt-3 font-serif text-2xl font-light leading-snug">
+                  {activeSlide.eyebrow}
+                </h2>
+                <p className="mt-4 text-sm leading-relaxed text-white/55">
+                  Thoughtfully composed to showcase craftsmanship and details you&apos;ll love wearing.
+                </p>
+              </div>
+              <div className="flex items-center justify-between border-t border-white/10 pt-6">
                 <div className="flex gap-2">
                   <button
                     type="button"
