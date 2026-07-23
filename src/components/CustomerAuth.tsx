@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { User, Mail, LogOut, ShoppingBag, UserCircle, CheckCircle, AlertCircle } from 'lucide-react'
@@ -23,10 +23,22 @@ export default function CustomerAuth() {
   const [loginSuccess, setLoginSuccess] = useState(false)
   const [loginError, setLoginError] = useState('')
   const { clearCart } = useCartStore()
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     checkAuthStatus()
   }, [])
+
+  useEffect(() => {
+    if (!showLogin) return
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setShowLogin(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [showLogin])
 
   const checkAuthStatus = async () => {
     setAuthLoading(true)
@@ -201,27 +213,49 @@ export default function CustomerAuth() {
           </AnimatePresence>
         </>
       ) : (
-        <div className="flex items-center gap-3">
-          <span className="text-sm text-white/80 hidden md:inline">
-            Hello, {customerName}
-          </span>
-          <Link
-            href="/account"
-            className="flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm uppercase tracking-wider"
-            aria-label="My account"
-          >
-            <UserCircle size={16} />
-            <span className="hidden md:inline">Account</span>
-          </Link>
+    <div className="relative" ref={dropdownRef}>
           <button
             type="button"
-            onClick={handleLogout}
-            className="flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm uppercase tracking-wider"
-            aria-label="Sign out"
+            onClick={() => setShowLogin(!showLogin)}
+            className="flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm tracking-wider"
+            aria-label="Account menu"
           >
-            <LogOut size={16} />
-            <span className="hidden md:inline">Logout</span>
+            <UserCircle size={16} />
+            <span className="hidden md:inline">{customerName}</span>
           </button>
+
+          <AnimatePresence>
+            {showLogin && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                className="absolute top-full right-0 mt-2 w-48 bg-white border border-gold/30 shadow-lg z-50"
+              >
+                <div className="py-2">
+                  <div className="px-4 py-2 text-xs text-black/50 uppercase tracking-wider border-b border-black/5">
+                    Hello, {customerName}
+                  </div>
+                  <Link
+                    href="/account"
+                    onClick={() => setShowLogin(false)}
+                    className="flex items-center gap-3 px-4 py-2.5 text-sm text-black-dark hover:bg-primary-light/20 transition-colors"
+                  >
+                    <UserCircle size={16} className="text-black/40" />
+                    My Account
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-black-dark hover:bg-primary-light/20 transition-colors"
+                  >
+                    <LogOut size={16} className="text-black/40" />
+                    Sign Out
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       )}
     </div>
