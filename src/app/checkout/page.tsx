@@ -415,7 +415,7 @@ export default function CheckoutPage() {
                         orderSuccess = true
                         const orderResult = await orderResponse.json()
                         const orderNumber = orderResult?.order?.orderNumber || response.reference
-                        const trackingNumber = `TRK-${orderNumber.replace(/[^a-zA-Z0-9]/g, '').toUpperCase()}-${Date.now().toString().slice(-6)}`
+                        const trackingNumber = orderResult?.order?.trackingNumber || `TRK-${orderNumber.replace(/[^a-zA-Z0-9]/g, '').toUpperCase()}-${Date.now().toString().slice(-6)}`
                         const amount = new Intl.NumberFormat('en-NG', {
                           style: 'currency',
                           currency: 'NGN',

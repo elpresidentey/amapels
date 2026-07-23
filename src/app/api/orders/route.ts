@@ -153,6 +153,7 @@ export async function POST(request: NextRequest) {
         order: {
           id: order._id.toString(),
           orderNumber: order.orderNumber,
+          trackingNumber: order.trackingNumber,
           customerName: order.customerName,
           customerEmail: order.customerEmail,
           total: order.total,
