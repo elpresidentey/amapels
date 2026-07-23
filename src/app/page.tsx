@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -96,6 +96,15 @@ export default function Home() {
   const { products, loading } = useProducts()
   const curatedPieces = products.filter((p) => p.featured).slice(0, 3)
 
+  const heroRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  })
+  const heroScale = useTransform(scrollYProgress, [0, 1], [1, 1.08])
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0.6])
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 80])
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
@@ -118,9 +127,12 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-primary">
-      {/* Hero */}
-      <section className="relative min-h-screen overflow-hidden bg-black-dark text-white">
-        <div className="absolute inset-0">
+      {/* Hero — Cinematic parallax */}
+      <section ref={heroRef} className="relative min-h-screen overflow-hidden bg-black-dark text-white">
+        <motion.div
+          style={{ scale: heroScale, opacity: heroOpacity }}
+          className="absolute inset-0"
+        >
           <AnimatePresence mode="wait">
             <motion.div
               key={activeSlide.id}
@@ -145,9 +157,12 @@ export default function Home() {
           </AnimatePresence>
           <div className="absolute inset-0 bg-[linear-gradient(105deg,rgba(12,10,8,0.92)_0%,rgba(12,10,8,0.72)_48%,rgba(12,10,8,0.45)_100%)]" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(196,163,90,0.08),transparent_50%)]" />
-        </div>
+        </motion.div>
 
-        <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-end px-4 pb-8 pt-24 sm:px-6 sm:pb-12 sm:pt-28 md:px-12 md:pb-16 lg:px-24 lg:pb-20">
+        <motion.div
+          style={{ y: heroY }}
+          className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-end px-4 pb-8 pt-24 sm:px-6 sm:pb-12 sm:pt-28 md:px-12 md:pb-16 lg:px-24 lg:pb-20"
+        >
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1.25fr)_320px] lg:items-end lg:gap-16">
             <div className="max-w-3xl">
               <motion.p
@@ -304,7 +319,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* Brand pillars */}
@@ -416,6 +431,50 @@ export default function Home() {
               </div>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Cinematic editorial break */}
+      <section className="relative h-[70vh] min-h-[500px] overflow-hidden bg-black-dark sm:h-[80vh]">
+        <motion.div
+          initial={{ scale: 1.1 }}
+          whileInView={{ scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.8, ease }}
+          className="absolute inset-0"
+        >
+          <Image
+            src="/images/gabriel-ogulu-r0bH4hAVBmk-unsplash.jpg"
+            alt="AMAPELS craftsmanship"
+            fill
+            sizes="100vw"
+            quality={90}
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(12,10,8,0.85)_0%,rgba(12,10,8,0.5)_50%,rgba(12,10,8,0.75)_100%)]" />
+        </motion.div>
+        <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-6 sm:px-12 lg:px-24">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, delay: 0.2, ease }}
+            className="max-w-2xl"
+          >
+            <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.38em] text-gold/60">
+              The AMAPELS Philosophy
+            </p>
+            <blockquote className="font-serif text-3xl font-light leading-[1.2] text-white sm:text-4xl md:text-5xl">
+              &ldquo;Every piece of jewellery carries a story.
+              <br />
+              <span className="text-gold/80">Ours begins in Lagos.</span>&rdquo;
+            </blockquote>
+            <div className="mt-8 h-px w-16 bg-gold/50" />
+            <p className="mt-6 max-w-lg text-sm leading-relaxed text-white/55">
+              Handcrafted by Nigerian artisans. Worn by women who move through the world with grace,
+              confidence, and an unshakable sense of who they are.
+            </p>
+          </motion.div>
         </div>
       </section>
 

@@ -1,13 +1,14 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { Heart, ShoppingBag, ArrowLeft, Check } from 'lucide-react'
+import { Heart, ShoppingBag, ArrowLeft, Check, Package } from 'lucide-react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
-import { useProduct } from '@/hooks/useProducts'
+import { useProduct, useProducts } from '@/hooks/useProducts'
 import { useCartStore } from '@/store/newCartStore'
+import ProductCard from '@/components/ProductCard'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
@@ -18,7 +19,13 @@ export default function ProductPage() {
   const [wishlisted, setWishlisted] = useState(false)
 
   const { product, loading, error } = useProduct(params.id)
+  const { products: relatedProducts } = useProducts(product?.category || undefined)
   const { addItem, openCart } = useCartStore()
+
+  const shopTheLook = useMemo(
+    () => relatedProducts.filter((p) => p._id !== product?._id).slice(0, 3),
+    [relatedProducts, product]
+  )
 
   useEffect(() => {
     if (product) {
@@ -49,7 +56,7 @@ export default function ProductPage() {
       <div className="flex min-h-screen items-center justify-center pt-32">
         <div className="text-center">
           <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border border-gold/30 border-t-gold" />
-          <p className="text-sm text-black/50">Loading piece…</p>
+          <p className="text-sm text-black/50">Loading piece&hellip;</p>
         </div>
       </div>
     )
@@ -85,6 +92,7 @@ export default function ProductPage() {
         </Link>
 
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
+          {/* Gallery */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -125,6 +133,7 @@ export default function ProductPage() {
             )}
           </motion.div>
 
+          {/* Product info */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -141,12 +150,21 @@ export default function ProductPage() {
               {product.price}
             </p>
 
+            {/* Gift packaging callout */}
+            <div className="mt-5 flex items-center gap-3 rounded border border-gold/20 bg-gold/[0.04] px-4 py-3">
+              <Package size={16} strokeWidth={1.3} className="shrink-0 text-gold-dark" />
+              <p className="text-[11px] leading-relaxed text-black/60">
+                Each order comes beautifully packaged with our signature AMAPELS box, drawstring pouch, and a handwritten gift note — complimentary with every purchase.
+              </p>
+            </div>
+
             <div className="my-8 h-px w-full bg-black/[0.06] sm:my-10" />
 
             <p className="text-base leading-relaxed text-black/60">
               {product.description}
             </p>
 
+            {/* The Inspiration */}
             <div className="mt-8 border-l-2 border-gold/40 bg-[#faf8f5] px-5 py-5 sm:px-6 sm:py-6">
               <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-gold/70">
                 The Inspiration
@@ -158,6 +176,7 @@ export default function ProductPage() {
               </p>
             </div>
 
+            {/* Add to cart */}
             <div className="mt-10 flex gap-3 sm:mt-12">
               <button
                 onClick={handleAddToCart}
@@ -190,10 +209,35 @@ export default function ProductPage() {
               </button>
             </div>
 
-            <div className="mt-12 space-y-8 border-t border-black/[0.06] pt-10 sm:mt-14">
+            {/* Details accordion */}
+            <div className="mt-12 space-y-6 border-t border-black/[0.06] pt-10 sm:mt-14">
+              {/* Specs */}
               <div>
                 <h3 className="mb-4 text-[10px] font-medium uppercase tracking-[0.28em] text-black/40">
-                  Details
+                  Product Details
+                </h3>
+                <div className="space-y-2.5 text-sm text-black/60">
+                  <div className="flex gap-4">
+                    <span className="w-28 shrink-0 text-[10px] font-medium uppercase tracking-[0.16em] text-black/40">Category</span>
+                    <span>{product.category}</span>
+                  </div>
+                  {product.materials && (
+                    <div className="flex gap-4">
+                      <span className="w-28 shrink-0 text-[10px] font-medium uppercase tracking-[0.16em] text-black/40">Materials</span>
+                      <span>{product.materials}</span>
+                    </div>
+                  )}
+                  <div className="flex gap-4">
+                    <span className="w-28 shrink-0 text-[10px] font-medium uppercase tracking-[0.16em] text-black/40">Craft</span>
+                    <span>Handcrafted in Lagos, Nigeria</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Details list */}
+              <div>
+                <h3 className="mb-4 text-[10px] font-medium uppercase tracking-[0.28em] text-black/40">
+                  Features
                 </h3>
                 <ul className="space-y-3 text-sm text-black/60">
                   {(product.details && product.details.length > 0
@@ -211,14 +255,8 @@ export default function ProductPage() {
                   ))}
                 </ul>
               </div>
-              {product.materials && (
-                <div>
-                  <h3 className="mb-3 text-[10px] font-medium uppercase tracking-[0.28em] text-black/40">
-                    Materials
-                  </h3>
-                  <p className="text-sm leading-relaxed text-black/55">{product.materials}</p>
-                </div>
-              )}
+
+              {/* Care */}
               {product.care && (
                 <div>
                   <h3 className="mb-3 text-[10px] font-medium uppercase tracking-[0.28em] text-black/40">
@@ -227,17 +265,44 @@ export default function ProductPage() {
                   <p className="text-sm leading-relaxed text-black/55">{product.care}</p>
                 </div>
               )}
-              <div>
-                <h3 className="mb-3 text-[10px] font-medium uppercase tracking-[0.28em] text-black/40">
-                  Care
-                </h3>
-                <p className="text-sm leading-relaxed text-black/55">
-                  To keep your jewellery looking its best, avoid contact with water, perfumes, and chemicals. Store in a clean, dry place when not in use.
-                </p>
-              </div>
             </div>
           </motion.div>
         </div>
+
+        {/* Shop The Look */}
+        {shopTheLook.length > 0 && (
+          <motion.section
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease }}
+            className="mt-20 border-t border-black/[0.06] pt-14 sm:mt-24 sm:pt-16 md:mt-28 md:pt-20"
+          >
+            <div className="mb-12 flex flex-col gap-5 border-b border-black/[0.06] pb-8 sm:mb-14 md:flex-row md:items-end md:justify-between">
+              <div>
+                <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
+                  Complete The Look
+                </p>
+                <h2 className="font-serif text-3xl font-light text-black-dark sm:text-4xl">
+                  Shop the edit
+                </h2>
+              </div>
+              <Link
+                href={`/shop?category=${product.category}`}
+                className="group inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.24em] text-black-dark transition-colors hover:text-gold-dark"
+              >
+                View All {product.category}
+                <ArrowLeft size={14} strokeWidth={1.5} className="rotate-180 transition-transform group-hover:translate-x-0.5" />
+              </Link>
+            </div>
+
+            <div className="grid gap-10 md:grid-cols-3 md:gap-8 lg:gap-10">
+              {shopTheLook.map((piece, index) => (
+                <ProductCard key={piece._id} product={piece} index={index} />
+              ))}
+            </div>
+          </motion.section>
+        )}
       </div>
     </div>
   )
