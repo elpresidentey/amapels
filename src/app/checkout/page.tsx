@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useCallback, useMemo, memo, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import { motion } from 'framer-motion'
-import { ArrowLeft, ArrowRight, Check, Lock, CreditCard, Truck, AlertCircle, WifiOff } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ArrowLeft, ArrowRight, Check, Lock, CreditCard, Truck, AlertCircle, WifiOff, User, Mail, ShoppingBag, LogOut, CheckCircle } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useCartStore } from '@/store/newCartStore'
@@ -12,6 +12,7 @@ import {
   type ShippingData
 } from '@/store/checkoutStore'
 import { initializePaystackPayment, nairaToKobo, generateReference, loadPaystackScript } from '@/lib/paystack'
+import { customerLogin, customerLogout, isCustomerAuthenticated, getCachedSession, getServerSession } from '@/lib/customerAuth'
 import Toast from '@/components/Toast'
 
 // Memoized step configuration
@@ -120,6 +121,17 @@ export default function CheckoutPage() {
   const [systemErrors, setSystemErrors] = useState<string[]>([])
   const paymentAttemptRef = useRef(0)
   
+  // Authentication state
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [authLoading, setAuthLoading] = useState(true)
+  const [showLoginForm, setShowLoginForm] = useState(false)
+  const [loginEmail, setLoginEmail] = useState('')
+  const [loginName, setLoginName] = useState('')
+  const [loginLoading, setLoginLoading] = useState(false)
+  const [loginSuccess, setLoginSuccess] = useState(false)
+  const [loginError, setLoginError] = useState('')
+  const [customerSession, setCustomerSession] = useState<{ email: string; name: string } | null>(null)
+  
   // Store hooks with error handling
   const { items, getTotalPrice, clearCart, isLoaded } = useCartStore()
   const {
@@ -161,6 +173,38 @@ export default function CheckoutPage() {
       window.removeEventListener('offline', handleOffline)
     }
   }, [])
+
+  // Check authentication on mount
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const authenticated = await isCustomerAuthenticated()
+        setIsAuthenticated(authenticated)
+        if (authenticated) {
+          const session = getCachedSession() || await getServerSession()
+          setCustomerSession(session)
+        }
+      } catch {
+        setIsAuthenticated(false)
+      } finally {
+        setAuthLoading(false)
+      }
+    }
+    if (mounted) {
+      checkAuth()
+    }
+  }, [mounted])
+
+  // Pre-fill shipping email from authenticated session
+  useEffect(() => {
+    if (customerSession?.email && !shippingData.email) {
+      updateShipping({ email: customerSession.email })
+    }
+    if (customerSession?.name && !shippingData.firstName && !shippingData.lastName) {
+      const parts = customerSession.name.split(' ')
+      updateShipping({ firstName: parts[0] || '', lastName: parts.slice(1).join(' ') || '' })
+    }
+  }, [customerSession, shippingData.email, shippingData.firstName, shippingData.lastName, updateShipping])
 
   // Validate environment and load Paystack
   useEffect(() => {
@@ -231,6 +275,36 @@ export default function CheckoutPage() {
       setShowToast(true)
     }
   }, [validateShipping, nextStep, clearErrors])
+
+  // Login/signup handler
+  const handleLogin = useCallback(async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!loginEmail.trim()) return
+    setLoginLoading(true)
+    setLoginError('')
+    setLoginSuccess(false)
+    try {
+      const session = await customerLogin(loginEmail, loginName || undefined)
+      setIsAuthenticated(true)
+      setCustomerSession(session)
+      setLoginSuccess(true)
+      setTimeout(() => {
+        setShowLoginForm(false)
+        setLoginEmail('')
+        setLoginName('')
+      }, 1200)
+    } catch (error) {
+      setLoginError(error instanceof Error ? error.message : 'Login failed. Please try again.')
+    } finally {
+      setLoginLoading(false)
+    }
+  }, [loginEmail, loginName])
+
+  const handleLogout = useCallback(async () => {
+    await customerLogout()
+    setIsAuthenticated(false)
+    setCustomerSession(null)
+  }, [])
 
   // Enhanced payment handler with comprehensive error handling
   const handlePaystackPayment = useCallback(async () => {
@@ -541,12 +615,12 @@ export default function CheckoutPage() {
   const goToShipping = useCallback(() => setStep(1), [setStep])
 
   // Enhanced loading state with error handling
-  if (!mounted || !isLoaded) {
+  if (!mounted || !isLoaded || authLoading) {
     return (
       <div className="min-h-screen bg-white pt-28 pb-16 flex items-center justify-center">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-black/70">Loading checkout...</p>
+          <p className="text-black/70">{authLoading ? 'Checking your account...' : 'Loading checkout...'}</p>
           {!isOnline && (
             <div className="flex items-center justify-center gap-2 mt-4 text-red-600">
               <WifiOff size={16} />
@@ -561,6 +635,112 @@ export default function CheckoutPage() {
   // Redirect if no items (after loading)
   if (items.length === 0) {
     return null
+  }
+
+  // Auth gate — require login before checkout
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-white pt-20 sm:pt-24 md:pt-28 pb-8 sm:pb-12 md:pb-16">
+        <Toast message={toastMessage} type={toastType} isVisible={showToast} onClose={() => setShowToast(false)} duration={5000} />
+        <div className="section-shell">
+          <div className="max-w-lg mx-auto">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+              <div className="text-center mb-8">
+                <div className="w-16 h-16 bg-primary-light rounded-full flex items-center justify-center mx-auto mb-4">
+                  <User size={28} className="text-gold-dark" />
+                </div>
+                <h1 className="font-serif text-2xl sm:text-3xl text-black-dark mb-3">Sign in to Continue</h1>
+                <p className="text-black/60 text-sm">Create an account or sign in to place your order. This helps us keep you updated on your delivery.</p>
+              </div>
+
+              <div className="bg-white border border-gold/30 rounded-2xl p-6 sm:p-8">
+                {loginSuccess ? (
+                  <div className="flex flex-col items-center gap-3 py-6">
+                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                      <CheckCircle size={24} className="text-green-600" />
+                    </div>
+                    <p className="font-medium text-green-700 text-sm">Signed in successfully!</p>
+                    <p className="text-xs text-black/50">Continue to checkout...</p>
+                  </div>
+                ) : (
+                  <form onSubmit={handleLogin} className="space-y-5">
+                    {loginError && (
+                      <div className="flex items-start gap-2 p-3 bg-red-50 border border-red-200 rounded-lg">
+                        <AlertCircle size={14} className="mt-0.5 flex-shrink-0 text-red-500" />
+                        <p className="text-xs text-red-700">{loginError}</p>
+                      </div>
+                    )}
+                    <div>
+                      <label htmlFor="checkout-email" className="block text-sm font-medium text-black-dark mb-2">Email Address *</label>
+                      <input
+                        id="checkout-email"
+                        type="email"
+                        required
+                        value={loginEmail}
+                        onChange={(e) => setLoginEmail(e.target.value)}
+                        className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-black outline-none transition-colors text-base"
+                        placeholder="your@email.com"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="checkout-name" className="block text-sm font-medium text-black-dark mb-2">
+                        Full Name <span className="text-black/40">(for your order)</span>
+                      </label>
+                      <input
+                        id="checkout-name"
+                        type="text"
+                        value={loginName}
+                        onChange={(e) => setLoginName(e.target.value)}
+                        className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-black outline-none transition-colors text-base"
+                        placeholder="Chioma Okafor"
+                      />
+                    </div>
+                    <div className="bg-primary-light/10 rounded-xl p-4 border border-gold/30">
+                      <div className="flex items-start gap-3 text-xs text-black/70">
+                        <ShoppingBag size={14} className="mt-0.5 flex-shrink-0" />
+                        <div>
+                          <p className="font-medium text-black-dark mb-1">Why create an account?</p>
+                          <ul className="space-y-1">
+                            <li>• Track your order in real-time</li>
+                            <li>• View your complete order history</li>
+                            <li>• Get delivery updates via email</li>
+                            <li>• Faster checkout next time</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      type="submit"
+                      disabled={loginLoading || !loginEmail.trim()}
+                      className="w-full bg-black text-white py-3.5 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    >
+                      {loginLoading ? (
+                        <>
+                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                          Signing In...
+                        </>
+                      ) : (
+                        <>
+                          <Mail size={16} />
+                          Sign In & Continue
+                        </>
+                      )}
+                    </button>
+                    <p className="text-xs text-black/50 text-center">No password needed — we'll email you a verification link.</p>
+                  </form>
+                )}
+              </div>
+
+              <div className="text-center mt-6">
+                <Link href="/cart" className="text-xs text-black/50 hover:text-black-dark underline underline-offset-4">
+                  ← Return to Cart
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -661,6 +841,26 @@ export default function CheckoutPage() {
             </div>
           </div>
         </div>
+
+        {/* Account Info Bar */}
+        {customerSession && (
+          <div className="mb-6 bg-primary-light/30 border border-gold/20 rounded-xl px-4 py-3 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <User size={16} className="text-gold-dark" />
+              <span className="text-sm text-black-dark">
+                Signed in as <strong>{customerSession.name || customerSession.email}</strong>
+              </span>
+            </div>
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="flex items-center gap-1.5 text-xs text-black/50 hover:text-red-600 transition-colors"
+            >
+              <LogOut size={12} />
+              Sign Out
+            </button>
+          </div>
+        )}
 
         <div className="grid gap-6 lg:gap-12 lg:grid-cols-3">
           {/* Main Form */}
