@@ -272,29 +272,6 @@ export default function AdminDashboard() {
           </Link>
         </div>
 
-        {/* Danger Zone */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.35 }}
-          className="bg-white rounded-xl border border-red-200 p-5 sm:p-6"
-        >
-          <div className="flex items-center justify-between gap-4">
-            <div>
-              <h3 className="font-medium text-red-700 mb-1 text-sm sm:text-base">Danger Zone</h3>
-              <p className="text-red-600/70 text-xs sm:text-sm">Permanently delete all order records to reset dashboard data</p>
-            </div>
-            <button
-              onClick={clearAllOrders}
-              disabled={clearing}
-              className="flex items-center gap-2 px-4 py-2.5 bg-red-600 text-white rounded-xl text-sm font-medium hover:bg-red-700 transition-colors disabled:opacity-50 flex-shrink-0"
-            >
-              <Trash2 size={16} />
-              {clearing ? 'Clearing...' : 'Clear All Orders'}
-            </button>
-          </div>
-        </motion.div>
-
         {/* Recent Orders */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
