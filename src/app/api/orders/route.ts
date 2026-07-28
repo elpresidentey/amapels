@@ -3,6 +3,7 @@ import dbConnect from '@/lib/mongodb'
 import Order from '@/models/Order'
 import { requireAdmin } from '@/lib/admin-guard'
 import { sendOrderConfirmation } from '@/lib/email'
+import { getSessionFromCookies } from '@/lib/customer-session'
 
 const validateEmail = (email: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -108,9 +109,14 @@ export async function POST(request: NextRequest) {
 
     await dbConnect()
 
+    const session = getSessionFromCookies()
+    if (!session?.email) {
+      return NextResponse.json({ error: 'Authentication required' }, { status: 401 })
+    }
+
     const sanitizedOrderData = {
       customerName: orderData.customerName.trim(),
-      customerEmail: orderData.customerEmail.trim().toLowerCase(),
+      customerEmail: session.email,
       customerPhone: orderData.customerPhone.trim(),
       items: orderData.items.map((item: any) => ({
         productId: String(item.productId),

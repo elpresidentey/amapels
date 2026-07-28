@@ -172,15 +172,6 @@ export default function Home() {
         >
           <div className="grid gap-10 lg:grid-cols-[1fr_320px] lg:items-start lg:gap-16">
             <div className="max-w-3xl">
-              <motion.p
-                key={`${activeSlide.id}-eyebrow`}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease }}
-                className="mb-4 text-[10px] font-medium uppercase tracking-[0.4em] text-gold/80 sm:mb-6 sm:text-[11px]"
-              >
-                {activeSlide.eyebrow}
-              </motion.p>
               <motion.h1
                 key={`${activeSlide.id}-title`}
                 initial={{ opacity: 0, y: 24 }}

@@ -11,7 +11,8 @@
     "validate-system": "npx tsx src/scripts/validateSystem.ts",
     "health-check": "npx tsx src/scripts/validateSystem.ts",
     "test-checkout": "npx tsx src/scripts/testCheckout.ts",
-    "validate-mvp": "npx tsx src/scripts/validateMVP.ts"
+    "validate-mvp": "npx tsx src/scripts/validateMVP.ts",
+    "clear-orders": "npx tsx src/scripts/clearOrders.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.110.0",

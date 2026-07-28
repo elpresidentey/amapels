@@ -38,8 +38,9 @@ const OptimizedInput = memo<{
   placeholder?: string
   maxLength?: number
   error?: string
+  disabled?: boolean
 }>((props) => {
-  const { label, type = 'text', value, onChange, required, placeholder, maxLength, error } = props
+  const { label, type = 'text', value, onChange, required, placeholder, maxLength, error, disabled } = props
   
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value)
@@ -55,9 +56,10 @@ const OptimizedInput = memo<{
         required={required}
         value={value}
         onChange={handleChange}
+        disabled={disabled}
         className={`w-full px-3 py-2.5 md:px-4 md:py-3 border rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-black outline-none transition-colors text-base ${
           error ? 'border-red-400' : 'border-gold'
-        }`}
+        } ${disabled ? 'bg-gray-100 text-black/50 cursor-not-allowed' : ''}`}
         placeholder={placeholder}
         maxLength={maxLength}
         style={{ fontSize: '16px' }} // Prevents zoom on iOS
@@ -923,6 +925,7 @@ export default function CheckoutPage() {
                       value={shippingData.email}
                       onChange={handleShippingChange('email')}
                       required
+                      disabled={!!customerSession}
                       error={errors.email}
                     />
                     
