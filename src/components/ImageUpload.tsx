@@ -110,7 +110,7 @@ export default function ImageUpload({ images, onChange, maxImages = 5 }: ImageUp
         ))}
 
         {images.length < maxImages && (
-          <label className="w-24 h-24 sm:w-28 sm:h-28 rounded-xl border-2 border-dashed border-gold/50 flex flex-col items-center justify-center cursor-pointer hover:border-gold hover:bg-gold/5 transition-colors">
+          <label className="w-full min-h-[120px] rounded-xl border-2 border-dashed border-black/20 flex flex-col items-center justify-center cursor-pointer hover:border-black hover:bg-gray-50 transition-colors bg-gray-50/50">
             <input
               type="file"
               accept="image/*"
@@ -120,11 +120,12 @@ export default function ImageUpload({ images, onChange, maxImages = 5 }: ImageUp
               disabled={uploading}
             />
             {uploading ? (
-              <div className="w-6 h-6 border-2 border-gold border-t-transparent rounded-full animate-spin" />
+              <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin" />
             ) : (
               <>
-                <Upload size={20} className="text-gold mb-1" />
-                <span className="text-xs text-black/60">Upload</span>
+                <Upload size={32} className="text-black/40 mb-2" />
+                <span className="text-sm font-medium text-black/60">Click to upload images</span>
+                <span className="text-xs text-black/40 mt-1">JPG, PNG, WEBP up to 5MB each</span>
               </>
             )}
           </label>

@@ -898,34 +898,35 @@ export default function AdminProductsPage() {
                       </div>
                     </div>
                   </details>
-                </form>
-              </div>
 
-              <div className="p-6 border-t border-gold/20 flex justify-end gap-4">
-                <button
-                  type="button"
-                  onClick={handleCloseModal}
-                  className="px-6 py-3 border border-black text-black-dark rounded-xl font-medium hover:bg-gold hover:text-white transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleSubmit}
-                  disabled={saving}
-                  className="px-6 py-3 bg-black text-white rounded-xl font-medium hover:bg-gold transition-colors flex items-center gap-2 disabled:opacity-50"
-                >
-                  {saving ? (
-                    <>
-                      <div className="w-4 h-4 border-2 border-ivory border-t-transparent rounded-full animate-spin"></div>
-                      Saving...
-                    </>
-                  ) : (
-                    <>
-                      <Save size={16} />
-                      {editingProduct ? 'Update Product' : 'Create Product'}
-                    </>
-                  )}
-                </button>
+                </form>
+
+                <div className="flex justify-end gap-4 pt-4 border-t border-gold/20 mt-6 bg-white">
+                  <button
+                    type="button"
+                    onClick={handleCloseModal}
+                    className="px-6 py-3 border border-black text-black-dark rounded-xl font-medium hover:bg-gold hover:text-white transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleSubmit}
+                    disabled={saving}
+                    className="px-6 py-3 bg-black text-white rounded-xl font-medium hover:bg-gold transition-colors flex items-center gap-2 disabled:opacity-50"
+                  >
+                    {saving ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-ivory border-t-transparent rounded-full animate-spin"></div>
+                        Saving...
+                      </>
+                    ) : (
+                      <>
+                        <Save size={16} />
+                        {editingProduct ? 'Update Product' : 'Create Product'}
+                      </>
+                    )}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
