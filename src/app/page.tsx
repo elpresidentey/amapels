@@ -465,7 +465,7 @@ export default function Home() {
           className="absolute inset-0"
         >
           <Image
-            src="/images/gabriel-ogulu-r0bH4hAVBmk-unsplash.jpg"
+            src="/images/usman-umar-nbF4Iks4Ujc-unsplash.jpg"
             alt="AMAPELS craftsmanship"
             fill
             sizes="100vw"
