@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Package, ShoppingCart, DollarSign, TrendingUp, ArrowRight, Eye } from 'lucide-react'
+import { Package, ShoppingCart, DollarSign, TrendingUp, ArrowRight, Eye, Trash2 } from 'lucide-react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { getAdminAuthHeaders } from '@/lib/admin-api'
+import Toast from '@/components/Toast'
 
 interface DashboardStats {
   totalProducts: number
@@ -69,6 +70,34 @@ export default function AdminDashboard() {
     }
   }
 
+  const [clearing, setClearing] = useState(false)
+  const [showToast, setShowToast] = useState(false)
+  const [toastMessage, setToastMessage] = useState('')
+
+  const clearAllOrders = async () => {
+    if (!window.confirm('Are you sure you want to delete ALL orders? This cannot be undone.')) return
+    setClearing(true)
+    try {
+      const res = await fetch('/api/admin/clear-orders', {
+        method: 'POST',
+        headers: getAdminAuthHeaders(),
+      })
+      const data = await res.json()
+      if (data.success) {
+        setToastMessage(`Cleared ${data.deletedCount} orders`)
+        setShowToast(true)
+        fetchStats()
+      } else {
+        throw new Error(data.error || 'Failed to clear orders')
+      }
+    } catch (err) {
+      setToastMessage('Failed to clear orders')
+      setShowToast(true)
+    } finally {
+      setClearing(false)
+    }
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen bg-white pt-28 pb-16 flex items-center justify-center">
@@ -82,6 +111,12 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-white">
+      <Toast
+        message={toastMessage}
+        type={toastMessage.includes('Failed') ? 'error' : 'success'}
+        isVisible={showToast}
+        onClose={() => setShowToast(false)}
+      />
       <div className="section-shell py-8 sm:py-12">
         {/* Header */}
         <div className="mb-8 sm:mb-12">
@@ -236,6 +271,29 @@ export default function AdminDashboard() {
             </div>
           </Link>
         </div>
+
+        {/* Danger Zone */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.35 }}
+          className="bg-white rounded-xl border border-red-200 p-5 sm:p-6"
+        >
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <h3 className="font-medium text-red-700 mb-1 text-sm sm:text-base">Danger Zone</h3>
+              <p className="text-red-600/70 text-xs sm:text-sm">Permanently delete all order records to reset dashboard data</p>
+            </div>
+            <button
+              onClick={clearAllOrders}
+              disabled={clearing}
+              className="flex items-center gap-2 px-4 py-2.5 bg-red-600 text-white rounded-xl text-sm font-medium hover:bg-red-700 transition-colors disabled:opacity-50 flex-shrink-0"
+            >
+              <Trash2 size={16} />
+              {clearing ? 'Clearing...' : 'Clear All Orders'}
+            </button>
+          </div>
+        </motion.div>
 
         {/* Recent Orders */}
         <motion.div
