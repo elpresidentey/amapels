@@ -100,9 +100,9 @@ function OrderCard({ order, index }: { order: OrderSummary; index: number }) {
             transition={{ duration: 0.35, ease }}
             className="overflow-hidden"
           >
-            <div className="border-t border-gold/15 px-6 py-6 sm:px-8 sm:py-8">
-              <div className="mb-6 space-y-3">
-                <p className="text-[9px] font-medium uppercase tracking-[0.28em] text-black/40">Items</p>
+            <div className="border-t border-gold/15 px-4 py-4 sm:px-8 sm:py-8">
+              <div className="mb-4 space-y-3 sm:mb-6">
+                <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-black/40 sm:text-[9px]">Items</p>
                 {order.items.map((item, i) => (
                   <div key={i} className="flex items-center justify-between text-sm">
                     <span className="text-black/70">{item.name} <span className="text-black/40">×{item.quantity}</span></span>
@@ -230,20 +230,20 @@ export default function AccountPage() {
   return (
     <div className="min-h-screen bg-primary pt-24">
       {/* Header */}
-      <section className="border-b border-black/[0.06] bg-white px-4 py-12 sm:px-6 sm:py-16 md:px-12 md:py-20 lg:px-24">
+      <section className="border-b border-black/[0.06] bg-white px-4 py-10 sm:px-6 sm:py-16 md:px-12 md:py-20 lg:px-24">
         <div className="mx-auto max-w-5xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease }}
           >
-            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
+            <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40 sm:mb-4">
               My Account
             </p>
-            <h1 className="font-serif text-3xl font-light text-black-dark sm:text-4xl md:text-5xl">
+            <h1 className="font-serif text-2xl font-light text-black-dark sm:text-4xl md:text-5xl">
               Welcome back, {session?.name || 'Friend'}
             </h1>
-            <p className="mt-4 text-sm leading-relaxed text-black/55">
+            <p className="mt-2 text-sm leading-relaxed text-black/55 sm:mt-4">
               Your order history and account details, all in one place.
             </p>
           </motion.div>
@@ -252,26 +252,26 @@ export default function AccountPage() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.15, ease }}
-            className="mt-8 grid gap-4 sm:grid-cols-3"
+            className="mt-6 grid grid-cols-2 gap-3 sm:mt-8 sm:grid-cols-3 sm:gap-4"
           >
-            <div className="flex items-center gap-4 border border-gold/15 bg-[#faf8f5] px-5 py-4">
+            <div className="col-span-2 flex items-center gap-3 border border-gold/15 bg-[#faf8f5] px-4 py-3 sm:col-span-1 sm:gap-4 sm:px-5 sm:py-4">
               <Mail size={16} strokeWidth={1.3} className="shrink-0 text-gold-dark" />
-              <div>
-                <p className="text-[9px] font-medium uppercase tracking-[0.24em] text-black/40">Email</p>
-                <p className="text-sm text-black-dark">{session?.email || '—'}</p>
+              <div className="min-w-0">
+                <p className="text-[10px] font-medium uppercase tracking-[0.24em] text-black/40 sm:text-[9px]">Email</p>
+                <p className="truncate text-sm text-black-dark">{session?.email || '—'}</p>
               </div>
             </div>
-            <div className="flex items-center gap-4 border border-gold/15 bg-[#faf8f5] px-5 py-4">
+            <div className="flex items-center gap-3 border border-gold/15 bg-[#faf8f5] px-4 py-3 sm:gap-4 sm:px-5 sm:py-4">
               <Package size={16} strokeWidth={1.3} className="shrink-0 text-gold-dark" />
               <div>
-                <p className="text-[9px] font-medium uppercase tracking-[0.24em] text-black/40">Orders</p>
+                <p className="text-[10px] font-medium uppercase tracking-[0.24em] text-black/40 sm:text-[9px]">Orders</p>
                 <p className="text-sm text-black-dark">{orders.length} {orders.length === 1 ? 'order' : 'orders'}</p>
               </div>
             </div>
             <button
               type="button"
               onClick={handleLogout}
-              className="flex items-center justify-center gap-2 border border-black/10 px-5 py-4 text-[10px] font-medium uppercase tracking-[0.22em] text-black/50 transition-all hover:border-red/30 hover:bg-red/[0.04] hover:text-red"
+              className="flex items-center justify-center gap-2 border border-black/10 px-3 py-3 text-[10px] font-medium uppercase tracking-[0.22em] text-black/50 transition-all hover:border-red/30 hover:bg-red/[0.04] hover:text-red sm:px-5 sm:py-4"
             >
               <LogOut size={14} strokeWidth={1.3} />
               Sign Out
@@ -281,25 +281,25 @@ export default function AccountPage() {
       </section>
 
       {/* Order History */}
-      <section className="px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-24 lg:px-24">
+      <section className="px-4 py-12 sm:px-6 sm:py-20 md:px-12 md:py-24 lg:px-24">
         <div className="mx-auto max-w-5xl">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2, ease }}
-            className="mb-10 flex flex-col gap-4 border-b border-black/[0.06] pb-8 sm:flex-row sm:items-end sm:justify-between"
+            className="mb-6 flex flex-col gap-3 border-b border-black/[0.06] pb-6 sm:mb-10 sm:flex-row sm:items-end sm:justify-between sm:pb-8"
           >
             <div>
-              <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
+              <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40 sm:mb-3">
                 Order History
               </p>
-              <h2 className="font-serif text-2xl font-light text-black-dark sm:text-3xl">
+              <h2 className="font-serif text-xl font-light text-black-dark sm:text-3xl">
                 Pieces you&apos;ve loved
               </h2>
             </div>
             <Link
               href="/shop"
-              className="group inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-black-dark transition-colors hover:text-gold-dark"
+              className="inline-flex items-center gap-2 py-2 text-[10px] font-medium uppercase tracking-[0.22em] text-black-dark transition-colors hover:text-gold-dark"
             >
               Continue Shopping
               <ArrowRight size={13} className="transition-transform group-hover:translate-x-1" />
@@ -316,7 +316,7 @@ export default function AccountPage() {
               ))}
             </div>
           ) : error ? (
-            <div className="flex flex-col items-center gap-4 rounded border border-dashed border-black/10 py-16 text-center">
+            <div className="flex flex-col items-center gap-4 rounded border border-dashed border-black/10 py-10 text-center sm:py-16">
               <AlertCircle size={24} strokeWidth={1.3} className="text-black/30" />
               <p className="text-sm text-black/55">{error}</p>
               <button
@@ -332,7 +332,7 @@ export default function AccountPage() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease }}
-              className="flex flex-col items-center gap-6 rounded border border-dashed border-gold/20 py-20 text-center"
+              className="flex flex-col items-center gap-6 rounded border border-dashed border-gold/20 py-12 text-center sm:py-20"
             >
               <ShoppingBag size={32} strokeWidth={1.2} className="text-gold/40" />
               <div>
