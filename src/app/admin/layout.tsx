@@ -137,7 +137,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   {/* Mobile Menu Button */}
                   <button
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    className="md:hidden p-2 text-white hover:bg-white/5 rounded-lg transition-colors"
+                    className="md:hidden p-3 text-white hover:bg-white/5 rounded-lg transition-colors"
                   >
                     {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
                   </button>
@@ -163,11 +163,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                           key={item.href}
                           href={item.href}
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                            isActive
-                              ? 'bg-white/10 text-white'
-                              : 'text-white/70 hover:text-white hover:bg-white/5'
-                          }`}
+className={`flex items-center gap-3 px-4 py-3.5 rounded-lg text-sm font-medium transition-colors ${
+                             isActive
+                               ? 'bg-white/10 text-white'
+                               : 'text-white/70 hover:text-white hover:bg-white/5'
+                           }`}
                         >
                           <Icon size={18} />
                           {item.name}
@@ -179,7 +179,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                       <Link
                         href="/"
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-colors"
+                        className="flex items-center gap-3 px-4 py-3.5 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-colors"
                       >
                         View Store
                       </Link>

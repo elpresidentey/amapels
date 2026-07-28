@@ -64,7 +64,7 @@ function OrderCard({ order, index }: { order: OrderSummary; index: number }) {
       <button
         type="button"
         onClick={() => setExpanded(!expanded)}
-        className="flex w-full items-center justify-between px-6 py-5 text-left sm:px-8"
+        className="flex w-full items-center justify-between px-6 py-5 text-left sm:px-8 min-h-[52px]"
         aria-expanded={expanded}
         aria-controls={`order-details-${order.id}`}
       >
@@ -76,7 +76,7 @@ function OrderCard({ order, index }: { order: OrderSummary; index: number }) {
             </p>
           </div>
           <div className="flex items-center gap-3 sm:gap-5">
-            <span className={`inline-flex items-center gap-1.5 border px-2.5 py-1 text-[9px] font-medium uppercase tracking-[0.18em] ${statusColor(order.status)}`}>
+            <span className={`inline-flex items-center gap-1.5 border px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.18em] ${statusColor(order.status)}`}>
               {order.status}
             </span>
             <span className="text-[11px] text-black/45">{createdDate}</span>

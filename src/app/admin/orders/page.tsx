@@ -248,7 +248,7 @@ export default function AdminOrdersPage() {
 
         <div className="bg-white rounded-2xl md:rounded-3xl border border-gold/30 overflow-hidden">
           {/* Mobile Orders */}
-          <div className="block lg:hidden">
+          <div className="block md:hidden">
             <div className="p-4 space-y-4">
               {orders.map((order) => {
                 const StatusIcon = STATUS_ICONS[order.status]
@@ -279,7 +279,7 @@ export default function AdminOrdersPage() {
                           setSelectedOrder(order)
                           setShowModal(true)
                         }}
-                        className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                        className="p-3 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                       >
                         <Eye size={16} />
                       </button>
@@ -296,7 +296,7 @@ export default function AdminOrdersPage() {
           </div>
 
           {/* Desktop Table */}
-          <div className="hidden lg:block overflow-x-auto">
+          <div className="hidden md:block overflow-x-auto">
             <table className="w-full">
               <thead className="bg-gray-100/20">
                 <tr>

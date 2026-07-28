@@ -135,7 +135,7 @@ export default function AdminDashboard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="bg-white rounded-xl sm:rounded-2xl border border-gold/30 p-5 sm:p-6 hover:shadow-lg transition-shadow min-h-[140px] flex flex-col justify-between"
+            className="bg-white rounded-xl sm:rounded-2xl border border-gold/30 p-5 sm:p-6 hover:shadow-lg transition-shadow flex flex-col justify-between"
           >
             <div className="flex items-start justify-between mb-3 sm:mb-4">
               <div className="p-2.5 sm:p-3 bg-blue-50 rounded-lg sm:rounded-xl">
@@ -161,7 +161,7 @@ export default function AdminDashboard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="bg-white rounded-xl sm:rounded-2xl border border-gold/30 p-5 sm:p-6 hover:shadow-lg transition-shadow min-h-[140px] flex flex-col justify-between"
+            className="bg-white rounded-xl sm:rounded-2xl border border-gold/30 p-5 sm:p-6 hover:shadow-lg transition-shadow flex flex-col justify-between"
           >
             <div className="flex items-start justify-between mb-3 sm:mb-4">
               <div className="p-2.5 sm:p-3 bg-green-50 rounded-lg sm:rounded-xl">
@@ -187,7 +187,7 @@ export default function AdminDashboard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-white rounded-xl sm:rounded-2xl border border-gold/30 p-5 sm:p-6 hover:shadow-lg transition-shadow min-h-[140px] flex flex-col justify-between"
+            className="bg-white rounded-xl sm:rounded-2xl border border-gold/30 p-5 sm:p-6 hover:shadow-lg transition-shadow flex flex-col justify-between"
           >
             <div className="flex items-start justify-between mb-3 sm:mb-4">
               <div className="p-2.5 sm:p-3 bg-accent-emerald/10 rounded-lg sm:rounded-xl">
@@ -213,7 +213,7 @@ export default function AdminDashboard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="bg-white rounded-xl sm:rounded-2xl border border-gold/30 p-5 sm:p-6 hover:shadow-lg transition-shadow min-h-[140px] flex flex-col justify-between"
+            className="bg-white rounded-xl sm:rounded-2xl border border-gold/30 p-5 sm:p-6 hover:shadow-lg transition-shadow flex flex-col justify-between"
           >
             <div className="flex items-start justify-between mb-3 sm:mb-4">
               <div className="p-2.5 sm:p-3 bg-accent-orange/10 rounded-lg sm:rounded-xl">
@@ -234,7 +234,7 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 gap-4 mb-8 sm:grid-cols-2 sm:gap-5 md:gap-6 lg:grid-cols-3">
           <Link
             href="/admin/products"
-            className="bg-white rounded-xl border border-gold/30 p-5 sm:p-6 hover:border-black transition-all group min-h-[100px] flex items-center"
+            className="bg-white rounded-xl border border-gold/30 p-5 sm:p-6 hover:border-black transition-all group flex items-center"
           >
             <div className="flex items-center justify-between w-full gap-3">
               <div className="flex-1 min-w-0">
@@ -247,7 +247,7 @@ export default function AdminDashboard() {
 
           <Link
             href="/admin/orders"
-            className="bg-white rounded-xl border border-gold/30 p-5 sm:p-6 hover:border-black transition-all group min-h-[100px] flex items-center"
+            className="bg-white rounded-xl border border-gold/30 p-5 sm:p-6 hover:border-black transition-all group flex items-center"
           >
             <div className="flex items-center justify-between w-full gap-3">
               <div className="flex-1 min-w-0">
@@ -260,7 +260,7 @@ export default function AdminDashboard() {
 
           <Link
             href="/admin/sales"
-            className="bg-white rounded-xl border border-gold/30 p-5 sm:p-6 hover:border-black transition-all group min-h-[100px] flex items-center sm:col-span-2 lg:col-span-1"
+            className="bg-white rounded-xl border border-gold/30 p-5 sm:p-6 hover:border-black transition-all group flex items-center sm:col-span-2 lg:col-span-1"
           >
             <div className="flex items-center justify-between w-full gap-3">
               <div className="flex-1 min-w-0">

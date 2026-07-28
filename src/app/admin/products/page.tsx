@@ -583,7 +583,7 @@ export default function AdminProductsPage() {
                       type="checkbox"
                       checked={selectedProducts.has(product._id!)}
                       onChange={() => handleSelectProduct(product._id!)}
-                      className="w-4 h-4 mt-1 border-gold rounded"
+                      className="w-5 h-5 mt-1 border-gold rounded accent-gold-dark"
                     />
                     {product.images?.[0] && (
                       <img
@@ -603,35 +603,35 @@ export default function AdminProductsPage() {
                   </div>
                   
                   <div className="flex items-center justify-between pt-2 border-t border-gold/20 sm:pt-3">
-                    <button
+<button
                       onClick={() => toggleFeatured(product)}
-                      className={`flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] transition-colors sm:gap-1 sm:px-2 sm:py-1 sm:text-xs ${
-                        product.featured
+                      className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs transition-colors ${
+                         product.featured
                           ? 'bg-accent-emerald/10 text-accent-emerald'
                           : 'bg-gray-100 text-gray-600'
-                      }`}
-                    >
-                      {product.featured ? <Eye size={10} className="sm:w-3 sm:h-3" /> : <EyeOff size={10} className="sm:w-3 sm:h-3" />}
-                      <span className="hidden xs:inline">{product.featured ? 'Featured' : 'Hidden'}</span>
-                    </button>
+                       }`}
+                     >
+                       {product.featured ? <Eye size={12} className="sm:w-3 sm:h-3" /> : <EyeOff size={12} className="sm:w-3 sm:h-3" />}
+                       <span className="hidden xs:inline">{product.featured ? 'Featured' : 'Hidden'}</span>
+                     </button>
                     
-                    <div className="flex items-center gap-1 sm:gap-2">
+                    <div className="flex items-center gap-2">
                       <button
                         onClick={() => handleDuplicate(product)}
-                        className="p-1.5 text-purple-600 hover:bg-purple-50 rounded-lg transition-colors sm:p-2"
+                        className="p-2.5 text-purple-600 hover:bg-purple-50 rounded-lg transition-colors"
                         title="Duplicate"
                       >
                         <Copy size={14} className="sm:w-4 sm:h-4" />
                       </button>
                       <button
                         onClick={() => handleShowModal(product)}
-                        className="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors sm:p-2"
+                        className="p-2.5 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                       >
                         <Edit2 size={14} className="sm:w-4 sm:h-4" />
                       </button>
                       <button
                         onClick={() => handleDelete(product)}
-                        className="p-1.5 text-red-600 hover:bg-red-50 rounded-lg transition-colors sm:p-2"
+                        className="p-2.5 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                       >
                         <Trash2 size={14} className="sm:w-4 sm:h-4" />
                       </button>

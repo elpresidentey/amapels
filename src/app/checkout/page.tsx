@@ -870,7 +870,7 @@ export default function CheckoutPage() {
 
         {/* Account Info Bar */}
         {customerSession && (
-          <div className="mb-6 bg-primary-light/30 border border-gold/20 rounded-xl px-4 py-3 flex items-center justify-between">
+          <div className="mb-6 bg-primary-light/30 border border-gold/20 rounded-xl px-4 py-3 flex flex-wrap items-center justify-between gap-2">
             <div className="flex items-center gap-3">
               <User size={16} className="text-gold-dark" />
               <span className="text-sm text-black-dark">

@@ -136,7 +136,7 @@ export default function Footer() {
               </Link>
               <a
                 href="tel:+234-809-123-4567"
-                className="flex items-center gap-1.5 text-xs text-white/45 transition-colors hover:text-gold"
+                className="flex items-center gap-1.5 py-2 text-xs text-white/45 transition-colors hover:text-gold"
               >
                 <Phone size={12} strokeWidth={1.5} />
                 <span className="hidden sm:inline">+234-809-123-4567</span>
@@ -144,7 +144,7 @@ export default function Footer() {
               </a>
               <a
                 href="mailto:hello@amapels.com"
-                className="flex items-center gap-1.5 text-xs text-white/45 transition-colors hover:text-gold"
+                className="flex items-center gap-1.5 py-2 text-xs text-white/45 transition-colors hover:text-gold"
               >
                 <Mail size={12} strokeWidth={1.5} />
                 <span className="hidden sm:inline">hello@amapels.com</span>

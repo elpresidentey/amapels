@@ -229,7 +229,7 @@ export default function AdminBlogPage() {
           </div>
           <button
             onClick={openCreate}
-            className="inline-flex items-center gap-2 bg-black-dark px-5 py-2.5 text-[10px] font-medium uppercase tracking-[0.22em] text-white transition-all hover:bg-black"
+            className="inline-flex items-center gap-2 bg-black-dark px-5 py-3 text-xs font-medium uppercase tracking-[0.22em] text-white transition-all hover:bg-black"
           >
             <Plus size={14} />
             New Post
@@ -244,7 +244,7 @@ export default function AdminBlogPage() {
               placeholder="Search posts..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full border border-gold/20 bg-white py-2.5 pl-9 pr-4 text-sm outline-none transition-colors focus:border-gold-dark"
+              className="w-full border border-gold/20 bg-white py-3 pl-9 pr-4 text-sm outline-none transition-colors focus:border-gold-dark"
             />
           </div>
           <select
@@ -447,17 +447,17 @@ export default function AdminBlogPage() {
                     <td className="px-4 py-3 text-black/60">{post.category}</td>
                     <td className="px-4 py-3 text-black/60">{post.author}</td>
                     <td className="px-4 py-3">
-                      <button
-                        onClick={() => togglePublished(post)}
-                        className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[9px] font-medium uppercase tracking-[0.15em] transition-colors ${
-                          post.published
-                            ? 'bg-emerald-50 text-emerald-700 hover:bg-amber-50 hover:text-amber-700'
-                            : 'bg-black/[0.04] text-black/40 hover:bg-emerald-50 hover:text-emerald-700'
-                        }`}
-                      >
-                        {post.published ? <Eye size={10} /> : <EyeOff size={10} />}
-                        {post.published ? 'Published' : 'Draft'}
-                      </button>
+<button
+                          onClick={() => togglePublished(post)}
+                          className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium uppercase tracking-[0.15em] transition-colors ${
+                            post.published
+                              ? 'bg-emerald-50 text-emerald-700 hover:bg-amber-50 hover:text-amber-700'
+                              : 'bg-black/[0.04] text-black/40 hover:bg-emerald-50 hover:text-emerald-700'
+                          }`}
+                        >
+                          {post.published ? <Eye size={12} /> : <EyeOff size={12} />}
+                          {post.published ? 'Published' : 'Draft'}
+                        </button>
                     </td>
                     <td className="px-4 py-3 text-[11px] text-black/50">
                       {new Date(post.createdAt).toLocaleDateString()}
@@ -466,14 +466,14 @@ export default function AdminBlogPage() {
                       <div className="flex items-center justify-end gap-1">
                         <button
                           onClick={() => openEdit(post)}
-                          className="rounded p-1.5 text-black/40 transition-colors hover:bg-black/[0.04] hover:text-gold-dark"
+                          className="rounded p-2.5 text-black/40 transition-colors hover:bg-black/[0.04] hover:text-gold-dark"
                           title="Edit"
                         >
                           <Edit3 size={13} />
                         </button>
                         <button
                           onClick={() => handleDelete(post._id, post.title)}
-                          className="rounded p-1.5 text-black/40 transition-colors hover:bg-red/[0.06] hover:text-red"
+                          className="rounded p-2.5 text-black/40 transition-colors hover:bg-red/[0.06] hover:text-red"
                           title="Delete"
                         >
                           <Trash2 size={13} />

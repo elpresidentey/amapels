@@ -111,19 +111,19 @@ export default function Navbar() {
 
             <button
               onClick={toggleCart}
-              className="relative text-white/75 transition-colors duration-300 hover:text-white"
+              className="relative p-2 text-white/75 transition-colors duration-300 hover:text-white"
               aria-label="Shopping cart"
             >
               <ShoppingBag size={19} strokeWidth={1.4} />
               {mounted && cartItemCount > 0 && (
-                <span className="absolute -right-2.5 -top-2 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-gold px-1 text-[9px] font-semibold leading-none text-black-dark">
+                <span className="absolute -right-0.5 -top-0.5 flex h-[20px] min-w-[20px] items-center justify-center rounded-full bg-gold px-1 text-[10px] font-semibold leading-none text-black-dark">
                   {cartItemCount > 9 ? '9+' : cartItemCount}
                 </span>
               )}
             </button>
 
             <button
-              className="text-white/90 transition-colors hover:text-white lg:hidden"
+              className="p-3 text-white/90 transition-colors hover:text-white lg:hidden"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle menu"
               aria-expanded={isMenuOpen}
@@ -153,17 +153,17 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.25, delay: index * 0.04 }}
                   >
-                    <Link
+<Link
                       href={item.href}
                       onClick={closeMenu}
-                      className={`block border-l-2 py-3.5 pl-5 text-base font-light tracking-[0.12em] uppercase transition-colors duration-200 ${
-                        isActive(item.href)
+                      className={`block border-l-2 py-4 pl-5 text-base font-light tracking-[0.12em] uppercase transition-colors duration-200 ${
+                         isActive(item.href)
                           ? 'border-gold text-white'
                           : 'border-transparent text-white/75 hover:border-gold/40 hover:text-white'
-                      }`}
-                    >
-                      {item.name}
-                    </Link>
+                       }`}
+                     >
+                       {item.name}
+                     </Link>
                   </motion.div>
                 ))}
 
