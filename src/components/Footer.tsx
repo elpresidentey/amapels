@@ -77,6 +77,7 @@ export default function Footer() {
             <ul className="space-y-2.5">
               {[
                 { href: '/story', label: 'Our Story' },
+                { href: '/journal', label: 'Journal' },
                 { href: '/contact', label: 'Contact Us' },
                 { href: '/artisan-process', label: 'Artisan Process' },
                 { href: '/gift-guide', label: 'Gift Guide' },

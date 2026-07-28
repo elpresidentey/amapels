@@ -94,7 +94,19 @@ export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [currentPillar, setCurrentPillar] = useState(0)
   const { products, loading } = useProducts()
+  const [journalPosts, setJournalPosts] = useState<any[]>([])
+  const [journalLoading, setJournalLoading] = useState(true)
   const curatedPieces = products.filter((p) => p.featured).slice(0, 3)
+
+  useEffect(() => {
+    fetch('/api/blog?limit=3')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.posts) setJournalPosts(data.posts)
+      })
+      .catch(() => {})
+      .finally(() => setJournalLoading(false))
+  }, [])
 
   const heroRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
@@ -700,64 +712,62 @@ export default function Home() {
             </Link>
           </motion.div>
 
-          <div className="grid gap-8 md:grid-cols-3 md:gap-10">
-            {[
-              {
-                title: 'The Art of Adornment: Why We Wear What We Wear',
-                excerpt:
-                  'From the courts of Benin to the streets of Lagos, jewellery has always been more than decoration. It is identity, power, and poetry we explore the deep-rooted tradition of adornment in Nigerian culture.',
-                date: 'Coming Soon',
-              },
-              {
-                title: 'Behind the Piece: The Journey of a Single Necklace',
-                excerpt:
-                  'From sketch to skin — follow one AMAPELS necklace as it travels through the hands of six artisans, across three Nigerian cities, and into the life of the woman who will wear it for years.',
-                date: 'Coming Soon',
-              },
-              {
-                title: 'Gifting With Intention: Choosing Jewellery That Means Something',
-                excerpt:
-                  'The best gifts say "I know you." Whether for a birthday, an anniversary, or no occasion at all — we share how to choose a piece that tells the right story.',
-                date: 'Coming Soon',
-              },
-            ].map((article, index) => (
-              <motion.div
-                key={article.title}
-                initial={{ opacity: 0, y: 32 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.9, delay: index * 0.12, ease }}
-                className="group cursor-default border border-transparent p-6 transition-all duration-500 hover:border-gold/20 hover:bg-white sm:p-8"
-              >
-                <div className="mb-4 flex items-center gap-3">
-                  <motion.span
-                    initial={{ scaleX: 0 }}
-                    whileInView={{ scaleX: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: 0.2 + index * 0.12, ease }}
-                    className="h-px flex-1 origin-left bg-gold/40"
-                  />
-                  <span className="text-[9px] font-medium uppercase tracking-[0.22em] text-black/30">
-                    {article.date}
-                  </span>
+          {journalLoading ? (
+            <div className="grid gap-8 md:grid-cols-3 md:gap-10">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="animate-pulse border border-transparent p-6 sm:p-8">
+                  <div className="mb-4 h-3 w-20 rounded bg-black/[0.04]" />
+                  <div className="mb-2 h-5 w-full rounded bg-black/[0.04]" />
+                  <div className="mb-2 h-5 w-3/4 rounded bg-black/[0.04]" />
+                  <div className="mt-3 h-12 w-full rounded bg-black/[0.04]" />
                 </div>
-                <h3 className="font-serif text-lg font-light leading-snug text-black-dark transition-colors duration-300 group-hover:text-gold-dark sm:text-xl">
-                  {article.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-black/55">{article.excerpt}</p>
-                <motion.span
-                  initial={{ opacity: 0, x: -8 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+              ))}
+            </div>
+          ) : journalPosts.length > 0 ? (
+            <div className="grid gap-8 md:grid-cols-3 md:gap-10">
+              {journalPosts.map((article: any, index: number) => (
+                <motion.div
+                  key={article._id}
+                  initial={{ opacity: 0, y: 32 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.4 + index * 0.12, ease }}
-                  className="mt-4 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-black/40 transition-colors duration-300 group-hover:text-gold-dark"
+                  transition={{ duration: 0.9, delay: index * 0.12, ease }}
+                  className="group cursor-default border border-transparent p-6 transition-all duration-500 hover:border-gold/20 hover:bg-white sm:p-8"
                 >
-                  Read More
-                  <ArrowRight size={12} className="transition-transform group-hover:translate-x-1" />
-                </motion.span>
-              </motion.div>
-            ))}
-          </div>
+                  <div className="mb-4 flex items-center gap-3">
+                    <motion.span
+                      initial={{ scaleX: 0 }}
+                      whileInView={{ scaleX: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8, delay: 0.2 + index * 0.12, ease }}
+                      className="h-px flex-1 origin-left bg-gold/40"
+                    />
+                    <span className="text-[9px] font-medium uppercase tracking-[0.22em] text-black/30">
+                      {article.publishedAt
+                        ? new Date(article.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+                        : ''}
+                    </span>
+                  </div>
+                  <h3 className="font-serif text-lg font-light leading-snug text-black-dark transition-colors duration-300 group-hover:text-gold-dark sm:text-xl">
+                    {article.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-black/55">{article.excerpt}</p>
+                  <Link href={`/journal/${article.slug}`}>
+                    <motion.span
+                      initial={{ opacity: 0, x: -8 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: 0.4 + index * 0.12, ease }}
+                      className="mt-4 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-black/40 transition-colors duration-300 group-hover:text-gold-dark"
+                    >
+                      Read More
+                      <ArrowRight size={12} className="transition-transform group-hover:translate-x-1" />
+                    </motion.span>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          ) : null}
         </div>
       </section>
 
