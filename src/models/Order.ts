@@ -63,7 +63,7 @@ const OrderItemSchema = new mongoose.Schema<IOrderItem>({
   },
   image: {
     type: String,
-    required: true,
+    default: '',
   },
 })
 
