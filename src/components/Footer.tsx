@@ -124,7 +124,7 @@ export default function Footer() {
             <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-3">
               <p className="text-xs text-white/40">© 2026 AMAPELS. All rights reserved.</p>
               <span className="hidden text-white/15 sm:inline">·</span>
-              <p className="text-xs text-white/30">Made by IEL</p>
+              <p className="text-xs text-white/30">Built by IEL web services.</p>
             </div>
             <div className="flex flex-wrap items-center gap-4 sm:gap-6">
               <Link href="/terms" className="text-xs text-white/45 transition-colors hover:text-white">
