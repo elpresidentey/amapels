@@ -23,15 +23,24 @@ interface BlogPost {
 export default function JournalPage() {
   const [posts, setPosts] = useState<BlogPost[]>([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    fetch('/api/blog')
-      .then((res) => res.json())
+    const controller = new AbortController()
+    fetch('/api/blog', { signal: controller.signal })
+      .then((res) => {
+        if (!res.ok) throw new Error(`API error: ${res.status}`)
+        return res.json()
+      })
       .then((data) => {
         if (data.posts) setPosts(data.posts)
+        else setError('Unexpected response format')
       })
-      .catch(() => {})
+      .catch((err) => {
+        if (err.name !== 'AbortError') setError(err.message || 'Failed to load posts')
+      })
       .finally(() => setLoading(false))
+    return () => controller.abort()
   }, [])
 
   return (
@@ -60,6 +69,17 @@ export default function JournalPage() {
             <div className="flex items-center justify-center py-20">
               <Loader2 size={24} className="animate-spin text-gold-dark" />
             </div>
+          ) : error ? (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease }}
+              className="border-t border-black/[0.06] pt-12 text-center"
+            >
+              <p className="font-serif text-lg font-light italic text-black/40">
+                Could not load stories right now. Please try again later.
+              </p>
+            </motion.div>
           ) : posts.length === 0 ? (
             <motion.div
               initial={{ opacity: 0, y: 20 }}

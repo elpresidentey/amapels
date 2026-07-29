@@ -100,7 +100,10 @@ export default function Home() {
 
   useEffect(() => {
     fetch('/api/blog?limit=3')
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error('API error')
+        return res.json()
+      })
       .then((data) => {
         if (data.posts) setJournalPosts(data.posts)
       })
