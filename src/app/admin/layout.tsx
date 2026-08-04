@@ -6,6 +6,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import { getAdminSession, clearAdminSession } from '@/lib/auth'
 import { Home, Package, ShoppingCart, BarChart3, FileText, LogOut, Menu, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
+import OrderNotifications from '@/components/admin/OrderNotifications'
 import '../globals.css'
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -19,8 +20,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { name: 'Dashboard', href: '/admin', icon: Home },
     { name: 'Products', href: '/admin/products', icon: Package },
     { name: 'Orders', href: '/admin/orders', icon: ShoppingCart },
-    { name: 'Blog', href: '/admin/blog', icon: FileText },
-    { name: 'Sales', href: '/admin/sales', icon: BarChart3 }
+    { name: 'Sales', href: '/admin/sales', icon: BarChart3 },
+    { name: 'Blog', href: '/admin/blog', icon: FileText }
   ]
 
   useEffect(() => {
@@ -60,18 +61,26 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-black/70">Loading...</p>
-        </div>
-      </div>
+      <html lang="en">
+        <body>
+          <div className="min-h-screen bg-white flex items-center justify-center">
+            <div className="text-center">
+              <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+              <p className="text-black/70">Loading...</p>
+            </div>
+          </div>
+        </body>
+      </html>
     )
   }
 
   // Show login page without admin layout
   if (pathname === '/admin/login') {
-    return <>{children}</>
+    return (
+      <html lang="en">
+        <body>{children}</body>
+      </html>
+    )
   }
 
   // Redirect to login if not authenticated
@@ -80,9 +89,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   return (
-    <>
-      <div className="min-h-screen bg-white">
-        {/* Admin Navbar */}
+    <html lang="en">
+      <head>
+        <title>AMAPELS Admin Dashboard</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </head>
+      <body>
+        <div className="min-h-screen bg-white">
+          {/* Admin Navbar */}
           <nav className="fixed top-0 left-0 right-0 z-50 bg-black border-b border-ivory/10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex items-center justify-between h-16 sm:h-20">
@@ -120,6 +134,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
                 {/* Actions */}
                 <div className="flex items-center gap-3">
+                  <OrderNotifications />
                   <Link
                     href="/"
                     className="hidden sm:inline-flex text-xs text-white/70 hover:text-white transition-colors uppercase tracking-wider"
@@ -137,7 +152,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   {/* Mobile Menu Button */}
                   <button
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    className="md:hidden p-3 text-white hover:bg-white/5 rounded-lg transition-colors"
+                    className="md:hidden p-2 text-white hover:bg-white/5 rounded-lg transition-colors"
                   >
                     {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
                   </button>
@@ -163,11 +178,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                           key={item.href}
                           href={item.href}
                           onClick={() => setIsMobileMenuOpen(false)}
-className={`flex items-center gap-3 px-4 py-3.5 rounded-lg text-sm font-medium transition-colors ${
-                             isActive
-                               ? 'bg-white/10 text-white'
-                               : 'text-white/70 hover:text-white hover:bg-white/5'
-                           }`}
+                          className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                            isActive
+                              ? 'bg-white/10 text-white'
+                              : 'text-white/70 hover:text-white hover:bg-white/5'
+                          }`}
                         >
                           <Icon size={18} />
                           {item.name}
@@ -179,7 +194,7 @@ className={`flex items-center gap-3 px-4 py-3.5 rounded-lg text-sm font-medium t
                       <Link
                         href="/"
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className="flex items-center gap-3 px-4 py-3.5 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-colors"
+                        className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-colors"
                       >
                         View Store
                       </Link>
@@ -205,7 +220,8 @@ className={`flex items-center gap-3 px-4 py-3.5 rounded-lg text-sm font-medium t
             {children}
           </main>
         </div>
-    </>
+      </body>
+    </html>
   )
 }
 

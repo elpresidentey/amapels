@@ -11,8 +11,7 @@
     "validate-system": "npx tsx src/scripts/validateSystem.ts",
     "health-check": "npx tsx src/scripts/validateSystem.ts",
     "test-checkout": "npx tsx src/scripts/testCheckout.ts",
-    "validate-mvp": "npx tsx src/scripts/validateMVP.ts",
-    "clear-orders": "npx tsx src/scripts/clearOrders.ts"
+    "validate-mvp": "npx tsx src/scripts/validateMVP.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.110.0",
@@ -28,7 +27,7 @@
     "react": "^18.3.0",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^18.3.0",
-    "resend": "^6.18.0",
+    "resend": "^4.0.0",
     "tailwind-merge": "^2.2.0",
     "zustand": "^5.0.14"
   },

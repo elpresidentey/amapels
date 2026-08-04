@@ -12,7 +12,7 @@ import {
 } from '@/lib/customerAuth'
 import { useCartStore } from '@/store/newCartStore'
 
-export default function CustomerAuth() {
+export default function CustomerAuth({ onAuthChange }: { onAuthChange?: () => void }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [showLogin, setShowLogin] = useState(false)
   const [email, setEmail] = useState('')
@@ -72,6 +72,7 @@ export default function CustomerAuth() {
       setIsAuthenticated(true)
       setCustomerName(session.name)
       setLoginSuccess(true)
+      onAuthChange?.()
 
       // Show success briefly then close
       setTimeout(() => {
@@ -93,6 +94,7 @@ export default function CustomerAuth() {
     setCustomerName('')
     setShowLogin(false)
     clearCart()
+    onAuthChange?.()
   }
 
   if (authLoading) {

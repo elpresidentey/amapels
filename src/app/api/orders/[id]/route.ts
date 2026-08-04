@@ -1,45 +1,32 @@
 import { NextRequest, NextResponse } from 'next/server'
-import dbConnect from '@/lib/mongodb'
-import Order from '@/models/Order'
-import { requireAdmin } from '@/lib/admin-guard'
+import { getOrder, updateOrderStatus } from '@/lib/supabase'
 
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const authError = requireAdmin(request)
-  if (authError) return authError
-
   try {
-    await dbConnect()
-
-    const order = await Order.findById(params.id).lean()
-
-    if (!order) {
-      return NextResponse.json({ error: 'Order not found' }, { status: 404 })
-    }
-
+    const order = await getOrder(params.id)
+    
+    // Transform snake_case to camelCase
     const transformedOrder = {
-      _id: order._id.toString(),
-      customerName: order.customerName,
-      customerEmail: order.customerEmail,
-      customerPhone: order.customerPhone,
+      _id: order.id,
+      customerName: order.customer_name,
+      customerEmail: order.customer_email,
+      customerPhone: order.customer_phone,
       items: order.items,
-      shippingAddress: order.shippingAddress,
-      paymentReference: order.paymentReference,
-      paymentStatus: order.paymentStatus,
+      shippingAddress: order.shipping_address,
+      paymentReference: order.payment_reference,
+      paymentStatus: order.payment_status,
       status: order.status,
       subtotal: order.subtotal,
-      shippingCost: order.shippingCost,
+      shippingCost: order.shipping_cost,
       tax: order.tax,
       total: order.total,
-      orderNumber: order.orderNumber,
-      trackingNumber: order.trackingNumber,
-      estimatedDelivery: order.estimatedDelivery,
-      createdAt: order.createdAt,
-      updatedAt: order.updatedAt
+      createdAt: order.created_at,
+      updatedAt: order.updated_at
     }
-
+    
     return NextResponse.json({ order: transformedOrder })
   } catch (error) {
     console.error('Order fetch error:', error)
@@ -54,41 +41,21 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const authError = requireAdmin(request)
-  if (authError) return authError
-
   try {
-    const body = await request.json()
-    const { status, trackingNumber, estimatedDelivery } = body
-
+    const { status } = await request.json()
+    
     if (!status) {
       return NextResponse.json(
         { error: 'Status is required' },
         { status: 400 }
       )
     }
-
-    await dbConnect()
-
-    const updateData: Record<string, any> = { status }
-    if (trackingNumber) updateData.trackingNumber = trackingNumber
-    if (estimatedDelivery) updateData.estimatedDelivery = estimatedDelivery
-
-    const order = await Order.findByIdAndUpdate(params.id, updateData, { new: true }).lean()
-
-    if (!order) {
-      return NextResponse.json({ error: 'Order not found' }, { status: 404 })
-    }
-
+    
+    await updateOrderStatus(params.id, status)
+    
     return NextResponse.json({
       success: true,
-      message: 'Order updated successfully',
-      order: {
-        _id: order._id.toString(),
-        status: order.status,
-        trackingNumber: order.trackingNumber,
-        estimatedDelivery: order.estimatedDelivery
-      }
+      message: 'Order status updated successfully'
     })
   } catch (error) {
     console.error('Order update error:', error)

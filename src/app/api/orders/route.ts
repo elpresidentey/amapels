@@ -1,16 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
-import dbConnect from '@/lib/mongodb'
-import Order from '@/models/Order'
-import { requireAdmin } from '@/lib/admin-guard'
-import { sendOrderConfirmation } from '@/lib/email'
-import { getSessionFromCookies } from '@/lib/customer-session'
+import { createOrder, getOrders } from '@/lib/supabase'
 
+// Validation schemas
 const validateEmail = (email: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   return emailRegex.test(email)
 }
 
 const validatePhone = (phone: string): boolean => {
+  // Nigerian phone number validation (flexible format)
   const phoneRegex = /^(\+234|234|0)?([789][01])\d{8}$/
   return phoneRegex.test(phone.replace(/[\s\-\(\)]/g, ''))
 }
@@ -18,22 +16,24 @@ const validatePhone = (phone: string): boolean => {
 const validateOrderData = (data: any) => {
   const errors: string[] = []
 
+  // Required fields validation
   const requiredFields = [
     'customerName',
-    'customerEmail',
+    'customerEmail', 
     'customerPhone',
     'items',
     'shippingAddress',
     'subtotal',
     'total'
   ]
-
+  
   for (const field of requiredFields) {
     if (!data[field]) {
       errors.push(`Missing required field: ${field}`)
     }
   }
 
+  // Type and format validation
   if (data.customerEmail && !validateEmail(data.customerEmail)) {
     errors.push('Invalid email format')
   }
@@ -46,6 +46,7 @@ const validateOrderData = (data: any) => {
     errors.push('Customer name must be at least 2 characters')
   }
 
+  // Items validation
   if (data.items) {
     if (!Array.isArray(data.items) || data.items.length === 0) {
       errors.push('Order must contain at least one item')
@@ -64,6 +65,7 @@ const validateOrderData = (data: any) => {
     }
   }
 
+  // Address validation
   if (data.shippingAddress) {
     const requiredAddressFields = ['street', 'city', 'state', 'country']
     for (const field of requiredAddressFields) {
@@ -73,6 +75,7 @@ const validateOrderData = (data: any) => {
     }
   }
 
+  // Amount validation
   if (typeof data.subtotal !== 'number' || data.subtotal < 0) {
     errors.push('Invalid subtotal amount')
   }
@@ -81,11 +84,16 @@ const validateOrderData = (data: any) => {
     errors.push('Invalid total amount')
   }
 
+  if (data.subtotal && data.total && data.total < data.subtotal) {
+    errors.push('Total amount cannot be less than subtotal')
+  }
+
   return errors
 }
 
 export async function POST(request: NextRequest) {
   try {
+    // Parse and validate request body
     let orderData
     try {
       orderData = await request.json()
@@ -95,11 +103,12 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       )
     }
-
+    
+    // Validate order data
     const validationErrors = validateOrderData(orderData)
     if (validationErrors.length > 0) {
       return NextResponse.json(
-        {
+        { 
           error: 'Validation failed',
           details: validationErrors
         },
@@ -107,17 +116,11 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    await dbConnect()
-
-    const session = getSessionFromCookies()
-    if (!session?.email) {
-      return NextResponse.json({ error: 'Authentication required' }, { status: 401 })
-    }
-
+    // Sanitize and prepare order data
     const sanitizedOrderData = {
-      customerName: orderData.customerName.trim(),
-      customerEmail: session.email,
-      customerPhone: orderData.customerPhone.trim(),
+      customer_name: orderData.customerName.trim(),
+      customer_email: orderData.customerEmail.trim().toLowerCase(),
+      customer_phone: orderData.customerPhone.trim(),
       items: orderData.items.map((item: any) => ({
         productId: String(item.productId),
         name: item.name.trim(),
@@ -125,65 +128,78 @@ export async function POST(request: NextRequest) {
         quantity: Math.floor(item.quantity),
         image: item.image || ''
       })),
-      shippingAddress: {
+      shipping_address: {
         street: orderData.shippingAddress.street.trim(),
         city: orderData.shippingAddress.city.trim(),
         state: orderData.shippingAddress.state.trim(),
         postalCode: orderData.shippingAddress.postalCode?.trim() || '',
         country: orderData.shippingAddress.country.trim()
       },
-      paymentReference: orderData.paymentReference?.trim() || null,
-      paymentStatus: orderData.paymentStatus || 'pending',
+      payment_reference: orderData.paymentReference?.trim() || null,
+      payment_status: orderData.paymentStatus || 'pending',
       subtotal: Math.round(orderData.subtotal * 100) / 100,
-      shippingCost: Math.round((orderData.shippingCost || 0) * 100) / 100,
+      shipping_cost: Math.round((orderData.shippingCost || 0) * 100) / 100,
       tax: Math.round((orderData.tax || 0) * 100) / 100,
       total: Math.round(orderData.total * 100) / 100,
       status: 'pending',
-      metadata: orderData.metadata || {}
+      tracking_number: null,
+      estimated_delivery: null,
+      metadata: orderData.metadata || null
     }
-
+    
+    // Create order using Supabase
     try {
-      const order = await Order.create(sanitizedOrderData)
-
-      sendOrderConfirmation({
-        customerName: order.customerName,
-        customerEmail: order.customerEmail,
-        orderNumber: order.orderNumber || '',
-        items: order.items,
-        total: order.total,
-        shippingAddress: order.shippingAddress
-      })
-
+      const order = await createOrder(sanitizedOrderData)
+      
+      // Return success response
       return NextResponse.json({
         message: 'Order created successfully',
         order: {
-          id: order._id.toString(),
-          orderNumber: order.orderNumber,
-          trackingNumber: order.trackingNumber,
-          customerName: order.customerName,
-          customerEmail: order.customerEmail,
+          id: order.id,
+          orderNumber: order.order_number,
+          customerName: order.customer_name,
+          customerEmail: order.customer_email,
           total: order.total,
           status: order.status,
-          paymentStatus: order.paymentStatus,
-          createdAt: order.createdAt
+          paymentStatus: order.payment_status,
+          createdAt: order.created_at
         }
       }, { status: 201 })
 
     } catch (error: any) {
       console.error('Order creation failed:', error)
-
-      if (error.code === 11000) {
+      console.error('Error details:', {
+        message: error.message,
+        code: error.code,
+        details: error.details,
+        hint: error.hint
+      })
+      
+      // Handle specific Supabase/Postgres errors
+      if (error.code === '23505') {
+        // Unique constraint violation (duplicate payment reference or order number)
         return NextResponse.json(
-          {
+          { 
             error: 'Order with this reference already exists',
             code: 'DUPLICATE_ORDER'
           },
           { status: 409 }
         )
       }
-
+      
+      // Handle connection errors
+      if (error.code === 'PGRST116') {
+        return NextResponse.json(
+          { 
+            error: 'Database connection error',
+            code: 'CONNECTION_ERROR'
+          },
+          { status: 503 }
+        )
+      }
+      
       return NextResponse.json(
-        {
+        { 
           error: 'Failed to create order',
           code: 'ORDER_SAVE_ERROR',
           details: error.message
@@ -191,15 +207,17 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       )
     }
-
+    
   } catch (error) {
     console.error('Order creation error:', error)
-
+    
+    const isDevelopment = process.env.NODE_ENV === 'development'
+    
     return NextResponse.json(
-      {
+      { 
         error: 'Internal server error',
         code: 'INTERNAL_ERROR',
-        ...(process.env.NODE_ENV === 'development' && { details: error instanceof Error ? error.message : 'Unknown error' })
+        ...(isDevelopment && { details: error instanceof Error ? error.message : 'Unknown error' })
       },
       { status: 500 }
     )
@@ -207,48 +225,38 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
-  const authError = requireAdmin(request)
-  if (authError) return authError
-
   try {
-    await dbConnect()
-
     const { searchParams } = new URL(request.url)
     const status = searchParams.get('status')
     const limit = Math.min(parseInt(searchParams.get('limit') || '50'), 100)
     const page = Math.max(parseInt(searchParams.get('page') || '1'), 1)
-    const skip = (page - 1) * limit
-
-    const filter: Record<string, any> = {}
-    if (status && status !== 'all') {
-      filter.status = status
-    }
-
-    const [orders, total] = await Promise.all([
-      Order.find(filter).sort({ createdAt: -1 }).skip(skip).limit(limit).lean(),
-      Order.countDocuments(filter)
-    ])
-
+    const offset = (page - 1) * limit
+    
+    const { orders, total } = await getOrders({
+      status: status || undefined,
+      limit,
+      offset
+    })
+    
+    // Transform snake_case to camelCase for frontend
     const transformedOrders = orders.map(order => ({
-      _id: order._id.toString(),
-      customerName: order.customerName,
-      customerEmail: order.customerEmail,
-      customerPhone: order.customerPhone,
+      _id: order.id,
+      customerName: order.customer_name,
+      customerEmail: order.customer_email,
+      customerPhone: order.customer_phone,
       items: order.items,
-      shippingAddress: order.shippingAddress,
-      paymentReference: order.paymentReference,
-      paymentStatus: order.paymentStatus,
+      shippingAddress: order.shipping_address,
+      paymentReference: order.payment_reference,
+      paymentStatus: order.payment_status,
       status: order.status,
       subtotal: order.subtotal,
-      shippingCost: order.shippingCost,
+      shippingCost: order.shipping_cost,
       tax: order.tax,
       total: order.total,
-      orderNumber: order.orderNumber,
-      trackingNumber: order.trackingNumber,
-      createdAt: order.createdAt,
-      updatedAt: order.updatedAt
+      createdAt: order.created_at,
+      updatedAt: order.updated_at
     }))
-
+    
     return NextResponse.json({
       orders: transformedOrders,
       pagination: {
@@ -258,7 +266,7 @@ export async function GET(request: NextRequest) {
         pages: Math.ceil(total / limit)
       }
     })
-
+    
   } catch (error) {
     console.error('Orders fetch error:', error)
     return NextResponse.json(

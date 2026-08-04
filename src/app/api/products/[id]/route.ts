@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getProduct, supabase } from '@/lib/supabase'
+import { getProduct, supabase, getProductImages } from '@/lib/supabase'
 import { getFallbackProductById } from '@/lib/fallbackProducts'
-import { requireAdmin } from '@/lib/admin-guard'
 
 export async function GET(
   request: NextRequest,
@@ -37,7 +36,7 @@ export async function GET(
           materials: product.description?.includes('gold') ? 'Gold-plated brass' : 'Premium materials',
           care: 'Store in dry place. Wipe with soft cloth.',
           options: ['Standard'],
-          images: product.image ? [product.image] : ['/images/sabrianna-Y_bxfTa_iUA-unsplash.jpg'],
+          images: getProductImages(product),
           featured: product.featured,
           createdAt: product.created_at,
           updatedAt: product.updated_at
@@ -69,9 +68,6 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const authError = requireAdmin(request)
-  if (authError) return authError
-
   try {
     if (!supabase) {
       return NextResponse.json({
@@ -85,6 +81,11 @@ export async function PUT(
     // Extract price number from string
     const priceString = body.price.replace(/[₦,]/g, '').trim()
     const priceNumber = parseFloat(priceString)
+
+    // Collect all image URLs (support multiple angles)
+    const imageUrls = Array.isArray(body.images)
+      ? body.images.filter((img: string) => img && img.trim())
+      : []
     
     const { data: product, error } = await supabase
       .from('products')
@@ -92,7 +93,8 @@ export async function PUT(
         name: body.name,
         description: body.description,
         price: priceNumber,
-        image: body.images && body.images.length > 0 ? body.images[0] : null,
+        image: imageUrls[0] || null,
+        images: imageUrls,
         category: body.category,
         stock: body.stock || 100,
         featured: body.featured || false
@@ -131,9 +133,6 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const authError = requireAdmin(request)
-  if (authError) return authError
-
   try {
     if (!supabase) {
       return NextResponse.json({

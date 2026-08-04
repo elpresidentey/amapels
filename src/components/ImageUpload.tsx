@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Upload, X, Image as ImageIcon } from 'lucide-react'
+import { Upload, X, Image as ImageIcon, ChevronLeft, ChevronRight } from 'lucide-react'
 
 interface ImageUploadProps {
   images: string[]
@@ -12,6 +12,19 @@ interface ImageUploadProps {
 export default function ImageUpload({ images, onChange, maxImages = 5 }: ImageUploadProps) {
   const [uploading, setUploading] = useState(false)
   const [uploadError, setUploadError] = useState<string | null>(null)
+  const [previewIndex, setPreviewIndex] = useState<number | null>(null)
+
+  const handleClosePreview = () => setPreviewIndex(null)
+
+  const handlePrevImage = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setPreviewIndex((prev) => (prev === null ? null : (prev - 1 + images.length) % images.length))
+  }
+
+  const handleNextImage = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setPreviewIndex((prev) => (prev === null ? null : (prev + 1) % images.length))
+  }
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || [])
@@ -94,15 +107,23 @@ export default function ImageUpload({ images, onChange, maxImages = 5 }: ImageUp
             key={index}
             className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-xl overflow-hidden border-2 border-gold/30 group"
           >
-            <img
-              src={image}
-              alt={`Product ${index + 1}`}
-              className="w-full h-full object-cover"
-            />
+            <button
+              type="button"
+              onClick={() => setPreviewIndex(index)}
+              className="block w-full h-full"
+              aria-label={`View image ${index + 1}`}
+            >
+              <img
+                src={image}
+                alt={`Product ${index + 1}`}
+                className="w-full h-full object-cover"
+              />
+            </button>
             <button
               type="button"
               onClick={() => handleRemoveImage(index)}
               className="absolute top-1 right-1 p-1.5 bg-red-600 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"
+              aria-label={`Remove image ${index + 1}`}
             >
               <X size={14} />
             </button>
@@ -152,6 +173,57 @@ export default function ImageUpload({ images, onChange, maxImages = 5 }: ImageUp
         <ImageIcon size={16} />
         Or add image URL manually
       </button>
+
+      {previewIndex !== null && images[previewIndex] && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 sm:p-8"
+          onClick={handleClosePreview}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Image preview"
+        >
+          <button
+            type="button"
+            onClick={handleClosePreview}
+            className="absolute top-4 right-4 p-2 text-white/80 hover:text-white transition-colors"
+            aria-label="Close preview"
+          >
+            <X size={24} />
+          </button>
+
+          {images.length > 1 && (
+            <>
+              <button
+                type="button"
+                onClick={handlePrevImage}
+                className="absolute left-3 sm:left-6 p-2 text-white/80 hover:text-white transition-colors"
+                aria-label="Previous image"
+              >
+                <ChevronLeft size={32} />
+              </button>
+              <button
+                type="button"
+                onClick={handleNextImage}
+                className="absolute right-3 sm:right-6 p-2 text-white/80 hover:text-white transition-colors"
+                aria-label="Next image"
+              >
+                <ChevronRight size={32} />
+              </button>
+            </>
+          )}
+
+          <img
+            src={images[previewIndex]}
+            alt={`Product image ${previewIndex + 1}`}
+            className="max-h-full max-w-full object-contain rounded-lg"
+            onClick={(e) => e.stopPropagation()}
+          />
+
+          <span className="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs text-white/60">
+            {previewIndex + 1} / {images.length}
+          </span>
+        </div>
+      )}
     </div>
   )
 }

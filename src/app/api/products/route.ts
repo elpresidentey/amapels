@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getProducts, supabase } from '@/lib/supabase'
+import { getProducts, supabase, getProductImages } from '@/lib/supabase'
 import { getFallbackProducts } from '@/lib/fallbackProducts'
-import { requireAdmin } from '@/lib/admin-guard'
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
@@ -25,7 +24,7 @@ export async function GET(request: NextRequest) {
               price: `₦${p.price}`,
               category: p.category,
               description: p.description,
-              images: p.image ? [p.image] : [],
+              images: getProductImages(p),
               featured: p.featured,
               story: 'Handcrafted with care',
               material: 'Premium materials',
@@ -66,9 +65,6 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const authError = requireAdmin(request)
-  if (authError) return authError
-
   try {
     if (!supabase) {
       return NextResponse.json({
@@ -82,6 +78,11 @@ export async function POST(request: NextRequest) {
     // Extract price number from string (remove ₦ and commas)
     const priceString = body.price.replace(/[₦,]/g, '').trim()
     const priceNumber = parseFloat(priceString)
+
+    // Collect all image URLs (support multiple angles)
+    const imageUrls = Array.isArray(body.images)
+      ? body.images.filter((img: string) => img && img.trim())
+      : []
     
     const { data: product, error } = await supabase
       .from('products')
@@ -89,7 +90,8 @@ export async function POST(request: NextRequest) {
         name: body.name,
         description: body.description,
         price: priceNumber,
-        image: body.images && body.images.length > 0 ? body.images[0] : null,
+        image: imageUrls[0] || null,
+        images: imageUrls,
         category: body.category,
         stock: body.stock || 100,
         featured: body.featured || false

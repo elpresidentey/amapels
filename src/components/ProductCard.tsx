@@ -50,7 +50,6 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
 
   const productHref = `/shop/${product._id}`
   const primaryImage = product.images?.[0] || FALLBACK_IMAGE
-  const secondaryImage = product.images?.[1]
   const detailLine = product.material || product.story
 
   const handleToggleWishlist = (e: React.MouseEvent) => {
@@ -108,18 +107,10 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
               alt={product.name}
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 50vw, 33vw"
-              className="object-cover transition-transform duration-1000 group-hover:scale-105"
+              className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
               loading={index < 4 ? 'eager' : 'lazy'}
+              quality={80}
             />
-            {secondaryImage && (
-              <Image
-                src={secondaryImage}
-                alt={`${product.name} alternate view`}
-                fill
-                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 50vw, 33vw"
-                className="absolute inset-0 object-cover opacity-0 transition-opacity duration-700 group-hover:opacity-100"
-              />
-            )}
           </motion.div>
           <motion.div
             className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"

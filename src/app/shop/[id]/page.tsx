@@ -104,6 +104,7 @@ export default function ProductPage() {
                 alt={product.name}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
+                quality={85}
                 className="object-cover"
                 priority
               />
@@ -125,6 +126,7 @@ export default function ProductPage() {
                       alt={`${product.name} ${index + 1}`}
                       fill
                       sizes="(max-width: 768px) 25vw, 12vw"
+                      quality={75}
                       className="object-cover"
                     />
                   </button>

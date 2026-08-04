@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Cabin } from 'next/font/google'
 import { useCartStore } from '@/store/newCartStore'
 import CustomerAuth from '@/components/CustomerAuth'
+import { isCustomerAuthenticated } from '@/lib/customerAuth'
 
 const cabin = Cabin({
   subsets: ['latin'],
@@ -18,21 +19,28 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [mounted, setMounted] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const pathname = usePathname()
 
   const { getTotalItems, isLoaded, items, toggleCart } = useCartStore()
   const [cartItemCount, setCartItemCount] = useState(0)
 
+  const checkAuth = useCallback(async () => {
+    const authed = await isCustomerAuthenticated()
+    setIsAuthenticated(authed)
+  }, [])
+
   const navItems = [
     { name: 'Home', href: '/' },
     { name: 'Collections', href: '/collections' },
-    { name: 'Shop All', href: '/shop' },
+    { name: 'Shop', href: '/shop' },
     { name: 'Journal', href: '/journal' },
     { name: 'Our Story', href: '/story' },
   ]
 
   useEffect(() => {
     setMounted(true)
+    checkAuth()
 
     const handleScroll = () => {
       setScrolled(window.scrollY > 16)
@@ -41,13 +49,13 @@ export default function Navbar() {
     handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [checkAuth])
 
   useEffect(() => {
     if (mounted && isLoaded) {
       setCartItemCount(getTotalItems())
     }
-  }, [mounted, isLoaded, getTotalItems])
+  }, [mounted, isLoaded, getTotalItems, items])
 
   // Close mobile menu on route change
   useEffect(() => {
@@ -106,7 +114,7 @@ export default function Navbar() {
           {/* Right Actions */}
           <div className="flex items-center gap-5 md:gap-6">
             <div className="hidden lg:block">
-              <CustomerAuth />
+              <CustomerAuth onAuthChange={checkAuth} />
             </div>
 
             <button
@@ -142,7 +150,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden border-t border-white/[0.06] bg-black-dark/98 backdrop-blur-2xl lg:hidden"
+            className="border-t border-white/[0.06] bg-black-dark/98 backdrop-blur-2xl lg:hidden overflow-x-hidden"
           >
             <div className="mx-auto max-w-7xl px-4 sm:px-6">
               <div className="space-y-1 py-8">
@@ -153,22 +161,32 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.25, delay: index * 0.04 }}
                   >
-<Link
+                    <Link
                       href={item.href}
                       onClick={closeMenu}
                       className={`block border-l-2 py-4 pl-5 text-base font-light tracking-[0.12em] uppercase transition-colors duration-200 ${
-                         isActive(item.href)
+                        isActive(item.href)
                           ? 'border-gold text-white'
                           : 'border-transparent text-white/75 hover:border-gold/40 hover:text-white'
-                       }`}
-                     >
-                       {item.name}
-                     </Link>
+                      }`}
+                    >
+                      {item.name}
+                    </Link>
                   </motion.div>
                 ))}
 
+                {isAuthenticated && (
+                  <Link
+                    href="/account"
+                    onClick={closeMenu}
+                    className="block border-l-2 border-transparent py-4 pl-5 text-base font-light tracking-[0.12em] uppercase text-white/75 transition-colors duration-200 hover:border-gold/40 hover:text-white"
+                  >
+                    Account
+                  </Link>
+                )}
+
                 <div className="mt-4 border-t border-white/[0.06] px-5 pt-6">
-                  <CustomerAuth />
+                  <CustomerAuth onAuthChange={checkAuth} />
                 </div>
               </div>
             </div>

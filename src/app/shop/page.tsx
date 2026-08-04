@@ -74,20 +74,14 @@ function ShopContent() {
             <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
               <div>
                 <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
-                  {selectedCategory === 'All' ? 'The Collection' : selectedCategory}
+                  The Collection
                 </p>
                 <h1 className="font-serif text-4xl font-light tracking-tight text-black-dark sm:text-5xl md:text-6xl">
-                  {selectedCategory === 'All'
-                    ? 'Shop'
-                    : selectedCategory}
+                  Shop
                 </h1>
               </div>
               <p className="max-w-sm text-sm leading-relaxed text-black/55 md:text-right">
-                {selectedCategory === 'All' && 'Explore artisan craftsmanship and timeless pieces — for everyday radiance or gifting with intention.'}
-                {selectedCategory === 'Earrings' && 'Earrings that frame your face, catch the light, and whisper confidence. From sculptural drops to luminous studs — find the pair that speaks your language.'}
-                {selectedCategory === 'Necklaces' && 'Necklaces that rest close to the heart. Each chain, each pendant, each strand designed to complete your story — whether layered or worn alone.'}
-                {selectedCategory === 'Bracelets' && 'Bracelets that dance with your every movement. Handcrafted adornments for wrists that gesture, write, wave, and hold the ones you love.'}
-                {selectedCategory === 'Jewellery Sets' && 'Curated with intention. Our jewellery sets are more than matching pieces — they are a complete statement, a mood, a moment already made.'}
+                Explore artisan craftsmanship and timeless pieces — for everyday radiance or gifting with intention.
               </p>
             </div>
           </motion.div>
@@ -102,17 +96,17 @@ function ShopContent() {
             {categories.map((category) => {
               const active = selectedCategory === category
               return (
-<button
+                <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  className={`btn-premium rounded-full px-4 py-2.5 text-xs font-medium uppercase tracking-[0.2em] transition-all duration-300 sm:px-5 sm:py-2.5 sm:text-[11px] ${
-                     active
+                  className={`btn-premium rounded-full px-4 py-2 text-[10px] font-medium uppercase tracking-[0.2em] transition-all duration-300 sm:px-5 sm:py-2.5 sm:text-[11px] ${
+                    active
                       ? 'bg-black-dark text-white shadow-premium'
                       : 'border border-black/10 text-black/55 hover:border-gold/50 hover:text-black-dark'
-                   }`}
-                 >
-                   {category}
-                 </button>
+                  }`}
+                >
+                  {category}
+                </button>
               )
             })}
           </motion.div>

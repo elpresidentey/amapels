@@ -27,11 +27,23 @@ export interface Product {
   description: string | null
   price: number
   image: string | null
+  images: string[] | null
   category: string | null
   stock: number
   featured: boolean
   created_at: string
   updated_at: string
+}
+
+// Get all product images, falling back to the single image column
+export function getProductImages(product: Product): string[] {
+  if (product.images && Array.isArray(product.images) && product.images.length > 0) {
+    return product.images
+  }
+  if (product.image) {
+    return [product.image]
+  }
+  return []
 }
 
 export interface Order {

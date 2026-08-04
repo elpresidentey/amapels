@@ -1,93 +1,149 @@
 'use client'
 
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { TrendingUp, DollarSign, ShoppingCart, Calendar, ArrowUp, ArrowDown } from 'lucide-react'
+import { DollarSign, ShoppingCart, TrendingUp, Wallet, Package, Search } from 'lucide-react'
 import { motion } from 'framer-motion'
-import { getAdminAuthHeaders } from '@/lib/admin-api'
 
-interface Order {
+interface SaleItem {
+  name: string
+  price: number
+  quantity: number
+  image?: string
+}
+
+interface SaleOrder {
   _id: string
   orderNumber?: string
   customerName: string
   customerEmail: string
-  items: Array<{ name: string; price: number; quantity: number }>
+  items: SaleItem[]
   total: number
-  subtotal: number
-  shippingCost: number
-  tax: number
   status: string
   paymentStatus: string
   createdAt: string
 }
 
-type Period = '7d' | '30d' | '90d' | 'all'
+interface ProductStat {
+  name: string
+  quantity: number
+  revenue: number
+  image?: string
+}
+
+const ORDER_STATUSES = ['all', 'pending', 'paid', 'shipped', 'delivered', 'cancelled']
+
+const toNumber = (value: any): number => {
+  const n = typeof value === 'string' ? parseFloat(value.replace(/[₦,]/g, '')) : Number(value)
+  return isNaN(n) ? 0 : n
+}
+
+const formatNaira = (value: number) => `₦${Math.round(value).toLocaleString()}`
 
 export default function SalesPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
-  const [orders, setOrders] = useState<Order[]>([])
-  const [period, setPeriod] = useState<Period>('30d')
+  const [orders, setOrders] = useState<SaleOrder[]>([])
+  const [filter, setFilter] = useState('all')
+  const [search, setSearch] = useState('')
   const [error, setError] = useState('')
 
-  useEffect(() => {
-    checkAuth()
-    fetchOrders()
-  }, [])
-
-  const checkAuth = () => {
+  const checkAuth = useCallback(() => {
     const session = localStorage.getItem('admin_session')
     if (!session) {
       router.push('/admin/login')
     }
-  }
+  }, [router])
 
-  const fetchOrders = async () => {
+  const fetchOrders = useCallback(async () => {
     try {
-      const res = await fetch('/api/orders', { headers: getAdminAuthHeaders() })
+      setLoading(true)
+      setError('')
+      const res = await fetch('/api/orders?limit=100')
+      if (!res.ok) throw new Error('Failed to load orders')
       const data = await res.json()
-      if (data.orders) {
-        setOrders(data.orders)
-      } else {
-        throw new Error(data.error || 'Failed to load orders')
-      }
-    } catch (err) {
-      setError('Failed to load sales data')
+      setOrders(data.orders || [])
+    } catch {
+      setError('Could not load sales data')
     } finally {
       setLoading(false)
     }
+  }, [])
+
+  useEffect(() => {
+    checkAuth()
+    fetchOrders()
+  }, [checkAuth, fetchOrders])
+
+  const filteredOrders = orders.filter((order) => {
+    const matchesFilter = filter === 'all' || order.paymentStatus === filter || order.status === filter
+    if (!matchesFilter) return false
+    if (!search.trim()) return true
+    const q = search.toLowerCase()
+    return (
+      order.customerName?.toLowerCase().includes(q) ||
+      order.customerEmail?.toLowerCase().includes(q) ||
+      (order.items || []).some((item) => item.name.toLowerCase().includes(q))
+    )
+  })
+
+  const paidOrders = orders.filter((o) => o.paymentStatus === 'paid')
+  const totalRevenue = paidOrders.reduce((sum, o) => sum + toNumber(o.total), 0)
+  const totalOrders = orders.length
+  const avgOrderValue = totalOrders > 0 ? totalRevenue / totalOrders : 0
+
+  const now = new Date()
+  const thisMonthOrders = orders.filter((o) => {
+    const d = new Date(o.createdAt)
+    return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear()
+  })
+  const thisMonthRevenue = thisMonthOrders
+    .filter((o) => o.paymentStatus === 'paid')
+    .reduce((sum, o) => sum + toNumber(o.total), 0)
+
+  const productMap = new Map<string, ProductStat>()
+  orders.forEach((order) => {
+    ;(order.items || []).forEach((item) => {
+      const key = item.name
+      const price = toNumber(item.price)
+      const qty = Math.max(toNumber(item.quantity), 1)
+      const prev = productMap.get(key)
+      if (prev) {
+        prev.quantity += qty
+        prev.revenue += price * qty
+      } else {
+        productMap.set(key, {
+          name: key,
+          quantity: qty,
+          revenue: price * qty,
+          image: item.image,
+        })
+      }
+    })
+  })
+  const productStats = Array.from(productMap.values()).sort((a, b) => b.revenue - a.revenue)
+
+  const statusBadge = (status: string) => {
+    const map: Record<string, string> = {
+      paid: 'bg-green-50 text-green-700 border-green-200',
+      pending: 'bg-yellow-50 text-yellow-700 border-yellow-200',
+      shipped: 'bg-blue-50 text-blue-700 border-blue-200',
+      delivered: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+      cancelled: 'bg-red-50 text-red-700 border-red-200',
+    }
+    return (
+      <span className={`inline-block border px-2.5 py-1 rounded-full text-xs font-medium ${map[status] || 'bg-gray-50 text-black/60 border-black/10'}`}>
+        {status.charAt(0).toUpperCase() + status.slice(1)}
+      </span>
+    )
   }
-
-  const filteredOrders = useMemo(() => {
-    if (period === 'all') return orders
-    const now = Date.now()
-    const cutoff = {
-      '7d': now - 7 * 24 * 60 * 60 * 1000,
-      '30d': now - 30 * 24 * 60 * 60 * 1000,
-      '90d': now - 90 * 24 * 60 * 60 * 1000,
-    }[period]
-    return orders.filter(o => new Date(o.createdAt).getTime() >= cutoff)
-  }, [orders, period])
-
-  const paidOrders = useMemo(() => filteredOrders.filter(o => o.paymentStatus === 'paid'), [filteredOrders])
-
-  const stats = useMemo(() => {
-    const revenue = paidOrders.reduce((s, o) => s + o.total, 0)
-    const previousPeriodRevenue = revenue * 0.75 // Simple comparison
-    const growth = previousPeriodRevenue > 0 ? ((revenue - previousPeriodRevenue) / previousPeriodRevenue) * 100 : 0
-    const avgOrderValue = paidOrders.length > 0 ? revenue / paidOrders.length : 0
-    return { revenue, growth, avgOrderValue, orderCount: paidOrders.length }
-  }, [paidOrders])
-
-  const formatCurrency = (amount: number) => `₦${amount.toLocaleString()}`
-  const formatDate = (d: string) => new Date(d).toLocaleDateString('en-NG', { year: 'numeric', month: 'short', day: 'numeric' })
 
   if (loading) {
     return (
       <div className="min-h-screen bg-white pt-28 pb-16 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-black/70">Loading sales...</p>
+          <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-black/70">Loading sales reports...</p>
         </div>
       </div>
     )
@@ -96,131 +152,234 @@ export default function SalesPage() {
   return (
     <div className="min-h-screen bg-white">
       <div className="section-shell py-8 sm:py-12">
-        <div className="mb-8 sm:mb-12">
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-black-dark mb-3">Sales Reports</h1>
-          <p className="text-black/70 text-sm sm:text-base">Revenue analytics and order trends.</p>
+        {/* Header */}
+        <div className="mb-8 sm:mb-10">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-black-dark mb-3">
+            Sales Reports
+          </h1>
+          <p className="text-black/70 text-sm sm:text-base">
+            Revenue, top pieces, and transaction history at a glance.
+          </p>
         </div>
 
         {error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">{error}</div>
+          <div className="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            {error}
+            <button onClick={fetchOrders} className="ml-3 underline underline-offset-2">Retry</button>
+          </div>
         )}
 
-        {/* Period Filter */}
-        <div className="flex gap-2 mb-8">
-          {(['7d', '30d', '90d', 'all'] as Period[]).map((p) => (
-            <button
-              key={p}
-              onClick={() => setPeriod(p)}
-              className={`px-4 py-2 text-xs font-medium uppercase tracking-wider rounded-lg transition-colors ${
-                period === p ? 'bg-black text-white' : 'bg-gray-100 text-black/70 hover:bg-gray-200'
-              }`}
-            >
-              {p === 'all' ? 'All Time' : p}
-            </button>
-          ))}
-        </div>
-
-        {/* Stats Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
-            className="border border-gold/30 rounded-xl p-5 sm:p-6"
+        {/* Stats */}
+        <div className="grid grid-cols-1 gap-4 mb-8 sm:grid-cols-2 sm:gap-5 md:gap-6 lg:grid-cols-4 lg:gap-6 xl:gap-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="bg-white rounded-xl sm:rounded-2xl border border-gold/30 p-5 sm:p-6"
           >
-            <div className="flex items-center gap-3 mb-3">
-              <div className="p-2.5 bg-green-50 rounded-lg"><DollarSign className="text-green-600" size={20} /></div>
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
+              <div className="p-2.5 sm:p-3 bg-green-50 rounded-lg sm:rounded-xl">
+                <DollarSign className="text-green-600" size={20} />
+              </div>
             </div>
-            <p className="text-2xl sm:text-3xl font-bold text-black-dark mb-1">{formatCurrency(stats.revenue)}</p>
-            <p className="text-black/70 text-xs sm:text-sm">Revenue (paid orders)</p>
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-black-dark mb-1 break-words">
+              {formatNaira(totalRevenue)}
+            </h3>
+            <p className="text-black/70 text-xs sm:text-sm">Total Revenue (Paid)</p>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}
-            className="border border-gold/30 rounded-xl p-5 sm:p-6"
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="bg-white rounded-xl sm:rounded-2xl border border-gold/30 p-5 sm:p-6"
           >
-            <div className="flex items-center gap-3 mb-3">
-              <div className="p-2.5 bg-blue-50 rounded-lg"><ShoppingCart className="text-blue-600" size={20} /></div>
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
+              <div className="p-2.5 sm:p-3 bg-blue-50 rounded-lg sm:rounded-xl">
+                <ShoppingCart className="text-blue-600" size={20} />
+              </div>
             </div>
-            <p className="text-2xl sm:text-3xl font-bold text-black-dark mb-1">{stats.orderCount}</p>
-            <p className="text-black/70 text-xs sm:text-sm">Paid Orders</p>
+            <h3 className="text-2xl sm:text-3xl font-bold text-black-dark mb-1">
+              {totalOrders}
+            </h3>
+            <p className="text-black/70 text-xs sm:text-sm">Total Orders</p>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}
-            className="border border-gold/30 rounded-xl p-5 sm:p-6"
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="bg-white rounded-xl sm:rounded-2xl border border-gold/30 p-5 sm:p-6"
           >
-            <div className="flex items-center gap-3 mb-3">
-              <div className="p-2.5 bg-purple-50 rounded-lg"><TrendingUp className="text-purple-600" size={20} /></div>
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
+              <div className="p-2.5 sm:p-3 bg-accent-orange/10 rounded-lg sm:rounded-xl">
+                <TrendingUp className="text-accent-orange" size={20} />
+              </div>
             </div>
-            <p className="text-2xl sm:text-3xl font-bold text-black-dark mb-1">{formatCurrency(stats.avgOrderValue)}</p>
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-black-dark mb-1 break-words">
+              {formatNaira(avgOrderValue)}
+            </h3>
             <p className="text-black/70 text-xs sm:text-sm">Avg Order Value</p>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }}
-            className="border border-gold/30 rounded-xl p-5 sm:p-6"
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="bg-white rounded-xl sm:rounded-2xl border border-gold/30 p-5 sm:p-6"
           >
-            <div className="flex items-center gap-3 mb-3">
-              <div className={`p-2.5 rounded-lg ${stats.growth >= 0 ? 'bg-green-50' : 'bg-red-50'}`}>
-                {stats.growth >= 0 ? <ArrowUp className="text-green-600" size={20} /> : <ArrowDown className="text-red-600" size={20} />}
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
+              <div className="p-2.5 sm:p-3 bg-accent-emerald/10 rounded-lg sm:rounded-xl">
+                <Wallet className="text-accent-emerald" size={20} />
               </div>
             </div>
-            <p className="text-2xl sm:text-3xl font-bold text-black-dark mb-1">{stats.growth >= 0 ? '+' : ''}{stats.growth.toFixed(1)}%</p>
-            <p className="text-black/70 text-xs sm:text-sm">Revenue Growth</p>
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-black-dark mb-1 break-words">
+              {formatNaira(thisMonthRevenue)}
+            </h3>
+            <p className="text-black/70 text-xs sm:text-sm">This Month ({now.toLocaleDateString('en-US', { month: 'long' })})</p>
           </motion.div>
         </div>
 
-        {/* Orders Table */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }}
-          className="border border-gold/30 rounded-2xl overflow-hidden"
+        {/* Sales by Product */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.35 }}
+          className="bg-white rounded-2xl border border-gold/30 overflow-hidden mb-8"
         >
           <div className="p-6 border-b border-gold/20">
-            <h2 className="font-serif text-xl sm:text-2xl text-black-dark">
-              {period === 'all' ? 'All Orders' : `Orders — Last ${period}`}
-              <span className="text-sm font-sans text-black/50 ml-3">{filteredOrders.length} total</span>
-            </h2>
+            <h2 className="font-serif text-xl sm:text-2xl text-black-dark">Sales by Product</h2>
+            <p className="text-black/60 text-xs sm:text-sm mt-1">Best-selling pieces and their revenue</p>
           </div>
 
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-gray-100/10">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-black-dark sm:px-6">Order</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-black-dark sm:px-6">Customer</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-black-dark hidden sm:table-cell sm:px-6">Items</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-black-dark sm:px-6">Amount</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-black-dark sm:px-6">Status</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-black-dark hidden md:table-cell sm:px-6">Date</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-black-dark">Product</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-black-dark">Units Sold</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-black-dark">Revenue</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-black-dark hidden md:table-cell">Share</th>
                 </tr>
               </thead>
               <tbody>
-                {filteredOrders.map((order, i) => (
-                  <tr key={order._id} className="border-b border-gold/10 hover:bg-gray-100/5 transition-colors">
-                    <td className="px-4 py-4 sm:px-6">
-                      <span className="font-mono text-xs text-black-dark">#{order.orderNumber || order._id.slice(-8)}</span>
+                {productStats.map((stat, index) => {
+                  const share = totalRevenue > 0 ? (stat.revenue / totalRevenue) * 100 : 0
+                  return (
+                    <tr key={stat.name} className="border-b border-gold/10 hover:bg-gray-100/5 transition-colors">
+                      <td className="px-4 py-4">
+                        <div className="flex items-center gap-3">
+                          {stat.image && (
+                            <div className="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 bg-gray-50">
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img src={stat.image} alt={stat.name} className="w-full h-full object-cover" />
+                            </div>
+                          )}
+                          <span className="text-xs sm:text-sm text-black-dark font-medium">{stat.name}</span>
+                        </div>
+                      </td>
+                      <td className="px-4 py-4 text-xs sm:text-sm text-black/80">{stat.quantity}</td>
+                      <td className="px-4 py-4 text-xs sm:text-sm text-black-dark font-medium">{formatNaira(stat.revenue)}</td>
+                      <td className="px-4 py-4 hidden md:table-cell">
+                        <div className="flex items-center gap-2">
+                          <div className="w-24 h-1.5 rounded-full bg-gold/15 overflow-hidden">
+                            <div className="h-full rounded-full bg-gold" style={{ width: `${Math.min(share, 100)}%` }} />
+                          </div>
+                          <span className="text-xs text-black/50">{share.toFixed(1)}%</span>
+                        </div>
+                      </td>
+                    </tr>
+                  )
+                })}
+                {productStats.length === 0 && (
+                  <tr>
+                    <td colSpan={4} className="px-4 py-12 text-center text-black/70 text-sm">
+                      No sales yet. Revenue will appear here once orders come in.
                     </td>
-                    <td className="px-4 py-4 sm:px-6">
-                      <span className="text-sm text-black/80">{order.customerName || order.customerEmail}</span>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </motion.div>
+
+        {/* Transactions */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.45 }}
+          className="bg-white rounded-2xl border border-gold/30 overflow-hidden"
+        >
+          <div className="p-6 border-b border-gold/20 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h2 className="font-serif text-xl sm:text-2xl text-black-dark">Transactions</h2>
+              <p className="text-black/60 text-xs sm:text-sm mt-1">All customer orders</p>
+            </div>
+
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <div className="relative">
+                <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-black/40" />
+                <input
+                  type="text"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Search customer or product..."
+                  className="w-full sm:w-56 pl-9 pr-3 py-2 border border-gold rounded-lg text-sm focus:ring-2 focus:ring-brown/20 focus:border-black outline-none"
+                />
+              </div>
+              <select
+                value={filter}
+                onChange={(e) => setFilter(e.target.value)}
+                className="px-3 py-2 border border-gold rounded-lg focus:ring-2 focus:ring-brown/20 focus:border-black outline-none text-sm"
+              >
+                {ORDER_STATUSES.map((status) => (
+                  <option key={status} value={status}>
+                    {status === 'all' ? 'All Statuses' : status.charAt(0).toUpperCase() + status.slice(1)}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-gray-100/10">
+                <tr>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-black-dark">Customer</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-black-dark hidden sm:table-cell">Items</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-black-dark">Total</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-black-dark">Payment</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-black-dark">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredOrders.map((order, index) => (
+                  <tr key={order._id || index} className="border-b border-gold/10 hover:bg-gray-100/5 transition-colors">
+                    <td className="px-4 py-4">
+                      <p className="text-xs sm:text-sm text-black-dark font-medium">{order.customerName || 'Guest'}</p>
+                      <p className="text-xs text-black/50 hidden md:block">{order.customerEmail}</p>
                     </td>
-                    <td className="px-4 py-4 hidden sm:table-cell sm:px-6">
-                      <span className="text-sm text-black/70">{order.items?.length || 0} items</span>
+                    <td className="px-4 py-4 text-xs sm:text-sm text-black/80 hidden sm:table-cell">
+                      {order.items?.map((item) => item.name).join(', ') || '—'}
                     </td>
-                    <td className="px-4 py-4 sm:px-6">
-                      <span className="text-sm font-medium text-black-dark">{formatCurrency(order.total)}</span>
+                    <td className="px-4 py-4 text-xs sm:text-sm text-black-dark font-medium">
+                      {formatNaira(toNumber(order.total))}
                     </td>
-                    <td className="px-4 py-4 sm:px-6">
-                      <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${
-                        order.paymentStatus === 'paid' ? 'bg-green-50 text-green-700' :
-                        order.paymentStatus === 'pending' ? 'bg-yellow-50 text-yellow-700' :
-                        'bg-red-50 text-red-700'
-                      }`}>
-                        {order.paymentStatus}
-                      </span>
-                    </td>
-                    <td className="px-4 py-4 hidden md:table-cell sm:px-6">
-                      <span className="text-sm text-black/50">{formatDate(order.createdAt)}</span>
+                    <td className="px-4 py-4">{statusBadge(order.paymentStatus || order.status)}</td>
+                    <td className="px-4 py-4 text-xs sm:text-sm text-black/60 whitespace-nowrap">
+                      {new Date(order.createdAt).toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric',
+                      })}
                     </td>
                   </tr>
                 ))}
                 {filteredOrders.length === 0 && (
                   <tr>
-                    <td colSpan={6} className="px-4 py-12 text-center text-black/70 text-sm">
-                      No orders found for this period.
+                    <td colSpan={5} className="px-4 py-12 text-center text-black/70 text-sm">
+                      <Package size={24} className="mx-auto mb-2 text-black/20" />
+                      No transactions match your filters.
                     </td>
                   </tr>
                 )}
