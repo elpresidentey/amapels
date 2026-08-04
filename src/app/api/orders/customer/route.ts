@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server'
-import dbConnect from '@/lib/mongodb'
-import Order from '@/models/Order'
 import { getSessionFromCookies } from '@/lib/customer-session'
+import { supabase } from '@/lib/supabase'
 
 export const dynamic = 'force-dynamic'
 
@@ -12,30 +11,32 @@ export async function GET() {
       return NextResponse.json({ error: 'Authentication required' }, { status: 401 })
     }
 
-    await dbConnect()
-
-    const orders = await Order.find({ customerEmail: session.email })
-      .sort({ createdAt: -1 })
+    const { data: orders, error } = await supabase
+      .from('orders')
+      .select('*')
+      .eq('customer_email', session.email)
+      .order('created_at', { ascending: false })
       .limit(50)
-      .lean()
 
-    const transformed = orders.map((order) => ({
-      id: order._id.toString(),
-      orderNumber: order.orderNumber,
-      customerName: order.customerName,
-      customerEmail: order.customerEmail,
+    if (error) throw error
+
+    const transformed = (orders || []).map((order: Record<string, any>) => ({
+      id: order.id,
+      orderNumber: order.order_number,
+      customerName: order.customer_name,
+      customerEmail: order.customer_email,
       items: order.items,
       total: order.total,
       subtotal: order.subtotal,
-      shippingCost: order.shippingCost,
+      shippingCost: order.shipping_cost,
       tax: order.tax,
       status: order.status,
-      paymentStatus: order.paymentStatus,
-      paymentReference: order.paymentReference,
-      shippingAddress: order.shippingAddress,
-      trackingNumber: order.trackingNumber,
-      createdAt: order.createdAt,
-      updatedAt: order.updatedAt,
+      paymentStatus: order.payment_status,
+      paymentReference: order.payment_reference,
+      shippingAddress: order.shipping_address,
+      trackingNumber: order.tracking_number,
+      createdAt: order.created_at,
+      updatedAt: order.updated_at,
     }))
 
     return NextResponse.json({ orders: transformed })

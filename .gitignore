@@ -47,5 +47,9 @@ next-env.d.ts
 deploy.bat
 deploy.ps1
 
+# Tooling
+.agents/
+skills-lock.json
+
 # Database
 *.sql

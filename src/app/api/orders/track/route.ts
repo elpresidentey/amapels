@@ -1,11 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
-import dbConnect from '@/lib/mongodb'
-import Order from '@/models/Order'
+import { supabase } from '@/lib/supabase'
 
 export async function GET(request: NextRequest) {
   try {
-    await dbConnect()
-
     const searchParams = request.nextUrl.searchParams
     const orderNumber = searchParams.get('orderNumber')
     const trackingNumber = searchParams.get('trackingNumber')
@@ -19,12 +16,16 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    let order
+    let query = supabase.from('orders').select('*')
     if (input.startsWith('TRK-')) {
-      order = await Order.findOne({ trackingNumber: input }).lean()
+      query = query.eq('tracking_number', input)
     } else {
-      order = await Order.findOne({ orderNumber: input }).lean()
+      query = query.eq('order_number', input)
     }
+
+    const { data: order, error } = await query.maybeSingle()
+
+    if (error) throw error
 
     if (!order) {
       return NextResponse.json(
@@ -35,8 +36,8 @@ export async function GET(request: NextRequest) {
 
     const timeline = order.metadata?.timeline || [
       {
-        date: new Date(order.createdAt).toLocaleDateString(),
-        time: new Date(order.createdAt).toLocaleTimeString(),
+        date: new Date(order.created_at).toLocaleDateString(),
+        time: new Date(order.created_at).toLocaleTimeString(),
         status: 'Order confirmed',
         location: 'AMAPELS',
         completed: true
@@ -44,10 +45,10 @@ export async function GET(request: NextRequest) {
     ]
 
     const trackingData = {
-      orderId: order.orderNumber,
+      orderId: order.order_number,
       status: order.status,
-      estimatedDelivery: order.estimatedDelivery
-        ? new Date(order.estimatedDelivery).toLocaleDateString('en-US', {
+      estimatedDelivery: order.estimated_delivery
+        ? new Date(order.estimated_delivery).toLocaleDateString('en-US', {
             weekday: 'long',
             year: 'numeric',
             month: 'long',
@@ -55,22 +56,22 @@ export async function GET(request: NextRequest) {
           })
         : 'To be determined',
       currentLocation: order.metadata?.current_location || 'Processing',
-      trackingNumber: order.trackingNumber || 'Pending',
+      trackingNumber: order.tracking_number || 'Pending',
       courierName: order.metadata?.courier_name || 'AMAPELS Logistics',
       courierPhone: order.metadata?.courier_phone || '+234-800-123-4567',
-      paymentReference: order.paymentReference || 'N/A',
-      paymentStatus: order.paymentStatus,
+      paymentReference: order.payment_reference || 'N/A',
+      paymentStatus: order.payment_status,
       totalAmount: `₦${order.total.toLocaleString()}`,
-      customerName: order.customerName,
-      customerEmail: order.customerEmail,
-      customerPhone: order.customerPhone,
+      customerName: order.customer_name,
+      customerEmail: order.customer_email,
+      customerPhone: order.customer_phone,
       items: order.items,
-      shippingAddress: order.shippingAddress,
+      shippingAddress: order.shipping_address,
       subtotal: order.subtotal,
-      shippingCost: order.shippingCost,
+      shippingCost: order.shipping_cost,
       tax: order.tax,
       total: order.total,
-      createdAt: order.createdAt,
+      createdAt: order.created_at,
       timeline
     }
 

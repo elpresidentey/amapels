@@ -6,26 +6,16 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "seed": "npx tsx src/scripts/seed.ts",
-    "validate-system": "npx tsx src/scripts/validateSystem.ts",
-    "health-check": "npx tsx src/scripts/validateSystem.ts",
-    "test-checkout": "npx tsx src/scripts/testCheckout.ts",
-    "validate-mvp": "npx tsx src/scripts/validateMVP.ts"
+    "lint": "next lint"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.110.0",
-    "@types/bcryptjs": "^3.0.0",
-    "bcryptjs": "^3.0.3",
-    "bootstrap": "^5.3.8",
     "clsx": "^2.1.0",
-    "dotenv": "^17.4.2",
     "framer-motion": "^11.0.0",
     "lucide-react": "^0.360.0",
     "mongoose": "^9.7.3",
     "next": "14.2.0",
     "react": "^18.3.0",
-    "react-bootstrap": "^2.10.10",
     "react-dom": "^18.3.0",
     "resend": "^4.0.0",
     "tailwind-merge": "^2.2.0",
@@ -40,7 +30,6 @@
     "eslint-config-next": "14.2.0",
     "postcss": "^8",
     "tailwindcss": "^3.4.0",
-    "tsx": "^4.22.4",
     "typescript": "^5"
   }
 }

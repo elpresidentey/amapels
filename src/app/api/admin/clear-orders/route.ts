@@ -1,19 +1,25 @@
 import { NextResponse } from 'next/server'
 import { requireAdmin } from '@/lib/admin-guard'
-import dbConnect from '@/lib/mongodb'
-import Order from '@/models/Order'
+import { supabase } from '@/lib/supabase'
 
 export async function POST(request: Request) {
   const authError = requireAdmin(request)
   if (authError) return authError
 
   try {
-    await dbConnect()
-    const result = await Order.deleteMany({})
+    const { data: deleted, error } = await supabase
+      .from('orders')
+      .delete()
+      .not('id', 'is', 'null')
+      .select('id')
+
+    if (error) throw error
+
+    const deletedCount = deleted?.length ?? 0
     return NextResponse.json({
       success: true,
-      deletedCount: result.deletedCount,
-      message: `Cleared ${result.deletedCount} orders`
+      deletedCount,
+      message: `Cleared ${deletedCount} orders`
     })
   } catch (error) {
     console.error('Error clearing orders:', error)

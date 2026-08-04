@@ -6,7 +6,6 @@ import NewCart from "@/components/NewCart"
 import Footer from "@/components/Footer"
 import IntroOverlay from "@/components/IntroOverlay"
 import ErrorBoundary from "@/components/ErrorBoundary"
-import PerformanceMonitor from "@/components/PerformanceMonitor"
 import SessionInitializer from "@/components/SessionInitializer"
 
 const inter = Inter({
@@ -64,7 +63,6 @@ export default function RootLayout({
         <ErrorBoundary>
           <IntroOverlay />
           <SessionInitializer />
-          <PerformanceMonitor />
           <Navbar />
           <NewCart />
           <main className="flex-1">{children}</main>
