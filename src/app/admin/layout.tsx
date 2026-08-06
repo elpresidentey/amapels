@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
 import { getAdminSession, clearAdminSession } from '@/lib/auth'
@@ -15,6 +15,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [loading, setLoading] = useState(true)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const IDLE_TIMEOUT_MS = 2 * 60 * 1000
 
   const navItems = [
     { name: 'Dashboard', href: '/admin', icon: Home },
@@ -53,6 +55,27 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     
     return () => clearInterval(interval)
   }, [router, pathname])
+
+  useEffect(() => {
+    if (pathname === '/admin/login') return
+
+    const resetIdleTimer = () => {
+      if (idleTimerRef.current) clearTimeout(idleTimerRef.current)
+      idleTimerRef.current = setTimeout(() => {
+        clearAdminSession()
+        router.push('/admin/login')
+      }, IDLE_TIMEOUT_MS)
+    }
+
+    const events: (keyof WindowEventMap)[] = ['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll']
+    events.forEach((event) => window.addEventListener(event, resetIdleTimer))
+    resetIdleTimer()
+
+    return () => {
+      events.forEach((event) => window.removeEventListener(event, resetIdleTimer))
+      if (idleTimerRef.current) clearTimeout(idleTimerRef.current)
+    }
+  }, [pathname, router])
 
   const handleLogout = () => {
     clearAdminSession()

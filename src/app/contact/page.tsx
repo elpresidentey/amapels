@@ -95,8 +95,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-medium text-black-dark mb-2">Email Us</h3>
-                    <p className="text-black/70">hello@amapels.com</p>
-                    <p className="text-black/70">support@amapels.com</p>
+                    <p className="text-black/70">amapelsng@gmail.com</p>
                   </div>
                 </motion.div>
 
@@ -111,7 +110,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-medium text-black-dark mb-2">Call Us</h3>
-                    <p className="text-black/70">+234-809-123-4567</p>
+                    <p className="text-black/70">0816 123 8148</p>
                   </div>
                 </motion.div>
 

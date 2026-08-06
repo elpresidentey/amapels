@@ -135,19 +135,19 @@ export default function Footer() {
                 Privacy
               </Link>
               <a
-                href="tel:+234-809-123-4567"
+                href="tel:+2348161238148"
                 className="flex items-center gap-1.5 py-2 text-xs text-white/45 transition-colors hover:text-gold"
               >
                 <Phone size={12} strokeWidth={1.5} />
-                <span className="hidden sm:inline">+234-809-123-4567</span>
+                <span className="hidden sm:inline">0816 123 8148</span>
                 <span className="sm:hidden">Call</span>
               </a>
               <a
-                href="mailto:hello@amapels.com"
+                href="mailto:amapelsng@gmail.com"
                 className="flex items-center gap-1.5 py-2 text-xs text-white/45 transition-colors hover:text-gold"
               >
                 <Mail size={12} strokeWidth={1.5} />
-                <span className="hidden sm:inline">hello@amapels.com</span>
+                <span className="hidden sm:inline">amapelsng@gmail.com</span>
                 <span className="sm:hidden">Email</span>
               </a>
             </div>
