@@ -150,14 +150,14 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 16 }}
               transition={{ duration: 0.3, ease }}
-              className="absolute bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-4 pb-4 pt-14"
+              className="absolute bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-3 pb-3 pt-14"
             >
-              <div className="flex items-center justify-center gap-2.5">
+              <div className="flex items-stretch justify-center gap-2">
                 <button
                   type="button"
                   onClick={handleAddToCart}
                   aria-label={addedToCart ? 'Added to cart' : 'Add to cart'}
-                  className="inline-flex items-center gap-2 bg-white px-5 py-2.5 text-[10px] font-medium uppercase tracking-[0.18em] text-black-dark shadow-sm transition-all duration-300 hover:bg-gold hover:text-black-dark hover:shadow-[0_4px_16px_rgba(196,163,90,0.3)] active:scale-95"
+                  className="flex flex-1 items-center justify-center gap-2 whitespace-nowrap bg-white px-2 py-2.5 text-[10px] font-medium uppercase tracking-[0.18em] text-black-dark shadow-sm transition-all duration-300 hover:bg-gold hover:text-black-dark hover:shadow-[0_4px_16px_rgba(196,163,90,0.3)] active:scale-95"
                 >
                   {addedToCart ? <Check size={13} strokeWidth={1.75} /> : <ShoppingCart size={13} strokeWidth={1.5} />}
                   <span>{addedToCart ? 'Added' : 'Add to Bag'}</span>
@@ -166,7 +166,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                   type="button"
                   onClick={handleQuickView}
                   aria-label="Quick view product details"
-                  className="inline-flex items-center gap-2 border border-white/30 bg-white/10 px-5 py-2.5 text-[10px] font-medium uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-black-dark active:scale-95"
+                  className="flex flex-1 items-center justify-center gap-2 whitespace-nowrap border border-white/30 bg-white/10 px-2 py-2.5 text-[10px] font-medium uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-black-dark active:scale-95"
                 >
                   <Eye size={13} strokeWidth={1.5} />
                   <span>View</span>
