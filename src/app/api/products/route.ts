@@ -14,30 +14,28 @@ export async function GET(request: NextRequest) {
           category: category && category !== 'All' ? category : undefined
         })
         
-        // If we have products from database, return them
-        if (products && products.length > 0) {
-          return NextResponse.json({
-            success: true,
-            data: products.map(p => ({
-              _id: p.id,
-              name: p.name,
-              price: `₦${p.price}`,
-              category: p.category,
-              description: p.description,
-              images: getProductImages(p),
-              featured: p.featured,
-              story: 'Handcrafted with care',
-              material: 'Premium materials',
-              details: ['Elegant design', 'High quality', 'Perfect for any occasion'],
-              materials: 'Premium materials with attention to detail',
-              care: 'Store in a dry place and wipe gently with a soft cloth after wearing.',
-              options: ['Standard Size', 'Gift Box'],
-              createdAt: p.created_at,
-              updatedAt: p.updated_at
-            })),
-            source: 'database',
-          })
-        }
+        // Return database results even if empty — only fall back on DB failure
+        return NextResponse.json({
+          success: true,
+          data: products.map(p => ({
+            _id: p.id,
+            name: p.name,
+            price: `₦${p.price}`,
+            category: p.category,
+            description: p.description,
+            images: getProductImages(p),
+            featured: p.featured,
+            story: 'Handcrafted with care',
+            material: 'Premium materials',
+            details: ['Elegant design', 'High quality', 'Perfect for any occasion'],
+            materials: 'Premium materials with attention to detail',
+            care: 'Store in a dry place and wipe gently with a soft cloth after wearing.',
+            options: ['Standard Size', 'Gift Box'],
+            createdAt: p.created_at,
+            updatedAt: p.updated_at
+          })),
+          source: 'database',
+        })
       } catch (dbError) {
         console.log('Database fetch failed, using fallback:', dbError)
       }
