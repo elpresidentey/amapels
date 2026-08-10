@@ -185,7 +185,7 @@ export default function Home() {
           style={{ y: heroY }}
           className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-end px-4 pb-8 pt-24 sm:px-6 sm:pb-12 sm:pt-28 md:px-12 md:pb-16 lg:px-24 lg:pb-20"
         >
-          <div className="grid gap-10 lg:grid-cols-[1fr_320px] lg:items-start lg:gap-16">
+          <div className="grid gap-10 lg:grid-cols-[1fr_320px] lg:items-stretch lg:gap-16">
             <div className="max-w-3xl">
               <motion.h1
                 key={`${activeSlide.id}-title`}
