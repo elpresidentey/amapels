@@ -3,11 +3,12 @@
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { ShoppingBag, Menu, X } from 'lucide-react'
+import { ShoppingBag, Menu, Search, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Cabin } from 'next/font/google'
 import { useCartStore } from '@/store/newCartStore'
 import CustomerAuth from '@/components/CustomerAuth'
+import SearchOverlay from '@/components/SearchOverlay'
 import { isCustomerAuthenticated } from '@/lib/customerAuth'
 
 const cabin = Cabin({
@@ -20,6 +21,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
   const pathname = usePathname()
 
   const { getTotalItems, isLoaded, items, toggleCart } = useCartStore()
@@ -117,6 +119,14 @@ export default function Navbar() {
             </div>
 
             <button
+              onClick={() => setIsSearchOpen(true)}
+              className="p-2 text-white/75 transition-colors duration-300 hover:text-white"
+              aria-label="Search products"
+            >
+              <Search size={19} strokeWidth={1.4} />
+            </button>
+
+            <button
               onClick={toggleCart}
               className="relative p-2 text-white/75 transition-colors duration-300 hover:text-white"
               aria-label="Shopping cart"
@@ -192,6 +202,8 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </nav>
   )
 }
