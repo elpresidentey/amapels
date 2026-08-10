@@ -94,7 +94,7 @@ export default function JournalPostPage() {
             )}
           </div>
 
-          <h1 className="font-serif text-3xl font-light leading-[1.1] text-black-dark sm:text-4xl md:text-5xl">
+          <h1 className="font-serif text-2xl font-light leading-[1.1] text-black-dark sm:text-3xl md:text-4xl">
             {post.title}
           </h1>
 

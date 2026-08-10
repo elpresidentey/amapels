@@ -153,7 +153,7 @@ function OrderConfirmationContent() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="mb-12"
           >
-            <h1 className="font-serif text-4xl md:text-5xl font-light text-black-dark mb-4">
+            <h1 className="font-serif text-3xl md:text-4xl font-light text-black-dark mb-4">
               Your Order is Confirmed
             </h1>
             <p className="text-lg text-black/55 max-w-2xl mx-auto">

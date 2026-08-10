@@ -53,7 +53,7 @@ function DefaultErrorFallback({ error, retry }: { error?: Error; retry?: () => v
           <AlertTriangle size={32} className="text-accent-orange" />
         </div>
         
-        <h1 className="font-serif text-3xl font-light text-black mb-4">
+        <h1 className="font-serif text-2xl font-light text-black mb-4">
           Oops! Something went wrong
         </h1>
         

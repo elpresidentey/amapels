@@ -145,7 +145,7 @@ export default function ProductPage() {
             <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.32em] text-black/40">
               {product.category}
             </p>
-            <h1 className="font-serif text-3xl font-light leading-snug text-black-dark sm:text-4xl md:text-[2.75rem]">
+            <h1 className="font-serif text-2xl font-light leading-snug text-black-dark sm:text-3xl md:text-[2.2rem]">
               {product.name}
             </h1>
             <p className="mt-4 text-xl font-medium tracking-wide text-gold-dark sm:text-2xl">
@@ -285,7 +285,7 @@ export default function ProductPage() {
                 <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
                   Complete The Look
                 </p>
-                <h2 className="font-serif text-3xl font-light text-black-dark sm:text-4xl">
+                <h2 className="font-serif text-2xl font-light text-black-dark sm:text-3xl">
                   Shop the edit
                 </h2>
               </div>

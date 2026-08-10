@@ -39,7 +39,7 @@ export default function IntroOverlay() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-              className="font-serif text-5xl md:text-7xl lg:text-8xl tracking-[0.15em] text-white mb-4"
+              className="font-serif text-4xl md:text-5xl lg:text-[4rem] tracking-[0.15em] text-white mb-4"
             >
               Welcome to
             </motion.h1>
@@ -53,7 +53,7 @@ export default function IntroOverlay() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.5, ease: "easeOut" }}
-              className="font-serif text-3xl md:text-5xl lg:text-6xl tracking-[0.25em] text-gold uppercase"
+              className="font-serif text-2xl md:text-3xl lg:text-4xl tracking-[0.25em] text-gold uppercase"
             >
               AMAPELS NG
             </motion.p>

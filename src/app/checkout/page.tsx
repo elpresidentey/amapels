@@ -675,7 +675,7 @@ export default function CheckoutPage() {
                 <div className="w-16 h-16 bg-primary-light rounded-full flex items-center justify-center mx-auto mb-4">
                   <User size={28} className="text-gold-dark" />
                 </div>
-                <h1 className="font-serif text-2xl sm:text-3xl text-black-dark mb-3">Sign in to Continue</h1>
+                <h1 className="font-serif text-xl sm:text-2xl text-black-dark mb-3">Sign in to Continue</h1>
                 <p className="text-black/60 text-sm">Create an account or sign in to place your order. This helps us keep you updated on your delivery.</p>
               </div>
 

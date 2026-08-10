@@ -192,7 +192,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 0.08, ease }}
-                className="font-serif text-3xl font-light leading-[1.08] tracking-tight sm:text-4xl md:text-5xl lg:text-6xl xl:text-[4.5rem]"
+                className="font-serif text-3xl font-light leading-[1.1] tracking-tight sm:text-4xl md:text-5xl lg:text-[3.4rem]"
               >
                 {activeSlide.title}
               </motion.h1>
@@ -384,7 +384,7 @@ export default function Home() {
               <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
                 Our Story
               </p>
-              <h2 className="font-serif text-3xl font-light leading-[1.15] text-black-dark sm:text-4xl md:text-[2.75rem]">
+              <h2 className="font-serif text-2xl font-light leading-[1.15] text-black-dark sm:text-3xl md:text-[2.2rem]">
                 It began in Lagos — a city that wears its soul on every street.
               </h2>
               <div className="mt-6 space-y-4 text-base leading-relaxed text-black/60">
@@ -491,7 +491,7 @@ export default function Home() {
             <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.38em] text-gold/60">
               The AMAPELS Philosophy
             </p>
-            <blockquote className="font-serif text-3xl font-light leading-[1.2] text-white sm:text-4xl md:text-5xl">
+            <blockquote className="font-serif text-2xl font-light leading-[1.2] text-white sm:text-3xl md:text-4xl">
               &ldquo;Every piece of jewellery carries a story.
               <br />
               <span className="text-gold/80">Ours begins in Lagos.</span>&rdquo;
@@ -513,7 +513,7 @@ export default function Home() {
               <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
                 Featured Collections
               </p>
-              <h2 className="max-w-xl font-serif text-3xl font-light text-black-dark sm:text-4xl md:text-5xl">
+              <h2 className="max-w-xl font-serif text-2xl font-light text-black-dark sm:text-3xl md:text-4xl">
                 Crafted for every style, moment, and celebration.
               </h2>
             </div>
@@ -575,7 +575,7 @@ export default function Home() {
               <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
                 Curated Pieces
               </p>
-              <h2 className="font-serif text-3xl font-light text-black-dark sm:text-4xl md:text-5xl">
+              <h2 className="font-serif text-2xl font-light text-black-dark sm:text-3xl md:text-4xl">
                 Treasures to wear, treasures to give.
               </h2>
             </div>
@@ -626,7 +626,7 @@ export default function Home() {
             <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-gold/50">
               Jewellery With Meaning
             </p>
-            <h2 className="font-serif text-3xl font-light leading-[1.15] text-white sm:text-4xl md:text-5xl">
+            <h2 className="font-serif text-2xl font-light leading-[1.15] text-white sm:text-3xl md:text-4xl">
               Pieces that speak
               <br />
               <span className="text-gold/80">without saying a word.</span>
@@ -702,7 +702,7 @@ export default function Home() {
               <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
                 From Our Journal
               </p>
-              <h2 className="max-w-xl font-serif text-3xl font-light text-black-dark sm:text-4xl md:text-5xl">
+              <h2 className="max-w-xl font-serif text-2xl font-light text-black-dark sm:text-3xl md:text-4xl">
                 Thoughts on craft, culture, and the stories we wear.
               </h2>
             </div>
@@ -787,7 +787,7 @@ export default function Home() {
             <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
               Ready to find your piece?
             </p>
-            <h2 className="font-serif text-3xl font-light leading-snug text-black-dark sm:text-4xl md:text-[2.6rem]">
+            <h2 className="font-serif text-2xl font-light leading-snug text-black-dark sm:text-3xl md:text-[2.2rem]">
               Your story is waiting
               <br />
               <span className="text-gold-dark">to be worn.</span>

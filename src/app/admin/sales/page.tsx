@@ -154,7 +154,7 @@ export default function SalesPage() {
       <div className="section-shell py-8 sm:py-12">
         {/* Header */}
         <div className="mb-8 sm:mb-10">
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-black-dark mb-3">
+          <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl text-black-dark mb-3">
             Sales Reports
           </h1>
           <p className="text-black/70 text-sm sm:text-base">

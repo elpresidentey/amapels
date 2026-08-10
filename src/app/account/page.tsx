@@ -240,7 +240,7 @@ export default function AccountPage() {
             <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40 sm:mb-4">
               My Account
             </p>
-            <h1 className="font-serif text-2xl font-light text-black-dark sm:text-4xl md:text-5xl">
+            <h1 className="font-serif text-2xl font-light text-black-dark sm:text-3xl md:text-4xl">
               Welcome back, {session?.name || 'Friend'}
             </h1>
             <p className="mt-2 text-sm leading-relaxed text-black/55 sm:mt-4">

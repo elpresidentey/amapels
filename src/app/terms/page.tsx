@@ -14,7 +14,7 @@ export default function TermsPage() {
         >
           <div className="text-center mb-16">
             <p className="text-xs font-semibold uppercase tracking-widest text-black/50 mb-4">Legal</p>
-            <h1 className="font-serif text-5xl font-light text-black-dark mb-6">Terms of Service</h1>
+            <h1 className="font-serif text-4xl font-light text-black-dark mb-6">Terms of Service</h1>
             <p className="text-lg text-black/70">
               Last updated: July 2026
             </p>

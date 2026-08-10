@@ -95,7 +95,7 @@ export default function StoryPage() {
             <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.38em] text-gold/70">
               The Brand Story
             </p>
-            <h1 className="font-serif text-4xl font-light leading-[1.1] sm:text-5xl md:text-6xl lg:text-7xl">
+            <h1 className="font-serif text-3xl font-light leading-[1.1] sm:text-4xl md:text-5xl lg:text-[3.25rem]">
               Where heritage meets the handmade.
             </h1>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-white/65 sm:text-lg">
@@ -118,7 +118,7 @@ export default function StoryPage() {
             <p className="mb-6 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
               The Beginning
             </p>
-            <h2 className="font-serif text-3xl font-light leading-[1.15] text-black-dark sm:text-4xl md:text-5xl">
+            <h2 className="font-serif text-2xl font-light leading-[1.15] text-black-dark sm:text-3xl md:text-4xl">
               It started with a single bead.
             </h2>
             <div className="mt-8 space-y-5 text-base leading-relaxed text-black/60 sm:text-lg">
@@ -156,7 +156,7 @@ export default function StoryPage() {
             <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
               The Journey
             </p>
-            <h2 className="font-serif text-3xl font-light text-black-dark sm:text-4xl md:text-5xl">
+            <h2 className="font-serif text-2xl font-light text-black-dark sm:text-3xl md:text-4xl">
               From a kitchen table to the world.
             </h2>
           </motion.div>
@@ -180,7 +180,7 @@ export default function StoryPage() {
                     index % 2 === 0 ? 'md:right-[-6.5px]' : 'md:left-[-6.5px]'
                   }`}
                 />
-                <span className="mb-2 block font-serif text-3xl font-light text-gold/60">
+                <span className="mb-2 block font-serif text-2xl font-light text-gold/60">
                   {item.year}
                 </span>
                 <h3 className="mb-3 font-serif text-xl font-light text-black-dark sm:text-2xl">
@@ -206,7 +206,7 @@ export default function StoryPage() {
             <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
               What We Stand For
             </p>
-            <h2 className="font-serif text-3xl font-light text-black-dark sm:text-4xl md:text-5xl">
+            <h2 className="font-serif text-2xl font-light text-black-dark sm:text-3xl md:text-4xl">
               Four pillars, one purpose.
             </h2>
           </motion.div>
@@ -242,7 +242,7 @@ export default function StoryPage() {
           <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.38em] text-gold/60">
             Join the story
           </p>
-          <h2 className="font-serif text-3xl font-light leading-[1.15] sm:text-4xl md:text-5xl">
+          <h2 className="font-serif text-2xl font-light leading-[1.15] sm:text-3xl md:text-4xl">
             Every piece has a story. <br />
             <span className="text-gold/80">What will yours be?</span>
           </h2>

@@ -72,7 +72,7 @@ export default function ContactPage() {
         >
           <div className="text-center mb-16">
             <p className="text-xs font-semibold uppercase tracking-widest text-black/50 mb-4">Connect With Us</p>
-            <h1 className="font-serif text-5xl font-light text-black-dark mb-6">Get In Touch</h1>
+            <h1 className="font-serif text-4xl font-light text-black-dark mb-6">Get In Touch</h1>
             <p className="text-lg text-black/70 max-w-2xl mx-auto">
               Share your jewelry dreams with us - we're here to bring them to life with care and artistry.
             </p>

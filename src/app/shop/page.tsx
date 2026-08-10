@@ -76,7 +76,7 @@ function ShopContent() {
                 <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
                   The Collection
                 </p>
-                <h1 className="font-serif text-4xl font-light tracking-tight text-black-dark sm:text-5xl md:text-6xl">
+                <h1 className="font-serif text-3xl font-light tracking-tight text-black-dark sm:text-4xl md:text-5xl">
                   Shop
                 </h1>
               </div>

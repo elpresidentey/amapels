@@ -56,7 +56,7 @@ export default function JournalPage() {
             <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
               The Journal
             </p>
-            <h1 className="font-serif text-4xl font-light leading-[1.08] text-black-dark sm:text-5xl md:text-6xl">
+            <h1 className="font-serif text-3xl font-light leading-[1.1] text-black-dark sm:text-4xl md:text-5xl">
               Stories that shape us.
             </h1>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-black/55 sm:text-lg">

@@ -35,7 +35,7 @@ export default function CartPage() {
             <div className="mb-6 md:mb-8">
               <ShoppingBag size={48} className="text-black/20 mx-auto" strokeWidth={1} />
             </div>
-            <h1 className="font-serif text-3xl sm:text-4xl font-light text-black-dark mb-4">Your Collection Awaits</h1>
+            <h1 className="font-serif text-2xl sm:text-3xl font-light text-black-dark mb-4">Your Collection Awaits</h1>
             <p className="text-black/55 mb-8 md:mb-10 px-4 text-sm sm:text-base max-w-md mx-auto leading-relaxed">
               Discover handcrafted jewelry to wear, love, and cherish. Every piece tells a story.
             </p>
@@ -66,7 +66,7 @@ export default function CartPage() {
         </div>
 
         <div className="mb-10 border-b border-black/[0.06] pb-8 sm:mb-12 sm:pb-10 md:mb-14">
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-black-dark">Your Selections</h1>
+          <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl font-light text-black-dark">Your Selections</h1>
           <p className="mt-3 text-sm text-black/50">{items.length} {items.length === 1 ? 'piece' : 'pieces'} in your collection</p>
         </div>
 

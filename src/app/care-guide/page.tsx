@@ -101,7 +101,7 @@ export default function CareGuidePage() {
       {/* Hero Section */}
       <section className="section-shell pt-12 pb-16 lg:pt-20 lg:pb-24">
         <div className="text-center max-w-4xl mx-auto">
-          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-black-dark mb-6 lg:mb-8">
+          <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-light text-black-dark mb-6 lg:mb-8">
             Jewelry Care Guide
           </h1>
           <p className="text-lg sm:text-xl text-black/70 leading-relaxed">
