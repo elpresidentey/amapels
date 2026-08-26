@@ -4,6 +4,7 @@ import "./globals.css"
 import Navbar from "@/components/Navbar"
 import NewCart from "@/components/NewCart"
 import Footer from "@/components/Footer"
+import ScrollToTop from "@/components/ScrollToTop"
 import IntroOverlay from "@/components/IntroOverlay"
 import ErrorBoundary from "@/components/ErrorBoundary"
 import SessionInitializer from "@/components/SessionInitializer"
@@ -67,6 +68,7 @@ export default function RootLayout({
           <NewCart />
           <main className="flex-1">{children}</main>
           <Footer />
+          <ScrollToTop />
         </ErrorBoundary>
       </body>
     </html>
