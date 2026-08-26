@@ -11,7 +11,7 @@ import { useProducts } from '@/hooks/useProducts'
 const heroSlides = [
   {
     id: 1,
-    src: '/images/evie-martinez-mCjEVrBS1bM-unsplash.jpg',
+    src: '/images/evie-martinez-mCjEVrBS1bM-unsplash.webp',
     alt: 'Amapels crystal bracelet close-up',
     eyebrow: 'Lagos Crafted Excellence',
     title: 'Nigerian Artistry, Global Elegance',
@@ -24,7 +24,7 @@ const heroSlides = [
   },
   {
     id: 2,
-    src: '/images/sabrianna-Y_bxfTa_iUA-unsplash.jpg',
+    src: '/images/sabrianna-Y_bxfTa_iUA-unsplash.webp',
     alt: 'Amapels gold stud earrings close-up',
     eyebrow: 'African Luxury Redefined',
     title: 'Wear Your Story',
@@ -37,7 +37,7 @@ const heroSlides = [
   },
   {
     id: 3,
-    src: '/images/andres-vera-202NAwjisYA-unsplash.jpg',
+    src: '/images/andres-vera-202NAwjisYA-unsplash.webp',
     alt: 'AMAPELS occasion jewellery portrait',
     eyebrow: 'Moments Made Memorable',
     title: 'Celebrate With AMAPELS',
@@ -54,28 +54,28 @@ const featuredCollections = [
   {
     title: 'Lagos Luxe Earrings',
     description: 'Bold designs crafted with Nigerian artistry, framing your face with confidence.',
-    image: '/images/gabriel-ogulu-r0bH4hAVBmk-unsplash.jpg',
+    image: '/images/gabriel-ogulu-r0bH4hAVBmk-unsplash.webp',
     link: '/shop?category=Earrings',
     span: 'md:col-span-2'
   },
   {
     title: 'Radiant Bracelets',
     description: 'Handcrafted adornments that dance with your every movement.',
-    image: '/images/lisa-marie-theck-pxg9jOgPzK4-unsplash.jpg',
+    image: '/images/lisa-marie-theck-pxg9jOgPzK4-unsplash.webp',
     link: '/shop?category=Bracelets',
     span: ''
   },
   {
     title: 'Celebration Pieces',
     description: 'Exceptional designs for life\'s milestones and treasured memories.',
-    image: '/images/julie-sd--Njp0M9Rzhc-unsplash.jpg',
+    image: '/images/julie-sd--Njp0M9Rzhc-unsplash.webp',
     link: '/shop',
     span: ''
   },
   {
     title: 'Heritage Necklaces',
     description: 'Graceful chains that rest close to the heart, completing your story.',
-    image: '/images/andres-vera-202NAwjisYA-unsplash.jpg',
+    image: '/images/andres-vera-202NAwjisYA-unsplash.webp',
     link: '/shop?category=Necklaces',
     span: 'md:col-span-2'
   }
@@ -443,7 +443,7 @@ export default function Home() {
             >
               <motion.div className="relative aspect-[4/5] overflow-hidden lg:absolute lg:inset-0" style={{ scale: storyImageParallax }}>
                 <Image
-                  src="/images/pexels-vedat-28933799.jpg"
+                  src="/images/pexels-vedat-28933799.webp"
                   alt="AMAPELS craftsmanship detail"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -471,7 +471,7 @@ export default function Home() {
           className="absolute inset-0"
         >
           <Image
-            src="/images/usman-umar-nbF4Iks4Ujc-unsplash.jpg"
+            src="/images/usman-umar-nbF4Iks4Ujc-unsplash.webp"
             alt="AMAPELS craftsmanship"
             fill
             sizes="100vw"

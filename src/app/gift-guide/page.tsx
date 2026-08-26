@@ -13,42 +13,42 @@ export default function GiftGuidePage() {
     {
       title: 'For Her Birthday',
       description: 'Celebrate her special day with jewelry as unique as she is',
-      image: '/images/evie-martinez-mCjEVrBS1bM-unsplash.jpg',
+      image: '/images/evie-martinez-mCjEVrBS1bM-unsplash.webp',
       suggestions: ['Statement Earrings', 'Delicate Necklaces', 'Charm Bracelets'],
       priceRange: '₦15,000 - ₦85,000'
     },
     {
       title: 'Anniversary Gifts',
       description: 'Mark your milestones with timeless pieces that tell your story',
-      image: '/images/theresa-ude-bFSMzNAij8I-unsplash.jpg',
+      image: '/images/theresa-ude-bFSMzNAij8I-unsplash.webp',
       suggestions: ['Matching Sets', 'Eternity Rings', 'Pearl Necklaces'],
       priceRange: '₦25,000 - ₦150,000'
     },
     {
       title: 'Graduation Success',
       description: 'Commemorate achievements with jewelry for the next chapter',
-      image: '/images/julie-sd--Njp0M9Rzhc-unsplash.jpg',
+      image: '/images/julie-sd--Njp0M9Rzhc-unsplash.webp',
         suggestions: ['Professional Studs', 'Minimalist Chains', 'Elegant Bracelets'],
       priceRange: '₦18,000 - ₦65,000'
     },
     {
       title: 'Mother\'s Day',
       description: 'Show appreciation with elegant pieces that reflect her grace',
-      image: '/images/lisa-marie-theck-pxg9jOgPzK4-unsplash.jpg',
+      image: '/images/lisa-marie-theck-pxg9jOgPzK4-unsplash.webp',
       suggestions: ['Birthstone Jewelry', 'Family Pendants', 'Elegant Brooches'],
       priceRange: '₦20,000 - ₦100,000'
     },
     {
       title: 'Self-Love Treats',
       description: 'Because you deserve beautiful things just because',
-      image: '/images/sabrianna-Y_bxfTa_iUA-unsplash.jpg',
+      image: '/images/sabrianna-Y_bxfTa_iUA-unsplash.webp',
       suggestions: ['Stackable Rings', 'Everyday Necklaces', 'Hoop Earrings'],
       priceRange: '₦12,000 - ₦45,000'
     },
     {
       title: 'New Job Celebration',
       description: 'Professional pieces that add confidence to every meeting',
-      image: '/images/theresa-ude-01hjEW7Hc-8-unsplash.jpg',
+      image: '/images/theresa-ude-01hjEW7Hc-8-unsplash.webp',
       suggestions: ['Subtle Studs', 'Professional Chains', 'Elegant Bracelets'],
       priceRange: '₦16,000 - ₦70,000'
     }

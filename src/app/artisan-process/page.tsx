@@ -50,7 +50,7 @@ export default function ArtisanProcessPage() {
             <div className="order-1 lg:order-2">
               <div className="relative aspect-square lg:aspect-[4/5] rounded-lg overflow-hidden">
                 <Image
-                  src="/images/pexels-gabriela-brasiliano-515209300-32225451.jpg"
+                  src="/images/pexels-gabriela-brasiliano-515209300-32225451.webp"
                   alt="Jewelry design sketches and inspiration"
                   fill
                   className="object-cover"
@@ -63,7 +63,7 @@ export default function ArtisanProcessPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             <div className="relative aspect-square lg:aspect-[4/5] rounded-lg overflow-hidden">
               <Image
-                src="/images/pexels-sheilabox-235376934-12184920.jpg"
+                src="/images/pexels-sheilabox-235376934-12184920.webp"
                 alt="Premium jewelry materials and gems"
                 fill
                 className="object-cover"
@@ -114,7 +114,7 @@ export default function ArtisanProcessPage() {
             <div className="order-1 lg:order-2">
               <div className="relative aspect-square lg:aspect-[4/5] rounded-lg overflow-hidden">
                 <Image
-                  src="/images/pexels-ben-iwara-1033992193-27152278.jpg"
+                  src="/images/pexels-ben-iwara-1033992193-27152278.webp"
                   alt="Artisan crafting jewelry by hand"
                   fill
                   className="object-cover"
@@ -127,7 +127,7 @@ export default function ArtisanProcessPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             <div className="relative aspect-square lg:aspect-[4/5] rounded-lg overflow-hidden">
               <Image
-                src="/images/pexels-howard-chin-1677264-5564051.jpg"
+                src="/images/pexels-howard-chin-1677264-5564051.webp"
                 alt="Quality control and jewelry inspection"
                 fill
                 className="object-cover"

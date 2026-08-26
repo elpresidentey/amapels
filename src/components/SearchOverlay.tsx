@@ -158,7 +158,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                         >
                           <div className="relative h-14 w-14 shrink-0 overflow-hidden bg-white/[0.04]">
                             <Image
-                              src={p.images?.[0] || '/images/sabrianna-Y_bxfTa_iUA-unsplash.jpg'}
+                              src={p.images?.[0] || '/images/sabrianna-Y_bxfTa_iUA-unsplash.webp'}
                               alt={p.name}
                               fill
                               sizes="56px"

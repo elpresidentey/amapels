@@ -40,7 +40,7 @@ export default function ProductPage() {
       id: product._id,
       name: product.name,
       price: product.price,
-      image: product.images?.[0] || '/images/sabrianna-Y_bxfTa_iUA-unsplash.jpg',
+      image: product.images?.[0] || '/images/sabrianna-Y_bxfTa_iUA-unsplash.webp',
       category: product.category,
       size: 'Standard',
       color: 'Default',

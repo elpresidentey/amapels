@@ -14,7 +14,7 @@ interface ProductCardProps {
   index?: number
 }
 
-const FALLBACK_IMAGE = '/images/sabrianna-Y_bxfTa_iUA-unsplash.jpg'
+const FALLBACK_IMAGE = '/images/sabrianna-Y_bxfTa_iUA-unsplash.webp'
 const ease = [0.22, 1, 0.36, 1] as const
 
 export function ProductCardSkeleton() {

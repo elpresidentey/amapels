@@ -74,7 +74,7 @@ export default function StoryPage() {
       <section className="relative overflow-hidden bg-black-dark text-white">
         <div className="absolute inset-0">
           <Image
-            src="/images/andres-vera-202NAwjisYA-unsplash.jpg"
+            src="/images/andres-vera-202NAwjisYA-unsplash.webp"
             alt="AMAPELS craftsmanship"
             fill
             priority
