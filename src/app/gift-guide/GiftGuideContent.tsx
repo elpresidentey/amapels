@@ -35,8 +35,6 @@ interface Occasion {
   keywords?: string[]
   /** 'cheapest' sorts ascending by price instead of featured-first */
   strategy?: 'cheapest'
-  /** Link target for "Shop Collection" */
-  shopHref: string
 }
 
 const occasions: Occasion[] = [
@@ -44,40 +42,34 @@ const occasions: Occasion[] = [
     title: 'For Her Birthday',
     description: 'Celebrate her special day with jewelry as unique as she is',
     categories: ['Earrings'],
-    shopHref: '/shop?category=Earrings',
   },
   {
     title: 'Anniversary Gifts',
     description: 'Mark your milestones with timeless pieces that tell your story',
     keywords: ['love', 'romance', 'bridal', 'eternity'],
     categories: ['Jewellery Sets'],
-    shopHref: '/shop?category=Jewellery Sets',
   },
   {
     title: 'Graduation Success',
     description: 'Commemorate achievements with jewelry for the next chapter',
     categories: ['Bracelets'],
-    shopHref: '/shop?category=Bracelets',
   },
   {
     title: "Mother's Day",
     description: 'Show appreciation with elegant pieces that reflect her grace',
     keywords: ['pearl'],
     categories: ['Necklaces', 'Jewellery Sets'],
-    shopHref: '/shop',
   },
   {
     title: 'Self-Love Treats',
     description: 'Because you deserve beautiful things just because',
     strategy: 'cheapest',
-    shopHref: '/shop',
   },
   {
     title: 'New Job Celebration',
     description: 'Professional pieces that add confidence to every meeting',
     keywords: ['stud', 'minimalist', 'chain'],
     categories: ['Earrings', 'Necklaces'],
-    shopHref: '/shop',
   },
 ]
 
@@ -86,37 +78,85 @@ function matchesKeywords(product: ProductData, keywords: string[]): boolean {
   return keywords.some((keyword) => haystack.includes(keyword.toLowerCase()))
 }
 
-function pickOccasionProducts(products: ProductData[], occasion: Occasion): ProductData[] {
-  const count = 3
-  let pool = products
-
-  // 1) Try curated keyword matches within preferred categories
-  if (occasion.keywords?.length) {
-    const keywordMatches = products.filter(
-      (product) =>
-        (!occasion.categories || occasion.categories.includes(product.category)) &&
-        matchesKeywords(product, occasion.keywords!)
-    )
-    if (keywordMatches.length > 0) pool = keywordMatches
-  } else if (occasion.categories?.length) {
-    // 2) Fall back to preferred categories
-    const categoryMatches = products.filter((product) => occasion.categories!.includes(product.category))
-    if (categoryMatches.length > 0) pool = categoryMatches
-  }
-
-  const sorted = [...pool].sort((a, b) => {
+function sortForOccasion(products: ProductData[], occasion: Occasion): ProductData[] {
+  return [...products].sort((a, b) => {
     if (occasion.strategy === 'cheapest') {
       return parsePrice(a.price) - parsePrice(b.price)
     }
     if (a.featured !== b.featured) return a.featured ? -1 : 1
     return parsePrice(b.price) - parsePrice(a.price)
   })
+}
 
-  const picked = sorted.slice(0, count)
-  if (picked.length > 0) return picked
+/**
+ * Pick `count` products for one occasion from the pool it may use.
+ * Relevance chain: keyword matches -> category matches -> whole pool.
+ * Partial matches are topped up with the best remaining pieces so every
+ * card is full without repeating pieces across cards.
+ */
+function pickOccasionProducts(pool: ProductData[], occasion: Occasion, count: number): ProductData[] {
+  if (count <= 0 || pool.length === 0) return []
 
-  // 3) Last resort: cheapest pieces across the whole shop
-  return [...products].sort((a, b) => parsePrice(a.price) - parsePrice(b.price)).slice(0, count)
+  let matches: ProductData[] = []
+  if (occasion.keywords?.length) {
+    matches = pool.filter((product) => matchesKeywords(product, occasion.keywords!))
+  }
+  if (matches.length === 0 && occasion.categories?.length) {
+    matches = pool.filter((product) => occasion.categories!.includes(product.category))
+  }
+  if (matches.length === 0) {
+    return sortForOccasion(pool, occasion).slice(0, count)
+  }
+  if (matches.length >= count) {
+    return sortForOccasion(matches, occasion).slice(0, count)
+  }
+
+  const matchIds = new Set(matches.map((product) => product._id))
+  const rest = sortForOccasion(
+    pool.filter((product) => !matchIds.has(product._id)),
+    occasion
+  )
+  return [...sortForOccasion(matches, occasion), ...rest].slice(0, count)
+}
+
+/**
+ * Assign products to occasions so every product appears on at most one card.
+ * With a small inventory the slots are shared out evenly instead of letting the
+ * first occasions hoard all the pieces (which made the cards repetitive).
+ */
+function assignOccasionProducts(products: ProductData[], occasionList: Occasion[]): { occasion: Occasion; picks: ProductData[] }[] {
+  const total = products.length
+  const base = Math.floor(total / occasionList.length)
+  const remainder = total % occasionList.length
+
+  const used = new Set<string>()
+
+  return occasionList.map((occasion, index) => {
+    // Evenly distributed quota, capped at 3 items per card
+    let quota = Math.min(base + (index < remainder ? 1 : 0), 3)
+
+    let available = products.filter((product) => !used.has(product._id))
+    let picks = pickOccasionProducts(available, occasion, quota)
+    picks.forEach((product) => used.add(product._id))
+
+    // Inventory smaller than the number of occasions: reuse is unavoidable,
+    // but keep it to a single item so cards still differ from each other.
+    if (picks.length === 0) {
+      available = [...products].sort((a, b) => parsePrice(a.price) - parsePrice(b.price))
+      picks = pickOccasionProducts(available, occasion, 1)
+      picks.forEach((product) => used.add(product._id))
+    }
+
+    return { occasion, picks }
+  })
+}
+
+/** "Shop Collection" link derived from the actual picks, so it never points at an empty category. */
+function shopLinkFor(picks: ProductData[]): string {
+  if (picks.length > 0 && picks.every((product) => product.category === picks[0].category)) {
+    return `/shop?category=${encodeURIComponent(picks[0].category)}`
+  }
+  return '/shop'
 }
 
 function priceRangeFor(products: ProductData[]): string {
@@ -223,10 +263,7 @@ export default function GiftGuideContent() {
     )
   }
 
-  const occasionCards = occasions.map((occasion) => ({
-    occasion,
-    picks: pickOccasionProducts(products, occasion),
-  }))
+  const occasionCards = assignOccasionProducts(products, occasions)
 
   const budgetTiers = buildBudgetTiers(products)
 
@@ -299,7 +336,7 @@ export default function GiftGuideContent() {
                 {priceRangeFor(picks)}
               </p>
               <Link 
-                href={occasion.shopHref}
+                href={shopLinkFor(picks)}
                 className="text-sm font-medium text-black-dark hover:text-black transition-colors"
               >
                 Shop Collection →
