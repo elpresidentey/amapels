@@ -107,6 +107,7 @@ export default function ProductPage() {
                 quality={85}
                 className="object-cover"
                 priority
+                fetchPriority="high"
               />
             </div>
             {product.images.length > 1 && (

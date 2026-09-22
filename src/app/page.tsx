@@ -169,6 +169,7 @@ export default function Home() {
                 alt={activeSlide.alt}
                 fill
                 priority
+                fetchPriority="high"
                 sizes="100vw"
                 quality={85}
                 className="object-cover"
