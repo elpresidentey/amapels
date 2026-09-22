@@ -18,7 +18,11 @@ export async function POST(request: Request) {
 
     const sessionId = crypto.randomUUID()
     const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
-    const secret = process.env.SECRET_KEY || 'amapels-default-secret'
+    const secret = process.env.SECRET_KEY
+    if (!secret) {
+      console.error('SECRET_KEY environment variable is not set')
+      return NextResponse.json({ error: 'Server configuration error' }, { status: 500 })
+    }
 
     const signature = crypto
       .createHmac('sha256', secret)
