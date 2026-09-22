@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getProduct, supabase, getProductImages } from '@/lib/supabase'
 import { getFallbackProductById } from '@/lib/fallbackProducts'
+import { requireAdmin } from '@/lib/admin-guard'
 
 export async function GET(
   request: NextRequest,
@@ -68,6 +69,9 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const authError = requireAdmin(request)
+  if (authError) return authError
+
   try {
     if (!supabase) {
       return NextResponse.json({
@@ -133,6 +137,9 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const authError = requireAdmin(request)
+  if (authError) return authError
+
   try {
     if (!supabase) {
       return NextResponse.json({

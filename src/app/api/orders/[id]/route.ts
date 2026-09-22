@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getOrder, updateOrderStatus } from '@/lib/supabase'
+import { requireAdmin } from '@/lib/admin-guard'
 
 export async function GET(
   request: NextRequest,
@@ -41,8 +42,11 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const authError = requireAdmin(request)
+  if (authError) return authError
+
   try {
-    const { status } = await request.json()
+    const { status, trackingNumber, estimatedDelivery } = await request.json()
     
     if (!status) {
       return NextResponse.json(
@@ -51,7 +55,7 @@ export async function PUT(
       )
     }
     
-    await updateOrderStatus(params.id, status)
+    await updateOrderStatus(params.id, status, { trackingNumber, estimatedDelivery })
     
     return NextResponse.json({
       success: true,

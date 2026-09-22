@@ -207,10 +207,14 @@ export async function getOrder(id: string) {
   return data as Order
 }
 
-export async function updateOrderStatus(id: string, status: string) {
+export async function updateOrderStatus(id: string, status: string, extras?: { trackingNumber?: string; estimatedDelivery?: string }) {
+  const updateData: Record<string, any> = { status }
+  if (extras?.trackingNumber !== undefined) updateData.tracking_number = extras.trackingNumber
+  if (extras?.estimatedDelivery !== undefined) updateData.estimated_delivery = extras.estimatedDelivery
+
   const { data, error } = await supabase
     .from('orders')
-    .update({ status })
+    .update(updateData)
     .eq('id', id)
     .select()
     .single()

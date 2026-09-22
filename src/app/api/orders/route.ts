@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createOrder, getOrders } from '@/lib/supabase'
+import { requireAdmin } from '@/lib/admin-guard'
 
 // Validation schemas
 const validateEmail = (email: string): boolean => {
@@ -225,6 +226,9 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
+  const authError = requireAdmin(request)
+  if (authError) return authError
+
   try {
     const { searchParams } = new URL(request.url)
     const status = searchParams.get('status')

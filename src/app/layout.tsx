@@ -1,13 +1,8 @@
 import type { Metadata } from "next"
 import { Inter, Playfair_Display } from "next/font/google"
 import "./globals.css"
-import Navbar from "@/components/Navbar"
-import NewCart from "@/components/NewCart"
-import Footer from "@/components/Footer"
-import ScrollToTop from "@/components/ScrollToTop"
-import IntroOverlay from "@/components/IntroOverlay"
+import ClientLayoutWrapper from "@/components/ClientLayoutWrapper"
 import ErrorBoundary from "@/components/ErrorBoundary"
-import SessionInitializer from "@/components/SessionInitializer"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -62,13 +57,7 @@ export default function RootLayout({
         suppressHydrationWarning={true}
       >
         <ErrorBoundary>
-          <IntroOverlay />
-          <SessionInitializer />
-          <Navbar />
-          <NewCart />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <ScrollToTop />
+          <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
         </ErrorBoundary>
       </body>
     </html>

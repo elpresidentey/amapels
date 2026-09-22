@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { DollarSign, ShoppingCart, TrendingUp, Wallet, Package, Search } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { getAdminAuthHeaders } from '@/lib/admin-api'
 
 interface SaleItem {
   name: string
@@ -59,7 +60,7 @@ export default function SalesPage() {
     try {
       setLoading(true)
       setError('')
-      const res = await fetch('/api/orders?limit=100')
+      const res = await fetch('/api/orders?limit=100', { headers: getAdminAuthHeaders() })
       if (!res.ok) throw new Error('Failed to load orders')
       const data = await res.json()
       setOrders(data.orders || [])

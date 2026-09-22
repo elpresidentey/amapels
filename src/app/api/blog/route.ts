@@ -15,6 +15,11 @@ export async function GET(request: NextRequest) {
     const skip = (page - 1) * limit
     const includeUnpublished = searchParams.get('all') === 'true'
 
+    if (includeUnpublished) {
+      const authError = requireAdmin(request)
+      if (authError) return authError
+    }
+
     const filter: Record<string, any> = {}
     if (!includeUnpublished) filter.published = true
     if (category) filter.category = category

@@ -1,7 +1,10 @@
 import { cookies } from 'next/headers'
 import crypto from 'crypto'
 
-const SESSION_KEY = process.env.JWT_SECRET || 'amapels-customer-session-key-v1'
+const SESSION_KEY = process.env.JWT_SECRET
+if (!SESSION_KEY) {
+  console.error('JWT_SECRET environment variable is not set')
+}
 const COOKIE_NAME = 'amp_customer'
 const SESSION_DURATION_MS = 24 * 60 * 60 * 1000
 
@@ -12,6 +15,7 @@ export interface SessionPayload {
 }
 
 function sign(payload: string): string {
+  if (!SESSION_KEY) throw new Error('JWT_SECRET is not configured')
   return crypto.createHmac('sha256', SESSION_KEY).update(payload).digest('hex')
 }
 

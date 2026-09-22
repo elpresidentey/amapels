@@ -15,7 +15,11 @@ export function requireAdmin(request: Request) {
       return NextResponse.json({ error: 'Session expired' }, { status: 401 })
     }
 
-    const secret = process.env.SECRET_KEY || 'amapels-default-secret'
+    const secret = process.env.SECRET_KEY
+    if (!secret) {
+      console.error('SECRET_KEY environment variable is not set')
+      return NextResponse.json({ error: 'Server configuration error' }, { status: 500 })
+    }
     const expectedSignature = crypto
       .createHmac('sha256', secret)
       .update(`${session.sessionId}:${session.expiresAt}:${session.email}`)
