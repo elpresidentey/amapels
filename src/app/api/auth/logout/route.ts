@@ -7,3 +7,5 @@ export async function POST() {
   response.cookies.set(cookie.name, cookie.value, cookie.options as any)
   return response
 }
+
+export const dynamic = 'force-dynamic'

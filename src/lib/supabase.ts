@@ -38,7 +38,7 @@ export interface Product {
 // Get all product images, falling back to the single image column.
 // Handles: proper arrays, JSON-encoded strings, and legacy text[] rows.
 export function getProductImages(product: Product): string[] {
-  const raw = (product as Product & { images?: unknown }).images
+  const raw: unknown = (product as { images?: unknown }).images
 
   if (Array.isArray(raw) && raw.length > 0) {
     return raw.filter((img): img is string => typeof img === 'string' && img.trim().length > 0)

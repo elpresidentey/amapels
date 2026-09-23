@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server'
 import { ADMIN_COOKIE_NAME, verifySessionToken } from '@/lib/adminSession'
-import { cookies } from 'next/headers'
 
 /**
  * Server-side admin guard. Validates the signed session token from either
@@ -14,13 +13,16 @@ export function requireAdmin(request: Request) {
     return NextResponse.json({ error: 'Server configuration error' }, { status: 500 })
   }
 
-  // Prefer the httpOnly cookie
+  // Prefer the httpOnly cookie (parsed from the raw header so this helper
+  // also works during static prerendering, where next/headers is unavailable)
   let token: string | undefined
-  try {
-    token = cookies().get(ADMIN_COOKIE_NAME)?.value
-  } catch {
-    token = undefined
-  }
+  const cookieHeader = request.headers.get('cookie') || ''
+  const cookieToken = cookieHeader
+    .split(';')
+    .map((part) => part.trim())
+    .find((part) => part.startsWith(`${ADMIN_COOKIE_NAME}=`))
+    ?.slice(ADMIN_COOKIE_NAME.length + 1)
+  if (cookieToken) token = cookieToken
 
   // Fall back to a Bearer token (payload.signature format)
   if (!token) {

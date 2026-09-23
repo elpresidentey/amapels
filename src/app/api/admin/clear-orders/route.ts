@@ -26,3 +26,5 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Failed to clear orders' }, { status: 500 })
   }
 }
+
+export const dynamic = 'force-dynamic'

@@ -76,3 +76,5 @@ export async function PATCH(
 ) {
   return PUT(request, { params })
 }
+
+export const dynamic = 'force-dynamic'
