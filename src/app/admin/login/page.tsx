@@ -2,9 +2,8 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Eye, EyeOff, Lock, Mail } from 'lucide-react'
-import { setAdminSession } from '@/lib/auth'
-import Toast from '@/components/Toast'
+import { Eye, EyeOff, Lock, Mail, AlertCircle } from 'lucide-react'
+import { loginAdmin } from '@/lib/auth'
 
 export default function AdminLoginPage() {
   const router = useRouter()
@@ -14,42 +13,18 @@ export default function AdminLoginPage() {
   })
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [showToast, setShowToast] = useState(false)
-  const [toastMessage, setToastMessage] = useState('')
-  const [toastType, setToastType] = useState<'success' | 'error'>('success')
-
-  const showToastMessage = (message: string, type: 'success' | 'error' = 'success') => {
-    setToastMessage(message)
-    setToastType(type)
-    setShowToast(true)
-  }
+  const [error, setError] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
+    setError('')
 
     try {
-      const res = await fetch('/api/admin/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: formData.email, password: formData.password }),
-      })
-
-      const data = await res.json()
-
-      if (!res.ok) {
-        throw new Error(data.error || 'Invalid credentials')
-      }
-
-      setAdminSession(data.session)
-
-      showToastMessage('Login successful! Redirecting...')
-      setTimeout(() => {
-        router.push('/admin')
-      }, 1000)
-    } catch (error) {
-      showToastMessage('Invalid email or password', 'error')
-    } finally {
+      await loginAdmin(formData.email.trim(), formData.password)
+      router.push('/admin')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
       setLoading(false)
     }
   }
@@ -59,17 +34,11 @@ export default function AdminLoginPage() {
       ...prev,
       [field]: value
     }))
+    if (error) setError('')
   }
 
   return (
     <div className="min-h-screen bg-white flex items-center justify-center p-4">
-      <Toast
-        message={toastMessage}
-        type={toastType}
-        isVisible={showToast}
-        onClose={() => setShowToast(false)}
-      />
-      
       {/* Background Pattern */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.15),transparent_50%)]" />
@@ -95,9 +64,20 @@ export default function AdminLoginPage() {
               <p className="text-black/70 text-sm">Sign in to access your dashboard</p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Inline Error */}
+            {error && (
+              <div
+                role="alert"
+                className="mb-4 flex items-start gap-2 p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm"
+              >
+                <AlertCircle size={18} className="shrink-0 mt-0.5" />
+                <span>{error}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-5" noValidate>
               <div>
-                <label className="block text-sm font-medium text-black-dark mb-2">
+                <label htmlFor="admin-email" className="block text-sm font-medium text-black-dark mb-2">
                   Email Address
                 </label>
                 <div className="relative">
@@ -105,7 +85,9 @@ export default function AdminLoginPage() {
                     <Mail size={18} />
                   </div>
                   <input
+                    id="admin-email"
                     type="email"
+                    autoComplete="email"
                     value={formData.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
                     className="w-full pl-10 pr-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-gold outline-none text-base transition-all"
@@ -117,7 +99,7 @@ export default function AdminLoginPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-black-dark mb-2">
+                <label htmlFor="admin-password" className="block text-sm font-medium text-black-dark mb-2">
                   Password
                 </label>
                 <div className="relative">
@@ -125,7 +107,9 @@ export default function AdminLoginPage() {
                     <Lock size={18} />
                   </div>
                   <input
+                    id="admin-password"
                     type={showPassword ? 'text' : 'password'}
+                    autoComplete="current-password"
                     value={formData.password}
                     onChange={(e) => handleInputChange('password', e.target.value)}
                     className="w-full pl-10 pr-12 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-gold outline-none text-base transition-all"
@@ -137,26 +121,11 @@ export default function AdminLoginPage() {
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-black/70 hover:text-black-dark transition-colors"
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
                   >
                     {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                   </button>
                 </div>
-              </div>
-
-              <div className="flex items-center justify-between text-sm">
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    className="w-4 h-4 text-gold border-gold rounded focus:ring-gold/20"
-                  />
-                  <span className="text-black/70">Remember me</span>
-                </label>
-                <button
-                  type="button"
-                  className="text-gold hover:text-black transition-colors font-medium"
-                >
-                  Forgot password?
-                </button>
               </div>
 
               <button
@@ -174,12 +143,10 @@ export default function AdminLoginPage() {
                 )}
               </button>
             </form>
-
-
           </div>
         </div>
 
-        {/* Footer - Moved below the card */}
+        {/* Footer */}
         <div className="text-center mt-6">
           <p className="text-black/50 text-sm">
             © 2026 AMAPELS. All rights reserved.

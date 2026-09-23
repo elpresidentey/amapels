@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
-import { getAdminSession, clearAdminSession } from '@/lib/auth'
+import { verifyAdminSession, logoutAdmin } from '@/lib/auth'
 import { Home, Package, ShoppingCart, BarChart3, FileText, LogOut, Menu, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import OrderNotifications from '@/components/admin/OrderNotifications'
@@ -26,10 +26,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   ]
 
   useEffect(() => {
-    const checkAuth = () => {
-      const session = getAdminSession()
-      
-      if (!session) {
+    let cancelled = false
+
+    const checkAuth = async () => {
+      const authenticated = await verifyAdminSession()
+
+      if (cancelled) return
+
+      if (!authenticated) {
         if (pathname !== '/admin/login') {
           setIsAuthenticated(false)
           setLoading(false)
@@ -48,7 +52,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
     checkAuth()
     const interval = setInterval(checkAuth, 60000)
-    return () => clearInterval(interval)
+    return () => {
+      cancelled = true
+      clearInterval(interval)
+    }
   }, [router, pathname])
 
   useEffect(() => {
@@ -57,7 +64,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     const resetIdleTimer = () => {
       if (idleTimerRef.current) clearTimeout(idleTimerRef.current)
       idleTimerRef.current = setTimeout(() => {
-        clearAdminSession()
+        logoutAdmin()
         router.push('/admin/login')
       }, IDLE_TIMEOUT_MS)
     }
@@ -73,7 +80,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }, [pathname, router])
 
   const handleLogout = () => {
-    clearAdminSession()
+    logoutAdmin()
     router.push('/admin/login')
   }
 

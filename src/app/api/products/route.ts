@@ -10,56 +10,52 @@ export async function GET(request: NextRequest) {
   try {
     // Try Supabase first
     if (supabase) {
-      try {
-        const products = await getProducts({
-          category: category && category !== 'All' ? category : undefined
-        })
-        
-        // Return database results even if empty — only fall back on DB failure
-        return NextResponse.json({
-          success: true,
-          data: products.map(p => ({
-            _id: p.id,
-            name: p.name,
-            price: `₦${p.price}`,
-            category: p.category,
-            description: p.description,
-            images: getProductImages(p),
-            featured: p.featured,
-            story: 'Handcrafted with care',
-            material: 'Premium materials',
-            details: ['Elegant design', 'High quality', 'Perfect for any occasion'],
-            materials: 'Premium materials with attention to detail',
-            care: 'Store in a dry place and wipe gently with a soft cloth after wearing.',
-            options: ['Standard Size', 'Gift Box'],
-            createdAt: p.created_at,
-            updatedAt: p.updated_at
-          })),
-          source: 'database',
-        })
-      } catch (dbError) {
-        console.log('Database fetch failed, using fallback:', dbError)
-      }
+      const products = await getProducts({
+        category: category && category !== 'All' ? category : undefined
+      })
+
+      // Database query succeeded — return database results even if empty.
+      // An empty array means there are genuinely no products; do NOT fall back.
+      return NextResponse.json({
+        success: true,
+        source: 'database' as const,
+        data: products.map(p => ({
+          _id: p.id,
+          name: p.name,
+          price: `₦${p.price}`,
+          category: p.category,
+          description: p.description,
+          images: getProductImages(p),
+          featured: p.featured,
+          story: 'Handcrafted with care',
+          material: 'Premium materials',
+          details: ['Elegant design', 'High quality', 'Perfect for any occasion'],
+          materials: 'Premium materials with attention to detail',
+          care: 'Store in a dry place and wipe gently with a soft cloth after wearing.',
+          options: ['Standard Size', 'Gift Box'],
+          createdAt: p.created_at,
+          updatedAt: p.updated_at
+        })),
+      })
     }
 
-    // Fallback to static products
-    console.log('Using fallback products')
+    // Supabase is not configured at all — fall back to static products
+    console.log('Supabase not configured, using fallback products')
     return NextResponse.json({
       success: true,
+      source: 'fallback' as const,
+      fallbackReason: 'Database not configured. Please set Supabase environment variables.',
       data: getFallbackProducts(category),
-      source: 'fallback',
     })
   } catch (error) {
-    console.error('Products fetch error:', error)
-    return NextResponse.json(
-      {
-        success: true,
-        data: getFallbackProducts(category) || [],
-        source: 'fallback',
-        fallbackReason: (error as Error).message,
-      },
-      { status: 200 }
-    )
+    // Database query failed — fall back but SAY SO explicitly
+    console.log('Database fetch failed, using fallback:', error)
+    return NextResponse.json({
+      success: true,
+      source: 'fallback' as const,
+      fallbackReason: (error as Error).message,
+      data: getFallbackProducts(category) || [],
+    })
   }
 }
 

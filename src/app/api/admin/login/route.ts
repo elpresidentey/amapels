@@ -1,5 +1,12 @@
 import { NextResponse } from 'next/server'
-import crypto from 'crypto'
+import {
+  ADMIN_COOKIE_NAME,
+  SESSION_DURATION_MS,
+  createSessionToken,
+  safeEqual,
+  sessionCookieOptions,
+  type AdminSession,
+} from '@/lib/adminSession'
 
 export async function POST(request: Request) {
   try {
@@ -7,39 +14,40 @@ export async function POST(request: Request) {
 
     const adminEmail = process.env.ADMIN_EMAIL
     const adminPassword = process.env.ADMIN_PASSWORD
-
-    if (!adminEmail || !adminPassword) {
-      return NextResponse.json({ error: 'Admin credentials not configured' }, { status: 500 })
-    }
-
-    if (email?.toLowerCase() !== adminEmail.toLowerCase() || password !== adminPassword) {
-      return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 })
-    }
-
-    const sessionId = crypto.randomUUID()
-    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
     const secret = process.env.SECRET_KEY
-    if (!secret) {
-      console.error('SECRET_KEY environment variable is not set')
+
+    if (!adminEmail || !adminPassword || !secret) {
+      console.error('Admin environment variables are not fully configured')
       return NextResponse.json({ error: 'Server configuration error' }, { status: 500 })
     }
 
-    const signature = crypto
-      .createHmac('sha256', secret)
-      .update(`${sessionId}:${expiresAt}:${email.toLowerCase()}`)
-      .digest('hex')
+    // Basic body validation before credential comparison
+    if (typeof email !== 'string' || typeof password !== 'string' || !email || !password) {
+      return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 })
+    }
 
-    const session = {
+    // Constant-time comparisons to prevent timing attacks
+    const emailMatches = safeEqual(email.toLowerCase(), adminEmail.toLowerCase())
+    const passwordMatches = safeEqual(password, adminPassword)
+
+    if (!emailMatches || !passwordMatches) {
+      return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 })
+    }
+
+    const session: AdminSession = {
       email: email.toLowerCase(),
       name: 'Admin',
       loginTime: new Date().toISOString(),
-      sessionId,
-      expiresAt,
-      signature,
+      expiresAt: new Date(Date.now() + SESSION_DURATION_MS).toISOString(),
     }
 
-    return NextResponse.json({ success: true, session })
+    const token = createSessionToken(session, secret)
+
+    const response = NextResponse.json({ success: true, session })
+    response.cookies.set(ADMIN_COOKIE_NAME, token, sessionCookieOptions(SESSION_DURATION_MS / 1000))
+    return response
   } catch {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
+

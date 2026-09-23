@@ -53,3 +53,11 @@ skills-lock.json
 
 # Database
 *.sql
+
+.vercel
+
+# local dev logs
+dev-server*.log
+tsc-check.log
+vercel-*.log
+

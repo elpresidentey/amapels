@@ -62,6 +62,8 @@ export default function AdminProductsPage() {
   const [selectedProducts, setSelectedProducts] = useState<Set<string>>(new Set())
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(10)
+  const [dataSource, setDataSource] = useState<'database' | 'fallback' | null>(null)
+  const [fallbackReason, setFallbackReason] = useState<string | null>(null)
 
   useEffect(() => {
     checkAuth()
@@ -152,6 +154,8 @@ export default function AdminProductsPage() {
       if (result.success) {
         setProducts(result.data || [])
         setFilteredProducts(result.data || [])
+        setDataSource(result.source === 'fallback' ? 'fallback' : 'database')
+        setFallbackReason(result.fallbackReason || null)
       } else {
         throw new Error('Failed to fetch products')
       }
@@ -440,6 +444,19 @@ export default function AdminProductsPage() {
       />
       
       <div className="section-shell">
+        {dataSource === 'fallback' && (
+          <div
+            role="alert"
+            className="mb-6 rounded-2xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900"
+          >
+            <p className="font-semibold">Showing demo products — the database could not be reached.</p>
+            <p className="mt-1">
+              Your real products are still in Supabase; what you see here is fallback data
+              (including previously deleted images).
+              {fallbackReason ? ` Reason: ${fallbackReason}` : ''}
+            </p>
+          </div>
+        )}
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6 md:mb-8">
           <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl text-black-dark">Product Management</h1>
           <div className="flex items-center gap-2 sm:gap-3">

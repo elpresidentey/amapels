@@ -35,11 +35,27 @@ export interface Product {
   updated_at: string
 }
 
-// Get all product images, falling back to the single image column
+// Get all product images, falling back to the single image column.
+// Handles: proper arrays, JSON-encoded strings, and legacy text[] rows.
 export function getProductImages(product: Product): string[] {
-  if (product.images && Array.isArray(product.images) && product.images.length > 0) {
-    return product.images
+  const raw = (product as Product & { images?: unknown }).images
+
+  if (Array.isArray(raw) && raw.length > 0) {
+    return raw.filter((img): img is string => typeof img === 'string' && img.trim().length > 0)
   }
+
+  if (typeof raw === 'string' && raw.trim().length > 0) {
+    try {
+      const parsed: unknown = JSON.parse(raw)
+      if (Array.isArray(parsed)) {
+        return parsed.filter((img): img is string => typeof img === 'string' && img.trim().length > 0)
+      }
+    } catch {
+      // Not JSON — treat as a single URL
+      return [raw]
+    }
+  }
+
   if (product.image) {
     return [product.image]
   }
