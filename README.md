@@ -196,7 +196,7 @@ This project is proprietary and confidential.
 For issues or questions:
 - Check the [documentation](docs/)
 - Open an issue on GitHub
-- Contact: support@amapels.com
+- Contact: amapelsng@gmail.com
 
 ## 🎉 Acknowledgments
 

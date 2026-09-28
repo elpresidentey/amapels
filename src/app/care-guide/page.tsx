@@ -254,7 +254,7 @@ export default function CareGuidePage() {
               <div>Chain & Clasp Repair</div>
             </div>
             <a 
-              href="mailto:care@amapels.com"
+              href="mailto:amapelsng@gmail.com"
               className="inline-flex items-center px-8 py-3 bg-black text-white text-sm font-medium rounded-md hover:bg-gold transition-colors btn-mobile"
             >
               Contact Care Team

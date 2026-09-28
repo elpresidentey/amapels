@@ -293,7 +293,7 @@ export default function SizeGuidePage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a 
-                href="mailto:sizing@amapels.com"
+                href="mailto:amapelsng@gmail.com"
                 className="inline-flex items-center px-8 py-3 bg-white text-black-dark text-sm font-medium rounded-md hover:bg-white/90 transition-colors btn-mobile"
               >
                 Get Sizing Help

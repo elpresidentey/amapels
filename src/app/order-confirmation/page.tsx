@@ -338,11 +338,11 @@ function OrderConfirmationContent() {
               </Link>
 
               <a
-                href="tel:+234-809-123-4567"
+                href="tel:+2348161238148"
                 className="btn-premium inline-flex items-center gap-2.5 border border-black/15 text-black-dark px-6 py-3.5 text-[10px] font-medium uppercase tracking-[0.22em] hover:border-gold hover:text-gold-dark transition-all sm:text-[11px]"
               >
                 <Phone size={13} />
-                Call Us: +234-809-123-4567
+                Call Us: 0816 123 8148
               </a>
             </div>
           </motion.div>

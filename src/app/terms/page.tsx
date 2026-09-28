@@ -97,8 +97,8 @@ export default function TermsPage() {
                   If you have any questions about these Terms of Service, please contact us at:
                 </p>
                 <div className="mt-4 text-black/80">
-                  <p>Email: legal@amapels.com</p>
-                  <p>Phone: +234-809-123-4567</p>
+                  <p>Email: amapelsng@gmail.com</p>
+                  <p>Phone: 0816 123 8148</p>
                   <p>Address: 123 Victoria Island, Lagos, Nigeria</p>
                 </div>
               </section>

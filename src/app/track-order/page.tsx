@@ -502,24 +502,24 @@ export default function TrackOrderPage() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <a 
-              href="mailto:orders@amapels.com"
+              href="mailto:amapelsng@gmail.com"
               className="flex items-center justify-center gap-3 bg-white/10 rounded-lg p-4 hover:bg-white/20 transition-colors btn-mobile"
             >
               <Mail size={20} />
               <div className="text-left">
                 <div className="font-medium">Order Support</div>
-                <div className="text-sm text-white/70">orders@amapels.com</div>
+                <div className="text-sm text-white/70">amapelsng@gmail.com</div>
               </div>
             </a>
             
             <a 
-              href="tel:+234-809-123-4567"
+              href="tel:+2348161238148"
               className="flex items-center justify-center gap-3 bg-white/10 rounded-lg p-4 hover:bg-white/20 transition-colors btn-mobile"
             >
               <Phone size={20} />
               <div className="text-left">
                 <div className="font-medium">Call Support</div>
-                <div className="text-sm text-white/70">+234-809-123-4567</div>
+                <div className="text-sm text-white/70">0816 123 8148</div>
               </div>
             </a>
           </div>

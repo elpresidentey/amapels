@@ -135,7 +135,7 @@ export default function PrintableReceipt(props: PrintableReceiptProps) {
   <div class="footer">
     <strong>AMAPELS</strong> — Lagos, Nigeria<br>
     Handcrafted with passion. Worn with purpose.<br>
-    <span style="font-size:10px;">For inquiries: orders@amapels.com</span>
+    <span style="font-size:10px;">For inquiries: amapelsng@gmail.com</span>
   </div>
 </div>
 </body>

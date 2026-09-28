@@ -89,6 +89,7 @@ export async function sendOrderConfirmation(data: OrderConfirmationData) {
   try {
     const { error } = await resend.emails.send({
       from: FROM_EMAIL,
+      replyTo: 'amapelsng@gmail.com',
       to: data.customerEmail,
       subject: `Your AMAPELS Order — ${data.orderNumber}`,
       html: buildOrderHtml(data),

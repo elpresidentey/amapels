@@ -228,7 +228,7 @@ export default function ShippingReturnsPage() {
                 Contact Us
               </h3>
               <p className="text-white/70 text-sm">
-                Email us at returns@amapels.com with your order number
+                Email us at amapelsng@gmail.com with your order number
               </p>
             </div>
 
@@ -314,14 +314,14 @@ export default function ShippingReturnsPage() {
             <div className="space-y-3 text-sm">
               <div className="flex items-center gap-3">
                 <span className="text-black/60">Email:</span>
-                <a href="mailto:help@amapels.com" className="text-black-dark hover:text-black">
-                  help@amapels.com
+                <a href="mailto:amapelsng@gmail.com" className="text-black-dark hover:text-black">
+                  amapelsng@gmail.com
                 </a>
               </div>
               <div className="flex items-center gap-3">
                 <span className="text-black/60">Phone:</span>
-                <a href="tel:+234-809-123-4567" className="text-black-dark hover:text-black">
-                  +234-809-123-4567
+                <a href="tel:+2348161238148" className="text-black-dark hover:text-black">
+                  0816 123 8148
                 </a>
               </div>
               <div className="flex items-center gap-3">

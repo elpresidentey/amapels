@@ -92,8 +92,8 @@ function DefaultErrorFallback({ error, retry }: { error?: Error; retry?: () => v
         
         <p className="text-xs text-black/50 mt-6">
           If you continue to experience issues, please contact{' '}
-          <a href="mailto:support@amapels.com" className="underline">
-            support@amapels.com
+          <a href="mailto:amapelsng@gmail.com" className="underline">
+            amapelsng@gmail.com
           </a>
         </p>
       </div>

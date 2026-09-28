@@ -125,7 +125,7 @@ export default function FAQPage() {
             <li>Refunds are processed within 3-5 business days</li>
             <li>Custom or personalized items cannot be returned</li>
           </ul>
-          <p className="mt-2">Contact us at returns@amapels.com to start a return.</p>
+          <p className="mt-2">Contact us at amapelsng@gmail.com to start a return.</p>
         </div>
       )
     },
@@ -137,7 +137,7 @@ export default function FAQPage() {
     {
       category: 'returns',
       question: 'What if my jewelry arrives damaged?',
-      answer: 'If your jewelry arrives damaged, please contact us immediately at help@amapels.com with photos of the damage. We will arrange for a replacement or full refund at no cost to you. All shipments are insured for your protection.'
+      answer: 'If your jewelry arrives damaged, please contact us immediately at amapelsng@gmail.com with photos of the damage. We will arrange for a replacement or full refund at no cost to you. All shipments are insured for your protection.'
     },
     {
       category: 'care',
@@ -168,7 +168,7 @@ export default function FAQPage() {
     {
       category: 'orders',
       question: 'Can I cancel or modify my order?',
-      answer: 'Orders can be cancelled or modified within 2 hours of placement if they haven\'t been processed for shipping. Contact us immediately at help@amapels.com if you need to make changes.'
+      answer: 'Orders can be cancelled or modified within 2 hours of placement if they haven\'t been processed for shipping. Contact us immediately at amapelsng@gmail.com if you need to make changes.'
     },
     {
       category: 'payment',
@@ -262,24 +262,24 @@ export default function FAQPage() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <a 
-              href="mailto:help@amapels.com"
+              href="mailto:amapelsng@gmail.com"
               className="flex items-center justify-center gap-3 bg-white/10 rounded-lg p-4 hover:bg-white/20 transition-colors btn-mobile"
             >
               <Mail size={20} />
               <div className="text-left">
                 <div className="font-medium">Email Support</div>
-                <div className="text-sm text-white/70">help@amapels.com</div>
+                <div className="text-sm text-white/70">amapelsng@gmail.com</div>
               </div>
             </a>
             
             <a 
-              href="tel:+234-809-123-4567"
+              href="tel:+2348161238148"
               className="flex items-center justify-center gap-3 bg-white/10 rounded-lg p-4 hover:bg-white/20 transition-colors btn-mobile"
             >
               <Phone size={20} />
               <div className="text-left">
                 <div className="font-medium">Phone Support</div>
-                <div className="text-sm text-white/70">+234-809-123-4567</div>
+                <div className="text-sm text-white/70">0816 123 8148</div>
               </div>
             </a>
           </div>
