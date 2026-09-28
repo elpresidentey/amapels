@@ -7,6 +7,7 @@ import Footer from '@/components/Footer'
 import ScrollToTop from '@/components/ScrollToTop'
 import IntroOverlay from '@/components/IntroOverlay'
 import SessionInitializer from '@/components/SessionInitializer'
+import PWAInstall from '@/components/PWAInstall'
 
 export default function ClientLayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -20,6 +21,7 @@ export default function ClientLayoutWrapper({ children }: { children: React.Reac
     <>
       <IntroOverlay />
       <SessionInitializer />
+      <PWAInstall />
       <Navbar />
       <NewCart />
       <main className="flex-1">{children}</main>
