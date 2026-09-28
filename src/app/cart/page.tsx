@@ -35,7 +35,7 @@ export default function CartPage() {
             <div className="mb-6 md:mb-8">
               <ShoppingBag size={48} className="text-black/20 mx-auto" strokeWidth={1} />
             </div>
-            <h1 className="font-serif text-2xl sm:text-3xl font-light text-black-dark mb-4">Your Collection Awaits</h1>
+            <h1 className="font-serif text-2xl sm:text-3xl font-light text-black-dark mb-4">Your Bag Awaits</h1>
             <p className="text-black/55 mb-8 md:mb-10 px-4 text-sm sm:text-base max-w-md mx-auto leading-relaxed">
               Discover handcrafted jewelry to wear, love, and cherish. Every piece tells a story.
             </p>
@@ -66,8 +66,8 @@ export default function CartPage() {
         </div>
 
         <div className="mb-10 border-b border-black/[0.06] pb-8 sm:mb-12 sm:pb-10 md:mb-14">
-          <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl font-light text-black-dark">Your Selections</h1>
-          <p className="mt-3 text-sm text-black/50">{items.length} {items.length === 1 ? 'piece' : 'pieces'} in your collection</p>
+          <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl font-light text-black-dark">Your Bag</h1>
+          <p className="mt-3 text-sm text-black/50">{items.length} {items.length === 1 ? 'piece' : 'pieces'} in your bag</p>
         </div>
 
         <div className="grid gap-8 sm:gap-10 lg:grid-cols-[1fr_380px] lg:gap-12 xl:gap-16">
@@ -158,7 +158,7 @@ export default function CartPage() {
                 </div>
                 <div className="flex justify-between text-sm text-black/60">
                   <span>Shipping</span>
-                  <span className="tabular-nums">{shipping > 0 ? `₦${shipping.toLocaleString()}` : 'Complimentary'}</span>
+                  <span className="tabular-nums">₦{shipping.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between text-sm text-black/60">
                   <span>VAT (7.5%)</span>
@@ -171,14 +171,6 @@ export default function CartPage() {
                   </div>
                 </div>
               </div>
-
-              {subtotal < 50000 && (
-                <div className="bg-primary-light/60 border border-gold/15 px-4 py-3 mb-6">
-                  <p className="text-xs text-black/55 text-center">
-                    Add ₦{(50000 - subtotal).toLocaleString()} more for complimentary shipping
-                  </p>
-                </div>
-              )}
 
               <Link
                 href="/checkout"
@@ -195,7 +187,7 @@ export default function CartPage() {
                 </div>
                 <div className="flex items-center gap-2.5 text-[10px] text-black/40 sm:text-[11px]">
                   <Truck size={12} strokeWidth={1.5} className="flex-shrink-0" />
-                  <span>Complimentary shipping on orders over ₦50,000</span>
+                  <span>Flat-rate ₦2,500 delivery on every order</span>
                 </div>
               </div>
             </div>

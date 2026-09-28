@@ -759,7 +759,7 @@ export default function CheckoutPage() {
 
               <div className="text-center mt-6">
                 <Link href="/cart" className="text-xs text-black/50 hover:text-black-dark underline underline-offset-4">
-                  ← Return to Cart
+                  ← Return to Bag
                 </Link>
               </div>
             </motion.div>
@@ -801,7 +801,7 @@ export default function CheckoutPage() {
             className="inline-flex items-center gap-2 text-black/70 hover:text-black-dark transition-colors text-sm uppercase tracking-wider"
           >
             <ArrowLeft size={16} />
-            <span className="hidden sm:inline">Return to Cart</span>
+            <span className="hidden sm:inline">Return to Bag</span>
             <span className="sm:hidden">Back</span>
           </Link>
         </div>
@@ -1046,7 +1046,7 @@ export default function CheckoutPage() {
                         <span>₦{shipping.toLocaleString()}</span>
                       </div>
                       <div className="flex justify-between text-black/70 text-sm md:text-base">
-                        <span>Tax (VAT 7.5%)</span>
+                        <span>VAT (7.5%)</span>
                         <span>₦{tax.toLocaleString()}</span>
                       </div>
                       <div className="border-t border-gold pt-3">
@@ -1214,7 +1214,7 @@ export default function CheckoutPage() {
                         <span>₦{shipping.toLocaleString()}</span>
                       </div>
                       <div className="flex justify-between text-black/70 text-sm">
-                        <span>Tax (VAT 7.5%)</span>
+                        <span>VAT (7.5%)</span>
                         <span>₦{tax.toLocaleString()}</span>
                       </div>
                     </div>
@@ -1225,7 +1225,7 @@ export default function CheckoutPage() {
 
             {/* Desktop Order Summary - Always visible */}
             <div className="hidden lg:block bg-white rounded-3xl border border-gold/30 p-8 sticky top-32">
-              <h3 className="font-serif text-xl text-black-dark mb-6">Your Selection</h3>
+              <h3 className="font-serif text-xl text-black-dark mb-6">Your Bag</h3>
               
               <div className="space-y-4 mb-6">
                 {items.map((item) => (
@@ -1259,7 +1259,7 @@ export default function CheckoutPage() {
                   <span>₦{shipping.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between text-black/70">
-                  <span>Tax (VAT 7.5%)</span>
+                  <span>VAT (7.5%)</span>
                   <span>₦{tax.toLocaleString()}</span>
                 </div>
                 <div className="border-t border-gold pt-3">

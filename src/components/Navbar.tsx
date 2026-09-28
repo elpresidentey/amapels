@@ -129,7 +129,7 @@ export default function Navbar() {
             <button
               onClick={toggleCart}
               className="relative p-2 text-white/75 transition-colors duration-300 hover:text-white"
-              aria-label="Shopping cart"
+              aria-label="Shopping bag"
             >
               <ShoppingBag size={19} strokeWidth={1.4} />
               {mounted && cartItemCount > 0 && (

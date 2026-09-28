@@ -156,7 +156,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                 <button
                   type="button"
                   onClick={handleAddToCart}
-                  aria-label={addedToCart ? 'Added to cart' : 'Add to cart'}
+                  aria-label={addedToCart ? 'Added to bag' : 'Add to bag'}
                   className="flex flex-1 items-center justify-center gap-2 whitespace-nowrap bg-white px-2 py-2.5 text-[10px] font-medium uppercase tracking-[0.18em] text-black-dark shadow-sm transition-all duration-300 hover:bg-gold hover:text-black-dark hover:shadow-[0_4px_16px_rgba(196,163,90,0.3)] active:scale-95"
                 >
                   {addedToCart ? <Check size={13} strokeWidth={1.75} /> : <ShoppingCart size={13} strokeWidth={1.5} />}

@@ -75,16 +75,16 @@ export default function NewCart() {
             <div className="flex items-center justify-between border-b border-black/[0.06] px-5 py-5 sm:px-7 sm:py-6">
               <div>
                 <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-black/40">
-                  Your Selection
+                  Your Bag
                 </p>
                 <h2 className="mt-1 font-serif text-xl font-light text-black-dark sm:text-2xl">
-                  Cart{itemCount > 0 ? ` · ${itemCount}` : ''}
+                  Bag{itemCount > 0 ? ` · ${itemCount}` : ''}
                 </h2>
               </div>
               <button
                 onClick={closeCart}
                 className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-black/50 transition-colors hover:border-black/25 hover:text-black-dark"
-                aria-label="Close cart"
+                aria-label="Close bag"
               >
                 <X size={16} strokeWidth={1.5} />
               </button>
@@ -97,7 +97,7 @@ export default function NewCart() {
                   <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-full border border-black/8">
                     <ShoppingBag size={24} strokeWidth={1.25} className="text-black/30" />
                   </div>
-                  <h3 className="font-serif text-xl font-light text-black-dark">Your cart is empty</h3>
+                  <h3 className="font-serif text-xl font-light text-black-dark">Your bag is empty</h3>
                   <p className="mt-2 max-w-xs text-sm text-black/50">
                     Discover our collection of refined Nigerian jewelry.
                   </p>
@@ -187,7 +187,7 @@ export default function NewCart() {
                     <span className="text-black-dark">₦{shipping.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-black/50">Tax (VAT 7.5%)</span>
+                    <span className="text-black/50">VAT (7.5%)</span>
                     <span className="text-black-dark">₦{tax.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between border-t border-black/[0.06] pt-3 font-medium">
@@ -210,7 +210,7 @@ export default function NewCart() {
                       onClick={closeCart}
                       className="btn-premium flex-1 border border-black/15 py-2.5 text-center text-[10px] font-medium uppercase tracking-[0.18em] text-black-dark transition-colors hover:border-black/30"
                     >
-                      View Cart
+                      View Bag
                     </Link>
                     <button
                       onClick={clearCart}

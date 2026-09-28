@@ -113,7 +113,7 @@ export default function PrintableReceipt(props: PrintableReceiptProps) {
   <div class="totals">
     ${subtotal ? `<div class="row"><span>Subtotal</span><span>₦${sub.toLocaleString()}</span></div>` : ''}
     ${shippingCost ? `<div class="row"><span>Shipping</span><span>₦${ship.toLocaleString()}</span></div>` : ''}
-    ${tax ? `<div class="row"><span>Tax (VAT 7.5%)</span><span>₦${t.toLocaleString()}</span></div>` : ''}
+    ${tax ? `<div class="row"><span>VAT (7.5%)</span><span>₦${t.toLocaleString()}</span></div>` : ''}
     <div class="grand-total"><span>Total Paid</span><span>${totalAmount}</span></div>
   </div>` : `
   <div class="totals">

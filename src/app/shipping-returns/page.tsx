@@ -3,7 +3,7 @@ import { Truck, Clock, Shield, RotateCcw, Package, MapPin } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Shipping & Returns - AMAPELS',
-  description: 'Learn about our shipping options, delivery times, and return policy. Free shipping on orders over ₦50,000 with secure packaging and easy returns.',
+  description: 'Learn about our AMAPELS shipping options, delivery times, and return policy. Flat-rate ₦2,500 delivery with secure packaging and easy returns.',
 }
 
 export default function ShippingReturnsPage() {
@@ -64,22 +64,22 @@ export default function ShippingReturnsPage() {
           </h1>
           <p className="text-lg sm:text-xl text-black/70 leading-relaxed">
             We ensure your AMAPELS jewelry reaches you safely and beautifully packaged. 
-            Enjoy free shipping on orders over ₦50,000 and hassle-free returns within 30 days.
+            Enjoy flat-rate delivery and hassle-free returns within 30 days.
           </p>
         </div>
       </section>
 
-      {/* Free Shipping Banner */}
+      {/* Delivery Rate Banner */}
       <section className="section-shell pb-16">
         <div className="bg-black text-white rounded-2xl p-6 lg:p-8 text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-full mb-4">
             <Truck size={24} className="text-white" />
           </div>
           <h2 className="font-serif text-xl lg:text-2xl font-light mb-2">
-            Free Shipping on Orders ₦50,000+
+            Flat-Rate Delivery: ₦2,500
           </h2>
           <p className="text-white/80 text-sm">
-            Enjoy complimentary standard delivery on qualifying orders across Nigeria
+            One standard delivery rate, anywhere in Nigeria
           </p>
         </div>
       </section>

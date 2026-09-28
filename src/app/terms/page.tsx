@@ -59,7 +59,7 @@ export default function TermsPage() {
               <section className="mb-8">
                 <h2 className="font-serif text-2xl text-black-dark mb-4">5. Shipping and Returns</h2>
                 <p className="text-black/80 leading-relaxed mb-4">
-                  We ship within Nigeria and internationally. Shipping costs and delivery times vary by location. We offer a 30-day return policy for unused items in original packaging. Custom or personalized items cannot be returned.
+                  We ship within Nigeria only. Standard delivery is a flat ₦2,500 and delivery times vary by location. We offer a 30-day return policy for unused items in original packaging. Custom or personalized items cannot be returned.
                 </p>
               </section>
 

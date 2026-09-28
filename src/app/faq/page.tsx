@@ -63,7 +63,7 @@ export default function FAQPage() {
             <li><strong>Other major cities:</strong> 2-4 business days</li>
             <li><strong>Rural areas:</strong> 3-7 business days</li>
           </ul>
-          <p className="mt-2">Free shipping is available on orders over ₦50,000.</p>
+          <p className="mt-2">Standard delivery is a flat rate of ₦2,500.</p>
         </div>
       )
     },
