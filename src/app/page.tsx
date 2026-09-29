@@ -274,8 +274,33 @@ export default function Home() {
             </motion.div>
           </div>
 
+          {/* Mobile slide controls */}
+          <div className="mt-6 flex items-center justify-between border border-white/10 bg-white/[0.04] px-3 py-2.5 backdrop-blur-md sm:mt-8 md:hidden">
+            <button
+              type="button"
+              onClick={goToPrevious}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white transition-all hover:bg-white/10"
+              aria-label="Previous slide"
+            >
+              <ChevronLeft size={15} strokeWidth={1.5} />
+            </button>
+            <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-white/50">
+              <span className="text-gold/80">{String(currentSlide + 1).padStart(2, '0')}</span>
+              <span className="mx-1.5 text-white/30">/</span>
+              <span className="text-white/30">{String(heroSlides.length).padStart(2, '0')}</span>
+            </span>
+            <button
+              type="button"
+              onClick={goToNext}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white transition-all hover:bg-white/10"
+              aria-label="Next slide"
+            >
+              <ChevronRight size={15} strokeWidth={1.5} />
+            </button>
+          </div>
+
           {/* Slide strip */}
-          <div className="mt-6 border border-white/10 bg-white/[0.04] p-3 backdrop-blur-md sm:mt-8 sm:p-4 lg:mt-10">
+          <div className="mt-6 hidden border border-white/10 bg-white/[0.04] p-3 backdrop-blur-md sm:mt-8 sm:p-4 md:block lg:mt-10">
             <div className="grid grid-cols-[auto_1fr] items-stretch gap-2 sm:gap-3">
               <div className="flex flex-col items-center justify-center gap-2">
                 <button
