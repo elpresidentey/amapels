@@ -150,7 +150,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-primary">
       {/* Hero — Cinematic parallax */}
-      <section ref={heroRef} className="relative min-h-screen overflow-hidden bg-black-dark text-white">
+      <section ref={heroRef} className="relative min-h-[100svh] overflow-hidden bg-black-dark text-white">
         <motion.div
           style={{ scale: heroScale, opacity: heroOpacity }}
           className="absolute inset-0"
@@ -184,7 +184,7 @@ export default function Home() {
 
         <motion.div
           style={{ y: heroY }}
-          className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-end px-4 pb-8 pt-24 sm:px-6 sm:pb-12 sm:pt-28 md:px-12 md:pb-16 lg:px-24 lg:pb-20"
+          className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-end px-4 pb-5 pt-16 sm:px-6 sm:pb-10 sm:pt-24 md:px-12 md:pb-12 lg:px-24 lg:pb-12"
         >
           <div className="grid gap-10 lg:grid-cols-[1fr_320px] lg:items-stretch lg:gap-16">
             <div className="max-w-3xl">
@@ -210,18 +210,18 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 0.24, ease }}
-                className="mt-7 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:gap-4"
+                className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:gap-4"
               >
                 <Link
                   href="/collections"
-                  className="btn-premium group inline-flex items-center justify-center gap-2.5 bg-white px-7 py-4 text-[10px] font-medium uppercase tracking-[0.22em] text-black-dark transition-all hover:bg-primary-light sm:text-[11px]"
+                  className="btn-premium group inline-flex items-center justify-center gap-2.5 bg-white px-7 py-3.5 text-[10px] font-medium uppercase tracking-[0.22em] text-black-dark transition-all hover:bg-primary-light sm:py-4 sm:text-[11px]"
                 >
                   Discover Collection
                   <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
                 </Link>
                 <Link
                   href="/shop"
-                  className="btn-premium inline-flex items-center justify-center gap-2.5 border border-white/25 bg-white/[0.04] px-7 py-4 text-[10px] font-medium uppercase tracking-[0.22em] text-white backdrop-blur-sm transition-all hover:border-white/45 hover:bg-white/10 sm:text-[11px]"
+                  className="btn-premium inline-flex items-center justify-center gap-2.5 border border-white/25 bg-white/[0.04] px-7 py-3.5 text-[10px] font-medium uppercase tracking-[0.22em] text-white backdrop-blur-sm transition-all hover:border-white/45 hover:bg-white/10 sm:py-4 sm:text-[11px]"
                 >
                   View Shop
                 </Link>
@@ -233,13 +233,13 @@ export default function Home() {
               initial={{ opacity: 0, y: 32 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.3, ease }}
-              className="hidden border border-white/10 bg-white/[0.05] p-7 backdrop-blur-md lg:flex lg:flex-col"
+              className="hidden border border-white/10 bg-white/[0.05] p-6 backdrop-blur-md lg:flex lg:flex-col"
             >
               <div className="flex items-center justify-between text-[10px] font-medium uppercase tracking-[0.32em] text-white/45">
                 <span>Current Edit</span>
                 <span className="text-gold/80">{String(currentSlide + 1).padStart(2, '0')} / 03</span>
               </div>
-              <div className="mt-10 flex-1">
+              <div className="mt-8 flex-1">
                 <p className="text-xs tracking-wide text-gold/70">{activeSlide.accent}</p>
                 <h2 className="mt-3 font-serif text-2xl font-light leading-snug">
                   {activeSlide.eyebrow}
@@ -248,7 +248,7 @@ export default function Home() {
                   Thoughtfully composed to showcase craftsmanship and details you&apos;ll love wearing.
                 </p>
               </div>
-              <div className="flex items-center justify-between border-t border-white/10 pt-6">
+              <div className="flex items-center justify-between border-t border-white/10 pt-5">
                 <div className="flex gap-2">
                   <button
                     type="button"
@@ -275,9 +275,9 @@ export default function Home() {
           </div>
 
           {/* Slide strip */}
-          <div className="mt-8 border border-white/10 bg-white/[0.04] p-3 backdrop-blur-md sm:mt-10 sm:p-4 lg:mt-14">
-            <div className="grid gap-3 lg:grid-cols-[auto_1fr] lg:items-stretch">
-              <div className="flex items-center justify-center gap-2 lg:flex-col lg:justify-center">
+          <div className="mt-6 border border-white/10 bg-white/[0.04] p-3 backdrop-blur-md sm:mt-8 sm:p-4 lg:mt-10">
+            <div className="grid grid-cols-[auto_1fr] items-stretch gap-2 sm:gap-3">
+              <div className="flex flex-col items-center justify-center gap-2">
                 <button
                   type="button"
                   onClick={goToPrevious}
@@ -296,28 +296,28 @@ export default function Home() {
                 </button>
               </div>
 
-              <div className="grid gap-2 sm:gap-3 md:grid-cols-3">
+              <div className="grid grid-cols-3 gap-2 sm:gap-3">
                 {heroSlides.map((slide, index) => (
                   <button
                     key={slide.id}
                     type="button"
                     onClick={() => goToSlide(index)}
-                    className={`group border px-4 py-4 text-left transition-all duration-300 sm:px-5 sm:py-5 ${
+                    className={`group border px-2.5 py-3 text-left transition-all duration-300 sm:px-4 sm:py-4 lg:px-5 lg:py-5 ${
                       currentSlide === index
                         ? 'border-gold/30 bg-white/[0.08]'
                         : 'border-white/8 bg-transparent hover:border-white/18 hover:bg-white/[0.04]'
                     }`}
                     aria-label={`Go to ${slide.eyebrow}`}
                   >
-                    <div className="mb-3 flex items-center justify-between gap-2">
-                      <p className="text-[9px] font-medium uppercase tracking-[0.28em] text-white/45 sm:text-[10px]">
+                    <div className="mb-2.5 flex items-center justify-between gap-2 sm:mb-3">
+                      <p className="hidden text-[9px] font-medium uppercase tracking-[0.28em] text-white/45 md:block sm:text-[10px]">
                         {slide.eyebrow}
                       </p>
-                      <span className="text-[9px] font-medium tracking-[0.2em] text-white/30 sm:text-[10px]">
+                      <span className="ml-auto text-[9px] font-medium tracking-[0.2em] text-white/30 sm:text-[10px]">
                         {String(index + 1).padStart(2, '0')}
                       </span>
                     </div>
-                    <div className="mb-3 h-px bg-white/10">
+                    <div className="mb-2 h-px bg-white/10 sm:mb-3">
                       <motion.div
                         animate={{ width: currentSlide === index ? '100%' : '0%' }}
                         transition={{ duration: 0.45, ease }}
@@ -327,7 +327,7 @@ export default function Home() {
                     <p className="font-serif text-base font-light leading-snug text-white sm:text-lg">
                       {slide.title}
                     </p>
-                    <p className="mt-2 line-clamp-1 text-[11px] text-white/50 sm:text-xs">
+                    <p className="mt-2 hidden line-clamp-1 text-[11px] text-white/50 sm:block sm:text-xs">
                       {slide.ticker}
                     </p>
                   </button>
