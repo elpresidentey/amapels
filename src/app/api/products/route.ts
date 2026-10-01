@@ -1,11 +1,29 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getProducts, supabase, getProductImages } from '@/lib/supabase'
 import { getFallbackProducts } from '@/lib/fallbackProducts'
+import { isShopifyConfigured, getShopifyProducts } from '@/lib/shopify'
 import { requireAdmin } from '@/lib/admin-guard'
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const category = searchParams.get('category')
+
+  // 1. Shopify first (headless backend) when configured
+  if (isShopifyConfigured()) {
+    try {
+      const products = await getShopifyProducts(
+        category && category !== 'All' ? category : undefined
+      )
+      // Only use Shopify while it actually has products —
+      // an empty catalog (e.g. fresh store) falls through to Supabase/static
+      if (products.length > 0) {
+        return NextResponse.json({ success: true, source: 'shopify' as const, data: products })
+      }
+      console.log('Shopify returned 0 products, falling through to Supabase')
+    } catch (error) {
+      console.log('Shopify fetch failed, falling through to Supabase:', (error as Error).message)
+    }
+  }
 
   try {
     // Try Supabase first

@@ -13,12 +13,10 @@ const heroSlides = [
     id: 1,
     src: '/images/evie-martinez-mCjEVrBS1bM-unsplash.webp',
     alt: 'Amapels crystal bracelet close-up',
-    eyebrow: 'Lagos Crafted Excellence',
-    title: 'Nigerian Artistry, Global Elegance',
-    description:
-      'Handcrafted in Lagos with passion and precision, each piece tells a story of heritage transformed into contemporary luxury.',
-    accent: 'Crystal brilliance and luminous detail',
-    ticker: 'Crystal radiance, timeless elegance, crafted for every cherished moment.',
+    eyebrow: 'Jewellery with a name',
+    title: 'Say It in Gold',
+    description: 'They notice it before you say a word. Make it count',
+    accent: 'Just make it count',
     width: 1920,
     height: 1080
   },
@@ -26,12 +24,10 @@ const heroSlides = [
     id: 2,
     src: '/images/sabrianna-Y_bxfTa_iUA-unsplash.webp',
     alt: 'Amapels gold stud earrings close-up',
-    eyebrow: 'African Luxury Redefined',
-    title: 'Wear Your Story',
-    description:
-      'More than jewelry—each piece is a conversation starter, a confidence builder, and a celebration of who you are.',
-    accent: 'Luminous gold, artisan-crafted',
-    ticker: 'Refined gold treasures for moments that matter most.',
+    eyebrow: 'No green fingers here',
+    title: 'Made to stay',
+    description: "Won't tarnish, won't fade. Just a new favourite that goes with everything",
+    accent: "Won't tarnish. Won't fade.",
     width: 1920,
     height: 1080
   },
@@ -39,12 +35,11 @@ const heroSlides = [
     id: 3,
     src: '/images/andres-vera-202NAwjisYA-unsplash.webp',
     alt: 'AMAPELS occasion jewellery portrait',
-    eyebrow: 'Moments Made Memorable',
-    title: 'Celebrate With AMAPELS',
+    eyebrow: 'For the ones you love',
+    title: 'Give them something to keep',
     description:
-      'From intimate gatherings to grand celebrations, our pieces become part of your most cherished memories.',
-    accent: 'Statement pieces, timeless elegance',
-    ticker: 'Treasured designs for celebrations, gifting, and unforgettable evenings.',
+      'For your wife, your sister, your best friend, and your mum who always says "don\'t buy me anything."',
+    accent: 'For the occasion, or the person',
     width: 1920,
     height: 1080
   }
@@ -52,29 +47,30 @@ const heroSlides = [
 
 const featuredCollections = [
   {
-    title: 'Lagos Luxe Earrings',
-    description: 'Bold designs crafted with Nigerian artistry, framing your face with confidence.',
+    title: 'Earrings',
+    description: 'Tiny studs for Monday. Big drops for Saturday. Pick your mood.',
     image: '/images/gabriel-ogulu-r0bH4hAVBmk-unsplash.webp',
     link: '/shop?category=Earrings',
     span: 'md:col-span-2'
   },
   {
-    title: 'Radiant Bracelets',
-    description: 'Handcrafted adornments that dance with your every movement.',
+    title: 'Bracelets',
+    description: 'Stack them, mix them, then forget you\'re even wearing them.',
     image: '/images/lisa-marie-theck-pxg9jOgPzK4-unsplash.webp',
     link: '/shop?category=Bracelets',
     span: ''
   },
   {
-    title: 'Celebration Pieces',
-    description: 'Exceptional designs for life\'s milestones and treasured memories.',
+    title: 'Occasion Pieces',
+    description:
+      'For the aso ebi, the owambe, and the \'I need to look good tonight.\'',
     image: '/images/julie-sd--Njp0M9Rzhc-unsplash.webp',
     link: '/shop',
     span: ''
   },
   {
-    title: 'Heritage Necklaces',
-    description: 'Graceful chains that rest close to the heart, completing your story.',
+    title: 'Necklaces',
+    description: 'The little chain you never take off, and the one that starts conversations.',
     image: '/images/andres-vera-202NAwjisYA-unsplash.webp',
     link: '/shop?category=Necklaces',
     span: 'md:col-span-2'
@@ -82,10 +78,10 @@ const featuredCollections = [
 ]
 
 const brandPillars = [
-  'Handcrafted in Lagos, Nigeria',
-  'African Artisan Excellence',
-  'Premium Gift Packaging',
-  'Global Shipping Available'
+  'Won\'t Tarnish',
+  'Won\'t Fade',
+  'Won\'t Disappoint',
+  'Delivery Across Nigeria'
 ]
 
 const ease = [0.22, 1, 0.36, 1] as const
@@ -216,14 +212,14 @@ export default function Home() {
                   href="/collections"
                   className="btn-premium group inline-flex items-center justify-center gap-2.5 bg-white px-7 py-3.5 text-[10px] font-medium uppercase tracking-[0.22em] text-black-dark transition-all hover:bg-primary-light sm:py-4 sm:text-[11px]"
                 >
-                  Discover Collection
+                  Shop Now
                   <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
                 </Link>
                 <Link
                   href="/shop"
                   className="btn-premium inline-flex items-center justify-center gap-2.5 border border-white/25 bg-white/[0.04] px-7 py-3.5 text-[10px] font-medium uppercase tracking-[0.22em] text-white backdrop-blur-sm transition-all hover:border-white/45 hover:bg-white/10 sm:py-4 sm:text-[11px]"
                 >
-                  View Shop
+                  Shop Gifts
                 </Link>
               </motion.div>
             </div>
@@ -235,17 +231,19 @@ export default function Home() {
               transition={{ duration: 1, delay: 0.3, ease }}
               className="hidden border border-white/10 bg-white/[0.05] p-6 backdrop-blur-md lg:flex lg:flex-col"
             >
-              <div className="flex items-center justify-between text-[10px] font-medium uppercase tracking-[0.32em] text-white/45">
-                <span>Current Edit</span>
+              <div className="flex items-center justify-between text-[10px] font-medium uppercase tracking-[0.32em] text-white/60">
+                <span>This Week&apos;s Picks</span>
                 <span className="text-gold/80">{String(currentSlide + 1).padStart(2, '0')} / 03</span>
               </div>
               <div className="mt-8 flex-1">
-                <p className="text-xs tracking-wide text-gold/70">{activeSlide.accent}</p>
+                {activeSlide.accent ? (
+                  <p className="text-xs tracking-wide text-gold/70">{activeSlide.accent}</p>
+                ) : null}
                 <h2 className="mt-3 font-serif text-2xl font-light leading-snug">
                   {activeSlide.eyebrow}
                 </h2>
                 <p className="mt-4 text-sm leading-relaxed text-white/55">
-                  Thoughtfully composed to showcase craftsmanship and details you&apos;ll love wearing.
+                  Picked because we&apos;d happily wear them ourselves.
                 </p>
               </div>
               <div className="flex items-center justify-between border-t border-white/10 pt-5">
@@ -267,7 +265,7 @@ export default function Home() {
                     <ChevronRight size={16} strokeWidth={1.5} />
                   </button>
                 </div>
-                <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-white/40">
+                <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-white/55">
                   AMAPELS NG
                 </span>
               </div>
@@ -286,8 +284,8 @@ export default function Home() {
             </button>
             <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-white/50">
               <span className="text-gold/80">{String(currentSlide + 1).padStart(2, '0')}</span>
-              <span className="mx-1.5 text-white/30">/</span>
-              <span className="text-white/30">{String(heroSlides.length).padStart(2, '0')}</span>
+              <span className="mx-1.5 text-white/45">/</span>
+              <span className="text-white/55">{String(heroSlides.length).padStart(2, '0')}</span>
             </span>
             <button
               type="button"
@@ -327,7 +325,7 @@ export default function Home() {
                     key={slide.id}
                     type="button"
                     onClick={() => goToSlide(index)}
-                    className={`group border px-2.5 py-3 text-left transition-all duration-300 sm:px-4 sm:py-4 lg:px-5 lg:py-5 ${
+                    className={`group flex h-full flex-col border px-2.5 py-3 text-left transition-all duration-300 sm:px-4 sm:py-4 lg:px-5 lg:py-5 ${
                       currentSlide === index
                         ? 'border-gold/30 bg-white/[0.08]'
                         : 'border-white/8 bg-transparent hover:border-white/18 hover:bg-white/[0.04]'
@@ -335,26 +333,30 @@ export default function Home() {
                     aria-label={`Go to ${slide.eyebrow}`}
                   >
                     <div className="mb-2.5 flex items-center justify-between gap-2 sm:mb-3">
-                      <p className="hidden text-[9px] font-medium uppercase tracking-[0.28em] text-white/45 md:block sm:text-[10px]">
+                      <p className="hidden truncate text-[9px] font-medium uppercase tracking-[0.28em] text-white/60 md:block sm:text-[10px]">
                         {slide.eyebrow}
                       </p>
-                      <span className="ml-auto text-[9px] font-medium tracking-[0.2em] text-white/30 sm:text-[10px]">
+                      <span className="ml-auto shrink-0 text-[9px] font-medium tracking-[0.2em] text-white/55 sm:text-[10px]">
                         {String(index + 1).padStart(2, '0')}
                       </span>
                     </div>
-                    <div className="mb-2 h-px bg-white/10 sm:mb-3">
+                    <div className="mb-2 h-px shrink-0 bg-white/10 sm:mb-3">
                       <motion.div
                         animate={{ width: currentSlide === index ? '100%' : '0%' }}
                         transition={{ duration: 0.45, ease }}
                         className="h-full bg-gold"
                       />
                     </div>
-                    <p className="font-serif text-base font-light leading-snug text-white sm:text-lg">
+                    <p className="line-clamp-2 min-h-[2.75em] font-serif text-base font-light leading-snug text-white sm:text-lg">
                       {slide.title}
                     </p>
-                    <p className="mt-2 hidden line-clamp-1 text-[11px] text-white/50 sm:block sm:text-xs">
-                      {slide.ticker}
-                    </p>
+                    {slide.accent ? (
+                      <p className="mt-2 hidden line-clamp-1 text-[11px] text-white/50 sm:block sm:text-xs">
+                        {slide.accent}
+                      </p>
+                    ) : (
+                      <span className="mt-2 hidden sm:block" aria-hidden />
+                    )}
                   </button>
                 ))}
               </div>
@@ -376,7 +378,7 @@ export default function Home() {
                 transition={{ duration: 0.4, ease }}
                 className="absolute inset-0 flex items-center justify-center"
               >
-                <p className="text-center text-[10px] font-medium uppercase tracking-[0.36em] text-black/55">
+                <p className="text-center text-[10px] font-medium uppercase tracking-[0.36em] text-black/65">
                   {brandPillars[currentPillar]}
                 </p>
               </motion.div>
@@ -398,7 +400,7 @@ export default function Home() {
       </section>
 
       {/* Our Story */}
-      <section ref={storyRef} className="overflow-hidden px-4 py-20 sm:px-6 sm:py-24 md:px-12 md:py-28 lg:px-24 lg:py-32">
+      <section ref={storyRef} className="relative overflow-hidden px-4 py-20 sm:px-6 sm:py-24 md:px-12 md:py-28 lg:px-24 lg:py-32">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-14 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-20">
             <motion.div
@@ -407,22 +409,24 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 1, ease }}
             >
-              <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
+              <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-black/55">
                 Our Story
               </p>
               <h2 className="font-serif text-2xl font-light leading-[1.15] text-black-dark sm:text-3xl md:text-[2.2rem]">
-                It began in Lagos — a city that wears its soul on every street.
+                Your jewellery speaks before you do
               </h2>
               <div className="mt-6 space-y-4 text-base leading-relaxed text-black/60">
                 <p>
-                  In the golden light of a Lagos evening, surrounded by the rhythm of market songs
-                  and the laughter of women who knew the weight of resilience, the first AMAPELS
-                  piece was born. It was never meant to be a brand. It was meant to be a feeling.
+                  You know that feeling when you finally find earrings you love, wear them twice,
+                  and they start changing colour? Yeah. We got tired of it too. AMAPELS started
+                  because we wanted pretty pieces that could actually keep up with Nigerian life:
+                  work, church, traffic, weddings, the whole weekend.
                 </p>
                 <p>
-                  A feeling that grew into something bigger — a home for women who wear their
-                  stories as proudly as their gold. Every curve, every clasp, every shimmering
-                  stone is a conversation between heritage and the woman who dares to shine.
+                  So we&apos;re picky. Every piece has to look good and hold up. If we wouldn&apos;t wear
+                  it every day ourselves, it doesn&apos;t get to you. Whether it&apos;s for you or for
+                  someone you love, it should still feel like a good decision long after you&apos;ve
+                  paid for it.
                 </p>
               </div>
               <div className="mt-10 space-y-6">
@@ -433,7 +437,7 @@ export default function Home() {
                   transition={{ duration: 0.6, delay: 0.2, ease }}
                   className="border-l border-gold/50 pl-5"
                 >
-                  <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-black/40">Made in Lagos</p>
+                  <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-black/55">Nigerian-Owned</p>
                   <p className="text-sm leading-relaxed text-black/65">
                     Handcrafted by Nigerian artisans who pour generations of skill into every piece. Our hands carry the legacy of a continent.
                   </p>
@@ -445,7 +449,7 @@ export default function Home() {
                   transition={{ duration: 0.6, delay: 0.35, ease }}
                   className="border-l border-gold/50 pl-5"
                 >
-                  <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-black/40">Worn Everywhere</p>
+                  <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-black/55">Made to Last</p>
                   <p className="text-sm leading-relaxed text-black/65">
                     From the streets of Surulere to the avenues of New York — our pieces travel with women who move through the world with grace and intention.
                   </p>
@@ -477,9 +481,9 @@ export default function Home() {
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(12,10,8,0.3)_0%,transparent_60%)]" />
-                <div className="absolute bottom-0 left-0 right-0 bg-[linear-gradient(180deg,transparent_50%,rgba(12,10,8,0.85)_100%)] p-8 text-white">
-                  <p className="mb-2 font-serif text-2xl font-light italic text-gold/80">&ldquo;Crafted in Lagos, worn by the world.&rdquo;</p>
-                  <p className="text-xs text-white/50">— Handmade with intent, finished with love</p>
+                <div className="absolute bottom-0 left-0 right-0 bg-[linear-gradient(180deg,transparent_0%,rgba(12,10,8,0.55)_28%,rgba(12,10,8,0.88)_55%,rgba(12,10,8,0.96)_100%)] p-8 text-white">
+                  <p className="mb-2 font-serif text-2xl font-light italic text-gold/80">&ldquo;If it turns your finger green, we&apos;ve failed. Simple.&rdquo;</p>
+                  <p className="text-xs text-white/70">- The AMAPELS team</p>
                 </div>
               </motion.div>
             </motion.div>
@@ -514,13 +518,13 @@ export default function Home() {
             transition={{ duration: 1.2, delay: 0.2, ease }}
             className="max-w-2xl"
           >
-            <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.38em] text-gold/60">
+            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-gold/70">
               The AMAPELS Philosophy
             </p>
             <blockquote className="font-serif text-2xl font-light leading-[1.2] text-white sm:text-3xl md:text-4xl">
-              &ldquo;Every piece of jewellery carries a story.
+              &ldquo;Your jewellery speaks before you do.
               <br />
-              <span className="text-gold/80">Ours begins in Lagos.</span>&rdquo;
+              <span className="text-gold/80">We just make sure it&apos;s saying something good.</span>&rdquo;
             </blockquote>
             <div className="mt-8 h-px w-16 bg-gold/50" />
             <p className="mt-6 max-w-lg text-sm leading-relaxed text-white/55">
@@ -536,11 +540,11 @@ export default function Home() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 flex flex-col gap-5 border-b border-black/[0.06] pb-8 sm:mb-12 md:mb-14 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
+              <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-black/55">
                 Featured Collections
               </p>
               <h2 className="max-w-xl font-serif text-2xl font-light text-black-dark sm:text-3xl md:text-4xl">
-                Crafted for every style, moment, and celebration.
+                Find your kind of shine.
               </h2>
             </div>
             <Link
@@ -574,11 +578,11 @@ export default function Home() {
                       className={`object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.04] ${index === 0 ? 'object-[center_25%]' : ''}`}
                     />
                   </div>
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,10,8,0.1)_0%,rgba(12,10,8,0.75)_100%)] transition-opacity duration-500 group-hover:opacity-95" />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,10,8,0.15)_0%,rgba(12,10,8,0.6)_40%,rgba(12,10,8,0.9)_100%)] transition-opacity duration-500 group-hover:opacity-95" />
                   <div className="absolute bottom-0 left-0 right-0 p-6 text-white sm:p-7 md:p-8">
                     <div className="mb-3 h-px w-8 bg-gold/70 transition-all duration-500 group-hover:w-14" />
                     <h3 className="font-serif text-xl font-light sm:text-2xl">{collection.title}</h3>
-                    <p className="mt-2.5 max-w-sm text-sm leading-relaxed text-white/60">
+                    <p className="mt-2.5 max-w-sm text-sm leading-relaxed text-white/75">
                       {collection.description}
                     </p>
                     <span className="mt-4 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-gold/90">
@@ -598,11 +602,11 @@ export default function Home() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-12 flex flex-col gap-5 border-b border-black/[0.06] pb-8 sm:mb-14 md:mb-16 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
+              <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-black/55">
                 Curated Pieces
               </p>
               <h2 className="font-serif text-2xl font-light text-black-dark sm:text-3xl md:text-4xl">
-                Treasures to wear, treasures to give.
+                Pieces we&apos;re loving right now.
               </h2>
             </div>
             <div className="flex flex-col items-start gap-4 md:items-end">
@@ -633,7 +637,7 @@ export default function Home() {
             </div>
           ) : (
             <div className="border border-dashed border-black/10 py-16 text-center">
-              <p className="text-sm text-black/50">No featured products yet. Check back soon.</p>
+              <p className="text-sm text-black/60">New pieces are coming. Check back soon!</p>
             </div>
           )}
         </div>
@@ -649,13 +653,13 @@ export default function Home() {
             transition={{ duration: 1, ease }}
             className="mb-16 text-center"
           >
-            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-gold/50">
+            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-gold/70">
               Jewellery With Meaning
             </p>
             <h2 className="font-serif text-2xl font-light leading-[1.15] text-white sm:text-3xl md:text-4xl">
-              Pieces that speak
+              Because it&apos;s never
               <br />
-              <span className="text-gold/80">without saying a word.</span>
+              <span className="text-gold/80">just jewellery.</span>
             </h2>
             <motion.div
               initial={{ scaleX: 0 }}
@@ -672,19 +676,19 @@ export default function Home() {
                 icon: '✦',
                 title: 'For the Milestones',
                 description:
-                  'The promotion you fought for. The anniversary you never thought you\'d reach. The first piece of jewellery you bought yourself. Every AMAPELS piece is designed to be there for the moments that matter most.',
+                  'The new job. The graduation. The day you finally did the thing. Get yourself something that remembers it with you.',
               },
               {
                 icon: '♦',
                 title: 'For the Everyday',
                 description:
-                  'A gold chain that catches the light during a Monday meeting. Studs that make you feel put-together on a lazy Sunday. Jewellery shouldn\'t wait for special occasions — it should make every day feel special.',
+                  'Not every day needs a reason. Some pieces are just for school runs, meetings, and grabbing suya on the way home.',
               },
               {
                 icon: '∞',
                 title: 'For the Gifting',
                 description:
-                  'The best gifts are the ones that say "I know you." A piece chosen with intention — for a sister, a mother, a friend who has been there through everything. Wrapped in our signature packaging, with a note that speaks from the heart.',
+                  'Your sister\'s birthday, your bestie\'s wedding, that one person who\'s impossible to buy for. Give them something that still looks new long after the party.',
               },
             ].map((item, index) => (
               <motion.div
@@ -700,7 +704,7 @@ export default function Home() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.3 + index * 0.12, ease }}
-                  className="mb-6 block font-serif text-4xl text-gold/50"
+                  className="mb-6 block font-serif text-4xl text-gold/80"
                 >
                   {item.icon}
                 </motion.span>
@@ -725,11 +729,11 @@ export default function Home() {
             className="mb-14 flex flex-col gap-5 border-b border-black/[0.06] pb-10 sm:mb-16 md:flex-row md:items-end md:justify-between"
           >
             <div>
-              <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
+              <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-black/55">
                 From Our Journal
               </p>
               <h2 className="max-w-xl font-serif text-2xl font-light text-black-dark sm:text-3xl md:text-4xl">
-                Thoughts on craft, culture, and the stories we wear.
+                Style tips, gift ideas, and the stories behind what we wear.
               </h2>
             </div>
             <Link
@@ -771,7 +775,7 @@ export default function Home() {
                       transition={{ duration: 0.8, delay: 0.2 + index * 0.12, ease }}
                       className="h-px flex-1 origin-left bg-gold/40"
                     />
-                    <span className="text-[9px] font-medium uppercase tracking-[0.22em] text-black/30">
+                    <span className="text-[9px] font-medium uppercase tracking-[0.22em] text-black/50">
                       {article.publishedAt
                         ? new Date(article.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
                         : ''}
@@ -787,7 +791,7 @@ export default function Home() {
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: 0.4 + index * 0.12, ease }}
-                      className="mt-4 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-black/40 transition-colors duration-300 group-hover:text-gold-dark"
+                      className="mt-4 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-black/55 transition-colors duration-300 group-hover:text-gold-dark"
                     >
                       Read More
                       <ArrowRight size={12} className="transition-transform group-hover:translate-x-1" />
@@ -810,25 +814,25 @@ export default function Home() {
           className="mx-auto grid max-w-6xl gap-10 border border-gold/25 bg-white px-8 py-12 sm:px-10 sm:py-14 md:grid-cols-[1.15fr_0.85fr] md:gap-14 md:px-14 md:py-16"
         >
           <div>
-            <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
+            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-black/55">
               Ready to find your piece?
             </p>
             <h2 className="font-serif text-2xl font-light leading-snug text-black-dark sm:text-3xl md:text-[2.2rem]">
-              Your story is waiting
+              So, which one&apos;s
               <br />
-              <span className="text-gold-dark">to be worn.</span>
+              <span className="text-gold-dark">calling you?</span>
             </h2>
           </div>
           <div className="flex flex-col justify-between">
             <p className="text-sm leading-relaxed text-black/60 sm:text-base">
-              Every piece of jewellery tells a story. Find the one that tells yours — crafted in Lagos, made with meaning, and designed for the woman who knows her worth.
+              Go on. Your jewellery has something to say.
             </p>
             <div className="mt-8">
               <Link
                 href="/shop"
                 className="btn-premium group inline-flex items-center gap-2.5 bg-black-dark px-7 py-4 text-[10px] font-medium uppercase tracking-[0.22em] text-white transition-all hover:bg-black sm:text-[11px]"
               >
-                Browse the Collection
+                Start Shopping
                 <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
               </Link>
             </div>

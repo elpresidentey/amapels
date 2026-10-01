@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getProduct, supabase, getProductImages } from '@/lib/supabase'
 import { getFallbackProductById } from '@/lib/fallbackProducts'
+import { isShopifyConfigured, getShopifyProductById } from '@/lib/shopify'
 import { requireAdmin } from '@/lib/admin-guard'
 
 export async function GET(
@@ -8,6 +9,18 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
+    // 1. Shopify first when configured (accepts handle, numeric id, or gid)
+    if (isShopifyConfigured()) {
+      try {
+        const shopifyProduct = await getShopifyProductById(params.id)
+        if (shopifyProduct) {
+          return NextResponse.json({ success: true, data: shopifyProduct, source: 'shopify' })
+        }
+      } catch (error) {
+        console.log('Shopify single-product fetch failed:', (error as Error).message)
+      }
+    }
+
     // First try fallback products
     const fallbackProduct = getFallbackProductById(params.id)
     

@@ -342,7 +342,7 @@
 
   /* Editorial section eyebrow */
   .eyebrow {
-    @apply text-[10px] font-medium uppercase tracking-[0.38em] text-black/45;
+    @apply text-[10px] font-medium uppercase tracking-[0.38em] text-black/55;
   }
 
   /* Thin gold hairline rule */
