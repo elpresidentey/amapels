@@ -12,7 +12,7 @@ export default function Footer() {
               AMAPELS
             </Link>
             <p className="mt-3 max-w-md text-sm leading-relaxed text-white/55 sm:mt-4">
-              Exquisite Nigerian jewelry, crafted in Lagos to be worn, gifted, and treasured.
+              Exquisite Nigerian jewelry, made in Abuja to be worn, gifted, and treasured.
             </p>
           </div>
           <div className="flex items-center gap-3">
@@ -38,7 +38,7 @@ export default function Footer() {
         <div className="mb-12 grid grid-cols-2 gap-8 sm:mb-14 sm:gap-10 md:grid-cols-4 lg:mb-16 lg:gap-14">
           <div className="col-span-2 md:col-span-1">
             <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.32em] text-gold/70">
-              Lagos · Nigeria
+              Abuja, Nigeria
             </p>
             <p className="max-w-xs text-sm leading-relaxed text-white/55">
               A curated house for statement pieces, quiet luxury, and jewelry that celebrates every moment.
@@ -79,7 +79,6 @@ export default function Footer() {
                 { href: '/story', label: 'Our Story' },
                 { href: '/journal', label: 'Journal' },
                 { href: '/contact', label: 'Contact Us' },
-                { href: '/artisan-process', label: 'Artisan Process' },
                 { href: '/gift-guide', label: 'Gift Guide' },
                 { href: '/care-guide', label: 'Jewelry Care' },
               ].map((link) => (

@@ -125,8 +125,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-medium text-black-dark mb-2">Visit Us</h3>
-                    <p className="text-black/70">123 Victoria Island,</p>
-                    <p className="text-black/70">Lagos, Nigeria</p>
+                    <p className="text-black/70">Wuse II,</p>
+                    <p className="text-black/70">Abuja, Nigeria</p>
                   </div>
                 </motion.div>
 

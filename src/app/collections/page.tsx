@@ -16,7 +16,7 @@ const collections = [
   {
     id: 'bracelets',
     name: 'Bracelets & Bangles',
-    description: 'Radiant wrist adornments crafted with exquisite detail — elegant, refined, and perfect for gifting.',
+    description: 'Radiant wrist adornments presented with exquisite detail — elegant, refined, and perfect for gifting.',
     image: '/images/edgar-soto-o87CUS_uDiQ-unsplash.webp',
     href: '/shop?category=Bracelets',
   },
@@ -59,7 +59,7 @@ export default function CollectionsPage() {
                 </h1>
               </div>
               <p className="max-w-sm text-sm leading-relaxed text-black/55 md:text-right">
-                Artisan-crafted edits for everyday elegance, milestone celebrations, and treasured gifts.
+                Curated edits for everyday elegance, milestone celebrations, and treasured gifts.
               </p>
             </div>
           </motion.div>

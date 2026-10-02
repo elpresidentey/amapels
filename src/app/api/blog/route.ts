@@ -7,6 +7,12 @@ export const dynamic = 'force-dynamic'
 
 export async function GET(request: NextRequest) {
   try {
+    if (!process.env.MONGODB_URI) {
+      return NextResponse.json({
+        posts: [],
+        pagination: { page: 1, limit: 20, total: 0, pages: 0 },
+      })
+    }
     await dbConnect()
     const { searchParams } = new URL(request.url)
     const category = searchParams.get('category')

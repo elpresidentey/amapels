@@ -71,7 +71,7 @@ export default function TrackOrderPage() {
     orderId: 'AMP2024001',
     status: OrderStatus.IN_TRANSIT,
     estimatedDelivery: '2026-07-06 by 6:00 PM',
-    currentLocation: 'Lagos Distribution Center',
+    currentLocation: 'Abuja Distribution Center',
     trackingNumber: 'TRK789012345',
     courierName: 'Express Logistics',
     courierPhone: '+234-800-123-4567',
@@ -87,9 +87,9 @@ export default function TrackOrderPage() {
       { productId: '3', name: 'Silver Cuff Bracelet', price: 12000, quantity: 1, image: '' }
     ],
     shippingAddress: {
-      street: '42 Awolowo Road',
-      city: 'Ikeja',
-      state: 'Lagos',
+      street: '42 Awolowo Way',
+      city: 'Abuja',
+      state: 'Abuja',
       postalCode: '234001',
       country: 'Nigeria'
     },
@@ -102,7 +102,7 @@ export default function TrackOrderPage() {
         date: '2026-07-03',
         time: '2:30 PM',
         status: 'Order confirmed and payment received',
-        location: 'AMAPELS Lagos',
+        location: 'AMAPELS Abuja',
         completed: true
       },
       {
@@ -116,21 +116,21 @@ export default function TrackOrderPage() {
         date: '2026-07-04',
         time: '4:20 PM',
         status: 'Package received at sorting facility',
-        location: 'Lagos Distribution Center',
+        location: 'Abuja Distribution Center',
         completed: true
       },
       {
         date: '2026-07-05',
         time: '9:45 AM',
         status: 'Package in transit to destination',
-        location: 'Lagos Distribution Center',
+        location: 'Abuja Distribution Center',
         completed: true
       },
       {
         date: '2026-07-06',
         time: 'Estimated',
         status: 'Out for delivery',
-        location: 'Victoria Island Hub',
+        location: 'Abuja Hub',
         completed: false
       },
       {

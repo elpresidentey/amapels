@@ -44,7 +44,7 @@ function buildOrderHtml(data: OrderConfirmationData): string {
         </td></tr>
         <tr><td style="padding:40px;">
           <p style="font-size:15px;color:#3a3530;line-height:1.7;">Dear ${data.customerName},</p>
-          <p style="font-size:15px;color:#3a3530;line-height:1.7;">Thank you for your order. Each piece you've chosen carries a story — of Lagos craftsmanship, of moments waiting to be made. We are honoured to be part of your journey.</p>
+          <p style="font-size:15px;color:#3a3530;line-height:1.7;">Thank you for your order. Each piece you've chosen carries a story — of Nigerian style, of moments waiting to be made. We are honoured to be part of your journey.</p>
 
           <div style="margin:32px 0;padding:24px;background:#faf8f5;border-left:3px solid #d4c5a0;">
             <p style="margin:0 0 4px;font-size:10px;letter-spacing:2px;color:#9a8a72;text-transform:uppercase;">Order Reference</p>
@@ -70,8 +70,8 @@ function buildOrderHtml(data: OrderConfirmationData): string {
           <p style="font-size:13px;color:#6a6560;line-height:1.6;font-style:italic;">"Every piece of jewellery tells a story — ours begins with you."</p>
         </td></tr>
         <tr><td style="padding:32px 40px;background:#1a1714;text-align:center;">
-          <p style="margin:0;font-size:11px;color:#9a8a72;letter-spacing:2px;">AMAPELS — Lagos, Nigeria</p>
-          <p style="margin:6px 0 0;font-size:10px;color:#6a6560;">Handcrafted with passion. Worn with purpose.</p>
+          <p style="margin:0;font-size:11px;color:#9a8a72;letter-spacing:2px;">AMAPELS — Abuja, Nigeria</p>
+          <p style="margin:6px 0 0;font-size:10px;color:#6a6560;">Designed with passion. Worn with purpose.</p>
         </td></tr>
       </table>
     </td></tr>

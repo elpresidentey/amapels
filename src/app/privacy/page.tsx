@@ -124,7 +124,7 @@ export default function PrivacyPage() {
                 <div className="mt-4 text-black/80">
                   <p>Email: amapelsng@gmail.com</p>
                   <p>Phone: 0816 123 8148</p>
-                  <p>Address: 123 Victoria Island, Lagos, Nigeria</p>
+                  <p>Address: Wuse II, Abuja, Nigeria</p>
                 </div>
               </section>
             </div>

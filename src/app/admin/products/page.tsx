@@ -34,10 +34,10 @@ const initialFormData: Omit<Product, '_id' | 'createdAt' | 'updatedAt'> = {
   description: '',
   images: [''],
   featured: false,
-  story: 'Handcrafted with care',
+  story: 'Made with care',
   material: 'Gold-tone alloy',
-        details: ['Handcrafted quality', 'Polished finish', 'Ideal for gifting'],
-        materials: 'Premium materials with artisan attention to detail',
+        details: ['Made with care', 'Polished finish', 'Ideal for gifting'],
+        materials: 'Premium materials, carefully sourced',
         care: 'Store in a dry place and wipe gently with a soft cloth after wearing.',
         options: ['Gold Finish', 'Gift Box']
 }
@@ -177,7 +177,7 @@ export default function AdminProductsPage() {
         description: product.description,
         images: [...product.images],
         featured: product.featured || false,
-        story: product.story || 'Handcrafted with care',
+        story: product.story || 'Made with care',
         material: product.material || 'Gold-tone alloy',
         details: product.details || ['Lightweight and comfortable', 'Elegant design', 'Perfect for any occasion'],
         materials: product.materials || 'Premium materials with attention to detail',
@@ -227,12 +227,12 @@ export default function AdminProductsPage() {
       // Clean up array fields (remove empty items)
       const cleanedData = {
         ...formData,
-        details: formData.details && formData.details.length > 0 ? formData.details.filter(d => d.trim()) : ['Handcrafted quality', 'Polished finish', 'Ideal for gifting'],
+        details: formData.details && formData.details.length > 0 ? formData.details.filter(d => d.trim()) : ['Made with care', 'Polished finish', 'Ideal for gifting'],
         options: formData.options && formData.options.length > 0 ? formData.options.filter(o => o.trim()) : ['Gold Finish', 'Gift Box'],
         images: formData.images.filter(i => i.trim()),
-        story: formData.story || 'Handcrafted with care',
+        story: formData.story || 'Made with care',
         material: formData.material || 'Gold-tone alloy',
-        materials: formData.materials || 'Premium materials with artisan attention to detail',
+        materials: formData.materials || 'Premium materials, carefully sourced',
         care: formData.care || 'Store in a dry place and wipe gently with a soft cloth after wearing.'
       }
 

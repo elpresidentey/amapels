@@ -50,6 +50,9 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
 
   const productHref = `/shop/${product._id}`
   const primaryImage = product.images?.[0] || FALLBACK_IMAGE
+  const otherImage = product.images?.slice(1).find((img) => img && img !== primaryImage)
+  const hoverImage = otherImage || primaryImage
+  const hasSwap = Boolean(otherImage)
   const detailLine = product.material || product.story
 
   const handleToggleWishlist = (e: React.MouseEvent) => {
@@ -107,17 +110,24 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
               alt={product.name}
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 50vw, 33vw"
-              className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+              className={`object-cover transition-all duration-700 ease-out group-hover:scale-[1.06] ${hasSwap ? 'group-hover:opacity-0' : ''}`}
               loading={index < 4 ? 'eager' : 'lazy'}
               quality={80}
             />
+            {hasSwap ? (
+              <Image
+                src={hoverImage}
+                alt=""
+                aria-hidden
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 50vw, 33vw"
+                className="absolute inset-0 object-cover opacity-0 transition-all duration-700 ease-out group-hover:scale-[1.06] group-hover:opacity-100"
+                loading="lazy"
+                quality={80}
+              />
+            ) : null}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/0 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
           </motion.div>
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"
-            initial={{ opacity: 0 }}
-            whileHover={{ opacity: 1 }}
-            transition={{ duration: 0.4 }}
-          />
         </Link>
 
         {product.featured && (

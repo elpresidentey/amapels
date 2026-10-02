@@ -231,8 +231,8 @@ export default function ProductPage() {
                     </div>
                   )}
                   <div className="flex gap-4">
-                    <span className="w-28 shrink-0 text-[10px] font-medium uppercase tracking-[0.16em] text-black/40">Craft</span>
-                    <span>Handcrafted in Lagos, Nigeria</span>
+<span className="w-28 shrink-0 text-[10px] font-medium uppercase tracking-[0.16em] text-black/40">Origin</span>
+                      <span>Made in Abuja, Nigeria</span>
                   </div>
                 </div>
               </div>

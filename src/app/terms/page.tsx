@@ -87,7 +87,7 @@ export default function TermsPage() {
               <section className="mb-8">
                 <h2 className="font-serif text-2xl text-black-dark mb-4">9. Governing Law</h2>
                 <p className="text-black/80 leading-relaxed mb-4">
-                  These terms and conditions are governed by and construed in accordance with the laws of Nigeria and you irrevocably submit to the exclusive jurisdiction of the courts in Lagos State.
+                  These terms and conditions are governed by and construed in accordance with the laws of Nigeria and you irrevocably submit to the exclusive jurisdiction of the courts in the Federal Capital Territory, Abuja.
                 </p>
               </section>
 
@@ -99,7 +99,7 @@ export default function TermsPage() {
                 <div className="mt-4 text-black/80">
                   <p>Email: amapelsng@gmail.com</p>
                   <p>Phone: 0816 123 8148</p>
-                  <p>Address: 123 Victoria Island, Lagos, Nigeria</p>
+                  <p>Address: Wuse II, Abuja, Nigeria</p>
                 </div>
               </section>
             </div>

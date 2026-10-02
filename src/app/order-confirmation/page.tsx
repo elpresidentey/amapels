@@ -104,8 +104,8 @@ function OrderConfirmationContent() {
     },
     {
       icon: <Package size={20} strokeWidth={1.5} />,
-      title: 'Artisan Preparation',
-      description: 'Our artisans will carefully prepare your jewelry with meticulous attention to every detail.',
+      title: 'Preparation',
+      description: 'We carefully prepare your jewelry with meticulous attention to every detail.',
       status: 'pending',
       timeframe: '1-2 business days'
     },
@@ -157,7 +157,7 @@ function OrderConfirmationContent() {
               Your Order is Confirmed
             </h1>
             <p className="text-lg text-black/55 max-w-2xl mx-auto">
-              Thank you for choosing AMAPELS. We are honored to craft and deliver your exquisite jewelry with care.
+              Thank you for choosing AMAPELS. We are honored to help you choose and deliver your exquisite jewelry with care.
             </p>
           </motion.div>
 

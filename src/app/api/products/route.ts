@@ -8,6 +8,41 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const category = searchParams.get('category')
 
+  if (!category) {
+    if (productsCache && Date.now() < productsCache.expiresAt) {
+      return NextResponse.json(productsCache.payload)
+    }
+    if (productsCacheInflight) {
+      try {
+        const cachedPayload = await productsCacheInflight
+        return NextResponse.json(cachedPayload)
+      } catch {
+        // fall through and fetch fresh
+      }
+    }
+  }
+
+  // 1. Shopify first (headless backend) when configured
+
+  // Run the catalog lookup once and share the in-flight promise with concurrent
+  // requests, so a burst of homepage mounts shares one slow Supabase call.
+  productsCacheInflight = (async () => {
+    const payload = await buildCatalogPayload(category)
+    if (!category) {
+      productsCache = { expiresAt: Date.now() + PRODUCT_CACHE_TTL_MS, payload }
+    }
+    return payload
+  })()
+
+  try {
+    const payload = await productsCacheInflight
+    return NextResponse.json(payload)
+  } finally {
+    if (productsCacheInflight) productsCacheInflight = null
+  }
+}
+
+async function buildCatalogPayload(category: string | null) {
   // 1. Shopify first (headless backend) when configured
   if (isShopifyConfigured()) {
     try {
@@ -17,7 +52,7 @@ export async function GET(request: NextRequest) {
       // Only use Shopify while it actually has products —
       // an empty catalog (e.g. fresh store) falls through to Supabase/static
       if (products.length > 0) {
-        return NextResponse.json({ success: true, source: 'shopify' as const, data: products })
+        return { success: true, source: 'shopify' as const, data: products }
       }
       console.log('Shopify returned 0 products, falling through to Supabase')
     } catch (error) {
@@ -34,7 +69,7 @@ export async function GET(request: NextRequest) {
 
       // Database query succeeded — return database results even if empty.
       // An empty array means there are genuinely no products; do NOT fall back.
-      return NextResponse.json({
+      return {
         success: true,
         source: 'database' as const,
         data: products.map(p => ({
@@ -45,7 +80,7 @@ export async function GET(request: NextRequest) {
           description: p.description,
           images: getProductImages(p),
           featured: p.featured,
-          story: 'Handcrafted with care',
+          story: 'Made with care',
           material: 'Premium materials',
           details: ['Elegant design', 'High quality', 'Perfect for any occasion'],
           materials: 'Premium materials with attention to detail',
@@ -54,26 +89,26 @@ export async function GET(request: NextRequest) {
           createdAt: p.created_at,
           updatedAt: p.updated_at
         })),
-      })
+      }
     }
 
     // Supabase is not configured at all — fall back to static products
     console.log('Supabase not configured, using fallback products')
-    return NextResponse.json({
+    return {
       success: true,
       source: 'fallback' as const,
       fallbackReason: 'Database not configured. Please set Supabase environment variables.',
       data: getFallbackProducts(category),
-    })
+    }
   } catch (error) {
     // Database query failed — fall back but SAY SO explicitly
     console.log('Database fetch failed, using fallback:', error)
-    return NextResponse.json({
+    return {
       success: true,
       source: 'fallback' as const,
       fallbackReason: (error as Error).message,
       data: getFallbackProducts(category) || [],
-    })
+    }
   }
 }
 
@@ -143,3 +178,7 @@ export async function POST(request: NextRequest) {
 }
 
 export const dynamic = 'force-dynamic'
+
+const PRODUCT_CACHE_TTL_MS = 30_000
+let productsCache: { expiresAt: number; payload: unknown } | null = null
+let productsCacheInflight: Promise<unknown> | null = null

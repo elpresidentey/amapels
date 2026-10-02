@@ -60,7 +60,7 @@ export default function JournalPage() {
               Stories that shape us.
             </h1>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-black/55 sm:text-lg">
-              Thoughts on craft, culture, and the beautiful ways jewellery intersects with our
+              Thoughts on jewellery, culture, and the beautiful ways it intersects with our
               lives. A space for the curious and the thoughtful.
             </p>
           </motion.div>

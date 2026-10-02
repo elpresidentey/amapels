@@ -154,7 +154,7 @@ export default function Home() {
           <AnimatePresence mode="wait">
             <motion.div
               key={activeSlide.id}
-              initial={{ opacity: 0, scale: 1.05 }}
+              initial={false}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 1.4, ease }}
@@ -186,7 +186,7 @@ export default function Home() {
             <div className="max-w-3xl">
               <motion.h1
                 key={`${activeSlide.id}-title`}
-                initial={{ opacity: 0, y: 24 }}
+                initial={false}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 0.08, ease }}
                 className="font-serif text-3xl font-light leading-[1.1] tracking-tight sm:text-4xl md:text-5xl lg:text-[3.4rem]"
@@ -195,7 +195,7 @@ export default function Home() {
               </motion.h1>
               <motion.p
                 key={`${activeSlide.id}-desc`}
-                initial={{ opacity: 0, y: 20 }}
+                initial={false}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 0.16, ease }}
                 className="mt-4 max-w-lg text-sm leading-relaxed text-white/70 sm:mt-6 sm:text-base md:text-lg"
@@ -203,7 +203,7 @@ export default function Home() {
                 {activeSlide.description}
               </motion.p>
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={false}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 0.24, ease }}
                 className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:gap-4"
@@ -226,7 +226,7 @@ export default function Home() {
 
             {/* Desktop highlight card */}
             <motion.div
-              initial={{ opacity: 0, y: 32 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.3, ease }}
               className="hidden border border-white/10 bg-white/[0.05] p-6 backdrop-blur-md lg:flex lg:flex-col"
@@ -402,7 +402,7 @@ export default function Home() {
       {/* Our Story */}
       <section ref={storyRef} className="relative overflow-hidden px-4 py-20 sm:px-6 sm:py-24 md:px-12 md:py-28 lg:px-24 lg:py-32">
         <div className="mx-auto max-w-7xl">
-          <div className="grid gap-14 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-20">
+          <div className="grid gap-14 lg:grid-cols-[1fr_1fr] lg:items-start lg:gap-20">
             <motion.div
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -439,7 +439,7 @@ export default function Home() {
                 >
                   <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-black/55">Nigerian-Owned</p>
                   <p className="text-sm leading-relaxed text-black/65">
-                    Handcrafted by Nigerian artisans who pour generations of skill into every piece. Our hands carry the legacy of a continent.
+                    Designed by Nigerian hands that pour generations of skill into every piece. Our work carries the legacy of a continent.
                   </p>
                 </motion.div>
                 <motion.div
@@ -451,7 +451,7 @@ export default function Home() {
                 >
                   <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-black/55">Made to Last</p>
                   <p className="text-sm leading-relaxed text-black/65">
-                    From the streets of Surulere to the avenues of New York — our pieces travel with women who move through the world with grace and intention.
+                    From the streets of Abuja to the avenues of New York — our pieces travel with women who move through the world with grace and intention.
                   </p>
                 </motion.div>
               </div>
@@ -474,7 +474,7 @@ export default function Home() {
               <motion.div className="relative aspect-[4/5] overflow-hidden lg:absolute lg:inset-0" style={{ scale: storyImageParallax }}>
                 <Image
                   src="/images/pexels-vedat-28933799.webp"
-                  alt="AMAPELS craftsmanship detail"
+                  alt="AMAPELS jewellery detail"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   quality={90}
@@ -502,7 +502,7 @@ export default function Home() {
         >
           <Image
             src="/images/usman-umar-nbF4Iks4Ujc-unsplash.webp"
-            alt="AMAPELS craftsmanship"
+            alt="AMAPELS jewellery detail"
             fill
             sizes="100vw"
             quality={90}
@@ -528,7 +528,7 @@ export default function Home() {
             </blockquote>
             <div className="mt-8 h-px w-16 bg-gold/50" />
             <p className="mt-6 max-w-lg text-sm leading-relaxed text-white/55">
-              Handcrafted by Nigerian artisans. Worn by women who move through the world with grace,
+              Designed in Abuja. Worn by women who move through the world with grace,
               confidence, and an unshakable sense of who they are.
             </p>
           </motion.div>
@@ -722,7 +722,7 @@ export default function Home() {
       <section className="px-4 py-20 sm:px-6 sm:py-24 md:px-12 md:py-28 lg:px-24 lg:py-32">
         <div className="mx-auto max-w-7xl">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease }}
@@ -761,7 +761,7 @@ export default function Home() {
               {journalPosts.map((article: any, index: number) => (
                 <motion.div
                   key={article._id}
-                  initial={{ opacity: 0, y: 32 }}
+                  initial={false}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.9, delay: index * 0.12, ease }}

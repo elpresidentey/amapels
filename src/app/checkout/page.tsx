@@ -24,7 +24,7 @@ const CHECKOUT_STEPS = [
 
 // Nigerian states for dropdown
 const NIGERIAN_STATES = [
-  'Lagos', 'Abuja (FCT)', 'Kano', 'Rivers', 'Ogun', 'Kaduna', 'Oyo', 
+  'Abuja', 'Abuja (FCT)', 'Kano', 'Rivers', 'Ogun', 'Kaduna', 'Oyo', 
   'Delta', 'Edo', 'Anambra', 'Imo', 'Enugu', 'Abia', 'Akwa Ibom'
 ] as const
 
@@ -955,7 +955,7 @@ export default function CheckoutPage() {
                       value={shippingData.city}
                       onChange={handleShippingChange('city')}
                       required
-                      placeholder="Lagos"
+                      placeholder="Abuja"
                       error={errors.city}
                     />
                     

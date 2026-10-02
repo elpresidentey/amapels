@@ -24,23 +24,18 @@ export default function ShippingReturnsPage() {
     },
     {
       method: 'Premium Delivery',
-      time: 'Same Day (Lagos)',
+      time: 'Same Day (Abuja)',
       cost: '₦8,000',
-      description: 'Same-day delivery within Lagos Island & Victoria Island',
+      description: 'Same-day delivery within Abuja (FCT)',
       icon: Package
     }
   ]
 
   const locations = [
     {
-      city: 'Lagos',
-      areas: ['Victoria Island', 'Ikoyi', 'Lekki', 'Surulere', 'Ikeja'],
-      delivery: 'Same day / Next day available'
-    },
-    {
       city: 'Abuja',
       areas: ['Maitama', 'Asokoro', 'Wuse', 'Garki', 'Gwarinpa'],
-      delivery: '1-2 business days'
+      delivery: 'Same day / 1-2 business days'
     },
     {
       city: 'Port Harcourt',

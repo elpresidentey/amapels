@@ -81,7 +81,7 @@ function ShopContent() {
                 </h1>
               </div>
               <p className="max-w-sm text-sm leading-relaxed text-black/55 md:text-right">
-                Explore artisan craftsmanship and timeless pieces — for everyday radiance or gifting with intention.
+                Explore carefully sourced, timeless pieces — for everyday radiance or gifting with intention.
               </p>
             </div>
           </motion.div>

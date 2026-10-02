@@ -37,7 +37,7 @@ export default function CartPage() {
             </div>
             <h1 className="font-serif text-2xl sm:text-3xl font-light text-black-dark mb-4">Your Bag Awaits</h1>
             <p className="text-black/55 mb-8 md:mb-10 px-4 text-sm sm:text-base max-w-md mx-auto leading-relaxed">
-              Discover handcrafted jewelry to wear, love, and cherish. Every piece tells a story.
+              Discover Nigerian jewelry to wear, love, and cherish. Every piece tells a story.
             </p>
             <Link
               href="/shop"

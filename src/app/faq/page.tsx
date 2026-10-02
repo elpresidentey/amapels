@@ -58,7 +58,7 @@ export default function FAQPage() {
         <div>
           <p className="mb-2">Shipping times depend on your location and chosen method:</p>
           <ul className="list-disc list-inside space-y-1">
-            <li><strong>Lagos:</strong> Same day or next day delivery available</li>
+            <li><strong>Abuja:</strong> Same day or next day delivery available</li>
             <li><strong>Abuja:</strong> 1-2 business days</li>
             <li><strong>Other major cities:</strong> 2-4 business days</li>
             <li><strong>Rural areas:</strong> 3-7 business days</li>
@@ -183,7 +183,7 @@ export default function FAQPage() {
     {
       category: 'orders',
       question: 'Do you have a physical store?',
-      answer: 'Currently, AMAPELS operates exclusively online to offer the best prices and widest selection. However, we do have showroom appointments available in Lagos for VIP customers. Contact us to schedule a private viewing.'
+      answer: 'Currently, AMAPELS operates exclusively online to offer the best prices and widest selection. However, we do have showroom appointments available in Abuja for VIP customers. Contact us to schedule a private viewing.'
     }
   ]
 

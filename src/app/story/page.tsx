@@ -12,58 +12,58 @@ const timeline = [
     year: '2009',
     title: 'A Seed Is Planted',
     description:
-      'In the heart of Lagos, a young designer began shaping wire and beads on her kitchen table — not yet knowing she was shaping a legacy. What started as a whisper of curiosity became an calling: to create jewellery that carried the soul of Nigeria into the world.',
+      'In the heart of Abuja, a young designer began shaping wire and beads on her kitchen table â€” not yet knowing she was shaping a legacy. What started as a whisper of curiosity became an calling: to create jewellery that carried the soul of Nigeria into the world.',
   },
   {
     year: '2012',
     title: 'The First Collection',
     description:
-      'Seven pieces, each named after a Lagos street. They sold out in three days. Women didn\'t just wear them — they told stories about them. The name of the street where they found their first love. The market where their mother haggled for yams. AMAPELS became more than jewellery: it became memory.',
+      'Seven pieces, each named after a Abuja street. They sold out in three days. Women didn\'t just wear them â€” they told stories about them. The name of the street where they found their first love. The market where their mother haggled for yams. AMAPELS became more than jewellery: it became memory.',
   },
   {
     year: '2016',
     title: 'Finding Our Voice',
     description:
-      'We began working directly with artisan communities across Nigeria — in Abeokuta, in Benin, in Kano. Not as a supply chain, but as a partnership built on dignity, fair wages, and the belief that African craftsmanship deserves a global stage. Each piece we create carries the fingerprint of its maker.',
+      'We began sourcing from makers across Nigeria â€” in Abeokuta, in Benin, in Kano. Not as a supply chain, but as a partnership built on dignity, fair wages, and the belief that African jewellery deserves a global stage. We curate, so you never have to dig.',
   },
   {
     year: '2020',
     title: 'Roots Run Deep',
     description:
-      'While the world paused, we doubled down. We invested in our artisans, in sustainable practices, in the stories that had always been the heartbeat of our brand. We emerged with a clarity: AMAPELS is not just about jewellery. It is about who we are, where we come from, and the beauty we bring into the world.',
+      'While the world paused, we doubled down. We invested in our maker partners, in sustainable practices, in the stories that had always been the heartbeat of our brand. We emerged with a clarity: AMAPELS is not just about jewellery. It is about who we are, where we come from, and the beauty we bring into the world.',
   },
   {
     year: '2024',
     title: 'The World Beckons',
     description:
-      'Today, AMAPELS ships to over twenty countries. Our pieces grace necklines from Lagos to London, from Accra to New York. But we remain what we have always been: a small, passionate team driven by craft, meaning, and the stubborn belief that jewellery should feel like home.',
+      'Today, AMAPELS ships to over twenty countries. Our pieces grace necklines from Abuja to London, from Accra to New York. But we remain what we have always been: a small, passionate team driven by taste, meaning, and the stubborn belief that jewellery should feel like home.',
   },
 ]
 
 const values = [
   {
-    title: 'Craft',
+    title: 'Curated',
     description:
-      'Every piece passes through eight hands before it reaches yours. Our artisans are masters of their trade — metalworkers who learned from their fathers, beadweavers carrying techniques passed down through four generations. We don\'t mass-produce. We create.',
-    icon: '✦',
+      'Every piece is hand-checked before it reaches you. We work with trusted makers and independent designers across Nigeria. We vet the finish, the setting, and the story of each piece — so all you need to focus on is how it makes you feel.',
+    icon: 'âœ¦',
   },
   {
     title: 'Heritage',
     description:
-      'Nigeria is not just where we make our jewellery — it is the muse. The bold geometry of Benin bronzes. The tender curves of Nok terracotta. The sun-drenched gold of a Lagos evening. Every collection is a love letter to the culture that shaped us.',
-    icon: '♦',
+      'Nigeria is not just where our jewellery is made â€” it is the muse. The bold geometry of Benin bronzes. The tender curves of Nok terracotta. The sun-drenched gold of a Abuja evening. Every collection is a love letter to the culture that shaped us.',
+    icon: 'â™¦',
   },
   {
     title: 'Meaning',
     description:
-      'Jewellery is intimate. It sits against your skin, catches the light as you move, becomes part of your story. We design pieces that mean something — for the woman buying her first gold chain, for the mother passing down an heirloom, for the friend saying "I see you."',
-    icon: '∞',
+      'Jewellery is intimate. It sits against your skin, catches the light as you move, becomes part of your story. We design pieces that mean something â€” for the woman buying her first gold chain, for the mother passing down an heirloom, for the friend saying "I see you."',
+    icon: 'âˆž',
   },
   {
     title: 'Sustainability',
     description:
-      'Beauty should not come at a cost to the earth. We use recycled metals, ethically sourced gemstones, and packaging made from biodegradable materials. Slow fashion is not a trend — it is our responsibility.',
-    icon: '○',
+      'Beauty should not come at a cost to the earth. We use recycled metals, ethically sourced gemstones, and packaging made from biodegradable materials. Slow fashion is not a trend â€” it is our responsibility.',
+    icon: 'â—‹',
   },
 ]
 
@@ -75,7 +75,7 @@ export default function StoryPage() {
         <div className="absolute inset-0">
           <Image
             src="/images/andres-vera-202NAwjisYA-unsplash.webp"
-            alt="AMAPELS craftsmanship"
+            alt="AMAPELS jewellery detail"
             fill
             priority
             sizes="100vw"
@@ -99,7 +99,7 @@ export default function StoryPage() {
               Where heritage meets the handmade.
             </h1>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-white/65 sm:text-lg">
-              Every piece of AMAPELS jewellery carries a story — of Lagos streets, of artisan hands,
+              Every piece of AMAPELS jewellery carries a story â€” of Abuja streets, of maker hands,
               of women who wear their confidence like gold. This is our story.
             </p>
           </motion.div>
@@ -123,19 +123,19 @@ export default function StoryPage() {
             </h2>
             <div className="mt-8 space-y-5 text-base leading-relaxed text-black/60 sm:text-lg">
               <p>
-                On a quiet street in Surulere, Lagos, a woman sat at her window, threading beads
+                On a quiet street in Abuja, a woman sat at her window, threading beads
                 by the afternoon light. She was not trying to start a brand. She was trying to
-                capture a feeling — the warmth of a Lagos sunset, the rhythm of market chatter,
+                capture a feeling â€” the warmth of a Abuja sunset, the rhythm of market chatter,
                 the way gold catches the eye across a crowded room.
               </p>
               <p>
                 That feeling became a necklace. The necklace became a collection. And that
-                collection became AMAPELS — a name whispered among friends, then strangers, then
+                collection became AMAPELS â€” a name whispered among friends, then strangers, then
                 women across the world who recognized in our pieces something they had been
                 searching for: jewellery that felt like them.
               </p>
               <p className="text-gold-dark/80 font-serif text-xl italic">
-                &ldquo;We don&apos;t just make jewellery. We craft heirlooms in the making — pieces
+                &ldquo;We don&apos;t just sell jewellery. We curate pieces worth keeping â€” pieces
                 designed to be passed down, worn through seasons of life, and remembered.&rdquo;
               </p>
             </div>
@@ -248,7 +248,7 @@ export default function StoryPage() {
           </h2>
           <p className="mx-auto mt-6 max-w-lg text-sm leading-relaxed text-white/55">
             Whether you&apos;re celebrating a milestone, treating yourself, or searching for the perfect
-            gift — our pieces are waiting to become part of your story.
+            gift â€” our pieces are waiting to become part of your story.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
