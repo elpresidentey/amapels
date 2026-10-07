@@ -19,7 +19,7 @@ interface CartState {
   sessionId: string | null
   
   // Actions
-  addItem: (product: Omit<CartItem, 'quantity'>) => void
+  addItem: (product: Omit<CartItem, 'quantity'>, quantity?: number) => void
   removeItem: (id: string) => void
   updateQuantity: (id: string, quantity: number) => void
   clearCart: () => void
@@ -82,7 +82,9 @@ export const useCartStore = create<CartState>()(
       isLoaded: false,
       sessionId: null,
 
-      addItem: (product) => {
+      addItem: (product, quantity = 1) => {
+        const nextQuantity = Math.min(Math.max(1, Math.floor(quantity) || 1), 99)
+
         set((state) => {
           const existingItem = state.items.find(item => item.id === product.id)
           
@@ -90,14 +92,14 @@ export const useCartStore = create<CartState>()(
             return {
               items: state.items.map(item =>
                 item.id === product.id
-                  ? { ...item, quantity: Math.min(item.quantity + 1, 99) }
+                  ? { ...item, quantity: Math.min(item.quantity + nextQuantity, 99) }
                   : item
               )
             }
           }
           
           return {
-            items: [...state.items, { ...product, quantity: 1 }]
+            items: [...state.items, { ...product, quantity: nextQuantity }]
           }
         })
       },

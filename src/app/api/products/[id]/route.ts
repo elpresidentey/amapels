@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getProduct, supabase, getProductImages } from '@/lib/supabase'
-import { getFallbackProductById } from '@/lib/fallbackProducts'
 import { isShopifyConfigured, getShopifyProductById } from '@/lib/shopify'
 import { requireAdmin } from '@/lib/admin-guard'
 
@@ -21,49 +20,42 @@ export async function GET(
       }
     }
 
-    // First try fallback products
-    const fallbackProduct = getFallbackProductById(params.id)
-    
-    if (fallbackProduct) {
-      return NextResponse.json({
-        success: true,
-        data: fallbackProduct,
-        source: 'fallback',
-      })
+    if (!supabase) {
+      return NextResponse.json(
+        { success: false, error: 'The product database is not configured.' },
+        { status: 503 }
+      )
     }
 
-    // If not found in fallback, try Supabase
-    if (supabase) {
-      try {
-        const product = await getProduct(params.id)
-        
-        // Transform Supabase product to match frontend format
-        const transformedProduct = {
-          _id: product.id,
-          name: product.name,
-          price: `₦${product.price.toLocaleString()}`,
-          category: product.category as any,
-          story: 'Made in Abuja',
-          material: product.description?.split('.')[0] || 'Premium materials',
-          description: product.description || '',
-          details: ['Made with care', 'Premium quality materials', 'Beautiful gift packaging'],
-          materials: product.description?.includes('gold') ? 'Gold-plated brass' : 'Premium materials',
-          care: 'Store in dry place. Wipe with soft cloth.',
-          options: ['Standard'],
-          images: getProductImages(product),
-          featured: product.featured,
-          createdAt: product.created_at,
-          updatedAt: product.updated_at
-        }
-        
-        return NextResponse.json({
-          success: true,
-          data: transformedProduct,
-          source: 'supabase',
-        })
-      } catch (error) {
-        // Supabase query failed, product might not exist
+    try {
+      const product = await getProduct(params.id)
+
+      // Transform Supabase product to match frontend format
+      const transformedProduct = {
+        _id: product.id,
+        name: product.name,
+        price: `₦${product.price.toLocaleString()}`,
+        category: product.category as any,
+        story: 'Made in Abuja',
+        material: product.description?.split('.')[0] || 'Premium materials',
+        description: product.description || '',
+        details: ['Made with care', 'Premium quality materials', 'Beautiful gift packaging'],
+        materials: product.description?.includes('gold') ? 'Gold-plated brass' : 'Premium materials',
+        care: 'Store in dry place. Wipe with soft cloth.',
+        options: ['Standard'],
+        images: getProductImages(product),
+        featured: product.featured,
+        createdAt: product.created_at,
+        updatedAt: product.updated_at
       }
+
+      return NextResponse.json({
+        success: true,
+        data: transformedProduct,
+        source: 'supabase',
+      })
+    } catch (error) {
+      // Supabase query failed, product might not exist
     }
 
     return NextResponse.json(

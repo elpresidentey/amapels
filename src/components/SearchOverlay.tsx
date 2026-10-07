@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { ArrowRight, Search, X } from 'lucide-react'
-import type { ProductData } from '@/lib/fallbackProducts'
+import type { ProductData } from '@/lib/productTypes'
 
 interface SearchOverlayProps {
   isOpen: boolean

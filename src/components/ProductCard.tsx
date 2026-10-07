@@ -5,8 +5,8 @@ import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { ArrowUpRight, Check, Eye, Heart, ShoppingCart } from 'lucide-react'
-import type { ProductData } from '@/lib/fallbackProducts'
+import { ArrowUpRight, Check, Eye, Heart, Minus, Plus, ShoppingCart } from 'lucide-react'
+import type { ProductData } from '@/lib/productTypes'
 import { useCartStore } from '@/store/newCartStore'
 
 interface ProductCardProps {
@@ -40,6 +40,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false)
   const [wishlisted, setWishlisted] = useState(false)
   const [addedToCart, setAddedToCart] = useState(false)
+  const [quantity, setQuantity] = useState(1)
   const cardRef = useRef<HTMLDivElement>(null)
 
   const { scrollYProgress } = useScroll({
@@ -64,18 +65,30 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
-    addItem({
-      id: product._id,
-      name: product.name,
-      price: product.price,
-      image: primaryImage,
-      category: product.category,
-      size: 'Standard',
-      color: 'Default',
-    })
+    addItem(
+      {
+        id: product._id,
+        name: product.name,
+        price: product.price,
+        image: primaryImage,
+        category: product.category,
+        size: 'Standard',
+        color: 'Default',
+      },
+      quantity
+    )
     setAddedToCart(true)
     openCart()
-    setTimeout(() => setAddedToCart(false), 2000)
+    setTimeout(() => {
+      setAddedToCart(false)
+      setQuantity(1)
+    }, 2000)
+  }
+
+  const handleQuantityChange = (delta: number) => (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setQuantity((prev) => Math.min(99, Math.max(1, prev + delta)))
   }
 
   const handleQuickView = (e: React.MouseEvent) => {
@@ -163,6 +176,36 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
               className="absolute bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-3 pb-3 pt-14"
             >
               <div className="flex items-stretch justify-center gap-2">
+                <div
+                  className="flex items-stretch bg-white/95 shadow-sm backdrop-blur-sm"
+                  role="group"
+                  aria-label={`Quantity for ${product.name}`}
+                >
+                  <button
+                    type="button"
+                    onClick={handleQuantityChange(-1)}
+                    disabled={quantity <= 1}
+                    aria-label="Decrease quantity"
+                    className="flex w-8 items-center justify-center text-black/55 transition-colors duration-200 hover:bg-gold hover:text-black-dark disabled:pointer-events-none disabled:opacity-30 sm:w-9"
+                  >
+                    <Minus size={12} strokeWidth={2} />
+                  </button>
+                  <span
+                    className="flex min-w-[1.5rem] items-center justify-center border-x border-black/10 px-1 text-[11px] font-medium tabular-nums text-black-dark"
+                    aria-live="polite"
+                  >
+                    {quantity}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={handleQuantityChange(1)}
+                    disabled={quantity >= 99}
+                    aria-label="Increase quantity"
+                    className="flex w-8 items-center justify-center text-black/55 transition-colors duration-200 hover:bg-gold hover:text-black-dark disabled:pointer-events-none disabled:opacity-30 sm:w-9"
+                  >
+                    <Plus size={12} strokeWidth={2} />
+                  </button>
+                </div>
                 <button
                   type="button"
                   onClick={handleAddToCart}
@@ -172,16 +215,16 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                   {addedToCart ? <Check size={13} strokeWidth={1.75} /> : <ShoppingCart size={13} strokeWidth={1.5} />}
                   <span>{addedToCart ? 'Added' : 'Add to Bag'}</span>
                 </button>
-                <button
-                  type="button"
-                  onClick={handleQuickView}
-                  aria-label="Quick view product details"
-                  className="flex flex-1 items-center justify-center gap-2 whitespace-nowrap border border-white/30 bg-white/10 px-2 py-2.5 text-[10px] font-medium uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-black-dark active:scale-95"
-                >
-                  <Eye size={13} strokeWidth={1.5} />
-                  <span>View</span>
-                </button>
               </div>
+              <button
+                type="button"
+                onClick={handleQuickView}
+                aria-label="Quick view product details"
+                className="mt-2 flex w-full items-center justify-center gap-2 whitespace-nowrap border border-white/30 bg-white/10 px-2 py-2.5 text-[10px] font-medium uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-black-dark active:scale-95"
+              >
+                <Eye size={13} strokeWidth={1.5} />
+                <span>View</span>
+              </button>
             </motion.div>
           )}
         </AnimatePresence>

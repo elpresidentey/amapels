@@ -73,7 +73,7 @@ interface ShopifyProductNode {
   variants: { edges: { node: ShopifyVariant }[] }
 }
 
-// AMAPELS frontend shape (matches fallbackProducts ProductData + shopify refs)
+// AMAPELS frontend shape (matches productTypes ProductData + shopify refs)
 export interface ShopifyMappedProduct {
   _id: string
   name: string

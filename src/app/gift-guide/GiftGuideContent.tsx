@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Heart, Star, Gift, Sparkles } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { useProducts } from '@/hooks/useProducts'
-import type { ProductData } from '@/lib/fallbackProducts'
+import type { ProductData } from '@/lib/productTypes'
 
 const FALLBACK_IMAGE = '/images/sabrianna-Y_bxfTa_iUA-unsplash.webp'
 

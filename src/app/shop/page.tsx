@@ -21,7 +21,7 @@ function ShopContent() {
     setSelectedCategory('All')
   }, [searchParams])
 
-  const { products, loading, error } = useProducts(selectedCategory)
+  const { products, loading, error, refetch } = useProducts(selectedCategory)
 
   if (loading) {
     return (
@@ -55,6 +55,13 @@ function ShopContent() {
         <div className="max-w-md px-6 text-center">
           <p className="mb-3 font-serif text-2xl font-light text-black-dark">Something went wrong</p>
           <p className="text-sm text-black/55">{error}</p>
+          <button
+            type="button"
+            onClick={refetch}
+            className="mt-7 border border-black/10 bg-white px-6 py-2.5 text-[10px] font-medium uppercase tracking-[0.2em] text-black-dark transition-all duration-300 hover:border-gold/50 hover:bg-gold/10 active:scale-95"
+          >
+            Try again
+          </button>
         </div>
       </div>
     )

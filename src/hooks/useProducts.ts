@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
-import type { ProductData } from '@/lib/fallbackProducts'
+import type { ProductData } from '@/lib/productTypes'
 
 export function useProducts(category?: string) {
   const [products, setProducts] = useState<ProductData[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [refreshKey, setRefreshKey] = useState(0)
 
   useEffect(() => {
     let ignore = false
@@ -46,9 +47,11 @@ export function useProducts(category?: string) {
     return () => {
       ignore = true
     }
-  }, [category])
+  }, [category, refreshKey])
 
-  return { products, loading, error }
+  const refetch = () => setRefreshKey((key) => key + 1)
+
+  return { products, loading, error, refetch }
 }
 
 export function useProduct(id: string | undefined) {

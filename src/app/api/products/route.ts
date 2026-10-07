@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getProducts, supabase, getProductImages } from '@/lib/supabase'
-import { getFallbackProducts } from '@/lib/fallbackProducts'
 import { isShopifyConfigured, getShopifyProducts } from '@/lib/shopify'
 import { requireAdmin } from '@/lib/admin-guard'
 
@@ -37,6 +36,11 @@ export async function GET(request: NextRequest) {
   try {
     const payload = await productsCacheInflight
     return NextResponse.json(payload)
+  } catch (error) {
+    return NextResponse.json(
+      { success: false, error: (error as Error).message },
+      { status: 503 }
+    )
   } finally {
     if (productsCacheInflight) productsCacheInflight = null
   }
@@ -60,55 +64,44 @@ async function buildCatalogPayload(category: string | null) {
     }
   }
 
+  if (!supabase) {
+    console.error('Supabase not configured — product catalog unavailable')
+    throw new Error('The product database is not configured.')
+  }
+
   try {
-    // Try Supabase first
-    if (supabase) {
-      const products = await getProducts({
-        category: category && category !== 'All' ? category : undefined
-      })
+    const products = await getProducts({
+      category: category && category !== 'All' ? category : undefined
+    })
 
-      // Database query succeeded — return database results even if empty.
-      // An empty array means there are genuinely no products; do NOT fall back.
-      return {
-        success: true,
-        source: 'database' as const,
-        data: products.map(p => ({
-          _id: p.id,
-          name: p.name,
-          price: `₦${p.price}`,
-          category: p.category,
-          description: p.description,
-          images: getProductImages(p),
-          featured: p.featured,
-          story: 'Made with care',
-          material: 'Premium materials',
-          details: ['Elegant design', 'High quality', 'Perfect for any occasion'],
-          materials: 'Premium materials with attention to detail',
-          care: 'Store in a dry place and wipe gently with a soft cloth after wearing.',
-          options: ['Standard Size', 'Gift Box'],
-          createdAt: p.created_at,
-          updatedAt: p.updated_at
-        })),
-      }
-    }
-
-    // Supabase is not configured at all — fall back to static products
-    console.log('Supabase not configured, using fallback products')
+    // Database query succeeded — return database results even if empty.
+    // An empty array means there are genuinely no products; do NOT fall back.
     return {
       success: true,
-      source: 'fallback' as const,
-      fallbackReason: 'Database not configured. Please set Supabase environment variables.',
-      data: getFallbackProducts(category),
+      source: 'database' as const,
+      data: products.map(p => ({
+        _id: p.id,
+        name: p.name,
+        price: `₦${p.price}`,
+        category: p.category,
+        description: p.description,
+        images: getProductImages(p),
+        featured: p.featured,
+        story: 'Made with care',
+        material: 'Premium materials',
+        details: ['Elegant design', 'High quality', 'Perfect for any occasion'],
+        materials: 'Premium materials with attention to detail',
+        care: 'Store in a dry place and wipe gently with a soft cloth after wearing.',
+        options: ['Standard Size', 'Gift Box'],
+        createdAt: p.created_at,
+        updatedAt: p.updated_at
+      })),
     }
   } catch (error) {
-    // Database query failed — fall back but SAY SO explicitly
-    console.log('Database fetch failed, using fallback:', error)
-    return {
-      success: true,
-      source: 'fallback' as const,
-      fallbackReason: (error as Error).message,
-      data: getFallbackProducts(category) || [],
-    }
+    // Database query failed — surface it to the client instead of silently
+    // substituting a legacy catalog the store owner has already discarded.
+    console.error('Database fetch failed — product catalog unavailable:', error)
+    throw new Error('Could not reach the product database. Please try again.')
   }
 }
 

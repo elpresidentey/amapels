@@ -49,14 +49,14 @@ const featuredCollections = [
   {
     title: 'Earrings',
     description: 'Tiny studs for Monday. Big drops for Saturday. Pick your mood.',
-    image: '/images/gabriel-ogulu-r0bH4hAVBmk-unsplash.webp',
+    image: '/images/mayank-gehlot-lsxBmX8Hmwc-unsplash.webp',
     link: '/shop?category=Earrings',
     span: 'md:col-span-2'
   },
   {
     title: 'Bracelets',
     description: 'Stack them, mix them, then forget you\'re even wearing them.',
-    image: '/images/lisa-marie-theck-pxg9jOgPzK4-unsplash.webp',
+    image: '/images/carlos-esteves-1MWbwTaeJIA-unsplash.webp',
     link: '/shop?category=Bracelets',
     span: ''
   },
@@ -64,14 +64,14 @@ const featuredCollections = [
     title: 'Occasion Pieces',
     description:
       'For the aso ebi, the owambe, and the \'I need to look good tonight.\'',
-    image: '/images/julie-sd--Njp0M9Rzhc-unsplash.webp',
+    image: '/images/pexels-gabriela-brasiliano-515209300-32225451.webp',
     link: '/shop',
     span: ''
   },
   {
     title: 'Necklaces',
     description: 'The little chain you never take off, and the one that starts conversations.',
-    image: '/images/andres-vera-202NAwjisYA-unsplash.webp',
+    image: '/images/pexels-vedat-29043373.webp',
     link: '/shop?category=Necklaces',
     span: 'md:col-span-2'
   }
