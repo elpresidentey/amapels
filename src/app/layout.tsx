@@ -20,13 +20,13 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: "AMAPELS - Modern Nigerian Elegance",
-  description: "A Nigerian luxury jewelry house with a digital flagship store. Discover Nigerian-made earrings, necklaces, bracelets, and jewellery sets made in Abuja.",
-  keywords: "Nigerian jewelry, Abuja jewelry, African jewelry, jewelry, gold earrings, pearl necklaces, statement jewelry, elegant jewelry",
+  description: "A Nigerian jewellery shop in Abuja. Shop earrings, necklaces, bracelets, and jewellery sets — handpicked, gift-ready, and delivered nationwide.",
+  keywords: "Nigerian jewellery, jewellery shop Abuja, African jewelry, gold earrings, pearl necklaces, bracelets, statement jewelry, gift jewellery",
   authors: [{ name: "AMAPELS" }],
   creator: "AMAPELS",
   openGraph: {
     title: "AMAPELS - Modern Nigerian Elegance",
-    description: "Discover Nigerian jewelry made in Abuja.",
+    description: "Handpicked Nigerian jewellery. Live in Abuja, delivered nationwide.",
     url: "https://amapels.com",
     siteName: "AMAPELS",
     locale: "en_NG",

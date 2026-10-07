@@ -36,7 +36,7 @@ export async function GET(
         name: product.name,
         price: `₦${product.price.toLocaleString()}`,
         category: product.category as any,
-        story: 'Made in Abuja',
+        story: 'Picked in Abuja',
         material: product.description?.split('.')[0] || 'Premium materials',
         description: product.description || '',
         details: ['Made with care', 'Premium quality materials', 'Beautiful gift packaging'],

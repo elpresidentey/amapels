@@ -10,33 +10,33 @@ const ease = [0.22, 1, 0.36, 1] as const
 const timeline = [
   {
     year: '2009',
-    title: 'A Seed Is Planted',
+    title: 'The First Shelf',
     description:
-      'In the heart of Abuja, a young designer began shaping wire and beads on her kitchen table â€” not yet knowing she was shaping a legacy. What started as a whisper of curiosity became an calling: to create jewellery that carried the soul of Nigeria into the world.',
+      'AMAPELS started small in Abuja, with one rule: nothing leaves unless it survives being worn. We sold what we would wear ourselves, and the customers kept coming back for the same reason.',
   },
   {
     year: '2012',
-    title: 'The First Collection',
+    title: 'Learning The Market',
     description:
-      'Seven pieces, each named after a Abuja street. They sold out in three days. Women didn\'t just wear them â€” they told stories about them. The name of the street where they found their first love. The market where their mother haggled for yams. AMAPELS became more than jewellery: it became memory.',
+      'Every season taught us something — which finishes survive Nigerian weather, which styles get worn past Sunday, which pieces end up bought twice. We kept notes. The shelf got tighter and better.',
   },
   {
     year: '2016',
-    title: 'Finding Our Voice',
+    title: 'Sourcing Further Afield',
     description:
-      'We began sourcing from makers across Nigeria â€” in Abeokuta, in Benin, in Kano. Not as a supply chain, but as a partnership built on dignity, fair wages, and the belief that African jewellery deserves a global stage. We curate, so you never have to dig.',
+      'We started travelling for stock and building relationships with suppliers in Kano, in Abeokuta, and beyond. Not for a supply-chain story, just to find pieces worth putting our name on.',
   },
   {
     year: '2020',
-    title: 'Roots Run Deep',
+    title: 'Staying Open',
     description:
-      'While the world paused, we doubled down. We invested in our maker partners, in sustainable practices, in the stories that had always been the heartbeat of our brand. We emerged with a clarity: AMAPELS is not just about jewellery. It is about who we are, where we come from, and the beauty we bring into the world.',
+      'When everything else shut, jewellery did not stop being bought. We kept orders moving, kept our promises on delivery, and came out the other side with customers who trusted us.',
   },
   {
     year: '2024',
-    title: 'The World Beckons',
+    title: 'A Proper Shop',
     description:
-      'Today, AMAPELS ships to over twenty countries. Our pieces grace necklines from Abuja to London, from Accra to New York. But we remain what we have always been: a small, passionate team driven by taste, meaning, and the stubborn belief that jewellery should feel like home.',
+      'Today AMAPELS is a full jewellery shop in Abuja — earrings, necklaces, bracelets and sets — shipped nationwide and wrapped for gifting. Still picky. Still a small team. Still counting every order.',
   },
 ]
 
@@ -44,26 +44,26 @@ const values = [
   {
     title: 'Curated',
     description:
-      'Every piece is hand-checked before it reaches you. We work with trusted makers and independent designers across Nigeria. We vet the finish, the setting, and the story of each piece — so all you need to focus on is how it makes you feel.',
-    icon: 'âœ¦',
+      'Every piece is checked before it reaches you. We buy from trusted suppliers and independent makers across Nigeria, vet the finish and the setting, and only list what survives real wear. You decide how it makes you feel; we handle the vetting.',
+    icon: '✦',
+  },
+  {
+    title: 'Honest',
+    description:
+      "We say what a piece is, and we say where it comes from. No 'gold' that is not gold. No 'won\'t tarnish' that turns your skin green by Friday. If a piece will not last, we tell you. If it will, we tell you that too.",
+    icon: '❖',
   },
   {
     title: 'Heritage',
     description:
-      'Nigeria is not just where our jewellery is made â€” it is the muse. The bold geometry of Benin bronzes. The tender curves of Nok terracotta. The sun-drenched gold of a Abuja evening. Every collection is a love letter to the culture that shaped us.',
-    icon: 'â™¦',
+      'Nigeria is not just where we sell — it is the lens. The bold geometry of Benin bronzes. The tender curves of Nok terracotta. The warm gold of an Abuja evening. We choose pieces that carry that feeling.',
+    icon: '◈',
   },
   {
-    title: 'Meaning',
+    title: 'Delivered',
     description:
-      'Jewellery is intimate. It sits against your skin, catches the light as you move, becomes part of your story. We design pieces that mean something â€” for the woman buying her first gold chain, for the mother passing down an heirloom, for the friend saying "I see you."',
-    icon: 'âˆž',
-  },
-  {
-    title: 'Sustainability',
-    description:
-      'Beauty should not come at a cost to the earth. We use recycled metals, ethically sourced gemstones, and packaging made from biodegradable materials. Slow fashion is not a trend â€” it is our responsibility.',
-    icon: 'â—‹',
+      'Ordered in the morning, on your lap the same day inside the FCT. Wrapped, tracked, and answered for — because a shop you can call is worth more than a feed you can scroll.',
+    icon: '∞',
   },
 ]
 
@@ -96,11 +96,11 @@ export default function StoryPage() {
               The Brand Story
             </p>
             <h1 className="font-serif text-3xl font-light leading-[1.1] sm:text-4xl md:text-5xl lg:text-[3.25rem]">
-              Where heritage meets the handmade.
+              Live in Abuja. Worn everywhere.
             </h1>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-white/65 sm:text-lg">
-              Every piece of AMAPELS jewellery carries a story â€” of Abuja streets, of maker hands,
-              of women who wear their confidence like gold. This is our story.
+              AMAPELS is a Nigerian jewellery shop in Abuja. We go looking, we buy carefully, we
+              sell honestly. This is how it started.
             </p>
           </motion.div>
         </div>
@@ -119,24 +119,23 @@ export default function StoryPage() {
               The Beginning
             </p>
             <h2 className="font-serif text-2xl font-light leading-[1.15] text-black-dark sm:text-3xl md:text-4xl">
-              It started with a single bead.
+              It started with a pair of earrings.
             </h2>
             <div className="mt-8 space-y-5 text-base leading-relaxed text-black/60 sm:text-lg">
               <p>
-                On a quiet street in Abuja, a woman sat at her window, threading beads
-                by the afternoon light. She was not trying to start a brand. She was trying to
-                capture a feeling â€” the warmth of a Abuja sunset, the rhythm of market chatter,
-                the way gold catches the eye across a crowded room.
+                In Abuja, buying jewellery used to be a gamble. A pair would look perfect in the
+                shop and turn your skin green by Friday. So we started doing it differently —
+                buying in small batches, testing pieces ourselves, and keeping only the ones that
+                still looked good after a week of actual life.
               </p>
               <p>
-                That feeling became a necklace. The necklace became a collection. And that
-                collection became AMAPELS â€” a name whispered among friends, then strangers, then
-                women across the world who recognized in our pieces something they had been
-                searching for: jewellery that felt like them.
+                That became a small stall. Then a proper shop. Today AMAPELS stocks earrings,
+                necklaces, bracelets and sets for every day, every budget, and the gift you keep
+                postponing — wrapped in Abuja and delivered nationwide.
               </p>
               <p className="text-gold-dark/80 font-serif text-xl italic">
-                &ldquo;We don&apos;t just sell jewellery. We curate pieces worth keeping â€” pieces
-                designed to be passed down, worn through seasons of life, and remembered.&rdquo;
+                &ldquo;We don&apos;t make jewellery. We find the ones worth wearing — and we stand
+                behind every single one.&rdquo;
               </p>
             </div>
           </motion.div>
@@ -144,7 +143,7 @@ export default function StoryPage() {
       </section>
 
       {/* Timeline */}
-      <section className="bg-primary-light/50 px-4 py-24 sm:px-6 sm:py-28 md:px-12 md:py-32 lg:px-24">
+      <section className="bg-primary-light/50 px-4 py-24 sm:py-28 md:px-12 md:py-32 lg:px-24">
         <div className="mx-auto max-w-5xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -157,7 +156,7 @@ export default function StoryPage() {
               The Journey
             </p>
             <h2 className="font-serif text-2xl font-light text-black-dark sm:text-3xl md:text-4xl">
-              From a kitchen table to the world.
+              From one small shelf to a full shop.
             </h2>
           </motion.div>
 
@@ -194,7 +193,7 @@ export default function StoryPage() {
       </section>
 
       {/* Values */}
-      <section className="px-4 py-24 sm:px-6 sm:py-28 md:px-12 md:py-32 lg:px-24">
+      <section className="px-4 py-24 sm:py-28 md:px-12 md:py-32 lg:px-24">
         <div className="mx-auto max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -231,7 +230,7 @@ export default function StoryPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-black-dark px-4 py-24 sm:px-6 sm:py-28 md:px-12 md:py-32 lg:px-24">
+      <section className="bg-black-dark px-4 py-24 sm:py-28 md:px-12 md:py-32 lg:px-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -240,27 +239,27 @@ export default function StoryPage() {
           className="mx-auto max-w-3xl text-center text-white"
         >
           <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.38em] text-gold/60">
-            Join the story
+            Come through
           </p>
           <h2 className="font-serif text-2xl font-light leading-[1.15] sm:text-3xl md:text-4xl">
             Every piece has a story. <br />
             <span className="text-gold/80">What will yours be?</span>
           </h2>
           <p className="mx-auto mt-6 max-w-lg text-sm leading-relaxed text-white/55">
-            Whether you&apos;re celebrating a milestone, treating yourself, or searching for the perfect
-            gift â€” our pieces are waiting to become part of your story.
+            Whether you&apos;re celebrating a milestone, treating yourself, or finally buying that
+            gift — our pieces are waiting to become part of your story.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href="/shop"
-              className="btn-premium group inline-flex items-center gap-2.5 bg-white px-8 py-4 text-[10px] font-medium uppercase tracking-[0.22em] text-black-dark transition-all hover:bg-primary-light sm:text-[11px]"
+              className="btn-premium group inline-flex items-center justify-center gap-2.5 bg-white px-8 py-4 text-[10px] font-medium uppercase tracking-[0.22em] text-black-dark transition-all hover:bg-primary-light sm:text-[11px]"
             >
               Explore the Collection
               <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
               href="/collections"
-              className="btn-premium inline-flex items-center gap-2.5 border border-white/25 bg-white/[0.04] px-8 py-4 text-[10px] font-medium uppercase tracking-[0.22em] text-white backdrop-blur-sm transition-all hover:border-white/45 hover:bg-white/10 sm:text-[11px]"
+              className="btn-premium inline-flex items-center justify-center gap-2.5 border border-white/25 bg-white/[0.04] px-8 py-4 text-[10px] font-medium uppercase tracking-[0.22em] text-white backdrop-blur-sm transition-all hover:border-white/45 hover:bg-white/10 sm:text-[11px]"
             >
               View Collections
             </Link>

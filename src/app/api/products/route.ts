@@ -87,7 +87,7 @@ async function buildCatalogPayload(category: string | null) {
         description: p.description,
         images: getProductImages(p),
         featured: p.featured,
-        story: 'Made with care',
+        story: 'Picked with care',
         material: 'Premium materials',
         details: ['Elegant design', 'High quality', 'Perfect for any occasion'],
         materials: 'Premium materials with attention to detail',

@@ -13,10 +13,11 @@ const heroSlides = [
     id: 1,
     src: '/images/evie-martinez-mCjEVrBS1bM-unsplash.webp',
     alt: 'Amapels crystal bracelet close-up',
-    eyebrow: 'Jewellery with a name',
+    eyebrow: 'Checked, worn, approved',
     title: 'Say It in Gold',
-    description: 'They notice it before you say a word. Make it count',
-    accent: 'Just make it count',
+    description:
+      'They notice it before you say a word. So we only list what we would happily wear ourselves — no green skin, no dull days.',
+    accent: 'Only what we\'d wear.',
     width: 1920,
     height: 1080
   },
@@ -24,9 +25,10 @@ const heroSlides = [
     id: 2,
     src: '/images/sabrianna-Y_bxfTa_iUA-unsplash.webp',
     alt: 'Amapels gold stud earrings close-up',
-    eyebrow: 'No green fingers here',
+    eyebrow: 'Everyday pieces',
     title: 'Made to stay',
-    description: "Won't tarnish, won't fade. Just a new favourite that goes with everything",
+    description:
+      "Won't tarnish, won't fade. Earrings, chains and bangles that survive work, church, traffic and weddings — the whole weekend.",
     accent: "Won't tarnish. Won't fade.",
     width: 1920,
     height: 1080
@@ -35,11 +37,11 @@ const heroSlides = [
     id: 3,
     src: '/images/andres-vera-202NAwjisYA-unsplash.webp',
     alt: 'AMAPELS occasion jewellery portrait',
-    eyebrow: 'For the ones you love',
+    eyebrow: 'Ready to give',
     title: 'Give them something to keep',
     description:
-      'For your wife, your sister, your best friend, and your mum who always says "don\'t buy me anything."',
-    accent: 'For the occasion, or the person',
+      'For your wife, your sister, your best friend, and the one who always says "don\'t buy me anything." Packed in Abuja, delivered nationwide.',
+    accent: 'Wrapped and ready to give.',
     width: 1920,
     height: 1080
   }
@@ -418,15 +420,14 @@ export default function Home() {
               <div className="mt-6 space-y-4 text-base leading-relaxed text-black/60">
                 <p>
                   You know that feeling when you finally find earrings you love, wear them twice,
-                  and they start changing colour? Yeah. We got tired of it too. AMAPELS started
-                  because we wanted pretty pieces that could actually keep up with Nigerian life:
-                  work, church, traffic, weddings, the whole weekend.
+                  and they start changing colour? We got tired of it too. So we started shopping
+                  properly — testing pieces, comparing finishes, keeping only the ones that hold up
+                  to Nigerian life: work, church, traffic, weddings, the whole weekend.
                 </p>
                 <p>
-                  So we&apos;re picky. Every piece has to look good and hold up. If we wouldn&apos;t wear
-                  it every day ourselves, it doesn&apos;t get to you. Whether it&apos;s for you or for
-                  someone you love, it should still feel like a good decision long after you&apos;ve
-                  paid for it.
+                  That&apos;s the shop. Every pair, chain and bangle we list has been worn, checked
+                  and approved by us before you ever see it. If we wouldn&apos;t wear it ourselves,
+                  we don&apos;t list it — whether it&apos;s for you or for someone you love.
                 </p>
               </div>
               <div className="mt-10 space-y-6">
@@ -439,7 +440,8 @@ export default function Home() {
                 >
                   <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-black/55">Nigerian-Owned</p>
                   <p className="text-sm leading-relaxed text-black/65">
-                    Designed by Nigerian hands that pour generations of skill into every piece. Our work carries the legacy of a continent.
+                    Run in Abuja by Nigerians, for Nigerian life — and shipped nationwide, so your
+                    order arrives the way it was packed.
                   </p>
                 </motion.div>
                 <motion.div
@@ -449,9 +451,10 @@ export default function Home() {
                   transition={{ duration: 0.6, delay: 0.35, ease }}
                   className="border-l border-gold/50 pl-5"
                 >
-                  <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-black/55">Made to Last</p>
+                  <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-black/55">Delivered With Care</p>
                   <p className="text-sm leading-relaxed text-black/65">
-                    From the streets of Abuja to the avenues of New York — our pieces travel with women who move through the world with grace and intention.
+                    Picked, checked and wrapped by hand in Abuja, then tracked to your door — same
+                    day inside the FCT, nationwide after that.
                   </p>
                 </motion.div>
               </div>
@@ -524,11 +527,11 @@ export default function Home() {
             <blockquote className="font-serif text-2xl font-light leading-[1.2] text-white sm:text-3xl md:text-4xl">
               &ldquo;Your jewellery speaks before you do.
               <br />
-              <span className="text-gold/80">We just make sure it&apos;s saying something good.</span>&rdquo;
+              <span className="text-gold/80">We just make sure it says something worth hearing.</span>&rdquo;
             </blockquote>
             <div className="mt-8 h-px w-16 bg-gold/50" />
             <p className="mt-6 max-w-lg text-sm leading-relaxed text-white/55">
-              Designed in Abuja. Worn by women who move through the world with grace,
+              Chosen in Abuja. Worn by women who move through the world with grace,
               confidence, and an unshakable sense of who they are.
             </p>
           </motion.div>
@@ -611,7 +614,8 @@ export default function Home() {
             </div>
             <div className="flex flex-col items-start gap-4 md:items-end">
               <p className="max-w-sm text-sm leading-relaxed text-black/55 md:text-right">
-                Selected jewelry for those who appreciate quiet elegance and the perfect gift.
+                Selected for people who like quiet elegance — and for the gift you keep
+                meaning to buy.
               </p>
               <Link
                 href="/shop"

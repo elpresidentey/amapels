@@ -12,7 +12,7 @@ export default function Footer() {
               AMAPELS
             </Link>
             <p className="mt-3 max-w-md text-sm leading-relaxed text-white/55 sm:mt-4">
-              Exquisite Nigerian jewelry, made in Abuja to be worn, gifted, and treasured.
+              Exquisite Nigerian jewellery, handpicked in Abuja to be worn, gifted, and treasured.
             </p>
           </div>
           <div className="flex items-center gap-3">

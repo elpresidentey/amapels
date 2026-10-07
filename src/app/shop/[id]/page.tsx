@@ -175,7 +175,7 @@ export default function ProductPage() {
               <p className="text-sm leading-relaxed italic text-black/65">
                 {product.materials
                   ? `Inspired by the interplay of ${product.materials.toLowerCase()}, this piece captures the essence of Nigerian elegance — where tradition meets the contemporary woman who moves through the world with grace and intention.`
-                  : `Every curve and contour of this piece is a conversation between heritage and the modern woman — designed for moments that deserve to be remembered.`}
+                  : `Every curve and contour of this piece is a conversation between heritage and the modern woman — picked for moments that deserve to be remembered.`}
               </p>
             </div>
 
@@ -231,8 +231,8 @@ export default function ProductPage() {
                     </div>
                   )}
                   <div className="flex gap-4">
-<span className="w-28 shrink-0 text-[10px] font-medium uppercase tracking-[0.16em] text-black/40">Origin</span>
-                      <span>Made in Abuja, Nigeria</span>
+                    <span className="w-28 shrink-0 text-[10px] font-medium uppercase tracking-[0.16em] text-black/40">Ships From</span>
+                    <span>Abuja, Nigeria</span>
                   </div>
                 </div>
               </div>
