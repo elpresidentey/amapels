@@ -70,7 +70,7 @@ export default function JournalPostPage() {
         >
           <Link
             href="/journal"
-            className="mb-8 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-black/40 transition-colors hover:text-gold-dark"
+            className="mb-8 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-ink/40 transition-colors hover:text-gold-dark"
           >
             <ArrowLeft size={12} />
             Back to Journal
@@ -88,21 +88,21 @@ export default function JournalPostPage() {
             </span>
             <span className="h-px flex-1 bg-gold/20" />
             {date && (
-              <span className="text-[9px] font-medium uppercase tracking-[0.22em] text-black/30">
+              <span className="text-[9px] font-medium uppercase tracking-[0.22em] text-ink/30">
                 {date}
               </span>
             )}
           </div>
 
-          <h1 className="font-serif text-2xl font-light leading-[1.1] text-black-dark sm:text-3xl md:text-4xl">
+          <h1 className="font-serif text-2xl font-light leading-[1.1] text-ink sm:text-3xl md:text-4xl">
             {post.title}
           </h1>
 
-          <p className="mt-3 text-sm text-black/40">
+          <p className="mt-3 text-sm text-ink/40">
             By {post.author}
           </p>
 
-          <div className="mt-10 border-t border-gold/15 pt-8 text-base leading-relaxed text-black/70 sm:text-lg sm:leading-relaxed">
+          <div className="mt-10 border-t border-gold/15 pt-8 text-base leading-relaxed text-ink/70 sm:text-lg sm:leading-relaxed">
             {post.content.split('\n').map((paragraph, i) => (
               paragraph.trim() ? <p key={i} className="mb-5">{paragraph}</p> : null
             ))}

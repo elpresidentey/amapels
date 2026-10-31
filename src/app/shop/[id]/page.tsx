@@ -56,7 +56,7 @@ export default function ProductPage() {
       <div className="flex min-h-screen items-center justify-center pt-32">
         <div className="text-center">
           <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border border-gold/30 border-t-gold" />
-          <p className="text-sm text-black/50">Loading piece&hellip;</p>
+          <p className="text-sm text-ink/50">Loading piece&hellip;</p>
         </div>
       </div>
     )
@@ -66,11 +66,11 @@ export default function ProductPage() {
     return (
       <div className="flex min-h-screen items-center justify-center pt-32">
         <div className="max-w-md px-6 text-center">
-          <p className="mb-3 font-serif text-2xl font-light text-black-dark">Piece not found</p>
-          <p className="mb-8 text-sm text-black/55">{error || 'This product may no longer be available.'}</p>
+          <p className="mb-3 font-serif text-2xl font-light text-ink">Piece not found</p>
+          <p className="mb-8 text-sm text-ink/55">{error || 'This product may no longer be available.'}</p>
           <Link
             href="/shop"
-            className="btn-premium inline-flex items-center gap-2 bg-black-dark px-6 py-3 text-[10px] font-medium uppercase tracking-[0.22em] text-white"
+            className="btn-premium inline-flex items-center gap-2 bg-ink px-6 py-3 text-[10px] font-medium uppercase tracking-[0.22em] text-on-ink"
           >
             <ArrowLeft size={14} />
             Back to Shop
@@ -85,7 +85,7 @@ export default function ProductPage() {
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 md:px-12 lg:px-24 lg:py-20">
         <Link
           href="/shop"
-          className="mb-10 inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.2em] text-black/45 transition-colors hover:text-black-dark sm:mb-14"
+          className="mb-10 inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.2em] text-ink/45 transition-colors hover:text-ink sm:mb-14"
         >
           <ArrowLeft size={14} strokeWidth={1.5} />
           Back to Shop
@@ -143,10 +143,10 @@ export default function ProductPage() {
             transition={{ duration: 0.8, delay: 0.1, ease }}
             className="flex flex-col lg:pt-4"
           >
-            <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.32em] text-black/40">
+            <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.32em] text-ink/40">
               {product.category}
             </p>
-            <h1 className="font-serif text-2xl font-light leading-snug text-black-dark sm:text-3xl md:text-[2.2rem]">
+            <h1 className="font-serif text-2xl font-light leading-snug text-ink sm:text-3xl md:text-[2.2rem]">
               {product.name}
             </h1>
             <p className="mt-4 text-xl font-medium tracking-wide text-gold-dark sm:text-2xl">
@@ -156,14 +156,14 @@ export default function ProductPage() {
             {/* Gift packaging callout */}
             <div className="mt-5 flex items-center gap-3 rounded border border-gold/20 bg-gold/[0.04] px-4 py-3">
               <Package size={16} strokeWidth={1.3} className="shrink-0 text-gold-dark" />
-              <p className="text-[11px] leading-relaxed text-black/60">
+              <p className="text-[11px] leading-relaxed text-ink/60">
                 Each order comes beautifully packaged with our signature AMAPELS box, drawstring pouch, and a handwritten gift note — complimentary with every purchase.
               </p>
             </div>
 
             <div className="my-8 h-px w-full bg-black/[0.06] sm:my-10" />
 
-            <p className="text-base leading-relaxed text-black/60">
+            <p className="text-base leading-relaxed text-ink/60">
               {product.description}
             </p>
 
@@ -172,7 +172,7 @@ export default function ProductPage() {
               <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-gold/70">
                 The Inspiration
               </p>
-              <p className="text-sm leading-relaxed italic text-black/65">
+              <p className="text-sm leading-relaxed italic text-ink/65">
                 {product.materials
                   ? `Inspired by the interplay of ${product.materials.toLowerCase()}, this piece captures the essence of Nigerian elegance — where tradition meets the contemporary woman who moves through the world with grace and intention.`
                   : `Every curve and contour of this piece is a conversation between heritage and the modern woman — picked for moments that deserve to be remembered.`}
@@ -184,7 +184,7 @@ export default function ProductPage() {
               <button
                 onClick={handleAddToCart}
                 disabled={addedToCart}
-                className="btn-premium flex flex-1 items-center justify-center gap-2.5 bg-black-dark py-4 text-[10px] font-medium uppercase tracking-[0.22em] text-white transition-colors hover:bg-black disabled:bg-gold disabled:text-black-dark sm:py-5 sm:text-[11px]"
+                className="btn-premium flex flex-1 items-center justify-center gap-2.5 bg-ink py-4 text-[10px] font-medium uppercase tracking-[0.22em] text-on-ink transition-colors hover:bg-ink/90 disabled:bg-gold disabled:text-ink sm:py-5 sm:text-[11px]"
               >
                 {addedToCart ? (
                   <>
@@ -205,7 +205,7 @@ export default function ProductPage() {
                 className={`flex h-14 w-14 items-center justify-center border transition-all duration-300 sm:h-[3.75rem] sm:w-[3.75rem] ${
                   wishlisted
                     ? 'border-gold bg-gold/10 text-gold-dark'
-                    : 'border-black/15 text-black/50 hover:border-black/40 hover:text-black-dark'
+                    : 'border-ink/15 text-ink/50 hover:border-ink/40 hover:text-ink'
                 }`}
               >
                 <Heart size={18} strokeWidth={1.5} className={wishlisted ? 'fill-gold' : ''} />
@@ -213,25 +213,25 @@ export default function ProductPage() {
             </div>
 
             {/* Details accordion */}
-            <div className="mt-12 space-y-6 border-t border-black/[0.06] pt-10 sm:mt-14">
+            <div className="mt-12 space-y-6 border-t border-ink/[0.06] pt-10 sm:mt-14">
               {/* Specs */}
               <div>
-                <h3 className="mb-4 text-[10px] font-medium uppercase tracking-[0.28em] text-black/40">
+                <h3 className="mb-4 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/40">
                   Product Details
                 </h3>
-                <div className="space-y-2.5 text-sm text-black/60">
+                <div className="space-y-2.5 text-sm text-ink/60">
                   <div className="flex gap-4">
-                    <span className="w-28 shrink-0 text-[10px] font-medium uppercase tracking-[0.16em] text-black/40">Category</span>
+                    <span className="w-28 shrink-0 text-[10px] font-medium uppercase tracking-[0.16em] text-ink/40">Category</span>
                     <span>{product.category}</span>
                   </div>
                   {product.materials && (
                     <div className="flex gap-4">
-                      <span className="w-28 shrink-0 text-[10px] font-medium uppercase tracking-[0.16em] text-black/40">Materials</span>
+                      <span className="w-28 shrink-0 text-[10px] font-medium uppercase tracking-[0.16em] text-ink/40">Materials</span>
                       <span>{product.materials}</span>
                     </div>
                   )}
                   <div className="flex gap-4">
-                    <span className="w-28 shrink-0 text-[10px] font-medium uppercase tracking-[0.16em] text-black/40">Ships From</span>
+                    <span className="w-28 shrink-0 text-[10px] font-medium uppercase tracking-[0.16em] text-ink/40">Ships From</span>
                     <span>Abuja, Nigeria</span>
                   </div>
                 </div>
@@ -239,10 +239,10 @@ export default function ProductPage() {
 
               {/* Details list */}
               <div>
-                <h3 className="mb-4 text-[10px] font-medium uppercase tracking-[0.28em] text-black/40">
+                <h3 className="mb-4 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/40">
                   Features
                 </h3>
-                <ul className="space-y-3 text-sm text-black/60">
+                <ul className="space-y-3 text-sm text-ink/60">
                   {(product.details && product.details.length > 0
                     ? product.details
                     : [
@@ -262,10 +262,10 @@ export default function ProductPage() {
               {/* Care */}
               {product.care && (
                 <div>
-                  <h3 className="mb-3 text-[10px] font-medium uppercase tracking-[0.28em] text-black/40">
+                  <h3 className="mb-3 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/40">
                     Care
                   </h3>
-                  <p className="text-sm leading-relaxed text-black/55">{product.care}</p>
+                  <p className="text-sm leading-relaxed text-ink/55">{product.care}</p>
                 </div>
               )}
             </div>
@@ -279,20 +279,20 @@ export default function ProductPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease }}
-            className="mt-20 border-t border-black/[0.06] pt-14 sm:mt-24 sm:pt-16 md:mt-28 md:pt-20"
+            className="mt-20 border-t border-ink/[0.06] pt-14 sm:mt-24 sm:pt-16 md:mt-28 md:pt-20"
           >
-            <div className="mb-12 flex flex-col gap-5 border-b border-black/[0.06] pb-8 sm:mb-14 md:flex-row md:items-end md:justify-between">
+            <div className="mb-12 flex flex-col gap-5 border-b border-ink/[0.06] pb-8 sm:mb-14 md:flex-row md:items-end md:justify-between">
               <div>
-                <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
+                <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/40">
                   Complete The Look
                 </p>
-                <h2 className="font-serif text-2xl font-light text-black-dark sm:text-3xl">
+                <h2 className="font-serif text-2xl font-light text-ink sm:text-3xl">
                   Shop the edit
                 </h2>
               </div>
               <Link
                 href={`/shop?category=${product.category}`}
-                className="group inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.24em] text-black-dark transition-colors hover:text-gold-dark"
+                className="group inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.24em] text-ink transition-colors hover:text-gold-dark"
               >
                 View All {product.category}
                 <ArrowLeft size={14} strokeWidth={1.5} className="rotate-180 transition-transform group-hover:translate-x-0.5" />

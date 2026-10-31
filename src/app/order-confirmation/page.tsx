@@ -122,8 +122,8 @@ function OrderConfirmationContent() {
     return (
       <div className="min-h-screen bg-primary pt-24 pb-16 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-black/50 text-sm">Loading your order details...</p>
+          <div className="w-8 h-8 border-2 border-ink border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-ink/50 text-sm">Loading your order details...</p>
         </div>
       </div>
     )
@@ -153,10 +153,10 @@ function OrderConfirmationContent() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="mb-12"
           >
-            <h1 className="font-serif text-3xl md:text-4xl font-light text-black-dark mb-4">
+            <h1 className="font-serif text-3xl md:text-4xl font-light text-ink mb-4">
               Your Order is Confirmed
             </h1>
-            <p className="text-lg text-black/55 max-w-2xl mx-auto">
+            <p className="text-lg text-ink/55 max-w-2xl mx-auto">
               Thank you for choosing AMAPELS. We are honored to help you choose and deliver your exquisite jewelry with care.
             </p>
           </motion.div>
@@ -165,79 +165,79 @@ function OrderConfirmationContent() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="bg-white border border-gold/20 p-8 md:p-12 mb-12 text-left"
+            className="bg-base border border-gold/20 p-8 md:p-12 mb-12 text-left"
           >
             <div className="grid gap-8 md:grid-cols-2">
               <div>
-                <h2 className="font-serif text-xl text-black-dark mb-6">Order Details</h2>
+                <h2 className="font-serif text-xl text-ink mb-6">Order Details</h2>
                 <div className="space-y-5">
                   <div className="flex items-center gap-4">
                     <div className="w-10 h-10 bg-primary-light rounded-full flex items-center justify-center flex-shrink-0">
-                      <Package size={18} className="text-black/55" strokeWidth={1.5} />
+                      <Package size={18} className="text-ink/55" strokeWidth={1.5} />
                     </div>
                     <div>
-                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-black/40 mb-1">Order Number</p>
-                      <p className="font-mono font-medium text-black-dark text-sm">{orderNumber}</p>
+                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/40 mb-1">Order Number</p>
+                      <p className="font-mono font-medium text-ink text-sm">{orderNumber}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-4">
                     <div className="w-10 h-10 bg-primary-light rounded-full flex items-center justify-center flex-shrink-0">
-                      <Truck size={18} className="text-black/55" strokeWidth={1.5} />
+                      <Truck size={18} className="text-ink/55" strokeWidth={1.5} />
                     </div>
                     <div>
-                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-black/40 mb-1">Tracking Number</p>
+                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/40 mb-1">Tracking Number</p>
                       <p className="font-mono font-medium text-gold-dark text-sm">{trackingNumber}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-4">
                     <div className="w-10 h-10 bg-primary-light rounded-full flex items-center justify-center flex-shrink-0">
-                      <Calendar size={18} className="text-black/55" strokeWidth={1.5} />
+                      <Calendar size={18} className="text-ink/55" strokeWidth={1.5} />
                     </div>
                     <div>
-                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-black/40 mb-1">Order Date</p>
-                      <p className="font-medium text-black-dark text-sm">{orderDate}</p>
+                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/40 mb-1">Order Date</p>
+                      <p className="font-medium text-ink text-sm">{orderDate}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-4">
                     <div className="w-10 h-10 bg-primary-light rounded-full flex items-center justify-center flex-shrink-0">
-                      <Mail size={18} className="text-black/55" strokeWidth={1.5} />
+                      <Mail size={18} className="text-ink/55" strokeWidth={1.5} />
                     </div>
                     <div>
-                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-black/40 mb-1">Confirmation Email</p>
-                      <p className="font-medium text-black-dark text-sm">{customerEmail || 'Sent to your email'}</p>
+                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/40 mb-1">Confirmation Email</p>
+                      <p className="font-medium text-ink text-sm">{customerEmail || 'Sent to your email'}</p>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div>
-                <h3 className="font-serif text-xl text-black-dark mb-6">Payment Information</h3>
+                <h3 className="font-serif text-xl text-ink mb-6">Payment Information</h3>
                 <div className="space-y-4 mb-6">
                   <div className="bg-primary-light/60 border border-gold/20 p-4">
                     <div className="flex items-center gap-2 mb-1">
                       <Check size={14} className="text-gold-dark" />
-                      <span className="text-sm font-medium text-black-dark">Payment Successful</span>
+                      <span className="text-sm font-medium text-ink">Payment Successful</span>
                     </div>
-                    <p className="text-xs text-black/50">Your payment has been processed successfully</p>
+                    <p className="text-xs text-ink/50">Your payment has been processed successfully</p>
                   </div>
 
                   <div>
-                    <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-black/40 mb-1">Payment Reference</p>
-                    <p className="font-mono font-medium text-black-dark text-sm">{paymentReference || 'Confirmed'}</p>
+                    <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/40 mb-1">Payment Reference</p>
+                    <p className="font-mono font-medium text-ink text-sm">{paymentReference || 'Confirmed'}</p>
                   </div>
 
                   {totalAmount && (
                     <div>
-                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-black/40 mb-1">Total Amount</p>
-                      <p className="font-medium text-xl text-black-dark">{totalAmount}</p>
+                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/40 mb-1">Total Amount</p>
+                      <p className="font-medium text-xl text-ink">{totalAmount}</p>
                     </div>
                   )}
                 </div>
 
-                <h3 className="font-serif text-xl text-black-dark mb-4">Quick Actions</h3>
+                <h3 className="font-serif text-xl text-ink mb-4">Quick Actions</h3>
                 <div className="space-y-3">
                   <PrintableReceipt
                     orderNumber={orderNumber}
@@ -257,7 +257,7 @@ function OrderConfirmationContent() {
 
                   <Link
                     href={`/track-order?orderNumber=${orderNumber}`}
-                    className="w-full border border-black/15 text-black-dark py-3.5 px-6 text-[10px] font-medium uppercase tracking-[0.22em] hover:border-gold hover:text-gold-dark transition-all flex items-center justify-center gap-2.5 sm:text-[11px]"
+                    className="w-full border border-ink/15 text-ink py-3.5 px-6 text-[10px] font-medium uppercase tracking-[0.22em] hover:border-gold hover:text-gold-dark transition-all flex items-center justify-center gap-2.5 sm:text-[11px]"
                   >
                     Track Order
                     <ArrowRight size={13} />
@@ -265,7 +265,7 @@ function OrderConfirmationContent() {
 
                   <Link
                     href="/shop"
-                    className="w-full text-center text-black/45 hover:text-black-dark transition-colors text-xs font-medium uppercase tracking-[0.18em]"
+                    className="w-full text-center text-ink/45 hover:text-ink transition-colors text-xs font-medium uppercase tracking-[0.18em]"
                   >
                     Continue Shopping
                   </Link>
@@ -280,7 +280,7 @@ function OrderConfirmationContent() {
             transition={{ duration: 0.6, delay: 0.8 }}
             className="text-left"
           >
-            <h2 className="font-serif text-2xl md:text-3xl text-black-dark mb-8 text-center">What Happens Next?</h2>
+            <h2 className="font-serif text-2xl md:text-3xl text-ink mb-8 text-center">What Happens Next?</h2>
 
             <div className="grid gap-6 md:grid-cols-3">
               {nextSteps.map((step, index) => (
@@ -289,7 +289,7 @@ function OrderConfirmationContent() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.8 + (index * 0.1) }}
-                  className="border border-gold/20 bg-white p-6 relative"
+                  className="border border-gold/20 bg-base p-6 relative"
                 >
                   {step.status === 'completed' && (
                     <div className="absolute top-4 right-4 w-6 h-6 bg-gold rounded-full flex items-center justify-center">
@@ -298,18 +298,18 @@ function OrderConfirmationContent() {
                   )}
 
                   <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-4 ${
-                    step.status === 'completed' ? 'bg-gold text-white' : 'bg-primary-light text-black/55'
+                    step.status === 'completed' ? 'bg-gold text-white' : 'bg-primary-light text-ink/55'
                   }`}>
                     {step.icon}
                   </div>
 
-                  <h3 className="font-serif text-lg text-black-dark mb-2">{step.title}</h3>
-                  <p className="text-black/50 text-sm leading-relaxed mb-3">{step.description}</p>
+                  <h3 className="font-serif text-lg text-ink mb-2">{step.title}</h3>
+                  <p className="text-ink/50 text-sm leading-relaxed mb-3">{step.description}</p>
 
                   {step.timeframe && (
                     <div className="inline-flex items-center gap-2 bg-primary-light px-3 py-1.5">
                       <div className="w-1.5 h-1.5 bg-gold rounded-full" />
-                      <span className="text-[10px] font-medium text-black/60 uppercase tracking-wider">{step.timeframe}</span>
+                      <span className="text-[10px] font-medium text-ink/60 uppercase tracking-wider">{step.timeframe}</span>
                     </div>
                   )}
                 </motion.div>
@@ -323,15 +323,15 @@ function OrderConfirmationContent() {
             transition={{ duration: 0.6, delay: 1.2 }}
             className="mt-16 bg-primary-light/50 border border-gold/15 p-8 text-center"
           >
-            <h3 className="font-serif text-xl text-black-dark mb-3">We Are Here to Help</h3>
-            <p className="text-black/50 text-sm mb-6 max-w-lg mx-auto">
+            <h3 className="font-serif text-xl text-ink mb-3">We Are Here to Help</h3>
+            <p className="text-ink/50 text-sm mb-6 max-w-lg mx-auto">
               Our dedicated team is ready to assist you with any questions about your order or jewelry care.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/contact"
-                className="btn-premium inline-flex items-center gap-2.5 bg-black text-white px-6 py-3.5 text-[10px] font-medium uppercase tracking-[0.22em] hover:bg-gold hover:text-black-dark transition-all sm:text-[11px]"
+                className="btn-premium inline-flex items-center gap-2.5 bg-ink text-on-ink px-6 py-3.5 text-[10px] font-medium uppercase tracking-[0.22em] hover:bg-gold hover:text-ink transition-all sm:text-[11px]"
               >
                 <Mail size={13} />
                 Contact Support
@@ -339,7 +339,7 @@ function OrderConfirmationContent() {
 
               <a
                 href="tel:+2348161238148"
-                className="btn-premium inline-flex items-center gap-2.5 border border-black/15 text-black-dark px-6 py-3.5 text-[10px] font-medium uppercase tracking-[0.22em] hover:border-gold hover:text-gold-dark transition-all sm:text-[11px]"
+                className="btn-premium inline-flex items-center gap-2.5 border border-ink/15 text-ink px-6 py-3.5 text-[10px] font-medium uppercase tracking-[0.22em] hover:border-gold hover:text-gold-dark transition-all sm:text-[11px]"
               >
                 <Phone size={13} />
                 Call Us: 0816 123 8148
@@ -357,8 +357,8 @@ export default function OrderConfirmationPage() {
     <Suspense fallback={
       <div className="min-h-screen bg-primary pt-24 pb-16 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-black/50 text-sm">Loading...</p>
+          <div className="w-8 h-8 border-2 border-ink border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-ink/50 text-sm">Loading...</p>
         </div>
       </div>
     }>

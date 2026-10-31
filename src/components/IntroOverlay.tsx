@@ -26,7 +26,7 @@ export default function IntroOverlay() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
           onClick={handleDismiss}
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black cursor-pointer"
+          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-ink cursor-pointer"
         >
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -39,7 +39,7 @@ export default function IntroOverlay() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-              className="font-serif text-4xl md:text-5xl lg:text-[4rem] tracking-[0.15em] text-white mb-4"
+              className="font-serif text-4xl md:text-5xl lg:text-[4rem] tracking-[0.15em] text-on-ink mb-4"
             >
               Welcome to
             </motion.h1>
@@ -61,7 +61,7 @@ export default function IntroOverlay() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 2.2, ease: "easeOut" }}
-              className="mt-8 text-sm md:text-base text-white/50 tracking-[0.3em] uppercase"
+              className="mt-8 text-sm md:text-base text-on-ink/50 tracking-[0.3em] uppercase"
             >
               Modern Nigerian Elegance
             </motion.p>
@@ -71,7 +71,7 @@ export default function IntroOverlay() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 3 }}
-            className="absolute bottom-12 text-xs text-white/30 tracking-widest uppercase animate-pulse"
+            className="absolute bottom-12 text-xs text-on-ink/30 tracking-widest uppercase animate-pulse"
           >
             Tap to enter
           </motion.p>

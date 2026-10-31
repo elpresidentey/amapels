@@ -47,17 +47,17 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
 
 function DefaultErrorFallback({ error, retry }: { error?: Error; retry?: () => void }) {
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center px-6">
+    <div className="min-h-screen bg-base flex items-center justify-center px-6">
       <div className="text-center max-w-md">
         <div className="w-16 h-16 bg-accent-orange/10 rounded-full flex items-center justify-center mx-auto mb-6">
           <AlertTriangle size={32} className="text-accent-orange" />
         </div>
         
-        <h1 className="font-serif text-2xl font-light text-black mb-4">
+        <h1 className="font-serif text-2xl font-light text-ink mb-4">
           Oops! Something went wrong
         </h1>
         
-        <p className="text-gray-600 mb-6">
+        <p className="text-ink/60 mb-6">
           We're sorry for the inconvenience. Please try refreshing the page or contact support if the problem persists.
         </p>
         
@@ -76,7 +76,7 @@ function DefaultErrorFallback({ error, retry }: { error?: Error; retry?: () => v
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <button
             onClick={retry}
-            className="inline-flex items-center gap-2 bg-black text-white px-6 py-3 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-black transition-colors border border-gold"
+            className="inline-flex items-center gap-2 bg-ink text-on-ink px-6 py-3 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-black transition-colors border border-gold"
           >
             <RefreshCw size={16} />
             Try Again
@@ -84,13 +84,13 @@ function DefaultErrorFallback({ error, retry }: { error?: Error; retry?: () => v
           
           <button
             onClick={() => window.location.href = '/'}
-            className="inline-flex items-center gap-2 border-2 border-gold text-black px-6 py-3 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors"
+            className="inline-flex items-center gap-2 border-2 border-gold text-ink px-6 py-3 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors"
           >
             Go Home
           </button>
         </div>
         
-        <p className="text-xs text-black/50 mt-6">
+        <p className="text-xs text-ink/50 mt-6">
           If you continue to experience issues, please contact{' '}
           <a href="mailto:amapelsng@gmail.com" className="underline">
             amapelsng@gmail.com

@@ -81,7 +81,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3, ease }}
-          className="fixed inset-0 z-[80] bg-black-dark/80 backdrop-blur-md"
+          className="fixed inset-0 z-[80] bg-base/80 backdrop-blur-md"
           onClick={onClose}
         >
           <motion.div
@@ -92,9 +92,9 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
             onClick={(e) => e.stopPropagation()}
             className="mx-auto mt-24 w-full max-w-xl px-4 sm:mt-32 sm:px-6"
           >
-            <div className="border border-white/10 bg-black-dark/95 shadow-2xl">
+            <div className="border border-ink/10 bg-chrome/98 shadow-2xl">
               {/* Input row */}
-              <div className="flex items-center gap-4 border-b border-white/10 px-5 py-4 sm:px-6">
+              <div className="flex items-center gap-4 border-b border-ink/10 px-5 py-4 sm:px-6">
                 <Search size={18} strokeWidth={1.5} className="shrink-0 text-gold/70" />
                 <input
                   ref={inputRef}
@@ -103,13 +103,13 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search pieces, materials, categories..."
                   aria-label="Search products"
-                  className="w-full bg-transparent text-base text-white placeholder:text-white/35 focus:outline-none"
+                  className="w-full bg-transparent text-base text-ink placeholder:text-ink/35 focus:outline-none"
                 />
                 <button
                   type="button"
                   onClick={onClose}
                   aria-label="Close search"
-                  className="shrink-0 p-1 text-white/50 transition-colors hover:text-white"
+                  className="shrink-0 p-1 text-ink/50 transition-colors hover:text-ink"
                 >
                   <X size={18} strokeWidth={1.5} />
                 </button>
@@ -118,19 +118,19 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
               {/* Results */}
               <div className="max-h-[50vh] overflow-y-auto">
                 {loading && (
-                  <p className="px-6 py-8 text-center text-sm text-white/40">Loading the collection...</p>
+                  <p className="px-6 py-8 text-center text-sm text-ink/40">Loading the collection...</p>
                 )}
                 {!loading && error && (
-                  <p className="px-6 py-8 text-center text-sm text-white/40">{error}</p>
+                  <p className="px-6 py-8 text-center text-sm text-ink/40">{error}</p>
                 )}
                 {!loading && !error && query.trim() && results.length === 0 && (
-                  <p className="px-6 py-8 text-center text-sm text-white/40">
+                  <p className="px-6 py-8 text-center text-sm text-ink/40">
                     No pieces match &ldquo;{query.trim()}&rdquo;
                   </p>
                 )}
                 {!loading && !error && (!query.trim() || results.length === 0) && !query.trim() && (
                   <div className="px-6 py-4">
-                    <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-white/35">
+                    <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/35">
                       Browse Categories
                     </p>
                     <div className="flex flex-wrap gap-2">
@@ -139,7 +139,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                           key={cat}
                           type="button"
                           onClick={() => setQuery(cat)}
-                          className="border border-white/15 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.2em] text-white/70 transition-colors hover:border-gold/50 hover:text-gold"
+                          className="border border-ink/15 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.2em] text-ink/70 transition-colors hover:border-gold/50 hover:text-gold"
                         >
                           {cat}
                         </button>
@@ -148,15 +148,15 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                   </div>
                 )}
                 {!loading && !error && query.trim() && results.length > 0 && (
-                  <ul className="divide-y divide-white/[0.06]">
+                  <ul className="divide-y divide-ink/[0.06]">
                     {results.map((p) => (
                       <li key={p._id}>
                         <button
                           type="button"
                           onClick={() => handleSelect(p._id)}
-                          className="group flex w-full items-center gap-4 px-5 py-3.5 text-left transition-colors hover:bg-white/[0.04] sm:px-6"
+                          className="group flex w-full items-center gap-4 px-5 py-3.5 text-left transition-colors hover:bg-ink/[0.04] sm:px-6"
                         >
-                          <div className="relative h-14 w-14 shrink-0 overflow-hidden bg-white/[0.04]">
+                          <div className="relative h-14 w-14 shrink-0 overflow-hidden bg-ink/[0.04]">
                             <Image
                               src={p.images?.[0] || '/images/sabrianna-Y_bxfTa_iUA-unsplash.webp'}
                               alt={p.name}
@@ -166,10 +166,10 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                             />
                           </div>
                           <div className="min-w-0 flex-1">
-                            <p className="truncate font-serif text-base font-light text-white">
+                            <p className="truncate font-serif text-base font-light text-ink">
                               {p.name}
                             </p>
-                            <p className="mt-0.5 text-[10px] font-medium uppercase tracking-[0.22em] text-white/35">
+                            <p className="mt-0.5 text-[10px] font-medium uppercase tracking-[0.22em] text-ink/35">
                               {p.category}
                             </p>
                           </div>
@@ -179,7 +179,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                           <ArrowRight
                             size={14}
                             strokeWidth={1.5}
-                            className="shrink-0 text-white/30 transition-all duration-300 group-hover:translate-x-1 group-hover:text-gold"
+                            className="shrink-0 text-ink/30 transition-all duration-300 group-hover:translate-x-1 group-hover:text-gold"
                           />
                         </button>
                       </li>

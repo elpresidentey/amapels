@@ -231,13 +231,13 @@ export default function GiftGuideContent() {
 
   if (error) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-white">
+      <div className="flex min-h-screen items-center justify-center bg-base">
         <div className="max-w-md px-6 text-center">
-          <p className="mb-3 font-serif text-2xl font-light text-black-dark">Something went wrong</p>
-          <p className="mb-6 text-sm text-black/55">{error}</p>
+          <p className="mb-3 font-serif text-2xl font-light text-ink">Something went wrong</p>
+          <p className="mb-6 text-sm text-ink/55">{error}</p>
           <Link
             href="/shop"
-            className="inline-flex items-center px-8 py-3 bg-black text-white text-sm font-medium rounded-md hover:bg-gold transition-colors"
+            className="inline-flex items-center px-8 py-3 bg-ink text-on-ink text-sm font-medium rounded-md hover:bg-gold transition-colors"
           >
             Browse the Shop
           </Link>
@@ -248,13 +248,13 @@ export default function GiftGuideContent() {
 
   if (!products || products.length === 0) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-white">
+      <div className="flex min-h-screen items-center justify-center bg-base">
         <div className="max-w-md px-6 text-center">
-          <p className="mb-3 font-serif text-2xl font-light text-black-dark">Our gift guide is being restocked</p>
-          <p className="mb-6 text-sm text-black/55">No pieces are available right now — check back soon.</p>
+          <p className="mb-3 font-serif text-2xl font-light text-ink">Our gift guide is being restocked</p>
+          <p className="mb-6 text-sm text-ink/55">No pieces are available right now — check back soon.</p>
           <Link
             href="/shop"
-            className="inline-flex items-center px-8 py-3 bg-black text-white text-sm font-medium rounded-md hover:bg-gold transition-colors"
+            className="inline-flex items-center px-8 py-3 bg-ink text-on-ink text-sm font-medium rounded-md hover:bg-gold transition-colors"
           >
             Go to Shop
           </Link>
@@ -268,24 +268,24 @@ export default function GiftGuideContent() {
   const budgetTiers = buildBudgetTiers(products)
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-base">
       {/* Hero Section */}
       <section className="section-shell pt-12 pb-16 lg:pt-20 lg:pb-24">
         <div className="text-center max-w-4xl mx-auto">
-          <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-light text-black-dark mb-6 lg:mb-8">
+          <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-light text-ink mb-6 lg:mb-8">
             The Perfect Gift
           </h1>
-          <p className="text-lg sm:text-xl text-black/70 leading-relaxed mb-4">
+          <p className="text-lg sm:text-xl text-ink/70 leading-relaxed mb-4">
             Discover jewelry that speaks to the heart. Our curated gift guide helps you 
             find meaningful pieces for every person and occasion.
           </p>
-          <p className="text-sm text-black/50 mb-8">
+          <p className="text-sm text-ink/50 mb-8">
             Featuring {products.length} piece{products.length === 1 ? '' : 's'} from the shop &middot;{' '}
             {priceRangeFor(products)}
           </p>
           <Link 
             href="/shop"
-            className="inline-flex items-center px-8 py-3 bg-black text-white text-sm font-medium rounded-md hover:bg-gold transition-colors btn-mobile"
+            className="inline-flex items-center px-8 py-3 bg-ink text-on-ink text-sm font-medium rounded-md hover:bg-gold transition-colors btn-mobile"
           >
             Shop All Gifts
           </Link>
@@ -295,10 +295,10 @@ export default function GiftGuideContent() {
       {/* Gift Occasions */}
       <section className="section-shell pb-16 lg:pb-24">
         <div className="text-center mb-12 lg:mb-16">
-          <h2 className="font-serif text-2xl lg:text-3xl font-light text-black-dark mb-4">
+          <h2 className="font-serif text-2xl lg:text-3xl font-light text-ink mb-4">
             Shop by Occasion
           </h2>
-          <p className="text-black/70 max-w-2xl mx-auto">
+          <p className="text-ink/70 max-w-2xl mx-auto">
             Find the perfect piece for life&apos;s special moments
           </p>
         </div>
@@ -314,10 +314,10 @@ export default function GiftGuideContent() {
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
-              <h3 className="font-serif text-xl font-light text-black-dark mb-2">
+              <h3 className="font-serif text-xl font-light text-ink mb-2">
                 {occasion.title}
               </h3>
-              <p className="text-black/70 text-sm leading-relaxed mb-3">
+              <p className="text-ink/70 text-sm leading-relaxed mb-3">
                 {occasion.description}
               </p>
               <div className="space-y-1 mb-3">
@@ -325,19 +325,19 @@ export default function GiftGuideContent() {
                   <Link
                     key={product._id}
                     href={`/shop/${product._id}`}
-                    className="flex items-baseline justify-between gap-3 text-xs text-black/60 hover:text-black-dark transition-colors"
+                    className="flex items-baseline justify-between gap-3 text-xs text-ink/60 hover:text-ink transition-colors"
                   >
                     <span className="truncate">&bull; {product.name}</span>
-                    <span className="shrink-0 font-medium text-black-dark">{normalizePrice(product)}</span>
+                    <span className="shrink-0 font-medium text-ink">{normalizePrice(product)}</span>
                   </Link>
                 ))}
               </div>
-              <p className="text-sm font-medium text-black-dark mb-4">
+              <p className="text-sm font-medium text-ink mb-4">
                 {priceRangeFor(picks)}
               </p>
               <Link 
                 href={shopLinkFor(picks)}
-                className="text-sm font-medium text-black-dark hover:text-black transition-colors"
+                className="text-sm font-medium text-ink hover:text-ink transition-colors"
               >
                 Shop Collection →
               </Link>
@@ -347,12 +347,12 @@ export default function GiftGuideContent() {
       </section>
 
       {/* Budget Guide */}
-      <section className="bg-black text-white section-shell py-16 lg:py-24">
+      <section className="bg-chrome text-ink section-shell py-16 lg:py-24">
         <div className="text-center mb-12 lg:mb-16">
           <h2 className="font-serif text-2xl lg:text-3xl font-light mb-4">
             Shop by Budget
           </h2>
-          <p className="text-white/80 max-w-2xl mx-auto">
+          <p className="text-ink/80 max-w-2xl mx-auto">
             Beautiful jewelry at every price point
           </p>
         </div>
@@ -362,18 +362,18 @@ export default function GiftGuideContent() {
             const Icon = tier.icon
             return (
               <div key={index} className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-full mb-4">
-                  <Icon size={24} className="text-white" />
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-ink/10 rounded-full mb-4">
+                  <Icon size={24} />
                 </div>
-                <h3 className="font-semibold text-lg text-white mb-2">
+                <h3 className="font-semibold text-lg text-ink mb-2">
                   {tier.range}
                 </h3>
-                <p className="text-white/70 text-sm leading-relaxed mb-4">
+                <p className="text-ink/70 text-sm leading-relaxed mb-4">
                   {tier.description}
                 </p>
                 <ul className="space-y-1">
                   {tier.items.map((item) => (
-                    <li key={item._id} className="text-xs text-white/60">
+                    <li key={item._id} className="text-xs text-ink/60">
                       &bull; {item.name} &middot; {normalizePrice(item)}
                     </li>
                   ))}
@@ -388,47 +388,47 @@ export default function GiftGuideContent() {
       <section className="section-shell py-16 lg:py-24">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="font-serif text-2xl lg:text-3xl font-light text-black-dark mb-4">
+            <h2 className="font-serif text-2xl lg:text-3xl font-light text-ink mb-4">
               Gift Services
             </h2>
-            <p className="text-black/70">
+            <p className="text-ink/70">
               We make gifting effortless with our complimentary services
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-black-light/5 rounded-full mb-4">
-                <Gift size={24} className="text-black-dark" />
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-ink/5 rounded-full mb-4">
+                <Gift size={24} className="text-ink" />
               </div>
-              <h3 className="font-semibold text-lg text-black-dark mb-2">
+              <h3 className="font-semibold text-lg text-ink mb-2">
                 Gift Wrapping
               </h3>
-              <p className="text-black/70 text-sm leading-relaxed">
+              <p className="text-ink/70 text-sm leading-relaxed">
                 Complimentary luxury gift wrapping with every purchase
               </p>
             </div>
 
             <div className="text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-black-light/5 rounded-full mb-4">
-                <Heart size={24} className="text-black-dark" />
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-ink/5 rounded-full mb-4">
+                <Heart size={24} className="text-ink" />
               </div>
-              <h3 className="font-semibold text-lg text-black-dark mb-2">
+              <h3 className="font-semibold text-lg text-ink mb-2">
                 Personal Message
               </h3>
-              <p className="text-black/70 text-sm leading-relaxed">
+              <p className="text-ink/70 text-sm leading-relaxed">
                 Include a handwritten note with your heartfelt message
               </p>
             </div>
 
             <div className="text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-black-light/5 rounded-full mb-4">
-                <Sparkles size={24} className="text-black-dark" />
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-ink/5 rounded-full mb-4">
+                <Sparkles size={24} className="text-ink" />
               </div>
-              <h3 className="font-semibold text-lg text-black-dark mb-2">
+              <h3 className="font-semibold text-lg text-ink mb-2">
                 Gift Consultation
               </h3>
-              <p className="text-black/70 text-sm leading-relaxed">
+              <p className="text-ink/70 text-sm leading-relaxed">
                 Not sure what to choose? Our team is here to help
               </p>
             </div>
@@ -438,24 +438,24 @@ export default function GiftGuideContent() {
 
       {/* CTA Section */}
       <section className="section-shell pb-16 lg:pb-24">
-        <div className="bg-black-light/5 rounded-2xl p-8 lg:p-12 text-center">
-          <h2 className="font-serif text-2xl lg:text-3xl font-light text-black-dark mb-4">
+        <div className="bg-ink/5 rounded-2xl p-8 lg:p-12 text-center">
+          <h2 className="font-serif text-2xl lg:text-3xl font-light text-ink mb-4">
             Need Help Choosing?
           </h2>
-          <p className="text-black/70 mb-6 max-w-2xl mx-auto">
+          <p className="text-ink/70 mb-6 max-w-2xl mx-auto">
             Our jewelry specialists are here to help you find the perfect gift. 
             Contact us for personalized recommendations.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               href="/contact"
-              className="inline-flex items-center px-8 py-3 bg-black text-white text-sm font-medium hover:bg-gold transition-colors btn-mobile"
+              className="inline-flex items-center px-8 py-3 bg-ink text-on-ink text-sm font-medium hover:bg-gold transition-colors btn-mobile"
             >
               Get Expert Advice
             </Link>
             <Link 
               href="/shop"
-              className="inline-flex items-center px-8 py-3 border border-black text-black-dark text-sm font-medium hover:bg-gold hover:text-white transition-colors btn-mobile"
+              className="inline-flex items-center px-8 py-3 border border-ink text-ink text-sm font-medium hover:bg-gold hover:text-on-ink transition-colors btn-mobile"
             >
               Browse All Jewelry
             </Link>
@@ -468,22 +468,22 @@ export default function GiftGuideContent() {
 
 function GiftGuideSkeleton() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-base">
       <section className="section-shell pt-12 pb-16 lg:pt-20 lg:pb-24">
         <div className="mx-auto max-w-4xl text-center">
-          <div className="mx-auto mb-6 h-10 w-64 animate-pulse rounded-full bg-black/[0.04]" />
-          <div className="mx-auto mb-8 h-4 w-full max-w-xl animate-pulse rounded-full bg-black/[0.04]" />
-          <div className="mx-auto h-11 w-40 animate-pulse rounded-md bg-black/[0.04]" />
+          <div className="mx-auto mb-6 h-10 w-64 animate-pulse rounded-full bg-ink/[0.04]" />
+          <div className="mx-auto mb-8 h-4 w-full max-w-xl animate-pulse rounded-full bg-ink/[0.04]" />
+          <div className="mx-auto h-11 w-40 animate-pulse rounded-md bg-ink/[0.04]" />
         </div>
       </section>
       <section className="section-shell pb-16 lg:pb-24">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-12">
           {Array.from({ length: 6 }).map((_, index) => (
             <div key={index} className="animate-pulse" role="status" aria-label="Loading gift suggestions">
-              <div className="relative mb-4 aspect-[3/4] overflow-hidden rounded-lg bg-black/[0.04]" />
-              <div className="mb-2 h-5 w-1/2 rounded-full bg-black/[0.04]" />
-              <div className="mb-3 h-3 w-3/4 rounded-full bg-black/[0.04]" />
-              <div className="h-3 w-2/3 rounded-full bg-black/[0.04]" />
+              <div className="relative mb-4 aspect-[3/4] overflow-hidden rounded-lg bg-ink/[0.04]" />
+              <div className="mb-2 h-5 w-1/2 rounded-full bg-ink/[0.04]" />
+              <div className="mb-3 h-3 w-3/4 rounded-full bg-ink/[0.04]" />
+              <div className="h-3 w-2/3 rounded-full bg-ink/[0.04]" />
               <span className="sr-only">Loading gift suggestions</span>
             </div>
           ))}

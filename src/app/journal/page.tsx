@@ -51,15 +51,15 @@ export default function JournalPage() {
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease }}
-            className="mb-14 border-b border-black/[0.06] pb-10 sm:mb-16 sm:pb-12 md:mb-20"
+            className="mb-14 border-b border-ink/[0.06] pb-10 sm:mb-16 sm:pb-12 md:mb-20"
           >
-            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
+            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/40">
               The Journal
             </p>
-            <h1 className="font-serif text-3xl font-light leading-[1.1] text-black-dark sm:text-4xl md:text-5xl">
+            <h1 className="font-serif text-3xl font-light leading-[1.1] text-ink sm:text-4xl md:text-5xl">
               Stories that shape us.
             </h1>
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-black/55 sm:text-lg">
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-ink/55 sm:text-lg">
               Thoughts on jewellery, culture, and the beautiful ways it intersects with our
               lives. A space for the curious and the thoughtful.
             </p>
@@ -74,9 +74,9 @@ export default function JournalPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease }}
-              className="border-t border-black/[0.06] pt-12 text-center"
+              className="border-t border-ink/[0.06] pt-12 text-center"
             >
-              <p className="font-serif text-lg font-light italic text-black/40">
+              <p className="font-serif text-lg font-light italic text-ink/40">
                 Could not load stories right now. Please try again later.
               </p>
             </motion.div>
@@ -85,9 +85,9 @@ export default function JournalPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease }}
-              className="border-t border-black/[0.06] pt-12 text-center"
+              className="border-t border-ink/[0.06] pt-12 text-center"
             >
-              <p className="font-serif text-lg font-light italic text-black/40">
+              <p className="font-serif text-lg font-light italic text-ink/40">
                 More stories are being written. Visit again soon.
               </p>
             </motion.div>
@@ -99,7 +99,7 @@ export default function JournalPage() {
                   initial={{ opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.7, delay: index * 0.08, ease }}
-                  className="group cursor-pointer border border-transparent p-6 transition-all duration-500 hover:border-gold/20 hover:bg-white sm:p-8"
+                  className="group cursor-pointer border border-transparent p-6 transition-all duration-500 hover:border-gold/20 hover:bg-base sm:p-8"
                 >
                   {post.image && (
                     <div className="mb-5 overflow-hidden">
@@ -115,7 +115,7 @@ export default function JournalPage() {
                       {post.category}
                     </span>
                     <span className="h-px flex-1 bg-gold/20" />
-                    <span className="text-[9px] font-medium uppercase tracking-[0.22em] text-black/30">
+                    <span className="text-[9px] font-medium uppercase tracking-[0.22em] text-ink/30">
                       {post.publishedAt
                         ? new Date(post.publishedAt).toLocaleDateString('en-US', {
                             year: 'numeric',
@@ -126,11 +126,11 @@ export default function JournalPage() {
                     </span>
                   </div>
                   <Link href={`/journal/${post.slug}`}>
-                    <h2 className="font-serif text-xl font-light leading-snug text-black-dark transition-colors duration-300 group-hover:text-gold-dark sm:text-2xl">
+                    <h2 className="font-serif text-xl font-light leading-snug text-ink transition-colors duration-300 group-hover:text-gold-dark sm:text-2xl">
                       {post.title}
                     </h2>
-                    <p className="mt-4 text-sm leading-relaxed text-black/55">{post.excerpt}</p>
-                    <span className="mt-5 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-black/40 transition-colors duration-300 group-hover:text-gold-dark">
+                    <p className="mt-4 text-sm leading-relaxed text-ink/55">{post.excerpt}</p>
+                    <span className="mt-5 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-ink/40 transition-colors duration-300 group-hover:text-gold-dark">
                       Read More
                       <ArrowRight size={12} className="transition-transform group-hover:translate-x-1" />
                     </span>

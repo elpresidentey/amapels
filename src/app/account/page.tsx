@@ -49,7 +49,7 @@ function OrderCard({ order, index }: { order: OrderSummary; index: number }) {
       case 'pending': return 'text-amber-600 bg-amber-50 border-amber-200'
       case 'cancelled': return 'text-red-600 bg-red-50 border-red-200'
       case 'shipped': return 'text-blue-600 bg-blue-50 border-blue-200'
-      default: return 'text-black/50 bg-black/[0.04] border-black/10'
+      default: return 'text-ink/50 bg-ink/[0.04] border-ink/10'
     }
   }
 
@@ -59,7 +59,7 @@ function OrderCard({ order, index }: { order: OrderSummary; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.06, ease }}
-      className="border border-gold/20 bg-white transition-all duration-300 hover:border-gold/40 hover:shadow-[0_4px_20px_-8px_rgba(196,163,90,0.12)]"
+      className="border border-gold/20 bg-base transition-all duration-300 hover:border-gold/40 hover:shadow-[0_4px_20px_-8px_rgba(196,163,90,0.12)]"
     >
       <button
         type="button"
@@ -70,8 +70,8 @@ function OrderCard({ order, index }: { order: OrderSummary; index: number }) {
       >
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-6">
           <div>
-            <p className="text-[9px] font-medium uppercase tracking-[0.28em] text-black/40">Order</p>
-            <p className="mt-0.5 font-serif text-base font-light text-black-dark sm:text-lg">
+            <p className="text-[9px] font-medium uppercase tracking-[0.28em] text-ink/40">Order</p>
+            <p className="mt-0.5 font-serif text-base font-light text-ink sm:text-lg">
               {order.orderNumber}
             </p>
           </div>
@@ -79,14 +79,14 @@ function OrderCard({ order, index }: { order: OrderSummary; index: number }) {
             <span className={`inline-flex items-center gap-1.5 border px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.18em] ${statusColor(order.status)}`}>
               {order.status}
             </span>
-            <span className="text-[11px] text-black/45">{createdDate}</span>
+            <span className="text-[11px] text-ink/45">{createdDate}</span>
           </div>
         </div>
         <div className="flex items-center gap-4">
           <p className="hidden font-serif text-base text-gold-dark sm:block">
             ₦{order.total.toLocaleString()}
           </p>
-          {expanded ? <ChevronUp size={16} strokeWidth={1.3} className="text-black/30" /> : <ChevronDown size={16} strokeWidth={1.3} className="text-black/30" />}
+          {expanded ? <ChevronUp size={16} strokeWidth={1.3} className="text-ink/30" /> : <ChevronDown size={16} strokeWidth={1.3} className="text-ink/30" />}
         </div>
       </button>
 
@@ -102,21 +102,21 @@ function OrderCard({ order, index }: { order: OrderSummary; index: number }) {
           >
             <div className="border-t border-gold/15 px-4 py-4 sm:px-8 sm:py-8">
               <div className="mb-4 space-y-3 sm:mb-6">
-                <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-black/40 sm:text-[9px]">Items</p>
+                <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-ink/40 sm:text-[9px]">Items</p>
                 {order.items.map((item, i) => (
                   <div key={i} className="flex items-center justify-between text-sm">
-                    <span className="text-black/70">{item.name} <span className="text-black/40">×{item.quantity}</span></span>
-                    <span className="font-medium text-black-dark">₦{(item.price * item.quantity).toLocaleString()}</span>
+                    <span className="text-ink/70">{item.name} <span className="text-ink/40">×{item.quantity}</span></span>
+                    <span className="font-medium text-ink">₦{(item.price * item.quantity).toLocaleString()}</span>
                   </div>
                 ))}
               </div>
 
-              <div className="mb-6 space-y-1.5 border-t border-black/[0.06] pt-4 text-sm">
-                <div className="flex justify-between text-black/50">
+              <div className="mb-6 space-y-1.5 border-t border-ink/[0.06] pt-4 text-sm">
+                <div className="flex justify-between text-ink/50">
                   <span>Subtotal</span>
                   <span>₦{order.subtotal.toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between font-medium text-black-dark">
+                <div className="flex justify-between font-medium text-ink">
                   <span>Total</span>
                   <span>₦{order.total.toLocaleString()}</span>
                 </div>
@@ -140,11 +140,11 @@ function OrderCard({ order, index }: { order: OrderSummary; index: number }) {
                 </div>
               )}
 
-              <div className="rounded border border-black/[0.06] bg-[#faf8f5] px-4 py-3">
+              <div className="rounded border border-ink/[0.06] bg-[#faf8f5] px-4 py-3">
                 <div className="flex items-start gap-3">
-                  <MapPin size={14} strokeWidth={1.3} className="mt-0.5 shrink-0 text-black/40" />
-                  <div className="text-[11px] leading-relaxed text-black/55">
-                    <p className="font-medium text-black-dark">Shipping to</p>
+                  <MapPin size={14} strokeWidth={1.3} className="mt-0.5 shrink-0 text-ink/40" />
+                  <div className="text-[11px] leading-relaxed text-ink/55">
+                    <p className="font-medium text-ink">Shipping to</p>
                     <p>{order.shippingAddress.street}, {order.shippingAddress.city}, {order.shippingAddress.state}, {order.shippingAddress.country}</p>
                   </div>
                 </div>
@@ -154,7 +154,7 @@ function OrderCard({ order, index }: { order: OrderSummary; index: number }) {
                 <div className="mt-4">
                   <Link
                     href={`/track-order?orderNumber=${order.orderNumber}`}
-                    className="inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-gold-dark hover:text-black-dark transition-colors"
+                    className="inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-gold-dark hover:text-ink transition-colors"
                   >
                     <Truck size={12} strokeWidth={1.5} />
                     Track Order <ArrowRight size={11} />
@@ -230,20 +230,20 @@ export default function AccountPage() {
   return (
     <div className="min-h-screen bg-primary pt-24">
       {/* Header */}
-      <section className="border-b border-black/[0.06] bg-white px-4 py-10 sm:px-6 sm:py-16 md:px-12 md:py-20 lg:px-24">
+      <section className="border-b border-ink/[0.06] bg-base px-4 py-10 sm:px-6 sm:py-16 md:px-12 md:py-20 lg:px-24">
         <div className="mx-auto max-w-5xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease }}
           >
-            <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40 sm:mb-4">
+            <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/40 sm:mb-4">
               My Account
             </p>
-            <h1 className="font-serif text-2xl font-light text-black-dark sm:text-3xl md:text-4xl">
+            <h1 className="font-serif text-2xl font-light text-ink sm:text-3xl md:text-4xl">
               Welcome back, {session?.name || 'Friend'}
             </h1>
-            <p className="mt-2 text-sm leading-relaxed text-black/55 sm:mt-4">
+            <p className="mt-2 text-sm leading-relaxed text-ink/55 sm:mt-4">
               Your order history and account details, all in one place.
             </p>
           </motion.div>
@@ -257,21 +257,21 @@ export default function AccountPage() {
             <div className="col-span-2 flex items-center gap-3 border border-gold/15 bg-[#faf8f5] px-4 py-3 sm:col-span-1 sm:gap-4 sm:px-5 sm:py-4">
               <Mail size={16} strokeWidth={1.3} className="shrink-0 text-gold-dark" />
               <div className="min-w-0">
-                <p className="text-[10px] font-medium uppercase tracking-[0.24em] text-black/40 sm:text-[9px]">Email</p>
-                <p className="truncate text-sm text-black-dark">{session?.email || '—'}</p>
+                <p className="text-[10px] font-medium uppercase tracking-[0.24em] text-ink/40 sm:text-[9px]">Email</p>
+                <p className="truncate text-sm text-ink">{session?.email || '—'}</p>
               </div>
             </div>
             <div className="flex items-center gap-3 border border-gold/15 bg-[#faf8f5] px-4 py-3 sm:gap-4 sm:px-5 sm:py-4">
               <Package size={16} strokeWidth={1.3} className="shrink-0 text-gold-dark" />
               <div>
-                <p className="text-[10px] font-medium uppercase tracking-[0.24em] text-black/40 sm:text-[9px]">Orders</p>
-                <p className="text-sm text-black-dark">{orders.length} {orders.length === 1 ? 'order' : 'orders'}</p>
+                <p className="text-[10px] font-medium uppercase tracking-[0.24em] text-ink/40 sm:text-[9px]">Orders</p>
+                <p className="text-sm text-ink">{orders.length} {orders.length === 1 ? 'order' : 'orders'}</p>
               </div>
             </div>
             <button
               type="button"
               onClick={handleLogout}
-              className="flex items-center justify-center gap-2 border border-black/10 px-3 py-3 text-[10px] font-medium uppercase tracking-[0.22em] text-black/50 transition-all hover:border-red/30 hover:bg-red/[0.04] hover:text-red sm:px-5 sm:py-4"
+              className="flex items-center justify-center gap-2 border border-ink/10 px-3 py-3 text-[10px] font-medium uppercase tracking-[0.22em] text-ink/50 transition-all hover:border-red/30 hover:bg-red/[0.04] hover:text-red sm:px-5 sm:py-4"
             >
               <LogOut size={14} strokeWidth={1.3} />
               Sign Out
@@ -287,19 +287,19 @@ export default function AccountPage() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2, ease }}
-            className="mb-6 flex flex-col gap-3 border-b border-black/[0.06] pb-6 sm:mb-10 sm:flex-row sm:items-end sm:justify-between sm:pb-8"
+            className="mb-6 flex flex-col gap-3 border-b border-ink/[0.06] pb-6 sm:mb-10 sm:flex-row sm:items-end sm:justify-between sm:pb-8"
           >
             <div>
-              <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40 sm:mb-3">
+              <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/40 sm:mb-3">
                 Order History
               </p>
-              <h2 className="font-serif text-xl font-light text-black-dark sm:text-3xl">
+              <h2 className="font-serif text-xl font-light text-ink sm:text-3xl">
                 Pieces you&apos;ve loved
               </h2>
             </div>
             <Link
               href="/shop"
-              className="inline-flex items-center gap-2 py-2 text-[10px] font-medium uppercase tracking-[0.22em] text-black-dark transition-colors hover:text-gold-dark"
+              className="inline-flex items-center gap-2 py-2 text-[10px] font-medium uppercase tracking-[0.22em] text-ink transition-colors hover:text-gold-dark"
             >
               Continue Shopping
               <ArrowRight size={13} className="transition-transform group-hover:translate-x-1" />
@@ -310,15 +310,15 @@ export default function AccountPage() {
             <div className="space-y-4">
               {[1, 2, 3].map((i) => (
                 <div key={i} className="animate-pulse border border-gold/20 px-6 py-5 sm:px-8">
-                  <div className="mb-2 h-3 w-48 rounded-full bg-black/[0.04]" />
-                  <div className="h-3 w-32 rounded-full bg-black/[0.04]" />
+                  <div className="mb-2 h-3 w-48 rounded-full bg-ink/[0.04]" />
+                  <div className="h-3 w-32 rounded-full bg-ink/[0.04]" />
                 </div>
               ))}
             </div>
           ) : error ? (
-            <div className="flex flex-col items-center gap-4 rounded border border-dashed border-black/10 py-10 text-center sm:py-16">
-              <AlertCircle size={24} strokeWidth={1.3} className="text-black/30" />
-              <p className="text-sm text-black/55">{error}</p>
+            <div className="flex flex-col items-center gap-4 rounded border border-dashed border-ink/10 py-10 text-center sm:py-16">
+              <AlertCircle size={24} strokeWidth={1.3} className="text-ink/30" />
+              <p className="text-sm text-ink/55">{error}</p>
               <button
                 type="button"
                 onClick={fetchOrders}
@@ -336,12 +336,12 @@ export default function AccountPage() {
             >
               <ShoppingBag size={32} strokeWidth={1.2} className="text-gold/40" />
               <div>
-                <p className="font-serif text-xl font-light text-black-dark">No orders yet</p>
-                <p className="mt-2 text-sm text-black/45">Your order history will appear here once you make your first purchase.</p>
+                <p className="font-serif text-xl font-light text-ink">No orders yet</p>
+                <p className="mt-2 text-sm text-ink/45">Your order history will appear here once you make your first purchase.</p>
               </div>
               <Link
                 href="/shop"
-                className="btn-premium inline-flex items-center gap-2 bg-black-dark px-6 py-3 text-[10px] font-medium uppercase tracking-[0.2em] text-white transition-all hover:bg-black"
+                className="btn-premium inline-flex items-center gap-2 bg-ink px-6 py-3 text-[10px] font-medium uppercase tracking-[0.2em] text-on-ink transition-all hover:bg-ink/90"
               >
                 <ShoppingBag size={13} strokeWidth={1.5} />
                 Shop Now

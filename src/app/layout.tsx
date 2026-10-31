@@ -18,7 +18,10 @@ const playfair = Playfair_Display({
   preload: true,
 })
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://amapelsng.com"
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "AMAPELS - Modern Nigerian Elegance",
   description: "A Nigerian jewellery shop in Abuja. Shop earrings, necklaces, bracelets, and jewellery sets — handpicked, gift-ready, and delivered nationwide.",
   keywords: "Nigerian jewellery, jewellery shop Abuja, African jewelry, gold earrings, pearl necklaces, bracelets, statement jewelry, gift jewellery",
@@ -27,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "AMAPELS - Modern Nigerian Elegance",
     description: "Handpicked Nigerian jewellery. Live in Abuja, delivered nationwide.",
-    url: "https://amapels.com",
+    url: siteUrl,
     siteName: "AMAPELS",
     locale: "en_NG",
     type: "website",
@@ -35,6 +38,9 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+  },
+  alternates: {
+    canonical: "/",
   },
   manifest: "/manifest.webmanifest",
   icons: {
@@ -57,7 +63,10 @@ export const viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: "#0C0A08",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#FFFFFF" },
+    { media: "(prefers-color-scheme: dark)", color: "#0C0A08" },
+  ],
 }
 
 export default function RootLayout({
@@ -66,11 +75,16 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body 
+    <html lang="en" suppressHydrationWarning>
+      <body
         className={`${inter.variable} ${playfair.variable} font-sans min-h-screen flex flex-col`}
-        suppressHydrationWarning={true}
       >
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{var t=localStorage.getItem('amapels-theme');document.documentElement.dataset.theme=(t==='dark'||t==='light')?t:'light'}catch(e){document.documentElement.dataset.theme='light'}",
+          }}
+        />
         <ErrorBoundary>
           <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
         </ErrorBoundary>

@@ -65,14 +65,14 @@ export default function SizeGuidePage() {
   ]
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-base">
       {/* Hero Section */}
       <section className="section-shell pt-12 pb-16 lg:pt-20 lg:pb-24">
         <div className="text-center max-w-4xl mx-auto">
-          <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-light text-black-dark mb-6 lg:mb-8">
+          <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-light text-ink mb-6 lg:mb-8">
             Size Guide
           </h1>
-          <p className="text-lg sm:text-xl text-black/70 leading-relaxed">
+          <p className="text-lg sm:text-xl text-ink/70 leading-relaxed">
             Find your perfect fit with our comprehensive sizing guide. 
             Get accurate measurements for rings, necklaces, and bracelets to ensure 
             your AMAPELS jewelry fits beautifully.
@@ -103,22 +103,22 @@ export default function SizeGuidePage() {
       {/* Ring Size Guide */}
       <section className="section-shell pb-16 lg:pb-24">
         <div className="text-center mb-12 lg:mb-16">
-          <h2 className="font-serif text-2xl lg:text-3xl font-light text-black-dark mb-4">
+          <h2 className="font-serif text-2xl lg:text-3xl font-light text-ink mb-4">
             Ring Size Guide
           </h2>
-          <p className="text-black/70 max-w-2xl mx-auto">
+          <p className="text-ink/70 max-w-2xl mx-auto">
             Use our conversion chart to find your perfect ring size
           </p>
         </div>
 
         {/* Measurement Methods */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-          <div className="bg-black-light/5 rounded-lg p-6">
-            <h3 className="font-semibold text-black-dark mb-4 flex items-center gap-2">
+          <div className="bg-ink/5 rounded-lg p-6">
+            <h3 className="font-semibold text-ink mb-4 flex items-center gap-2">
               <Ruler size={20} />
               Method 1: Existing Ring
             </h3>
-            <ol className="space-y-2 text-sm text-black/70">
+            <ol className="space-y-2 text-sm text-ink/70">
               <li>1. Take a ring that fits the desired finger well</li>
               <li>2. Measure the inner diameter in millimeters</li>
               <li>3. Use our chart below to find your size</li>
@@ -126,12 +126,12 @@ export default function SizeGuidePage() {
             </ol>
           </div>
 
-          <div className="bg-black-light/5 rounded-lg p-6">
-            <h3 className="font-semibold text-black-dark mb-4 flex items-center gap-2">
+          <div className="bg-ink/5 rounded-lg p-6">
+            <h3 className="font-semibold text-ink mb-4 flex items-center gap-2">
               <Ruler size={20} />
               Method 2: String Measurement
             </h3>
-            <ol className="space-y-2 text-sm text-black/70">
+            <ol className="space-y-2 text-sm text-ink/70">
               <li>1. Wrap string around the base of your finger</li>
               <li>2. Mark where the string overlaps</li>
               <li>3. Measure the string length in millimeters</li>
@@ -142,8 +142,8 @@ export default function SizeGuidePage() {
 
         {/* Ring Size Chart */}
         <div className="overflow-x-auto">
-          <table className="w-full bg-white border border-gray-200 rounded-lg">
-            <thead className="bg-black text-white">
+          <table className="w-full bg-base border border-gray-200 rounded-lg">
+            <thead className="bg-ink text-on-ink">
               <tr>
                 <th className="px-4 py-3 text-left text-sm font-semibold">US Size</th>
                 <th className="px-4 py-3 text-left text-sm font-semibold">UK Size</th>
@@ -153,11 +153,11 @@ export default function SizeGuidePage() {
             </thead>
             <tbody>
               {ringSizes.map((size, index) => (
-                <tr key={index} className={index % 2 === 0 ? 'bg-black-light/5' : 'bg-white'}>
-                  <td className="px-4 py-3 text-sm font-medium text-black-dark">{size.us}</td>
-                  <td className="px-4 py-3 text-sm text-black/70">{size.uk}</td>
-                  <td className="px-4 py-3 text-sm text-black/70">{size.circumference}</td>
-                  <td className="px-4 py-3 text-sm text-black/70">{size.diameter}</td>
+                <tr key={index} className={index % 2 === 0 ? 'bg-ink/5' : 'bg-base'}>
+                  <td className="px-4 py-3 text-sm font-medium text-ink">{size.us}</td>
+                  <td className="px-4 py-3 text-sm text-ink/70">{size.uk}</td>
+                  <td className="px-4 py-3 text-sm text-ink/70">{size.circumference}</td>
+                  <td className="px-4 py-3 text-sm text-ink/70">{size.diameter}</td>
                 </tr>
               ))}
             </tbody>
@@ -166,31 +166,31 @@ export default function SizeGuidePage() {
       </section>
 
       {/* Necklace Length Guide */}
-      <section className="bg-black text-white section-shell py-16 lg:py-24">
+      <section className="bg-chrome text-ink section-shell py-16 lg:py-24">
         <div className="text-center mb-12 lg:mb-16">
           <h2 className="font-serif text-2xl lg:text-3xl font-light mb-4">
             Necklace Length Guide
           </h2>
-          <p className="text-white/80 max-w-2xl mx-auto">
+          <p className="text-ink/80 max-w-2xl mx-auto">
             Choose the perfect necklace length for your style and occasion
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {necklaceLengths.map((necklace, index) => (
-            <div key={index} className="bg-white/5 rounded-lg p-6">
-              <h3 className="font-semibold text-white text-lg mb-2">
+            <div key={index} className="bg-ink/5 rounded-lg p-6">
+              <h3 className="font-semibold text-ink text-lg mb-2">
                 {necklace.name}
               </h3>
-              <p className="text-white/90 font-medium mb-3">
+              <p className="text-ink/90 font-medium mb-3">
                 {necklace.length}
               </p>
-              <p className="text-white/70 text-sm leading-relaxed mb-4">
+              <p className="text-ink/70 text-sm leading-relaxed mb-4">
                 {necklace.description}
               </p>
               <div className="border-t border-ivory/10 pt-3">
-                <p className="text-white/60 text-xs font-medium mb-1">BEST FOR:</p>
-                <p className="text-white/80 text-xs">{necklace.bestFor}</p>
+                <p className="text-ink/60 text-xs font-medium mb-1">BEST FOR:</p>
+                <p className="text-ink/80 text-xs">{necklace.bestFor}</p>
               </div>
             </div>
           ))}
@@ -200,27 +200,27 @@ export default function SizeGuidePage() {
       {/* Bracelet Size Guide */}
       <section className="section-shell py-16 lg:py-24">
         <div className="text-center mb-12 lg:mb-16">
-          <h2 className="font-serif text-2xl lg:text-3xl font-light text-black-dark mb-4">
+          <h2 className="font-serif text-2xl lg:text-3xl font-light text-ink mb-4">
             Bracelet Size Guide
           </h2>
-          <p className="text-black/70 max-w-2xl mx-auto">
+          <p className="text-ink/70 max-w-2xl mx-auto">
             Find your ideal bracelet fit with our wrist measurement guide
           </p>
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <div className="bg-black-light/5 rounded-lg p-6 mb-8">
-            <h3 className="font-semibold text-black-dark mb-4">
+          <div className="bg-ink/5 rounded-lg p-6 mb-8">
+            <h3 className="font-semibold text-ink mb-4">
               How to Measure Your Wrist
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <h4 className="font-medium text-black-dark mb-2">For Snug Fit:</h4>
-                <p className="text-black/70 text-sm">Measure exactly around your wrist bone</p>
+                <h4 className="font-medium text-ink mb-2">For Snug Fit:</h4>
+                <p className="text-ink/70 text-sm">Measure exactly around your wrist bone</p>
               </div>
               <div>
-                <h4 className="font-medium text-black-dark mb-2">For Comfortable Fit:</h4>
-                <p className="text-black/70 text-sm">Add 1-2cm to your wrist measurement</p>
+                <h4 className="font-medium text-ink mb-2">For Comfortable Fit:</h4>
+                <p className="text-ink/70 text-sm">Add 1-2cm to your wrist measurement</p>
               </div>
             </div>
           </div>
@@ -228,13 +228,13 @@ export default function SizeGuidePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {braceletSizes.map((bracelet, index) => (
               <div key={index} className="border border-gray-200 rounded-lg p-4 text-center">
-                <div className="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center font-semibold mb-3 mx-auto">
+                <div className="w-12 h-12 bg-ink text-on-ink rounded-full flex items-center justify-center font-semibold mb-3 mx-auto">
                   {bracelet.size}
                 </div>
-                <p className="font-medium text-black-dark mb-1">
+                <p className="font-medium text-ink mb-1">
                   {bracelet.wrist}
                 </p>
-                <p className="text-black/60 text-xs">
+                <p className="text-ink/60 text-xs">
                   {bracelet.description}
                 </p>
               </div>
@@ -244,30 +244,30 @@ export default function SizeGuidePage() {
       </section>
 
       {/* Earring Guide */}
-      <section className="bg-black-light/5 section-shell py-16 lg:py-24">
+      <section className="bg-ink/5 section-shell py-16 lg:py-24">
         <div className="text-center mb-12">
-          <h2 className="font-serif text-2xl lg:text-3xl font-light text-black-dark mb-4">
+          <h2 className="font-serif text-2xl lg:text-3xl font-light text-ink mb-4">
             Earring Fit Guide
           </h2>
         </div>
 
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="bg-white rounded-lg p-6">
-            <h3 className="font-semibold text-black-dark mb-4">
+          <div className="bg-base rounded-lg p-6">
+            <h3 className="font-semibold text-ink mb-4">
               Stud Earrings
             </h3>
-            <ul className="space-y-2 text-sm text-black/70">
+            <ul className="space-y-2 text-sm text-ink/70">
               <li>• Small (3-5mm): Subtle, everyday wear</li>
               <li>• Medium (6-8mm): Noticeable but not overwhelming</li>
               <li>• Large (9mm+): Statement pieces for special occasions</li>
             </ul>
           </div>
 
-          <div className="bg-white rounded-lg p-6">
-            <h3 className="font-semibold text-black-dark mb-4">
+          <div className="bg-base rounded-lg p-6">
+            <h3 className="font-semibold text-ink mb-4">
               Drop & Hoop Earrings
             </h3>
-            <ul className="space-y-2 text-sm text-black/70">
+            <ul className="space-y-2 text-sm text-ink/70">
               <li>• Small hoops: 10-20mm diameter</li>
               <li>• Medium hoops: 25-35mm diameter</li>
               <li>• Large hoops: 40mm+ diameter</li>
@@ -280,27 +280,27 @@ export default function SizeGuidePage() {
       {/* Size Help */}
       <section className="section-shell py-16 lg:pb-24">
         <div className="max-w-4xl mx-auto">
-          <div className="bg-black text-white rounded-2xl p-8 lg:p-12 text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-full mb-6">
+          <div className="bg-chrome text-ink rounded-2xl p-8 lg:p-12 text-center">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-ink/10 rounded-full mb-6">
               <Heart size={24} />
             </div>
             <h2 className="font-serif text-2xl lg:text-3xl font-light mb-4">
               Need Sizing Help?
             </h2>
-            <p className="text-white/80 leading-relaxed mb-8 max-w-2xl mx-auto">
+            <p className="text-ink/80 leading-relaxed mb-8 max-w-2xl mx-auto">
               Still unsure about sizing? Our jewelry experts are here to help you find 
               the perfect fit. We also offer free size exchanges within 30 days.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a 
                 href="mailto:amapelsng@gmail.com"
-                className="inline-flex items-center px-8 py-3 bg-white text-black-dark text-sm font-medium rounded-md hover:bg-white/90 transition-colors btn-mobile"
+                className="inline-flex items-center px-8 py-3 bg-ink text-on-ink text-sm font-medium rounded-md hover:bg-ink/85 transition-colors btn-mobile"
               >
                 Get Sizing Help
               </a>
               <a 
                 href="#"
-                className="inline-flex items-center px-8 py-3 border border-ivory/30 text-white text-sm font-medium rounded-md hover:bg-white/10 transition-colors btn-mobile"
+                className="inline-flex items-center px-8 py-3 border border-ivory/30 text-ink text-sm font-medium rounded-md hover:bg-ink/10 transition-colors btn-mobile"
               >
                 <Download size={16} className="mr-2" />
                 Download Size Chart

@@ -3,6 +3,24 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* Light mode (default): white surfaces, near-black ink */
+    --color-base: 255 255 255;
+    --color-chrome: 255 255 255;
+    --color-ink: 12 10 8;
+    --color-on-ink: 255 255 255;
+    --color-wash: 255 255 255;
+  }
+
+  [data-theme="dark"] {
+    /* Dark mode: current AMAPELS editorial look */
+    --color-base: 12 10 8;
+    --color-chrome: 23 22 20;
+    --color-ink: 255 254 251;
+    --color-on-ink: 12 10 8;
+    --color-wash: 12 10 8;
+  }
+
   html {
     scroll-behavior: smooth;
     /* Prevent horizontal scroll on mobile */
@@ -10,7 +28,7 @@
   }
 
   body {
-    @apply bg-primary text-black-dark antialiased;
+    @apply bg-base text-ink antialiased;
     font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
     /* Prevent horizontal scroll */
     overflow-x: hidden;
@@ -22,7 +40,7 @@
   }
 
   ::selection {
-    @apply bg-gold/30 text-black-dark;
+    @apply bg-gold/30 text-ink;
   }
 
   /* Better focus styles for accessibility */
@@ -31,7 +49,7 @@
   textarea:focus-visible,
   select:focus-visible,
   a:focus-visible {
-    @apply outline-none ring-1 ring-gold/50 ring-offset-2 ring-offset-primary;
+    @apply outline-none ring-1 ring-gold/50 ring-offset-2 ring-offset-base;
   }
 
   /* Ensure images don't break layout */
@@ -56,6 +74,48 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Theme-aware photo overlay washes (white in light, dark ink in dark) */
+  .wash-105 {
+    background-image: linear-gradient(
+      105deg,
+      rgb(var(--color-wash) / 0.92) 0%,
+      rgb(var(--color-wash) / 0.72) 48%,
+      rgb(var(--color-wash) / 0.45) 100%
+    );
+  }
+  .wash-90 {
+    background-image: linear-gradient(
+      90deg,
+      rgb(var(--color-wash) / 0.85) 0%,
+      rgb(var(--color-wash) / 0.5) 50%,
+      rgb(var(--color-wash) / 0.75) 100%
+    );
+  }
+  .wash-135 {
+    background-image: linear-gradient(
+      135deg,
+      rgb(var(--color-wash) / 0.3) 0%,
+      transparent 60%
+    );
+  }
+  .wash-180-caption {
+    background-image: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgb(var(--color-wash) / 0.55) 28%,
+      rgb(var(--color-wash) / 0.88) 55%,
+      rgb(var(--color-wash) / 0.96) 100%
+    );
+  }
+  .wash-180-hover {
+    background-image: linear-gradient(
+      180deg,
+      rgb(var(--color-wash) / 0.15) 0%,
+      rgb(var(--color-wash) / 0.6) 40%,
+      rgb(var(--color-wash) / 0.9) 100%
+    );
   }
 
   /* Responsive container with proper mobile padding */

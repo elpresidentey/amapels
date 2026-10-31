@@ -9,6 +9,7 @@ import { Cabin } from 'next/font/google'
 import { useCartStore } from '@/store/newCartStore'
 import CustomerAuth from '@/components/CustomerAuth'
 import SearchOverlay from '@/components/SearchOverlay'
+import ThemeToggle from '@/components/ThemeToggle'
 import { isCustomerAuthenticated } from '@/lib/customerAuth'
 
 const cabin = Cabin({
@@ -76,15 +77,15 @@ export default function Navbar() {
     <nav
       className={`${cabin.className} fixed top-0 left-0 right-0 z-50 safe-top transition-all duration-500 ease-out ${
         scrolled
-          ? 'border-b border-white/[0.06] bg-black-dark/90 py-3 backdrop-blur-2xl md:py-3.5'
-          : 'border-b border-transparent bg-gradient-to-b from-black-dark/70 to-transparent py-4 md:py-5'
+          ? 'border-b border-ink/[0.06] bg-chrome/90 py-3 backdrop-blur-2xl md:py-3.5'
+          : 'border-b border-transparent bg-gradient-to-b from-chrome/70 to-transparent py-4 md:py-5'
       }`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12 xl:px-24">
         <div className="flex items-center justify-between">
           {/* Brand */}
           <Link href="/" className="group flex-shrink-0" aria-label="AMAPELS home">
-            <span className="font-serif text-xl font-light tracking-[0.28em] text-white uppercase transition-opacity duration-300 group-hover:opacity-85 md:text-2xl">
+            <span className="font-serif text-xl font-light tracking-[0.28em] text-ink uppercase transition-opacity duration-300 group-hover:opacity-85 md:text-2xl">
               AMAPELS
             </span>
           </Link>
@@ -98,7 +99,7 @@ export default function Navbar() {
                   key={item.name}
                   href={item.href}
                   className={`group relative py-1 text-[11px] font-medium uppercase tracking-[0.18em] transition-colors duration-300 ${
-                    active ? 'text-white' : 'text-white/70 hover:text-white'
+                    active ? 'text-ink' : 'text-ink/70 hover:text-ink'
                   }`}
                 >
                   {item.name}
@@ -114,13 +115,14 @@ export default function Navbar() {
 
           {/* Right Actions */}
           <div className="flex items-center gap-5 md:gap-6">
+            <ThemeToggle className="hidden sm:block" />
             <div className="hidden lg:block">
               <CustomerAuth onAuthChange={checkAuth} />
             </div>
 
             <button
               onClick={() => setIsSearchOpen(true)}
-              className="p-2 text-white/75 transition-colors duration-300 hover:text-white"
+              className="p-2 text-ink/75 transition-colors duration-300 hover:text-ink"
               aria-label="Search products"
             >
               <Search size={19} strokeWidth={1.4} />
@@ -128,7 +130,7 @@ export default function Navbar() {
 
             <button
               onClick={toggleCart}
-              className="relative p-2 text-white/75 transition-colors duration-300 hover:text-white"
+              className="relative p-2 text-ink/75 transition-colors duration-300 hover:text-ink"
               aria-label="Shopping bag"
             >
               <ShoppingBag size={19} strokeWidth={1.4} />
@@ -140,7 +142,7 @@ export default function Navbar() {
             </button>
 
             <button
-              className="p-3 text-white/90 transition-colors hover:text-white lg:hidden"
+              className="p-3 text-ink/90 transition-colors hover:text-ink lg:hidden"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle menu"
               aria-expanded={isMenuOpen}
@@ -159,7 +161,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="border-t border-white/[0.06] bg-black-dark/98 backdrop-blur-2xl lg:hidden overflow-x-hidden"
+            className="border-t border-ink/[0.06] bg-chrome/98 backdrop-blur-2xl lg:hidden overflow-x-hidden"
           >
             <div className="mx-auto max-w-7xl px-4 sm:px-6">
               <div className="space-y-1 py-8">
@@ -175,8 +177,8 @@ export default function Navbar() {
                       onClick={closeMenu}
                       className={`block border-l-2 py-4 pl-5 text-base font-light tracking-[0.12em] uppercase transition-colors duration-200 ${
                         isActive(item.href)
-                          ? 'border-gold text-white'
-                          : 'border-transparent text-white/75 hover:border-gold/40 hover:text-white'
+                          ? 'border-gold text-ink'
+                          : 'border-transparent text-ink/75 hover:border-gold/40 hover:text-ink'
                       }`}
                     >
                       {item.name}
@@ -188,14 +190,21 @@ export default function Navbar() {
                   <Link
                     href="/account"
                     onClick={closeMenu}
-                    className="block border-l-2 border-transparent py-4 pl-5 text-base font-light tracking-[0.12em] uppercase text-white/75 transition-colors duration-200 hover:border-gold/40 hover:text-white"
+                    className="block border-l-2 border-transparent py-4 pl-5 text-base font-light tracking-[0.12em] uppercase text-ink/75 transition-colors duration-200 hover:border-gold/40 hover:text-ink"
                   >
                     Account
                   </Link>
                 )}
 
-                <div className="mt-4 border-t border-white/[0.06] px-5 pt-6">
+                <div className="mt-4 border-t border-ink/[0.06] px-5 pt-6">
                   <CustomerAuth onAuthChange={checkAuth} />
+                </div>
+
+                <div className="mt-4 flex items-center gap-2 px-5">
+                  <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-ink/50">
+                    Appearance
+                  </span>
+                  <ThemeToggle />
                 </div>
               </div>
             </div>

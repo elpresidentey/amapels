@@ -3,15 +3,15 @@ import { Instagram, Facebook, Twitter, Mail, Phone } from 'lucide-react'
 
 export default function Footer() {
   return (
-    <footer className="border-t border-gold/15 bg-black-dark text-white">
+    <footer className="border-t border-gold/15 bg-chrome text-ink">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 md:px-12 lg:px-24 lg:py-24">
         {/* Top brand strip */}
-        <div className="mb-12 flex flex-col items-start justify-between gap-6 border-b border-white/[0.06] pb-10 sm:mb-14 sm:pb-12 md:flex-row md:items-end lg:mb-16">
+        <div className="mb-12 flex flex-col items-start justify-between gap-6 border-b border-ink/[0.06] pb-10 sm:mb-14 sm:pb-12 md:flex-row md:items-end lg:mb-16">
           <div>
-            <Link href="/" className="font-serif text-2xl font-light tracking-[0.28em] text-white uppercase sm:text-3xl">
+            <Link href="/" className="font-serif text-2xl font-light tracking-[0.28em] text-ink uppercase sm:text-3xl">
               AMAPELS
             </Link>
-            <p className="mt-3 max-w-md text-sm leading-relaxed text-white/55 sm:mt-4">
+            <p className="mt-3 max-w-md text-sm leading-relaxed text-ink/55 sm:mt-4">
               Exquisite Nigerian jewellery, handpicked in Abuja to be worn, gifted, and treasured.
             </p>
           </div>
@@ -26,7 +26,7 @@ export default function Footer() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-white/55 transition-all duration-300 hover:border-gold/40 hover:text-gold"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-ink/10 text-ink/55 transition-all duration-300 hover:border-gold/40 hover:text-gold"
                 aria-label={`Follow us on ${label}`}
               >
                 <Icon size={16} strokeWidth={1.4} />
@@ -40,13 +40,13 @@ export default function Footer() {
             <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.32em] text-gold/70">
               Abuja, Nigeria
             </p>
-            <p className="max-w-xs text-sm leading-relaxed text-white/55">
+            <p className="max-w-xs text-sm leading-relaxed text-ink/55">
               A curated house for statement pieces, quiet luxury, and jewelry that celebrates every moment.
             </p>
           </div>
 
           <div>
-            <h3 className="mb-4 text-[10px] font-medium uppercase tracking-[0.32em] text-white/65 sm:mb-5">
+            <h3 className="mb-4 text-[10px] font-medium uppercase tracking-[0.32em] text-ink/65 sm:mb-5">
               Discover
             </h3>
             <ul className="space-y-2.5">
@@ -61,7 +61,7 @@ export default function Footer() {
                 <li key={link.href + link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-white/55 transition-colors duration-200 hover:text-gold"
+                    className="text-sm text-ink/55 transition-colors duration-200 hover:text-gold"
                   >
                     {link.label}
                   </Link>
@@ -71,7 +71,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="mb-4 text-[10px] font-medium uppercase tracking-[0.32em] text-white/65 sm:mb-5">
+            <h3 className="mb-4 text-[10px] font-medium uppercase tracking-[0.32em] text-ink/65 sm:mb-5">
               About
             </h3>
             <ul className="space-y-2.5">
@@ -85,7 +85,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-white/55 transition-colors duration-200 hover:text-gold"
+                    className="text-sm text-ink/55 transition-colors duration-200 hover:text-gold"
                   >
                     {link.label}
                   </Link>
@@ -95,7 +95,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="mb-4 text-[10px] font-medium uppercase tracking-[0.32em] text-white/65 sm:mb-5">
+            <h3 className="mb-4 text-[10px] font-medium uppercase tracking-[0.32em] text-ink/65 sm:mb-5">
               Support
             </h3>
             <ul className="space-y-2.5">
@@ -109,7 +109,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-white/55 transition-colors duration-200 hover:text-gold"
+                    className="text-sm text-ink/55 transition-colors duration-200 hover:text-gold"
                   >
                     {link.label}
                   </Link>
@@ -119,23 +119,23 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-white/[0.06] pt-6 sm:pt-8">
+        <div className="border-t border-ink/[0.06] pt-6 sm:pt-8">
           <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
             <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-3">
-              <p className="text-xs text-white/65">© 2026 AMAPELS. All rights reserved.</p>
-              <span className="hidden text-white/30 sm:inline">·</span>
-              <p className="text-xs text-white/50">Built by IEL web services.</p>
+              <p className="text-xs text-ink/65">© 2026 AMAPELS. All rights reserved.</p>
+              <span className="hidden text-ink/30 sm:inline">·</span>
+              <p className="text-xs text-ink/50">Built by IEL web services.</p>
             </div>
             <div className="flex flex-wrap items-center gap-4 sm:gap-6">
-              <Link href="/terms" className="text-xs text-white/65 transition-colors hover:text-white">
+              <Link href="/terms" className="text-xs text-ink/65 transition-colors hover:text-ink">
                 Terms
               </Link>
-              <Link href="/privacy" className="text-xs text-white/65 transition-colors hover:text-white">
+              <Link href="/privacy" className="text-xs text-ink/65 transition-colors hover:text-ink">
                 Privacy
               </Link>
               <a
                 href="tel:+2348161238148"
-                className="flex items-center gap-1.5 py-2 text-xs text-white/65 transition-colors hover:text-gold"
+                className="flex items-center gap-1.5 py-2 text-xs text-ink/65 transition-colors hover:text-gold"
               >
                 <Phone size={12} strokeWidth={1.5} />
                 <span className="hidden sm:inline">0816 123 8148</span>
@@ -143,7 +143,7 @@ export default function Footer() {
               </a>
               <a
                 href="mailto:amapelsng@gmail.com"
-                className="flex items-center gap-1.5 py-2 text-xs text-white/65 transition-colors hover:text-gold"
+                className="flex items-center gap-1.5 py-2 text-xs text-ink/65 transition-colors hover:text-gold"
               >
                 <Mail size={12} strokeWidth={1.5} />
                 <span className="hidden sm:inline">amapelsng@gmail.com</span>

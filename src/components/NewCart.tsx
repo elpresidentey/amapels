@@ -61,7 +61,7 @@ export default function NewCart() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             onClick={closeCart}
-            className="fixed inset-0 z-50 bg-black-dark/40 backdrop-blur-[2px]"
+            className="fixed inset-0 z-50 bg-black/40 backdrop-blur-[2px]"
           />
 
           <motion.div
@@ -72,18 +72,18 @@ export default function NewCart() {
             className="fixed right-0 top-0 z-50 flex h-full w-full flex-col overflow-hidden bg-primary shadow-editorial-lg sm:max-w-md lg:max-w-lg"
           >
             {/* Header */}
-            <div className="flex items-center justify-between border-b border-black/[0.06] px-5 py-5 sm:px-7 sm:py-6">
+            <div className="flex items-center justify-between border-b border-ink/[0.06] px-5 py-5 sm:px-7 sm:py-6">
               <div>
-                <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-black/40">
+                <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-ink/40">
                   Your Bag
                 </p>
-                <h2 className="mt-1 font-serif text-xl font-light text-black-dark sm:text-2xl">
+                <h2 className="mt-1 font-serif text-xl font-light text-ink sm:text-2xl">
                   Bag{itemCount > 0 ? ` · ${itemCount}` : ''}
                 </h2>
               </div>
               <button
                 onClick={closeCart}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-black/50 transition-colors hover:border-black/25 hover:text-black-dark"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-ink/10 text-ink/50 transition-colors hover:border-ink/25 hover:text-ink"
                 aria-label="Close bag"
               >
                 <X size={16} strokeWidth={1.5} />
@@ -94,17 +94,17 @@ export default function NewCart() {
             <div className="flex-1 overflow-y-auto">
               {items.length === 0 ? (
                 <div className="flex h-full flex-col items-center justify-center px-6 py-12 text-center">
-                  <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-full border border-black/8">
-                    <ShoppingBag size={24} strokeWidth={1.25} className="text-black/30" />
+                  <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-full border border-ink/8">
+                    <ShoppingBag size={24} strokeWidth={1.25} className="text-ink/30" />
                   </div>
-                  <h3 className="font-serif text-xl font-light text-black-dark">Your bag is empty</h3>
-                  <p className="mt-2 max-w-xs text-sm text-black/50">
+                  <h3 className="font-serif text-xl font-light text-ink">Your bag is empty</h3>
+                  <p className="mt-2 max-w-xs text-sm text-ink/50">
                     Discover our collection of refined Nigerian jewelry.
                   </p>
                   <Link
                     href="/shop"
                     onClick={closeCart}
-                    className="btn-premium mt-8 bg-black-dark px-7 py-3.5 text-[10px] font-medium uppercase tracking-[0.22em] text-white transition-colors hover:bg-black"
+                    className="btn-premium mt-8 bg-ink px-7 py-3.5 text-[10px] font-medium uppercase tracking-[0.22em] text-on-ink transition-colors hover:bg-ink/85"
                   >
                     Shop Now
                   </Link>
@@ -114,7 +114,7 @@ export default function NewCart() {
                   {items.map((item) => (
                     <div
                       key={item.id}
-                      className="flex gap-4 border-b border-black/[0.05] py-4 last:border-0"
+                      className="flex gap-4 border-b border-ink/[0.05] py-4 last:border-0"
                     >
                       <div className="relative h-20 w-16 shrink-0 overflow-hidden bg-primary-light sm:h-24 sm:w-20">
                         <Image
@@ -129,16 +129,16 @@ export default function NewCart() {
                       <div className="min-w-0 flex-1">
                         <div className="flex items-start justify-between gap-2">
                           <div className="min-w-0">
-                            <p className="text-[9px] font-medium uppercase tracking-[0.2em] text-black/40">
+                            <p className="text-[9px] font-medium uppercase tracking-[0.2em] text-ink/40">
                               {item.category}
                             </p>
-                            <h4 className="mt-1 line-clamp-2 font-serif text-base font-light text-black-dark">
+                            <h4 className="mt-1 line-clamp-2 font-serif text-base font-light text-ink">
                               {item.name}
                             </h4>
                           </div>
                           <button
                             onClick={() => removeItem(item.id)}
-                            className="shrink-0 p-1.5 text-black/30 transition-colors hover:text-black-dark"
+                            className="shrink-0 p-1.5 text-ink/30 transition-colors hover:text-ink"
                             aria-label={`Remove ${item.name}`}
                           >
                             <Trash2 size={14} strokeWidth={1.5} />
@@ -150,17 +150,17 @@ export default function NewCart() {
                           <div className="flex items-center gap-2">
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                              className="flex h-7 w-7 items-center justify-center border border-black/10 text-black/50 transition-colors hover:border-black/25 hover:text-black-dark"
+                              className="flex h-7 w-7 items-center justify-center border border-ink/10 text-ink/50 transition-colors hover:border-ink/25 hover:text-ink"
                               aria-label="Decrease quantity"
                             >
                               <Minus size={12} strokeWidth={1.5} />
                             </button>
-                            <span className="min-w-[1.25rem] text-center text-sm text-black-dark">
+                            <span className="min-w-[1.25rem] text-center text-sm text-ink">
                               {item.quantity}
                             </span>
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                              className="flex h-7 w-7 items-center justify-center border border-black/10 text-black/50 transition-colors hover:border-black/25 hover:text-black-dark"
+                              className="flex h-7 w-7 items-center justify-center border border-ink/10 text-ink/50 transition-colors hover:border-ink/25 hover:text-ink"
                               aria-label="Increase quantity"
                             >
                               <Plus size={12} strokeWidth={1.5} />
@@ -176,23 +176,23 @@ export default function NewCart() {
 
             {/* Footer */}
             {items.length > 0 && (
-              <div className="border-t border-black/[0.06] bg-primary-light/40 px-5 py-5 sm:px-7 sm:py-6">
+              <div className="border-t border-ink/[0.06] bg-primary-light/40 px-5 py-5 sm:px-7 sm:py-6">
                 <div className="mb-5 space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-black/50">Subtotal</span>
-                    <span className="text-black-dark">₦{subtotal.toLocaleString()}</span>
+                    <span className="text-ink/50">Subtotal</span>
+                    <span className="text-ink">₦{subtotal.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-black/50">Shipping</span>
-                    <span className="text-black-dark">₦{shipping.toLocaleString()}</span>
+                    <span className="text-ink/50">Shipping</span>
+                    <span className="text-ink">₦{shipping.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-black/50">VAT (7.5%)</span>
-                    <span className="text-black-dark">₦{tax.toLocaleString()}</span>
+                    <span className="text-ink/50">VAT (7.5%)</span>
+                    <span className="text-ink">₦{tax.toLocaleString()}</span>
                   </div>
-                  <div className="flex justify-between border-t border-black/[0.06] pt-3 font-medium">
-                    <span className="text-black-dark">Total</span>
-                    <span className="text-black-dark">₦{total.toLocaleString()}</span>
+                  <div className="flex justify-between border-t border-ink/[0.06] pt-3 font-medium">
+                    <span className="text-ink">Total</span>
+                    <span className="text-ink">₦{total.toLocaleString()}</span>
                   </div>
                 </div>
 
@@ -200,7 +200,7 @@ export default function NewCart() {
                   <Link
                     href="/checkout"
                     onClick={closeCart}
-                    className="btn-premium block w-full bg-black-dark py-3.5 text-center text-[10px] font-medium uppercase tracking-[0.22em] text-white transition-colors hover:bg-black"
+                    className="btn-premium block w-full bg-ink py-3.5 text-center text-[10px] font-medium uppercase tracking-[0.22em] text-on-ink transition-colors hover:bg-ink/85"
                   >
                     Proceed to Checkout
                   </Link>
@@ -208,13 +208,13 @@ export default function NewCart() {
                     <Link
                       href="/cart"
                       onClick={closeCart}
-                      className="btn-premium flex-1 border border-black/15 py-2.5 text-center text-[10px] font-medium uppercase tracking-[0.18em] text-black-dark transition-colors hover:border-black/30"
+                      className="btn-premium flex-1 border border-ink/15 py-2.5 text-center text-[10px] font-medium uppercase tracking-[0.18em] text-ink transition-colors hover:border-ink/30"
                     >
                       View Bag
                     </Link>
                     <button
                       onClick={clearCart}
-                      className="flex-1 border border-black/10 py-2.5 text-[10px] font-medium uppercase tracking-[0.18em] text-black/45 transition-colors hover:border-black/20 hover:text-black-dark"
+                      className="flex-1 border border-ink/10 py-2.5 text-[10px] font-medium uppercase tracking-[0.18em] text-ink/45 transition-colors hover:border-ink/20 hover:text-ink"
                     >
                       Clear
                     </button>

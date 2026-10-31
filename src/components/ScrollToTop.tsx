@@ -27,7 +27,7 @@ export default function ScrollToTop() {
           transition={{ duration: 0.3 }}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           aria-label="Back to top"
-          className="fixed bottom-5 right-5 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-black/5 bg-white/95 shadow-[0_4px_16px_rgba(0,0,0,0.08)] backdrop-blur-sm transition-colors duration-300 hover:bg-gold hover:text-black-dark sm:bottom-6 sm:right-6 sm:h-12 sm:w-12"
+          className="fixed bottom-5 right-5 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-ink/10 bg-chrome/95 shadow-[0_4px_16px_rgba(0,0,0,0.08)] backdrop-blur-sm transition-colors duration-300 hover:bg-gold hover:text-black-dark sm:bottom-6 sm:right-6 sm:h-12 sm:w-12"
         >
           <ArrowUp size={18} strokeWidth={1.75} />
         </motion.button>

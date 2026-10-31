@@ -20,13 +20,13 @@ const ease = [0.22, 1, 0.36, 1] as const
 export function ProductCardSkeleton() {
   return (
     <div className="animate-pulse" role="status" aria-label="Loading product">
-      <div className="relative aspect-[3/4] overflow-hidden bg-black/[0.04]" />
+      <div className="relative aspect-[3/4] overflow-hidden bg-ink/[0.04]" />
       <div className="mt-5 space-y-3">
-        <div className="h-2 w-1/4 rounded-full bg-black/[0.04]" />
-        <div className="h-5 w-4/5 rounded-full bg-black/[0.04]" />
+        <div className="h-2 w-1/4 rounded-full bg-ink/[0.04]" />
+        <div className="h-5 w-4/5 rounded-full bg-ink/[0.04]" />
         <div className="flex justify-between">
-          <div className="h-4 w-1/4 rounded-full bg-black/[0.04]" />
-          <div className="h-3 w-16 rounded-full bg-black/[0.04]" />
+          <div className="h-4 w-1/4 rounded-full bg-ink/[0.04]" />
+          <div className="h-3 w-16 rounded-full bg-ink/[0.04]" />
         </div>
       </div>
       <span className="sr-only">Loading product details</span>
@@ -220,7 +220,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                 type="button"
                 onClick={handleQuickView}
                 aria-label="Quick view product details"
-                className="mt-2 flex w-full items-center justify-center gap-2 whitespace-nowrap border border-white/30 bg-white/10 px-2 py-2.5 text-[10px] font-medium uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-black-dark active:scale-95"
+                className="mt-2 flex w-full items-center justify-center gap-2 whitespace-nowrap border border-ink/30 bg-ink/[0.08] px-2 py-2.5 text-[10px] font-medium uppercase tracking-[0.18em] text-ink backdrop-blur-sm transition-all duration-300 hover:bg-ink/[0.18] active:scale-95 active:scale-95"
               >
                 <Eye size={13} strokeWidth={1.5} />
                 <span>View</span>
@@ -231,14 +231,14 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
       </div>
 
       <Link href={productHref} className="mt-4 block px-0.5 pt-1 focus-visible:outline-2 focus-visible:outline-gold sm:mt-5" tabIndex={-1} aria-hidden="true">
-        <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-black/40 transition-colors duration-300 group-hover:text-gold-dark">
+        <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-ink/40 transition-colors duration-300 group-hover:text-gold-dark">
           {product.category}
         </p>
-        <h3 className="mt-1.5 line-clamp-2 font-serif text-base font-light leading-snug text-black-dark transition-colors duration-300 group-hover:text-black sm:text-lg md:text-xl">
+        <h3 className="mt-1.5 line-clamp-2 font-serif text-base font-light leading-snug text-ink transition-colors duration-300 group-hover:text-ink sm:text-lg md:text-xl">
           {product.name}
         </h3>
         {detailLine && (
-          <p className="mt-1.5 line-clamp-1 text-[11px] tracking-[0.06em] text-black/40">
+          <p className="mt-1.5 line-clamp-1 text-[11px] tracking-[0.06em] text-ink/40">
             {detailLine}
           </p>
         )}
@@ -246,7 +246,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
           <p className="text-base font-medium tracking-wide text-gold-dark sm:text-lg">
             {product.price}
           </p>
-          <span className="inline-flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.18em] text-black/40 transition-colors duration-300 group-hover:text-black-dark">
+          <span className="inline-flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.18em] text-ink/40 transition-colors duration-300 group-hover:text-black-dark">
             {addedToCart ? (
               <>
                 <Check size={11} strokeWidth={1.75} />

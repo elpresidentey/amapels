@@ -71,7 +71,7 @@ export default function StoryPage() {
   return (
     <div className="min-h-screen bg-primary pt-24">
       {/* Hero */}
-      <section className="relative overflow-hidden bg-black-dark text-white">
+      <section className="relative overflow-hidden bg-chrome text-ink">
         <div className="absolute inset-0">
           <Image
             src="/images/andres-vera-202NAwjisYA-unsplash.webp"
@@ -82,7 +82,7 @@ export default function StoryPage() {
             quality={90}
             className="object-cover opacity-60"
           />
-          <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(12,10,8,0.95)_0%,rgba(12,10,8,0.75)_50%,rgba(12,10,8,0.4)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(135deg,rgb(var(--color-wash)/0.95)_0%,rgb(var(--color-wash)/0.75)_50%,rgb(var(--color-wash)/0.4)_100%)]" />
         </div>
 
         <div className="relative z-10 mx-auto flex min-h-[70vh] max-w-7xl items-center px-4 py-32 sm:px-6 md:px-12 lg:px-24">
@@ -98,7 +98,7 @@ export default function StoryPage() {
             <h1 className="font-serif text-3xl font-light leading-[1.1] sm:text-4xl md:text-5xl lg:text-[3.25rem]">
               Live in Abuja. Worn everywhere.
             </h1>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-white/65 sm:text-lg">
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-ink/65 sm:text-lg">
               AMAPELS is a Nigerian jewellery shop in Abuja. We go looking, we buy carefully, we
               sell honestly. This is how it started.
             </p>
@@ -115,13 +115,13 @@ export default function StoryPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.9, ease }}
           >
-            <p className="mb-6 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
+            <p className="mb-6 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/40">
               The Beginning
             </p>
-            <h2 className="font-serif text-2xl font-light leading-[1.15] text-black-dark sm:text-3xl md:text-4xl">
+            <h2 className="font-serif text-2xl font-light leading-[1.15] text-ink sm:text-3xl md:text-4xl">
               It started with a pair of earrings.
             </h2>
-            <div className="mt-8 space-y-5 text-base leading-relaxed text-black/60 sm:text-lg">
+            <div className="mt-8 space-y-5 text-base leading-relaxed text-ink/60 sm:text-lg">
               <p>
                 In Abuja, buying jewellery used to be a gamble. A pair would look perfect in the
                 shop and turn your skin green by Friday. So we started doing it differently —
@@ -152,10 +152,10 @@ export default function StoryPage() {
             transition={{ duration: 0.7, ease }}
             className="mb-16 text-center"
           >
-            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
+            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/40">
               The Journey
             </p>
-            <h2 className="font-serif text-2xl font-light text-black-dark sm:text-3xl md:text-4xl">
+            <h2 className="font-serif text-2xl font-light text-ink sm:text-3xl md:text-4xl">
               From one small shelf to a full shop.
             </h2>
           </motion.div>
@@ -182,10 +182,10 @@ export default function StoryPage() {
                 <span className="mb-2 block font-serif text-2xl font-light text-gold/60">
                   {item.year}
                 </span>
-                <h3 className="mb-3 font-serif text-xl font-light text-black-dark sm:text-2xl">
+                <h3 className="mb-3 font-serif text-xl font-light text-ink sm:text-2xl">
                   {item.title}
                 </h3>
-                <p className="text-sm leading-relaxed text-black/55">{item.description}</p>
+                <p className="text-sm leading-relaxed text-ink/55">{item.description}</p>
               </motion.div>
             ))}
           </div>
@@ -202,10 +202,10 @@ export default function StoryPage() {
             transition={{ duration: 0.7, ease }}
             className="mb-16 text-center"
           >
-            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
+            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/40">
               What We Stand For
             </p>
-            <h2 className="font-serif text-2xl font-light text-black-dark sm:text-3xl md:text-4xl">
+            <h2 className="font-serif text-2xl font-light text-ink sm:text-3xl md:text-4xl">
               Four pillars, one purpose.
             </h2>
           </motion.div>
@@ -218,11 +218,11 @@ export default function StoryPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: index * 0.08, ease }}
-                className="group border border-gold/20 bg-white px-8 py-10 transition-all duration-500 hover:border-gold/40 hover:shadow-[0_12px_40px_-12px_rgba(196,163,90,0.15)]"
+                className="group border border-gold/20 bg-base px-8 py-10 transition-all duration-500 hover:border-gold/40 hover:shadow-[0_12px_40px_-12px_rgba(196,163,90,0.15)]"
               >
                 <span className="mb-6 block font-serif text-3xl text-gold/60">{value.icon}</span>
-                <h3 className="mb-4 font-serif text-2xl font-light text-black-dark">{value.title}</h3>
-                <p className="text-sm leading-relaxed text-black/55">{value.description}</p>
+                <h3 className="mb-4 font-serif text-2xl font-light text-ink">{value.title}</h3>
+                <p className="text-sm leading-relaxed text-ink/55">{value.description}</p>
               </motion.div>
             ))}
           </div>
@@ -230,13 +230,13 @@ export default function StoryPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-black-dark px-4 py-24 sm:py-28 md:px-12 md:py-32 lg:px-24">
+      <section className="bg-chrome px-4 py-24 sm:py-28 md:px-12 md:py-32 lg:px-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease }}
-          className="mx-auto max-w-3xl text-center text-white"
+          className="mx-auto max-w-3xl text-center text-ink"
         >
           <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.38em] text-gold/60">
             Come through
@@ -245,21 +245,21 @@ export default function StoryPage() {
             Every piece has a story. <br />
             <span className="text-gold/80">What will yours be?</span>
           </h2>
-          <p className="mx-auto mt-6 max-w-lg text-sm leading-relaxed text-white/55">
+          <p className="mx-auto mt-6 max-w-lg text-sm leading-relaxed text-ink/55">
             Whether you&apos;re celebrating a milestone, treating yourself, or finally buying that
             gift — our pieces are waiting to become part of your story.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href="/shop"
-              className="btn-premium group inline-flex items-center justify-center gap-2.5 bg-white px-8 py-4 text-[10px] font-medium uppercase tracking-[0.22em] text-black-dark transition-all hover:bg-primary-light sm:text-[11px]"
+              className="btn-premium group inline-flex items-center justify-center gap-2.5 bg-ink px-8 py-4 text-[10px] font-medium uppercase tracking-[0.22em] text-on-ink transition-all hover:bg-ink/85 sm:text-[11px]"
             >
               Explore the Collection
               <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
               href="/collections"
-              className="btn-premium inline-flex items-center justify-center gap-2.5 border border-white/25 bg-white/[0.04] px-8 py-4 text-[10px] font-medium uppercase tracking-[0.22em] text-white backdrop-blur-sm transition-all hover:border-white/45 hover:bg-white/10 sm:text-[11px]"
+              className="btn-premium inline-flex items-center justify-center gap-2.5 border border-ink/25 bg-ink/[0.04] px-8 py-4 text-[10px] font-medium uppercase tracking-[0.22em] text-ink backdrop-blur-sm transition-all hover:border-ink/45 hover:bg-ink/10 sm:text-[11px]"
             >
               View Collections
             </Link>

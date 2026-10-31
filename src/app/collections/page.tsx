@@ -47,18 +47,18 @@ export default function CollectionsPage() {
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease }}
-            className="mb-14 border-b border-black/[0.06] pb-10 sm:mb-16 sm:pb-12 md:mb-20"
+            className="mb-14 border-b border-ink/[0.06] pb-10 sm:mb-16 sm:pb-12 md:mb-20"
           >
             <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
               <div>
-                <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-black/40">
+                <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/40">
                   Curated for You
                 </p>
-                <h1 className="font-serif text-3xl font-light tracking-tight text-black-dark sm:text-4xl md:text-5xl">
+                <h1 className="font-serif text-3xl font-light tracking-tight text-ink sm:text-4xl md:text-5xl">
                   Collections
                 </h1>
               </div>
-              <p className="max-w-sm text-sm leading-relaxed text-black/55 md:text-right">
+              <p className="max-w-sm text-sm leading-relaxed text-ink/55 md:text-right">
                 Curated edits for everyday elegance, milestone celebrations, and treasured gifts.
               </p>
             </div>

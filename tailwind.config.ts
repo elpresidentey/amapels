@@ -9,6 +9,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Theme-aware semantic tokens (light/dark switch via --color-* vars)
+        base: "rgb(var(--color-base) / <alpha-value>)",
+        ink: "rgb(var(--color-ink) / <alpha-value>)",
+        "on-ink": "rgb(var(--color-on-ink) / <alpha-value>)",
+        chrome: "rgb(var(--color-chrome) / <alpha-value>)",
         // Primary: warm off-white editorial base
         primary: {
           DEFAULT: '#FFFEFB',

@@ -48,7 +48,7 @@ const OptimizedInput = memo<{
 
   return (
     <div>
-      <label className="block text-sm font-medium text-black-dark mb-2">
+      <label className="block text-sm font-medium text-ink mb-2">
         {label} {required && '*'}
       </label>
       <input
@@ -57,9 +57,9 @@ const OptimizedInput = memo<{
         value={value}
         onChange={handleChange}
         disabled={disabled}
-        className={`w-full px-3 py-2.5 md:px-4 md:py-3 border rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-black outline-none transition-colors text-base ${
+        className={`w-full px-3 py-2.5 md:px-4 md:py-3 border rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-ink outline-none transition-colors text-base ${
           error ? 'border-red-400' : 'border-gold'
-        } ${disabled ? 'bg-gray-100 text-black/50 cursor-not-allowed' : ''}`}
+        } ${disabled ? 'bg-ink/5 text-ink/50 cursor-not-allowed' : ''}`}
         placeholder={placeholder}
         maxLength={maxLength}
         style={{ fontSize: '16px' }} // Prevents zoom on iOS
@@ -88,14 +88,14 @@ const OptimizedSelect = memo<{
 
   return (
     <div>
-      <label className="block text-sm font-medium text-black-dark mb-2">
+      <label className="block text-sm font-medium text-ink mb-2">
         {label} {required && '*'}
       </label>
       <select
         required={required}
         value={value}
         onChange={handleChange}
-        className={`w-full px-3 py-2.5 md:px-4 md:py-3 border rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-black outline-none transition-colors text-base ${
+        className={`w-full px-3 py-2.5 md:px-4 md:py-3 border rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-ink outline-none transition-colors text-base ${
           error ? 'border-red-400' : 'border-gold'
         }`}
         style={{ fontSize: '16px' }} // Prevents zoom on iOS
@@ -643,10 +643,10 @@ export default function CheckoutPage() {
   // Enhanced loading state with error handling
   if (!mounted || !isLoaded || authLoading) {
     return (
-      <div className="min-h-screen bg-white pt-28 pb-16 flex items-center justify-center">
+      <div className="min-h-screen bg-base pt-28 pb-16 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-black/70">{authLoading ? 'Checking your account...' : 'Loading checkout...'}</p>
+          <div className="w-8 h-8 border-2 border-ink border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-ink/70">{authLoading ? 'Checking your account...' : 'Loading checkout...'}</p>
           {!isOnline && (
             <div className="flex items-center justify-center gap-2 mt-4 text-red-600">
               <WifiOff size={16} />
@@ -666,7 +666,7 @@ export default function CheckoutPage() {
   // Auth gate — require login before checkout
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-white pt-20 sm:pt-24 md:pt-28 pb-8 sm:pb-12 md:pb-16">
+      <div className="min-h-screen bg-base pt-20 sm:pt-24 md:pt-28 pb-8 sm:pb-12 md:pb-16">
         <Toast message={toastMessage} type={toastType} isVisible={showToast} onClose={() => setShowToast(false)} duration={5000} />
         <div className="section-shell">
           <div className="max-w-lg mx-auto">
@@ -675,18 +675,18 @@ export default function CheckoutPage() {
                 <div className="w-16 h-16 bg-primary-light rounded-full flex items-center justify-center mx-auto mb-4">
                   <User size={28} className="text-gold-dark" />
                 </div>
-                <h1 className="font-serif text-xl sm:text-2xl text-black-dark mb-3">Sign in to Continue</h1>
-                <p className="text-black/60 text-sm">Create an account or sign in to place your order. This helps us keep you updated on your delivery.</p>
+                <h1 className="font-serif text-xl sm:text-2xl text-ink mb-3">Sign in to Continue</h1>
+                <p className="text-ink/60 text-sm">Create an account or sign in to place your order. This helps us keep you updated on your delivery.</p>
               </div>
 
-              <div className="bg-white border border-gold/30 rounded-2xl p-6 sm:p-8">
+              <div className="bg-base border border-gold/30 rounded-2xl p-6 sm:p-8">
                 {loginSuccess ? (
                   <div className="flex flex-col items-center gap-3 py-6">
                     <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
                       <CheckCircle size={24} className="text-green-600" />
                     </div>
                     <p className="font-medium text-green-700 text-sm">Signed in successfully!</p>
-                    <p className="text-xs text-black/50">Continue to checkout...</p>
+                    <p className="text-xs text-ink/50">Continue to checkout...</p>
                   </div>
                 ) : (
                   <form onSubmit={handleLogin} className="space-y-5">
@@ -697,35 +697,35 @@ export default function CheckoutPage() {
                       </div>
                     )}
                     <div>
-                      <label htmlFor="checkout-email" className="block text-sm font-medium text-black-dark mb-2">Email Address *</label>
+                      <label htmlFor="checkout-email" className="block text-sm font-medium text-ink mb-2">Email Address *</label>
                       <input
                         id="checkout-email"
                         type="email"
                         required
                         value={loginEmail}
                         onChange={(e) => setLoginEmail(e.target.value)}
-                        className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-black outline-none transition-colors text-base"
+                        className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-ink outline-none transition-colors text-base"
                         placeholder="your@email.com"
                       />
                     </div>
                     <div>
-                      <label htmlFor="checkout-name" className="block text-sm font-medium text-black-dark mb-2">
-                        Full Name <span className="text-black/40">(for your order)</span>
+                      <label htmlFor="checkout-name" className="block text-sm font-medium text-ink mb-2">
+                        Full Name <span className="text-ink/40">(for your order)</span>
                       </label>
                       <input
                         id="checkout-name"
                         type="text"
                         value={loginName}
                         onChange={(e) => setLoginName(e.target.value)}
-                        className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-black outline-none transition-colors text-base"
+                        className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-ink outline-none transition-colors text-base"
                         placeholder="Chioma Okafor"
                       />
                     </div>
                     <div className="bg-primary-light/10 rounded-xl p-4 border border-gold/30">
-                      <div className="flex items-start gap-3 text-xs text-black/70">
+                      <div className="flex items-start gap-3 text-xs text-ink/70">
                         <ShoppingBag size={14} className="mt-0.5 flex-shrink-0" />
                         <div>
-                          <p className="font-medium text-black-dark mb-1">Why create an account?</p>
+                          <p className="font-medium text-ink mb-1">Why create an account?</p>
                           <ul className="space-y-1">
                             <li>• Track your order in real-time</li>
                             <li>• View your complete order history</li>
@@ -738,11 +738,11 @@ export default function CheckoutPage() {
                     <button
                       type="submit"
                       disabled={loginLoading || !loginEmail.trim()}
-                      className="w-full bg-black text-white py-3.5 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                      className="w-full bg-ink text-on-ink py-3.5 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                     >
                       {loginLoading ? (
                         <>
-                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                          <div className="w-4 h-4 border-2 border-on-ink border-t-transparent rounded-full animate-spin" />
                           Signing In...
                         </>
                       ) : (
@@ -752,13 +752,13 @@ export default function CheckoutPage() {
                         </>
                       )}
                     </button>
-                    <p className="text-xs text-black/50 text-center">No password needed — we'll email you a verification link.</p>
+                    <p className="text-xs text-ink/50 text-center">No password needed — we'll email you a verification link.</p>
                   </form>
                 )}
               </div>
 
               <div className="text-center mt-6">
-                <Link href="/cart" className="text-xs text-black/50 hover:text-black-dark underline underline-offset-4">
+                <Link href="/cart" className="text-xs text-ink/50 hover:text-ink underline underline-offset-4">
                   ← Return to Bag
                 </Link>
               </div>
@@ -770,7 +770,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white pt-20 sm:pt-24 md:pt-28 pb-8 sm:pb-12 md:pb-16">
+    <div className="min-h-screen bg-base pt-20 sm:pt-24 md:pt-28 pb-8 sm:pb-12 md:pb-16">
       {/* Toast Notification */}
       <Toast
         message={toastMessage}
@@ -798,7 +798,7 @@ export default function CheckoutPage() {
         <div className="mb-6 md:mb-8">
           <Link 
             href="/cart"
-            className="inline-flex items-center gap-2 text-black/70 hover:text-black-dark transition-colors text-sm uppercase tracking-wider"
+            className="inline-flex items-center gap-2 text-ink/70 hover:text-ink transition-colors text-sm uppercase tracking-wider"
           >
             <ArrowLeft size={16} />
             <span className="hidden sm:inline">Return to Bag</span>
@@ -810,18 +810,18 @@ export default function CheckoutPage() {
         <div className="mb-8 md:mb-12">
           {/* Mobile Progress - Vertical Stack */}
           <div className="block md:hidden">
-            <div className="bg-white rounded-2xl border border-gold/30 p-4 mb-6">
+            <div className="bg-base rounded-2xl border border-gold/30 p-4 mb-6">
               <div className="text-center mb-4">
-                <div className="text-lg font-medium text-black-dark">
+                <div className="text-lg font-medium text-ink">
                   Step {currentStep} of {CHECKOUT_STEPS.length}
                 </div>
-                <div className="text-sm text-black/70 mt-1">
+                <div className="text-sm text-ink/70 mt-1">
                   {CHECKOUT_STEPS[currentStep - 1]?.title}
                 </div>
               </div>
-              <div className="w-full bg-gray-100/30 rounded-full h-2">
+              <div className="w-full bg-ink/10 rounded-full h-2">
                 <div 
-                  className="bg-black h-2 rounded-full transition-all duration-300"
+                  className="bg-ink h-2 rounded-full transition-all duration-300"
                   style={{ width: `${(currentStep / CHECKOUT_STEPS.length) * 100}%` }}
                 />
               </div>
@@ -840,8 +840,8 @@ export default function CheckoutPage() {
                   <div key={step.id} className="flex items-center">
                     <div className={`flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300 ${
                       isCompleted || isCurrent
-                        ? 'bg-black border-black text-white'
-                        : 'border-gold text-black/50'
+                        ? 'bg-ink border-ink text-on-ink'
+                        : 'border-gold text-ink/50'
                     }`}>
                       {isCompleted ? (
                         <Check size={20} />
@@ -852,7 +852,7 @@ export default function CheckoutPage() {
                     
                     {index < CHECKOUT_STEPS.length - 1 && (
                       <div className={`w-16 h-0.5 mx-4 transition-all duration-300 ${
-                        isCompleted ? 'bg-black' : 'bg-gray-100'
+                        isCompleted ? 'bg-ink' : 'bg-ink/10'
                       }`} />
                     )}
                   </div>
@@ -861,7 +861,7 @@ export default function CheckoutPage() {
             </div>
             
             <div className="text-center mt-4">
-              <p className="text-sm font-medium text-black-dark">
+              <p className="text-sm font-medium text-ink">
                 {CHECKOUT_STEPS[currentStep - 1]?.title}
               </p>
             </div>
@@ -873,14 +873,14 @@ export default function CheckoutPage() {
           <div className="mb-6 bg-primary-light/30 border border-gold/20 rounded-xl px-4 py-3 flex flex-wrap items-center justify-between gap-2">
             <div className="flex items-center gap-3">
               <User size={16} className="text-gold-dark" />
-              <span className="text-sm text-black-dark">
+              <span className="text-sm text-ink">
                 Signed in as <strong>{customerSession.name || customerSession.email}</strong>
               </span>
             </div>
             <button
               type="button"
               onClick={handleLogout}
-              className="flex items-center gap-1.5 text-xs text-black/50 hover:text-red-600 transition-colors"
+              className="flex items-center gap-1.5 text-xs text-ink/50 hover:text-red-600 transition-colors"
             >
               <LogOut size={12} />
               Sign Out
@@ -895,9 +895,9 @@ export default function CheckoutPage() {
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="bg-white rounded-2xl md:rounded-3xl border border-gold/30 p-4 md:p-8"
+                className="bg-base rounded-2xl md:rounded-3xl border border-gold/30 p-4 md:p-8"
               >
-                <h2 className="font-serif text-xl md:text-2xl text-black-dark mb-6 md:mb-8">Delivery Information</h2>
+                <h2 className="font-serif text-xl md:text-2xl text-ink mb-6 md:mb-8">Delivery Information</h2>
                 
                 <form onSubmit={handleShippingSubmit} className="space-y-4 md:space-y-6">
                   <div className="grid gap-4 md:gap-6 md:grid-cols-2">
@@ -981,7 +981,7 @@ export default function CheckoutPage() {
                   
                   <button
                     type="submit"
-                    className="w-full bg-black text-white py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl flex items-center justify-center gap-2"
+                    className="w-full bg-ink text-on-ink py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl flex items-center justify-center gap-2"
                   >
                     Continue to Payment
                     <ArrowRight size={16} />
@@ -994,11 +994,11 @@ export default function CheckoutPage() {
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="bg-white rounded-2xl md:rounded-3xl border border-gold/30 p-4 md:p-8"
+                className="bg-base rounded-2xl md:rounded-3xl border border-gold/30 p-4 md:p-8"
               >
                 <div className="flex items-center gap-3 mb-6 md:mb-8">
                   <Lock size={18} className="md:w-5 md:h-5 text-accent-emerald" />
-                  <h2 className="font-serif text-xl md:text-2xl text-black-dark">Secure Payment</h2>
+                  <h2 className="font-serif text-xl md:text-2xl text-ink">Secure Payment</h2>
                 </div>
                 
                 <div className="space-y-4 md:space-y-6">
@@ -1009,8 +1009,8 @@ export default function CheckoutPage() {
                         <Lock size={16} className="md:w-5 md:h-5 text-gold-dark" />
                       </div>
                       <div>
-                        <h3 className="font-medium text-black-dark mb-2 text-sm md:text-base">Secure Payment with Paystack</h3>
-                        <p className="text-xs md:text-sm text-black/70 leading-relaxed">
+                        <h3 className="font-medium text-ink mb-2 text-sm md:text-base">Secure Payment with Paystack</h3>
+                        <p className="text-xs md:text-sm text-ink/70 leading-relaxed">
                           Your payment information is processed securely through Paystack, Nigeria's leading payment gateway. 
                           We never store your card details.
                         </p>
@@ -1018,15 +1018,15 @@ export default function CheckoutPage() {
                     </div>
                     
                     <div className="grid gap-2 md:gap-3 mt-4">
-                      <div className="flex items-center gap-2 text-xs md:text-sm text-black/70">
+                      <div className="flex items-center gap-2 text-xs md:text-sm text-ink/70">
                         <Check size={14} className="md:w-4 md:h-4 text-gold-dark" />
                         <span>Bank-grade SSL encryption</span>
                       </div>
-                      <div className="flex items-center gap-2 text-xs md:text-sm text-black/70">
+                      <div className="flex items-center gap-2 text-xs md:text-sm text-ink/70">
                         <Check size={14} className="md:w-4 md:h-4 text-gold-dark" />
                         <span>PCI DSS compliant</span>
                       </div>
-                      <div className="flex items-center gap-2 text-xs md:text-sm text-black/70">
+                      <div className="flex items-center gap-2 text-xs md:text-sm text-ink/70">
                         <Check size={14} className="md:w-4 md:h-4 text-gold-dark" />
                         <span>Supports all Nigerian banks & cards</span>
                       </div>
@@ -1034,23 +1034,23 @@ export default function CheckoutPage() {
                   </div>
 
                   {/* Payment Summary */}
-                  <div className="bg-white rounded-xl md:rounded-2xl border border-gold/30 p-4 md:p-6">
-                    <h3 className="font-medium text-black-dark mb-4 text-sm md:text-base">Payment Summary</h3>
+                  <div className="bg-base rounded-xl md:rounded-2xl border border-gold/30 p-4 md:p-6">
+                    <h3 className="font-medium text-ink mb-4 text-sm md:text-base">Payment Summary</h3>
                     <div className="space-y-2 md:space-y-3">
-                      <div className="flex justify-between text-black/70 text-sm md:text-base">
+                      <div className="flex justify-between text-ink/70 text-sm md:text-base">
                         <span>Subtotal</span>
                         <span>₦{subtotal.toLocaleString()}</span>
                       </div>
-                      <div className="flex justify-between text-black/70 text-sm md:text-base">
+                      <div className="flex justify-between text-ink/70 text-sm md:text-base">
                         <span>Delivery</span>
                         <span>₦{shipping.toLocaleString()}</span>
                       </div>
-                      <div className="flex justify-between text-black/70 text-sm md:text-base">
+                      <div className="flex justify-between text-ink/70 text-sm md:text-base">
                         <span>VAT (7.5%)</span>
                         <span>₦{tax.toLocaleString()}</span>
                       </div>
                       <div className="border-t border-gold pt-3">
-                        <div className="flex justify-between font-medium text-black-dark text-base md:text-lg">
+                        <div className="flex justify-between font-medium text-ink text-base md:text-lg">
                           <span>Total Amount</span>
                           <span>₦{total.toLocaleString()}</span>
                         </div>
@@ -1062,7 +1062,7 @@ export default function CheckoutPage() {
                     <button
                       type="button"
                       onClick={goToShipping}
-                      className="flex-1 border border-black text-black-dark py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-white transition-colors rounded-xl"
+                      className="flex-1 border border-ink text-ink py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-on-ink transition-colors rounded-xl"
                     >
                       Back
                     </button>
@@ -1070,7 +1070,7 @@ export default function CheckoutPage() {
                     <button
                       type="button"
                       onClick={() => nextStep()}
-                      className="flex-1 bg-black text-white py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl flex items-center justify-center gap-2"
+                      className="flex-1 bg-ink text-on-ink py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl flex items-center justify-center gap-2"
                     >
                       Review Order
                       <ArrowRight size={16} />
@@ -1084,14 +1084,14 @@ export default function CheckoutPage() {
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="bg-white rounded-2xl md:rounded-3xl border border-gold/30 p-4 md:p-8"
+                className="bg-base rounded-2xl md:rounded-3xl border border-gold/30 p-4 md:p-8"
               >
-                <h2 className="font-serif text-xl md:text-2xl text-black-dark mb-6 md:mb-8">Confirm Your Order</h2>
+                <h2 className="font-serif text-xl md:text-2xl text-ink mb-6 md:mb-8">Confirm Your Order</h2>
                 
                 <div className="space-y-4 md:space-y-6 mb-6 md:mb-8">
                   <div className="border border-gold/30 rounded-xl p-4 md:p-6">
-                    <h3 className="font-medium text-black-dark mb-3 md:mb-4 text-sm md:text-base">Delivery Address</h3>
-                    <div className="text-black/80 text-sm md:text-base leading-relaxed">
+                    <h3 className="font-medium text-ink mb-3 md:mb-4 text-sm md:text-base">Delivery Address</h3>
+                    <div className="text-ink/80 text-sm md:text-base leading-relaxed">
                       <div className="font-medium">{shippingData.firstName} {shippingData.lastName}</div>
                       <div>{shippingData.address}</div>
                       <div>{shippingData.city}, {shippingData.state} {shippingData.postalCode}</div>
@@ -1101,14 +1101,14 @@ export default function CheckoutPage() {
                   </div>
                   
                   <div className="border border-gold/30 rounded-xl p-4 md:p-6">
-                    <h3 className="font-medium text-black-dark mb-3 md:mb-4 text-sm md:text-base">Payment Method</h3>
+                    <h3 className="font-medium text-ink mb-3 md:mb-4 text-sm md:text-base">Payment Method</h3>
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 md:w-10 md:h-10 bg-gold/10 rounded-full flex items-center justify-center">
                         <CreditCard size={16} className="md:w-5 md:h-5 text-gold-dark" />
                       </div>
                       <div>
-                        <p className="font-medium text-black-dark text-sm md:text-base">Paystack</p>
-                        <p className="text-xs md:text-sm text-black/70">Secure payment gateway</p>
+                        <p className="font-medium text-ink text-sm md:text-base">Paystack</p>
+                        <p className="text-xs md:text-sm text-ink/70">Secure payment gateway</p>
                       </div>
                     </div>
                   </div>
@@ -1118,7 +1118,7 @@ export default function CheckoutPage() {
                   <button
                     type="button"
                     onClick={goToPayment}
-                    className="flex-1 border border-black text-black-dark py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-white transition-colors rounded-xl"
+                    className="flex-1 border border-ink text-ink py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-on-ink transition-colors rounded-xl"
                   >
                     Back
                   </button>
@@ -1126,11 +1126,11 @@ export default function CheckoutPage() {
                   <button
                     onClick={handlePaystackPayment}
                     disabled={loading || paymentProcessing || !isOnline || systemErrors.length > 0 || !paystackReady}
-                    className="flex-1 bg-black text-white py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 bg-ink text-on-ink py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading || paymentProcessing ? (
                       <>
-                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        <div className="w-4 h-4 border-2 border-on-ink border-t-transparent rounded-full animate-spin"></div>
                         <span className="hidden sm:inline">Processing...</span>
                         <span className="sm:hidden">Processing</span>
                       </>
@@ -1148,7 +1148,7 @@ export default function CheckoutPage() {
                       </>
                     ) : !paystackReady ? (
                       <>
-                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        <div className="w-4 h-4 border-2 border-on-ink border-t-transparent rounded-full animate-spin"></div>
                         <span className="hidden sm:inline">Loading Payment...</span>
                         <span className="sm:hidden">Loading</span>
                       </>
@@ -1169,15 +1169,15 @@ export default function CheckoutPage() {
           <div className="lg:col-span-1">
             {/* Mobile Order Summary - Collapsible */}
             <div className="lg:hidden mb-6">
-              <div className="bg-white rounded-2xl border border-gold/30 p-4">
+              <div className="bg-base rounded-2xl border border-gold/30 p-4">
                 <div className="flex justify-between items-center mb-3">
-                  <h3 className="font-serif text-lg text-black-dark">Order Summary</h3>
-                  <div className="text-lg font-medium text-black-dark">
+                  <h3 className="font-serif text-lg text-ink">Order Summary</h3>
+                  <div className="text-lg font-medium text-ink">
                     ₦{total.toLocaleString()}
                   </div>
                 </div>
                 <details className="group">
-                  <summary className="cursor-pointer text-black/70 text-sm flex items-center justify-between">
+                  <summary className="cursor-pointer text-ink/70 text-sm flex items-center justify-between">
                     <span>View details</span>
                     <span className="group-open:rotate-180 transition-transform">▼</span>
                   </summary>
@@ -1196,24 +1196,24 @@ export default function CheckoutPage() {
                             />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <h4 className="font-medium text-black-dark text-sm truncate">{item.name}</h4>
-                            <p className="text-black/70 text-xs">Qty: {item.quantity}</p>
-                            <p className="text-black-dark text-sm font-medium">{item.price}</p>
+                            <h4 className="font-medium text-ink text-sm truncate">{item.name}</h4>
+                            <p className="text-ink/70 text-xs">Qty: {item.quantity}</p>
+                            <p className="text-ink text-sm font-medium">{item.price}</p>
                           </div>
                         </div>
                       ))}
                     </div>
                     
                     <div className="space-y-2 pt-3 border-t border-gold/30">
-                      <div className="flex justify-between text-black/70 text-sm">
+                      <div className="flex justify-between text-ink/70 text-sm">
                         <span>Subtotal</span>
                         <span>₦{subtotal.toLocaleString()}</span>
                       </div>
-                      <div className="flex justify-between text-black/70 text-sm">
+                      <div className="flex justify-between text-ink/70 text-sm">
                         <span>Shipping</span>
                         <span>₦{shipping.toLocaleString()}</span>
                       </div>
-                      <div className="flex justify-between text-black/70 text-sm">
+                      <div className="flex justify-between text-ink/70 text-sm">
                         <span>VAT (7.5%)</span>
                         <span>₦{tax.toLocaleString()}</span>
                       </div>
@@ -1224,8 +1224,8 @@ export default function CheckoutPage() {
             </div>
 
             {/* Desktop Order Summary - Always visible */}
-            <div className="hidden lg:block bg-white rounded-3xl border border-gold/30 p-8 sticky top-32">
-              <h3 className="font-serif text-xl text-black-dark mb-6">Your Bag</h3>
+            <div className="hidden lg:block bg-base rounded-3xl border border-gold/30 p-8 sticky top-32">
+              <h3 className="font-serif text-xl text-ink mb-6">Your Bag</h3>
               
               <div className="space-y-4 mb-6">
                 {items.map((item) => (
@@ -1241,36 +1241,36 @@ export default function CheckoutPage() {
                       />
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-medium text-black-dark text-sm">{item.name}</h4>
-                      <p className="text-black/70 text-xs">Qty: {item.quantity}</p>
-                      <p className="text-black-dark text-sm font-medium">{item.price}</p>
+                      <h4 className="font-medium text-ink text-sm">{item.name}</h4>
+                      <p className="text-ink/70 text-xs">Qty: {item.quantity}</p>
+                      <p className="text-ink text-sm font-medium">{item.price}</p>
                     </div>
                   </div>
                 ))}
               </div>
               
               <div className="space-y-3 mb-6 pt-6 border-t border-gold/30">
-                <div className="flex justify-between text-black/70">
+                <div className="flex justify-between text-ink/70">
                   <span>Subtotal</span>
                   <span>₦{subtotal.toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between text-black/70">
+                <div className="flex justify-between text-ink/70">
                   <span>Shipping</span>
                   <span>₦{shipping.toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between text-black/70">
+                <div className="flex justify-between text-ink/70">
                   <span>VAT (7.5%)</span>
                   <span>₦{tax.toLocaleString()}</span>
                 </div>
                 <div className="border-t border-gold pt-3">
-                  <div className="flex justify-between font-medium text-black-dark text-lg">
+                  <div className="flex justify-between font-medium text-ink text-lg">
                     <span>Total</span>
                     <span>₦{total.toLocaleString()}</span>
                   </div>
                 </div>
               </div>
               
-              <div className="text-xs text-black/60 text-center">
+              <div className="text-xs text-ink/60 text-center">
                 <Lock size={12} className="inline mr-1" />
                 Protected by secure SSL encryption
               </div>
