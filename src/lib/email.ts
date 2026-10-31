@@ -3,7 +3,7 @@ import { Resend } from 'resend'
 const resendApiKey = process.env.RESEND_API_KEY
 const resend = resendApiKey ? new Resend(resendApiKey) : null
 
-const FROM_EMAIL = 'AMAPELS <orders@amapels.com>'
+const FROM_EMAIL = 'AMAPELS <amapelsng@gmail.com>'
 
 interface OrderConfirmationData {
   customerName: string
