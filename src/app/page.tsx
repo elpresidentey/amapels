@@ -200,7 +200,7 @@ export default function Home() {
                 initial={false}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 0.16, ease }}
-                className="mt-4 max-w-lg text-sm leading-relaxed text-ink/70 sm:mt-6 sm:text-base md:text-lg"
+                className="mt-4 max-w-lg text-sm leading-relaxed text-ink/90 sm:mt-6 sm:text-base md:text-lg"
               >
                 {activeSlide.description}
               </motion.p>
@@ -530,7 +530,7 @@ export default function Home() {
               <span className="text-gold/90">We just make sure it says something worth hearing.</span>&rdquo;
             </blockquote>
             <div className="mt-8 h-px w-16 bg-gold/50" />
-            <p className="mt-6 max-w-lg text-sm leading-relaxed text-ink/65">
+            <p className="mt-6 max-w-lg text-sm leading-relaxed text-ink/85">
               Chosen in Abuja. Worn by women who move through the world with grace,
               confidence, and an unshakable sense of who they are.
             </p>

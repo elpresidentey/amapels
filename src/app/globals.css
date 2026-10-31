@@ -80,9 +80,9 @@
   .wash-105 {
     background-image: linear-gradient(
       105deg,
-      rgb(var(--color-wash) / 0.92) 0%,
-      rgb(var(--color-wash) / 0.72) 48%,
-      rgb(var(--color-wash) / 0.45) 100%
+      rgb(var(--color-wash) / 0.95) 0%,
+      rgb(var(--color-wash) / 0.88) 48%,
+      rgb(var(--color-wash) / 0.68) 100%
     );
   }
   .wash-90 {
