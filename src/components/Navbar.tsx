@@ -201,7 +201,7 @@ export default function Navbar() {
                 </div>
 
                 <div className="mt-4 flex items-center gap-2 px-5">
-                  <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-ink/50">
+                  <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-ink/65">
                     Appearance
                   </span>
                   <ThemeToggle />

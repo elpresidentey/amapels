@@ -56,7 +56,7 @@ export default function ProductPage() {
       <div className="flex min-h-screen items-center justify-center pt-32">
         <div className="text-center">
           <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border border-gold/30 border-t-gold" />
-          <p className="text-sm text-ink/50">Loading piece&hellip;</p>
+          <p className="text-sm text-ink/65">Loading piece&hellip;</p>
         </div>
       </div>
     )
@@ -67,7 +67,7 @@ export default function ProductPage() {
       <div className="flex min-h-screen items-center justify-center pt-32">
         <div className="max-w-md px-6 text-center">
           <p className="mb-3 font-serif text-2xl font-light text-ink">Piece not found</p>
-          <p className="mb-8 text-sm text-ink/55">{error || 'This product may no longer be available.'}</p>
+          <p className="mb-8 text-sm text-ink/65">{error || 'This product may no longer be available.'}</p>
           <Link
             href="/shop"
             className="btn-premium inline-flex items-center gap-2 bg-ink px-6 py-3 text-[10px] font-medium uppercase tracking-[0.22em] text-on-ink"
@@ -85,7 +85,7 @@ export default function ProductPage() {
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 md:px-12 lg:px-24 lg:py-20">
         <Link
           href="/shop"
-          className="mb-10 inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.2em] text-ink/45 transition-colors hover:text-ink sm:mb-14"
+          className="mb-10 inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.2em] text-ink/60 transition-colors hover:text-ink sm:mb-14"
         >
           <ArrowLeft size={14} strokeWidth={1.5} />
           Back to Shop
@@ -143,7 +143,7 @@ export default function ProductPage() {
             transition={{ duration: 0.8, delay: 0.1, ease }}
             className="flex flex-col lg:pt-4"
           >
-            <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.32em] text-ink/40">
+            <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.32em] text-ink/55">
               {product.category}
             </p>
             <h1 className="font-serif text-2xl font-light leading-snug text-ink sm:text-3xl md:text-[2.2rem]">
@@ -169,7 +169,7 @@ export default function ProductPage() {
 
             {/* The Inspiration */}
             <div className="mt-8 border-l-2 border-gold/40 bg-[#faf8f5] px-5 py-5 sm:px-6 sm:py-6">
-              <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-gold/70">
+              <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-gold/85">
                 The Inspiration
               </p>
               <p className="text-sm leading-relaxed italic text-ink/65">
@@ -205,7 +205,7 @@ export default function ProductPage() {
                 className={`flex h-14 w-14 items-center justify-center border transition-all duration-300 sm:h-[3.75rem] sm:w-[3.75rem] ${
                   wishlisted
                     ? 'border-gold bg-gold/10 text-gold-dark'
-                    : 'border-ink/15 text-ink/50 hover:border-ink/40 hover:text-ink'
+                    : 'border-ink/15 text-ink/65 hover:border-ink/40 hover:text-ink'
                 }`}
               >
                 <Heart size={18} strokeWidth={1.5} className={wishlisted ? 'fill-gold' : ''} />
@@ -216,22 +216,22 @@ export default function ProductPage() {
             <div className="mt-12 space-y-6 border-t border-ink/[0.06] pt-10 sm:mt-14">
               {/* Specs */}
               <div>
-                <h3 className="mb-4 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/40">
+                <h3 className="mb-4 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/55">
                   Product Details
                 </h3>
                 <div className="space-y-2.5 text-sm text-ink/60">
                   <div className="flex gap-4">
-                    <span className="w-28 shrink-0 text-[10px] font-medium uppercase tracking-[0.16em] text-ink/40">Category</span>
+                    <span className="w-28 shrink-0 text-[10px] font-medium uppercase tracking-[0.16em] text-ink/55">Category</span>
                     <span>{product.category}</span>
                   </div>
                   {product.materials && (
                     <div className="flex gap-4">
-                      <span className="w-28 shrink-0 text-[10px] font-medium uppercase tracking-[0.16em] text-ink/40">Materials</span>
+                      <span className="w-28 shrink-0 text-[10px] font-medium uppercase tracking-[0.16em] text-ink/55">Materials</span>
                       <span>{product.materials}</span>
                     </div>
                   )}
                   <div className="flex gap-4">
-                    <span className="w-28 shrink-0 text-[10px] font-medium uppercase tracking-[0.16em] text-ink/40">Ships From</span>
+                    <span className="w-28 shrink-0 text-[10px] font-medium uppercase tracking-[0.16em] text-ink/55">Ships From</span>
                     <span>Abuja, Nigeria</span>
                   </div>
                 </div>
@@ -239,7 +239,7 @@ export default function ProductPage() {
 
               {/* Details list */}
               <div>
-                <h3 className="mb-4 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/40">
+                <h3 className="mb-4 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/55">
                   Features
                 </h3>
                 <ul className="space-y-3 text-sm text-ink/60">
@@ -262,10 +262,10 @@ export default function ProductPage() {
               {/* Care */}
               {product.care && (
                 <div>
-                  <h3 className="mb-3 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/40">
+                  <h3 className="mb-3 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/55">
                     Care
                   </h3>
-                  <p className="text-sm leading-relaxed text-ink/55">{product.care}</p>
+                  <p className="text-sm leading-relaxed text-ink/65">{product.care}</p>
                 </div>
               )}
             </div>
@@ -283,7 +283,7 @@ export default function ProductPage() {
           >
             <div className="mb-12 flex flex-col gap-5 border-b border-ink/[0.06] pb-8 sm:mb-14 md:flex-row md:items-end md:justify-between">
               <div>
-                <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/40">
+                <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/55">
                   Complete The Look
                 </p>
                 <h2 className="font-serif text-2xl font-light text-ink sm:text-3xl">

@@ -11,7 +11,7 @@ export default function Footer() {
             <Link href="/" className="font-serif text-2xl font-light tracking-[0.28em] text-ink uppercase sm:text-3xl">
               AMAPELS
             </Link>
-            <p className="mt-3 max-w-md text-sm leading-relaxed text-ink/55 sm:mt-4">
+            <p className="mt-3 max-w-md text-sm leading-relaxed text-ink/65 sm:mt-4">
               Exquisite Nigerian jewellery, handpicked in Abuja to be worn, gifted, and treasured.
             </p>
           </div>
@@ -26,7 +26,7 @@ export default function Footer() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-ink/10 text-ink/55 transition-all duration-300 hover:border-gold/40 hover:text-gold"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-ink/10 text-ink/65 transition-all duration-300 hover:border-gold/40 hover:text-gold"
                 aria-label={`Follow us on ${label}`}
               >
                 <Icon size={16} strokeWidth={1.4} />
@@ -37,10 +37,10 @@ export default function Footer() {
 
         <div className="mb-12 grid grid-cols-2 gap-8 sm:mb-14 sm:gap-10 md:grid-cols-4 lg:mb-16 lg:gap-14">
           <div className="col-span-2 md:col-span-1">
-            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.32em] text-gold/70">
+            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.32em] text-gold/85">
               Abuja, Nigeria
             </p>
-            <p className="max-w-xs text-sm leading-relaxed text-ink/55">
+            <p className="max-w-xs text-sm leading-relaxed text-ink/65">
               A curated house for statement pieces, quiet luxury, and jewelry that celebrates every moment.
             </p>
           </div>
@@ -61,7 +61,7 @@ export default function Footer() {
                 <li key={link.href + link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-ink/55 transition-colors duration-200 hover:text-gold"
+                    className="text-sm text-ink/65 transition-colors duration-200 hover:text-gold"
                   >
                     {link.label}
                   </Link>
@@ -85,7 +85,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-ink/55 transition-colors duration-200 hover:text-gold"
+                    className="text-sm text-ink/65 transition-colors duration-200 hover:text-gold"
                   >
                     {link.label}
                   </Link>
@@ -109,7 +109,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-ink/55 transition-colors duration-200 hover:text-gold"
+                    className="text-sm text-ink/65 transition-colors duration-200 hover:text-gold"
                   >
                     {link.label}
                   </Link>
@@ -123,8 +123,8 @@ export default function Footer() {
           <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
             <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-3">
               <p className="text-xs text-ink/65">© 2026 AMAPELS. All rights reserved.</p>
-              <span className="hidden text-ink/30 sm:inline">·</span>
-              <p className="text-xs text-ink/50">Built by IEL web services.</p>
+              <span className="hidden text-ink/45 sm:inline">·</span>
+              <p className="text-xs text-ink/65">Built by IEL web services.</p>
             </div>
             <div className="flex flex-wrap items-center gap-4 sm:gap-6">
               <Link href="/terms" className="text-xs text-ink/65 transition-colors hover:text-ink">

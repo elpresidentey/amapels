@@ -90,7 +90,7 @@ function DefaultErrorFallback({ error, retry }: { error?: Error; retry?: () => v
           </button>
         </div>
         
-        <p className="text-xs text-ink/50 mt-6">
+        <p className="text-xs text-ink/65 mt-6">
           If you continue to experience issues, please contact{' '}
           <a href="mailto:amapelsng@gmail.com" className="underline">
             amapelsng@gmail.com

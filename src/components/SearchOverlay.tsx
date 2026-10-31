@@ -95,7 +95,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
             <div className="border border-ink/10 bg-chrome/98 shadow-2xl">
               {/* Input row */}
               <div className="flex items-center gap-4 border-b border-ink/10 px-5 py-4 sm:px-6">
-                <Search size={18} strokeWidth={1.5} className="shrink-0 text-gold/70" />
+                <Search size={18} strokeWidth={1.5} className="shrink-0 text-gold/85" />
                 <input
                   ref={inputRef}
                   type="text"
@@ -103,13 +103,13 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search pieces, materials, categories..."
                   aria-label="Search products"
-                  className="w-full bg-transparent text-base text-ink placeholder:text-ink/35 focus:outline-none"
+                  className="w-full bg-transparent text-base text-ink placeholder:text-ink/50 focus:outline-none"
                 />
                 <button
                   type="button"
                   onClick={onClose}
                   aria-label="Close search"
-                  className="shrink-0 p-1 text-ink/50 transition-colors hover:text-ink"
+                  className="shrink-0 p-1 text-ink/65 transition-colors hover:text-ink"
                 >
                   <X size={18} strokeWidth={1.5} />
                 </button>
@@ -118,19 +118,19 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
               {/* Results */}
               <div className="max-h-[50vh] overflow-y-auto">
                 {loading && (
-                  <p className="px-6 py-8 text-center text-sm text-ink/40">Loading the collection...</p>
+                  <p className="px-6 py-8 text-center text-sm text-ink/55">Loading the collection...</p>
                 )}
                 {!loading && error && (
-                  <p className="px-6 py-8 text-center text-sm text-ink/40">{error}</p>
+                  <p className="px-6 py-8 text-center text-sm text-ink/55">{error}</p>
                 )}
                 {!loading && !error && query.trim() && results.length === 0 && (
-                  <p className="px-6 py-8 text-center text-sm text-ink/40">
+                  <p className="px-6 py-8 text-center text-sm text-ink/55">
                     No pieces match &ldquo;{query.trim()}&rdquo;
                   </p>
                 )}
                 {!loading && !error && (!query.trim() || results.length === 0) && !query.trim() && (
                   <div className="px-6 py-4">
-                    <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/35">
+                    <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/50">
                       Browse Categories
                     </p>
                     <div className="flex flex-wrap gap-2">
@@ -169,7 +169,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                             <p className="truncate font-serif text-base font-light text-ink">
                               {p.name}
                             </p>
-                            <p className="mt-0.5 text-[10px] font-medium uppercase tracking-[0.22em] text-ink/35">
+                            <p className="mt-0.5 text-[10px] font-medium uppercase tracking-[0.22em] text-ink/50">
                               {p.category}
                             </p>
                           </div>
@@ -179,7 +179,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                           <ArrowRight
                             size={14}
                             strokeWidth={1.5}
-                            className="shrink-0 text-ink/30 transition-all duration-300 group-hover:translate-x-1 group-hover:text-gold"
+                            className="shrink-0 text-ink/45 transition-all duration-300 group-hover:translate-x-1 group-hover:text-gold"
                           />
                         </button>
                       </li>

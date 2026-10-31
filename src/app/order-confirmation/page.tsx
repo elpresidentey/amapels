@@ -123,7 +123,7 @@ function OrderConfirmationContent() {
       <div className="min-h-screen bg-primary pt-24 pb-16 flex items-center justify-center">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-ink border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-ink/50 text-sm">Loading your order details...</p>
+          <p className="text-ink/65 text-sm">Loading your order details...</p>
         </div>
       </div>
     )
@@ -156,7 +156,7 @@ function OrderConfirmationContent() {
             <h1 className="font-serif text-3xl md:text-4xl font-light text-ink mb-4">
               Your Order is Confirmed
             </h1>
-            <p className="text-lg text-ink/55 max-w-2xl mx-auto">
+            <p className="text-lg text-ink/65 max-w-2xl mx-auto">
               Thank you for choosing AMAPELS. We are honored to help you choose and deliver your exquisite jewelry with care.
             </p>
           </motion.div>
@@ -173,40 +173,40 @@ function OrderConfirmationContent() {
                 <div className="space-y-5">
                   <div className="flex items-center gap-4">
                     <div className="w-10 h-10 bg-primary-light rounded-full flex items-center justify-center flex-shrink-0">
-                      <Package size={18} className="text-ink/55" strokeWidth={1.5} />
+                      <Package size={18} className="text-ink/65" strokeWidth={1.5} />
                     </div>
                     <div>
-                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/40 mb-1">Order Number</p>
+                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/55 mb-1">Order Number</p>
                       <p className="font-mono font-medium text-ink text-sm">{orderNumber}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-4">
                     <div className="w-10 h-10 bg-primary-light rounded-full flex items-center justify-center flex-shrink-0">
-                      <Truck size={18} className="text-ink/55" strokeWidth={1.5} />
+                      <Truck size={18} className="text-ink/65" strokeWidth={1.5} />
                     </div>
                     <div>
-                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/40 mb-1">Tracking Number</p>
+                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/55 mb-1">Tracking Number</p>
                       <p className="font-mono font-medium text-gold-dark text-sm">{trackingNumber}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-4">
                     <div className="w-10 h-10 bg-primary-light rounded-full flex items-center justify-center flex-shrink-0">
-                      <Calendar size={18} className="text-ink/55" strokeWidth={1.5} />
+                      <Calendar size={18} className="text-ink/65" strokeWidth={1.5} />
                     </div>
                     <div>
-                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/40 mb-1">Order Date</p>
+                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/55 mb-1">Order Date</p>
                       <p className="font-medium text-ink text-sm">{orderDate}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-4">
                     <div className="w-10 h-10 bg-primary-light rounded-full flex items-center justify-center flex-shrink-0">
-                      <Mail size={18} className="text-ink/55" strokeWidth={1.5} />
+                      <Mail size={18} className="text-ink/65" strokeWidth={1.5} />
                     </div>
                     <div>
-                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/40 mb-1">Confirmation Email</p>
+                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/55 mb-1">Confirmation Email</p>
                       <p className="font-medium text-ink text-sm">{customerEmail || 'Sent to your email'}</p>
                     </div>
                   </div>
@@ -221,17 +221,17 @@ function OrderConfirmationContent() {
                       <Check size={14} className="text-gold-dark" />
                       <span className="text-sm font-medium text-ink">Payment Successful</span>
                     </div>
-                    <p className="text-xs text-ink/50">Your payment has been processed successfully</p>
+                    <p className="text-xs text-ink/65">Your payment has been processed successfully</p>
                   </div>
 
                   <div>
-                    <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/40 mb-1">Payment Reference</p>
+                    <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/55 mb-1">Payment Reference</p>
                     <p className="font-mono font-medium text-ink text-sm">{paymentReference || 'Confirmed'}</p>
                   </div>
 
                   {totalAmount && (
                     <div>
-                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/40 mb-1">Total Amount</p>
+                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/55 mb-1">Total Amount</p>
                       <p className="font-medium text-xl text-ink">{totalAmount}</p>
                     </div>
                   )}
@@ -265,7 +265,7 @@ function OrderConfirmationContent() {
 
                   <Link
                     href="/shop"
-                    className="w-full text-center text-ink/45 hover:text-ink transition-colors text-xs font-medium uppercase tracking-[0.18em]"
+                    className="w-full text-center text-ink/60 hover:text-ink transition-colors text-xs font-medium uppercase tracking-[0.18em]"
                   >
                     Continue Shopping
                   </Link>
@@ -298,13 +298,13 @@ function OrderConfirmationContent() {
                   )}
 
                   <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-4 ${
-                    step.status === 'completed' ? 'bg-gold text-white' : 'bg-primary-light text-ink/55'
+                    step.status === 'completed' ? 'bg-gold text-white' : 'bg-primary-light text-ink/65'
                   }`}>
                     {step.icon}
                   </div>
 
                   <h3 className="font-serif text-lg text-ink mb-2">{step.title}</h3>
-                  <p className="text-ink/50 text-sm leading-relaxed mb-3">{step.description}</p>
+                  <p className="text-ink/65 text-sm leading-relaxed mb-3">{step.description}</p>
 
                   {step.timeframe && (
                     <div className="inline-flex items-center gap-2 bg-primary-light px-3 py-1.5">
@@ -324,7 +324,7 @@ function OrderConfirmationContent() {
             className="mt-16 bg-primary-light/50 border border-gold/15 p-8 text-center"
           >
             <h3 className="font-serif text-xl text-ink mb-3">We Are Here to Help</h3>
-            <p className="text-ink/50 text-sm mb-6 max-w-lg mx-auto">
+            <p className="text-ink/65 text-sm mb-6 max-w-lg mx-auto">
               Our dedicated team is ready to assist you with any questions about your order or jewelry care.
             </p>
 
@@ -358,7 +358,7 @@ export default function OrderConfirmationPage() {
       <div className="min-h-screen bg-primary pt-24 pb-16 flex items-center justify-center">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-ink border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-ink/50 text-sm">Loading...</p>
+          <p className="text-ink/65 text-sm">Loading...</p>
         </div>
       </div>
     }>

@@ -51,14 +51,14 @@ export default function CollectionsPage() {
           >
             <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
               <div>
-                <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/40">
+                <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/55">
                   Curated for You
                 </p>
                 <h1 className="font-serif text-3xl font-light tracking-tight text-ink sm:text-4xl md:text-5xl">
                   Collections
                 </h1>
               </div>
-              <p className="max-w-sm text-sm leading-relaxed text-ink/55 md:text-right">
+              <p className="max-w-sm text-sm leading-relaxed text-ink/65 md:text-right">
                 Curated edits for everyday elegance, milestone celebrations, and treasured gifts.
               </p>
             </div>

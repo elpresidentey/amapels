@@ -53,13 +53,13 @@ export default function JournalPage() {
             transition={{ duration: 0.9, ease }}
             className="mb-14 border-b border-ink/[0.06] pb-10 sm:mb-16 sm:pb-12 md:mb-20"
           >
-            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/40">
+            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/55">
               The Journal
             </p>
             <h1 className="font-serif text-3xl font-light leading-[1.1] text-ink sm:text-4xl md:text-5xl">
               Stories that shape us.
             </h1>
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-ink/55 sm:text-lg">
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-ink/65 sm:text-lg">
               Thoughts on jewellery, culture, and the beautiful ways it intersects with our
               lives. A space for the curious and the thoughtful.
             </p>
@@ -76,7 +76,7 @@ export default function JournalPage() {
               transition={{ duration: 0.7, ease }}
               className="border-t border-ink/[0.06] pt-12 text-center"
             >
-              <p className="font-serif text-lg font-light italic text-ink/40">
+              <p className="font-serif text-lg font-light italic text-ink/55">
                 Could not load stories right now. Please try again later.
               </p>
             </motion.div>
@@ -87,7 +87,7 @@ export default function JournalPage() {
               transition={{ duration: 0.7, ease }}
               className="border-t border-ink/[0.06] pt-12 text-center"
             >
-              <p className="font-serif text-lg font-light italic text-ink/40">
+              <p className="font-serif text-lg font-light italic text-ink/55">
                 More stories are being written. Visit again soon.
               </p>
             </motion.div>
@@ -111,11 +111,11 @@ export default function JournalPage() {
                     </div>
                   )}
                   <div className="mb-4 flex items-center gap-4">
-                    <span className="text-[9px] font-medium uppercase tracking-[0.28em] text-gold/70">
+                    <span className="text-[9px] font-medium uppercase tracking-[0.28em] text-gold/85">
                       {post.category}
                     </span>
                     <span className="h-px flex-1 bg-gold/20" />
-                    <span className="text-[9px] font-medium uppercase tracking-[0.22em] text-ink/30">
+                    <span className="text-[9px] font-medium uppercase tracking-[0.22em] text-ink/45">
                       {post.publishedAt
                         ? new Date(post.publishedAt).toLocaleDateString('en-US', {
                             year: 'numeric',
@@ -129,8 +129,8 @@ export default function JournalPage() {
                     <h2 className="font-serif text-xl font-light leading-snug text-ink transition-colors duration-300 group-hover:text-gold-dark sm:text-2xl">
                       {post.title}
                     </h2>
-                    <p className="mt-4 text-sm leading-relaxed text-ink/55">{post.excerpt}</p>
-                    <span className="mt-5 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-ink/40 transition-colors duration-300 group-hover:text-gold-dark">
+                    <p className="mt-4 text-sm leading-relaxed text-ink/65">{post.excerpt}</p>
+                    <span className="mt-5 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-ink/55 transition-colors duration-300 group-hover:text-gold-dark">
                       Read More
                       <ArrowRight size={12} className="transition-transform group-hover:translate-x-1" />
                     </span>

@@ -235,16 +235,16 @@ export default function Home() {
             >
               <div className="flex items-center justify-between text-[10px] font-medium uppercase tracking-[0.32em] text-ink/60">
                 <span>This Week&apos;s Picks</span>
-                <span className="text-gold/80">{String(currentSlide + 1).padStart(2, '0')} / 03</span>
+                <span className="text-gold/90">{String(currentSlide + 1).padStart(2, '0')} / 03</span>
               </div>
               <div className="mt-8 flex-1">
                 {activeSlide.accent ? (
-                  <p className="text-xs tracking-wide text-gold/70">{activeSlide.accent}</p>
+                  <p className="text-xs tracking-wide text-gold/85">{activeSlide.accent}</p>
                 ) : null}
                 <h2 className="mt-3 font-serif text-2xl font-light leading-snug">
                   {activeSlide.eyebrow}
                 </h2>
-                <p className="mt-4 text-sm leading-relaxed text-ink/55">
+                <p className="mt-4 text-sm leading-relaxed text-ink/65">
                   Picked because we&apos;d happily wear them ourselves.
                 </p>
               </div>
@@ -267,7 +267,7 @@ export default function Home() {
                     <ChevronRight size={16} strokeWidth={1.5} />
                   </button>
                 </div>
-                <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-ink/55">
+                <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-ink/65">
                   AMAPELS NG
                 </span>
               </div>
@@ -284,10 +284,10 @@ export default function Home() {
             >
               <ChevronLeft size={15} strokeWidth={1.5} />
             </button>
-            <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-ink/50">
-              <span className="text-gold/80">{String(currentSlide + 1).padStart(2, '0')}</span>
-              <span className="mx-1.5 text-ink/45">/</span>
-              <span className="text-ink/55">{String(heroSlides.length).padStart(2, '0')}</span>
+            <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-ink/65">
+              <span className="text-gold/90">{String(currentSlide + 1).padStart(2, '0')}</span>
+              <span className="mx-1.5 text-ink/60">/</span>
+              <span className="text-ink/65">{String(heroSlides.length).padStart(2, '0')}</span>
             </span>
             <button
               type="button"
@@ -338,7 +338,7 @@ export default function Home() {
                       <p className="hidden truncate text-[9px] font-medium uppercase tracking-[0.28em] text-ink/60 md:block sm:text-[10px]">
                         {slide.eyebrow}
                       </p>
-                      <span className="ml-auto shrink-0 text-[9px] font-medium tracking-[0.2em] text-ink/55 sm:text-[10px]">
+                      <span className="ml-auto shrink-0 text-[9px] font-medium tracking-[0.2em] text-ink/65 sm:text-[10px]">
                         {String(index + 1).padStart(2, '0')}
                       </span>
                     </div>
@@ -353,7 +353,7 @@ export default function Home() {
                       {slide.title}
                     </p>
                     {slide.accent ? (
-                      <p className="mt-2 hidden line-clamp-1 text-[11px] text-ink/50 sm:block sm:text-xs">
+                      <p className="mt-2 hidden line-clamp-1 text-[11px] text-ink/65 sm:block sm:text-xs">
                         {slide.accent}
                       </p>
                     ) : (
@@ -411,7 +411,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 1, ease }}
             >
-              <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/55">
+              <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/65">
                 Our Story
               </p>
               <h2 className="font-serif text-2xl font-light leading-[1.15] text-ink sm:text-3xl md:text-[2.2rem]">
@@ -438,7 +438,7 @@ export default function Home() {
                   transition={{ duration: 0.6, delay: 0.2, ease }}
                   className="border-l border-gold/50 pl-5"
                 >
-                  <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/55">Nigerian-Owned</p>
+                  <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/65">Nigerian-Owned</p>
                   <p className="text-sm leading-relaxed text-ink/65">
                     Run in Abuja by Nigerians, for Nigerian life — and shipped nationwide, so your
                     order arrives the way it was packed.
@@ -451,7 +451,7 @@ export default function Home() {
                   transition={{ duration: 0.6, delay: 0.35, ease }}
                   className="border-l border-gold/50 pl-5"
                 >
-                  <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/55">Delivered With Care</p>
+                  <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/65">Delivered With Care</p>
                   <p className="text-sm leading-relaxed text-ink/65">
                     Picked, checked and wrapped by hand in Abuja, then tracked to your door — same
                     day inside the FCT, nationwide after that.
@@ -485,7 +485,7 @@ export default function Home() {
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(135deg,rgb(var(--color-wash)/0.3)_0%,transparent_60%)]" />
                 <div className="absolute bottom-0 left-0 right-0 bg-[linear-gradient(180deg,transparent_0%,rgb(var(--color-wash)/0.55)_28%,rgb(var(--color-wash)/0.88)_55%,rgb(var(--color-wash)/0.96)_100%)] p-8 text-ink">
-                  <p className="mb-2 font-serif text-2xl font-light italic text-gold/80">&ldquo;If it turns your finger green, we&apos;ve failed. Simple.&rdquo;</p>
+                  <p className="mb-2 font-serif text-2xl font-light italic text-gold/90">&ldquo;If it turns your finger green, we&apos;ve failed. Simple.&rdquo;</p>
                   <p className="text-xs text-ink/70">- The AMAPELS team</p>
                 </div>
               </motion.div>
@@ -521,16 +521,16 @@ export default function Home() {
             transition={{ duration: 1.2, delay: 0.2, ease }}
             className="max-w-2xl"
           >
-            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-gold/70">
+            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-gold/85">
               The AMAPELS Philosophy
             </p>
             <blockquote className="font-serif text-2xl font-light leading-[1.2] text-ink sm:text-3xl md:text-4xl">
               &ldquo;Your jewellery speaks before you do.
               <br />
-              <span className="text-gold/80">We just make sure it says something worth hearing.</span>&rdquo;
+              <span className="text-gold/90">We just make sure it says something worth hearing.</span>&rdquo;
             </blockquote>
             <div className="mt-8 h-px w-16 bg-gold/50" />
-            <p className="mt-6 max-w-lg text-sm leading-relaxed text-ink/55">
+            <p className="mt-6 max-w-lg text-sm leading-relaxed text-ink/65">
               Chosen in Abuja. Worn by women who move through the world with grace,
               confidence, and an unshakable sense of who they are.
             </p>
@@ -543,7 +543,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 flex flex-col gap-5 border-b border-ink/[0.06] pb-8 sm:mb-12 md:mb-14 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/55">
+              <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/65">
                 Featured Collections
               </p>
               <h2 className="max-w-xl font-serif text-2xl font-light text-ink sm:text-3xl md:text-4xl">
@@ -605,7 +605,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-12 flex flex-col gap-5 border-b border-ink/[0.06] pb-8 sm:mb-14 md:mb-16 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/55">
+              <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/65">
                 Curated Pieces
               </p>
               <h2 className="font-serif text-2xl font-light text-ink sm:text-3xl md:text-4xl">
@@ -613,7 +613,7 @@ export default function Home() {
               </h2>
             </div>
             <div className="flex flex-col items-start gap-4 md:items-end">
-              <p className="max-w-sm text-sm leading-relaxed text-ink/55 md:text-right">
+              <p className="max-w-sm text-sm leading-relaxed text-ink/65 md:text-right">
                 Selected for people who like quiet elegance — and for the gift you keep
                 meaning to buy.
               </p>
@@ -657,13 +657,13 @@ export default function Home() {
             transition={{ duration: 1, ease }}
             className="mb-16 text-center"
           >
-            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-gold/70">
+            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-gold/85">
               Jewellery With Meaning
             </p>
             <h2 className="font-serif text-2xl font-light leading-[1.15] text-ink sm:text-3xl md:text-4xl">
               Because it&apos;s never
               <br />
-              <span className="text-gold/80">just jewellery.</span>
+              <span className="text-gold/90">just jewellery.</span>
             </h2>
             <motion.div
               initial={{ scaleX: 0 }}
@@ -708,14 +708,14 @@ export default function Home() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.3 + index * 0.12, ease }}
-                  className="mb-6 block font-serif text-4xl text-gold/80"
+                  className="mb-6 block font-serif text-4xl text-gold/90"
                 >
                   {item.icon}
                 </motion.span>
                 <h3 className="mb-4 font-serif text-xl font-light text-ink sm:text-2xl">
                   {item.title}
                 </h3>
-                <p className="text-sm leading-relaxed text-ink/55">{item.description}</p>
+                <p className="text-sm leading-relaxed text-ink/65">{item.description}</p>
               </motion.div>
             ))}
           </div>
@@ -733,7 +733,7 @@ export default function Home() {
             className="mb-14 flex flex-col gap-5 border-b border-ink/[0.06] pb-10 sm:mb-16 md:flex-row md:items-end md:justify-between"
           >
             <div>
-              <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/55">
+              <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/65">
                 From Our Journal
               </p>
               <h2 className="max-w-xl font-serif text-2xl font-light text-ink sm:text-3xl md:text-4xl">
@@ -779,7 +779,7 @@ export default function Home() {
                       transition={{ duration: 0.8, delay: 0.2 + index * 0.12, ease }}
                       className="h-px flex-1 origin-left bg-gold/40"
                     />
-                    <span className="text-[9px] font-medium uppercase tracking-[0.22em] text-ink/50">
+                    <span className="text-[9px] font-medium uppercase tracking-[0.22em] text-ink/65">
                       {article.publishedAt
                         ? new Date(article.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
                         : ''}
@@ -788,14 +788,14 @@ export default function Home() {
                   <h3 className="font-serif text-lg font-light leading-snug text-ink transition-colors duration-300 group-hover:text-gold-dark sm:text-xl">
                     {article.title}
                   </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-ink/55">{article.excerpt}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-ink/65">{article.excerpt}</p>
                   <Link href={`/journal/${article.slug}`}>
                     <motion.span
                       initial={{ opacity: 0, x: -8 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: 0.4 + index * 0.12, ease }}
-                      className="mt-4 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-ink/55 transition-colors duration-300 group-hover:text-gold-dark"
+                      className="mt-4 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-ink/65 transition-colors duration-300 group-hover:text-gold-dark"
                     >
                       Read More
                       <ArrowRight size={12} className="transition-transform group-hover:translate-x-1" />
@@ -818,7 +818,7 @@ export default function Home() {
           className="mx-auto grid max-w-6xl gap-10 border border-gold/25 bg-chrome px-8 py-12 sm:px-10 sm:py-14 md:grid-cols-[1.15fr_0.85fr] md:gap-14 md:px-14 md:py-16"
         >
           <div>
-            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/55">
+            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/65">
               Ready to find your piece?
             </p>
             <h2 className="font-serif text-2xl font-light leading-snug text-ink sm:text-3xl md:text-[2.2rem]">

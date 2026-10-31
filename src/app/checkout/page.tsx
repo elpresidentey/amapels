@@ -59,7 +59,7 @@ const OptimizedInput = memo<{
         disabled={disabled}
         className={`w-full px-3 py-2.5 md:px-4 md:py-3 border rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-ink outline-none transition-colors text-base ${
           error ? 'border-red-400' : 'border-gold'
-        } ${disabled ? 'bg-ink/5 text-ink/50 cursor-not-allowed' : ''}`}
+        } ${disabled ? 'bg-ink/5 text-ink/65 cursor-not-allowed' : ''}`}
         placeholder={placeholder}
         maxLength={maxLength}
         style={{ fontSize: '16px' }} // Prevents zoom on iOS
@@ -686,7 +686,7 @@ export default function CheckoutPage() {
                       <CheckCircle size={24} className="text-green-600" />
                     </div>
                     <p className="font-medium text-green-700 text-sm">Signed in successfully!</p>
-                    <p className="text-xs text-ink/50">Continue to checkout...</p>
+                    <p className="text-xs text-ink/65">Continue to checkout...</p>
                   </div>
                 ) : (
                   <form onSubmit={handleLogin} className="space-y-5">
@@ -710,7 +710,7 @@ export default function CheckoutPage() {
                     </div>
                     <div>
                       <label htmlFor="checkout-name" className="block text-sm font-medium text-ink mb-2">
-                        Full Name <span className="text-ink/40">(for your order)</span>
+                        Full Name <span className="text-ink/55">(for your order)</span>
                       </label>
                       <input
                         id="checkout-name"
@@ -752,13 +752,13 @@ export default function CheckoutPage() {
                         </>
                       )}
                     </button>
-                    <p className="text-xs text-ink/50 text-center">No password needed — we'll email you a verification link.</p>
+                    <p className="text-xs text-ink/65 text-center">No password needed — we'll email you a verification link.</p>
                   </form>
                 )}
               </div>
 
               <div className="text-center mt-6">
-                <Link href="/cart" className="text-xs text-ink/50 hover:text-ink underline underline-offset-4">
+                <Link href="/cart" className="text-xs text-ink/65 hover:text-ink underline underline-offset-4">
                   ← Return to Bag
                 </Link>
               </div>
@@ -841,7 +841,7 @@ export default function CheckoutPage() {
                     <div className={`flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300 ${
                       isCompleted || isCurrent
                         ? 'bg-ink border-ink text-on-ink'
-                        : 'border-gold text-ink/50'
+                        : 'border-gold text-ink/65'
                     }`}>
                       {isCompleted ? (
                         <Check size={20} />
@@ -880,7 +880,7 @@ export default function CheckoutPage() {
             <button
               type="button"
               onClick={handleLogout}
-              className="flex items-center gap-1.5 text-xs text-ink/50 hover:text-red-600 transition-colors"
+              className="flex items-center gap-1.5 text-xs text-ink/65 hover:text-red-600 transition-colors"
             >
               <LogOut size={12} />
               Sign Out

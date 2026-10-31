@@ -99,7 +99,7 @@ export default function CustomerAuth({ onAuthChange }: { onAuthChange?: () => vo
 
   if (authLoading) {
     return (
-      <div className="flex items-center gap-2 text-ink/50">
+      <div className="flex items-center gap-2 text-ink/65">
         <div className="h-3 w-3 animate-pulse rounded-full bg-ink/20" />
       </div>
     )
@@ -136,7 +136,7 @@ export default function CustomerAuth({ onAuthChange }: { onAuthChange?: () => vo
                       <CheckCircle size={24} className="text-green-600" />
                     </div>
                     <p className="font-medium text-green-700 text-sm">Signed in successfully!</p>
-                    <p className="text-xs text-ink/50">Redirecting to your account...</p>
+                    <p className="text-xs text-ink/65">Redirecting to your account...</p>
                   </div>
                 ) : (
                   <form onSubmit={handleLogin} className="space-y-4">
@@ -165,7 +165,7 @@ export default function CustomerAuth({ onAuthChange }: { onAuthChange?: () => vo
 
                     <div>
                       <label htmlFor="auth-name" className="block text-sm font-medium text-ink mb-2">
-                        Your Name <span className="text-ink/40">(for a personal touch)</span>
+                        Your Name <span className="text-ink/55">(for a personal touch)</span>
                       </label>
                       <input
                         id="auth-name"
@@ -235,7 +235,7 @@ export default function CustomerAuth({ onAuthChange }: { onAuthChange?: () => vo
                 className="absolute top-full right-0 mt-2 w-48 bg-base border border-gold/30 shadow-lg z-50"
               >
                 <div className="py-2">
-                  <div className="px-4 py-2 text-xs text-ink/50 uppercase tracking-wider border-b border-ink/5">
+                  <div className="px-4 py-2 text-xs text-ink/65 uppercase tracking-wider border-b border-ink/5">
                     Hello, {customerName}
                   </div>
                   <Link
@@ -243,7 +243,7 @@ export default function CustomerAuth({ onAuthChange }: { onAuthChange?: () => vo
                     onClick={() => setShowLogin(false)}
                     className="flex items-center gap-3 px-4 py-2.5 text-sm text-ink hover:bg-primary-light/20 transition-colors"
                   >
-                    <UserCircle size={16} className="text-ink/40" />
+                    <UserCircle size={16} className="text-ink/55" />
                     My Account
                   </Link>
                   <button
@@ -251,7 +251,7 @@ export default function CustomerAuth({ onAuthChange }: { onAuthChange?: () => vo
                     onClick={handleLogout}
                     className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-ink hover:bg-primary-light/20 transition-colors"
                   >
-                    <LogOut size={16} className="text-ink/40" />
+                    <LogOut size={16} className="text-ink/55" />
                     Sign Out
                   </button>
                 </div>

@@ -20,7 +20,7 @@ export default function CartPage() {
         <div className="section-shell">
           <div className="text-center py-20">
             <div className="w-8 h-8 border-2 border-ink border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-            <p className="text-ink/50 text-sm">Loading your selections...</p>
+            <p className="text-ink/65 text-sm">Loading your selections...</p>
           </div>
         </div>
       </div>
@@ -33,10 +33,10 @@ export default function CartPage() {
         <div className="section-shell">
           <div className="text-center py-16 sm:py-20 md:py-24">
             <div className="mb-6 md:mb-8">
-              <ShoppingBag size={48} className="text-ink/20 mx-auto" strokeWidth={1} />
+              <ShoppingBag size={48} className="text-ink/35 mx-auto" strokeWidth={1} />
             </div>
             <h1 className="font-serif text-2xl sm:text-3xl font-light text-ink mb-4">Your Bag Awaits</h1>
-            <p className="text-ink/55 mb-8 md:mb-10 px-4 text-sm sm:text-base max-w-md mx-auto leading-relaxed">
+            <p className="text-ink/65 mb-8 md:mb-10 px-4 text-sm sm:text-base max-w-md mx-auto leading-relaxed">
               Discover Nigerian jewelry to wear, love, and cherish. Every piece tells a story.
             </p>
             <Link
@@ -58,7 +58,7 @@ export default function CartPage() {
         <div className="mb-6 md:mb-8">
           <Link
             href="/shop"
-            className="inline-flex items-center gap-2 text-ink/55 hover:text-ink transition-colors text-[10px] font-medium uppercase tracking-[0.22em] sm:text-[11px]"
+            className="inline-flex items-center gap-2 text-ink/65 hover:text-ink transition-colors text-[10px] font-medium uppercase tracking-[0.22em] sm:text-[11px]"
           >
             <ArrowLeft size={13} />
             Continue Exploring
@@ -67,7 +67,7 @@ export default function CartPage() {
 
         <div className="mb-10 border-b border-ink/[0.06] pb-8 sm:mb-12 sm:pb-10 md:mb-14">
           <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl font-light text-ink">Your Bag</h1>
-          <p className="mt-3 text-sm text-ink/50">{items.length} {items.length === 1 ? 'piece' : 'pieces'} in your bag</p>
+          <p className="mt-3 text-sm text-ink/65">{items.length} {items.length === 1 ? 'piece' : 'pieces'} in your bag</p>
         </div>
 
         <div className="grid gap-8 sm:gap-10 lg:grid-cols-[1fr_380px] lg:gap-12 xl:gap-16">
@@ -100,15 +100,15 @@ export default function CartPage() {
                         </Link>
                         <button
                           onClick={() => removeItem(item.id)}
-                          className="p-1 text-ink/30 hover:text-ink transition-colors flex-shrink-0"
+                          className="p-1 text-ink/45 hover:text-ink transition-colors flex-shrink-0"
                           aria-label="Remove item"
                         >
                           <X size={14} strokeWidth={1.5} />
                         </button>
                       </div>
-                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/35 sm:text-[11px]">{item.category}</p>
+                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/50 sm:text-[11px]">{item.category}</p>
                       {(item.size || item.color) && (
-                        <div className="flex items-center gap-3 mt-2 text-xs text-ink/45">
+                        <div className="flex items-center gap-3 mt-2 text-xs text-ink/60">
                           {item.size && <span>Size: {item.size}</span>}
                           {item.color && <span>Color: {item.color}</span>}
                         </div>
@@ -119,7 +119,7 @@ export default function CartPage() {
                       <div className="inline-flex items-center border border-ink/10">
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                          className="w-8 h-8 flex items-center justify-center text-ink/50 hover:text-ink hover:bg-ink/[0.03] transition-colors"
+                          className="w-8 h-8 flex items-center justify-center text-ink/65 hover:text-ink hover:bg-ink/[0.03] transition-colors"
                           aria-label="Decrease quantity"
                         >
                           <Minus size={12} strokeWidth={1.5} />
@@ -127,7 +127,7 @@ export default function CartPage() {
                         <span className="w-10 text-center font-medium text-ink text-xs tabular-nums">{item.quantity}</span>
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                          className="w-8 h-8 flex items-center justify-center text-ink/50 hover:text-ink hover:bg-ink/[0.03] transition-colors"
+                          className="w-8 h-8 flex items-center justify-center text-ink/65 hover:text-ink hover:bg-ink/[0.03] transition-colors"
                           aria-label="Increase quantity"
                         >
                           <Plus size={12} strokeWidth={1.5} />
@@ -181,11 +181,11 @@ export default function CartPage() {
               </Link>
 
               <div className="mt-6 space-y-2.5">
-                <div className="flex items-center gap-2.5 text-[10px] text-ink/40 sm:text-[11px]">
+                <div className="flex items-center gap-2.5 text-[10px] text-ink/55 sm:text-[11px]">
                   <Shield size={12} strokeWidth={1.5} className="flex-shrink-0" />
                   <span>Secure SSL encrypted checkout</span>
                 </div>
-                <div className="flex items-center gap-2.5 text-[10px] text-ink/40 sm:text-[11px]">
+                <div className="flex items-center gap-2.5 text-[10px] text-ink/55 sm:text-[11px]">
                   <Truck size={12} strokeWidth={1.5} className="flex-shrink-0" />
                   <span>Flat-rate ₦2,500 delivery on every order</span>
                 </div>

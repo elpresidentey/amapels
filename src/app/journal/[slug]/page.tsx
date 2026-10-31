@@ -70,7 +70,7 @@ export default function JournalPostPage() {
         >
           <Link
             href="/journal"
-            className="mb-8 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-ink/40 transition-colors hover:text-gold-dark"
+            className="mb-8 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-ink/55 transition-colors hover:text-gold-dark"
           >
             <ArrowLeft size={12} />
             Back to Journal
@@ -83,12 +83,12 @@ export default function JournalPostPage() {
           )}
 
           <div className="mb-4 flex items-center gap-4">
-            <span className="text-[9px] font-medium uppercase tracking-[0.28em] text-gold/70">
+            <span className="text-[9px] font-medium uppercase tracking-[0.28em] text-gold/85">
               {post.category}
             </span>
             <span className="h-px flex-1 bg-gold/20" />
             {date && (
-              <span className="text-[9px] font-medium uppercase tracking-[0.22em] text-ink/30">
+              <span className="text-[9px] font-medium uppercase tracking-[0.22em] text-ink/45">
                 {date}
               </span>
             )}
@@ -98,7 +98,7 @@ export default function JournalPostPage() {
             {post.title}
           </h1>
 
-          <p className="mt-3 text-sm text-ink/40">
+          <p className="mt-3 text-sm text-ink/55">
             By {post.author}
           </p>
 

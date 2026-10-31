@@ -13,7 +13,7 @@ export default function PrivacyPage() {
           className="max-w-4xl mx-auto"
         >
           <div className="text-center mb-16">
-            <p className="text-xs font-semibold uppercase tracking-widest text-ink/50 mb-4">Legal</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-ink/65 mb-4">Legal</p>
             <h1 className="font-serif text-4xl font-light text-ink mb-6">Privacy Policy</h1>
             <p className="text-lg text-ink/70">
               Last updated: July 2026

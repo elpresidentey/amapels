@@ -234,7 +234,7 @@ export default function GiftGuideContent() {
       <div className="flex min-h-screen items-center justify-center bg-base">
         <div className="max-w-md px-6 text-center">
           <p className="mb-3 font-serif text-2xl font-light text-ink">Something went wrong</p>
-          <p className="mb-6 text-sm text-ink/55">{error}</p>
+          <p className="mb-6 text-sm text-ink/65">{error}</p>
           <Link
             href="/shop"
             className="inline-flex items-center px-8 py-3 bg-ink text-on-ink text-sm font-medium rounded-md hover:bg-gold transition-colors"
@@ -251,7 +251,7 @@ export default function GiftGuideContent() {
       <div className="flex min-h-screen items-center justify-center bg-base">
         <div className="max-w-md px-6 text-center">
           <p className="mb-3 font-serif text-2xl font-light text-ink">Our gift guide is being restocked</p>
-          <p className="mb-6 text-sm text-ink/55">No pieces are available right now — check back soon.</p>
+          <p className="mb-6 text-sm text-ink/65">No pieces are available right now — check back soon.</p>
           <Link
             href="/shop"
             className="inline-flex items-center px-8 py-3 bg-ink text-on-ink text-sm font-medium rounded-md hover:bg-gold transition-colors"
@@ -279,7 +279,7 @@ export default function GiftGuideContent() {
             Discover jewelry that speaks to the heart. Our curated gift guide helps you 
             find meaningful pieces for every person and occasion.
           </p>
-          <p className="text-sm text-ink/50 mb-8">
+          <p className="text-sm text-ink/65 mb-8">
             Featuring {products.length} piece{products.length === 1 ? '' : 's'} from the shop &middot;{' '}
             {priceRangeFor(products)}
           </p>

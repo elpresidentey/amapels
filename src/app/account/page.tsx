@@ -49,7 +49,7 @@ function OrderCard({ order, index }: { order: OrderSummary; index: number }) {
       case 'pending': return 'text-amber-600 bg-amber-50 border-amber-200'
       case 'cancelled': return 'text-red-600 bg-red-50 border-red-200'
       case 'shipped': return 'text-blue-600 bg-blue-50 border-blue-200'
-      default: return 'text-ink/50 bg-ink/[0.04] border-ink/10'
+      default: return 'text-ink/65 bg-ink/[0.04] border-ink/10'
     }
   }
 
@@ -70,7 +70,7 @@ function OrderCard({ order, index }: { order: OrderSummary; index: number }) {
       >
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-6">
           <div>
-            <p className="text-[9px] font-medium uppercase tracking-[0.28em] text-ink/40">Order</p>
+            <p className="text-[9px] font-medium uppercase tracking-[0.28em] text-ink/55">Order</p>
             <p className="mt-0.5 font-serif text-base font-light text-ink sm:text-lg">
               {order.orderNumber}
             </p>
@@ -79,14 +79,14 @@ function OrderCard({ order, index }: { order: OrderSummary; index: number }) {
             <span className={`inline-flex items-center gap-1.5 border px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.18em] ${statusColor(order.status)}`}>
               {order.status}
             </span>
-            <span className="text-[11px] text-ink/45">{createdDate}</span>
+            <span className="text-[11px] text-ink/60">{createdDate}</span>
           </div>
         </div>
         <div className="flex items-center gap-4">
           <p className="hidden font-serif text-base text-gold-dark sm:block">
             ₦{order.total.toLocaleString()}
           </p>
-          {expanded ? <ChevronUp size={16} strokeWidth={1.3} className="text-ink/30" /> : <ChevronDown size={16} strokeWidth={1.3} className="text-ink/30" />}
+          {expanded ? <ChevronUp size={16} strokeWidth={1.3} className="text-ink/45" /> : <ChevronDown size={16} strokeWidth={1.3} className="text-ink/45" />}
         </div>
       </button>
 
@@ -102,17 +102,17 @@ function OrderCard({ order, index }: { order: OrderSummary; index: number }) {
           >
             <div className="border-t border-gold/15 px-4 py-4 sm:px-8 sm:py-8">
               <div className="mb-4 space-y-3 sm:mb-6">
-                <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-ink/40 sm:text-[9px]">Items</p>
+                <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-ink/55 sm:text-[9px]">Items</p>
                 {order.items.map((item, i) => (
                   <div key={i} className="flex items-center justify-between text-sm">
-                    <span className="text-ink/70">{item.name} <span className="text-ink/40">×{item.quantity}</span></span>
+                    <span className="text-ink/70">{item.name} <span className="text-ink/55">×{item.quantity}</span></span>
                     <span className="font-medium text-ink">₦{(item.price * item.quantity).toLocaleString()}</span>
                   </div>
                 ))}
               </div>
 
               <div className="mb-6 space-y-1.5 border-t border-ink/[0.06] pt-4 text-sm">
-                <div className="flex justify-between text-ink/50">
+                <div className="flex justify-between text-ink/65">
                   <span>Subtotal</span>
                   <span>₦{order.subtotal.toLocaleString()}</span>
                 </div>
@@ -142,8 +142,8 @@ function OrderCard({ order, index }: { order: OrderSummary; index: number }) {
 
               <div className="rounded border border-ink/[0.06] bg-[#faf8f5] px-4 py-3">
                 <div className="flex items-start gap-3">
-                  <MapPin size={14} strokeWidth={1.3} className="mt-0.5 shrink-0 text-ink/40" />
-                  <div className="text-[11px] leading-relaxed text-ink/55">
+                  <MapPin size={14} strokeWidth={1.3} className="mt-0.5 shrink-0 text-ink/55" />
+                  <div className="text-[11px] leading-relaxed text-ink/65">
                     <p className="font-medium text-ink">Shipping to</p>
                     <p>{order.shippingAddress.street}, {order.shippingAddress.city}, {order.shippingAddress.state}, {order.shippingAddress.country}</p>
                   </div>
@@ -237,13 +237,13 @@ export default function AccountPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease }}
           >
-            <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/40 sm:mb-4">
+            <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/55 sm:mb-4">
               My Account
             </p>
             <h1 className="font-serif text-2xl font-light text-ink sm:text-3xl md:text-4xl">
               Welcome back, {session?.name || 'Friend'}
             </h1>
-            <p className="mt-2 text-sm leading-relaxed text-ink/55 sm:mt-4">
+            <p className="mt-2 text-sm leading-relaxed text-ink/65 sm:mt-4">
               Your order history and account details, all in one place.
             </p>
           </motion.div>
@@ -257,21 +257,21 @@ export default function AccountPage() {
             <div className="col-span-2 flex items-center gap-3 border border-gold/15 bg-[#faf8f5] px-4 py-3 sm:col-span-1 sm:gap-4 sm:px-5 sm:py-4">
               <Mail size={16} strokeWidth={1.3} className="shrink-0 text-gold-dark" />
               <div className="min-w-0">
-                <p className="text-[10px] font-medium uppercase tracking-[0.24em] text-ink/40 sm:text-[9px]">Email</p>
+                <p className="text-[10px] font-medium uppercase tracking-[0.24em] text-ink/55 sm:text-[9px]">Email</p>
                 <p className="truncate text-sm text-ink">{session?.email || '—'}</p>
               </div>
             </div>
             <div className="flex items-center gap-3 border border-gold/15 bg-[#faf8f5] px-4 py-3 sm:gap-4 sm:px-5 sm:py-4">
               <Package size={16} strokeWidth={1.3} className="shrink-0 text-gold-dark" />
               <div>
-                <p className="text-[10px] font-medium uppercase tracking-[0.24em] text-ink/40 sm:text-[9px]">Orders</p>
+                <p className="text-[10px] font-medium uppercase tracking-[0.24em] text-ink/55 sm:text-[9px]">Orders</p>
                 <p className="text-sm text-ink">{orders.length} {orders.length === 1 ? 'order' : 'orders'}</p>
               </div>
             </div>
             <button
               type="button"
               onClick={handleLogout}
-              className="flex items-center justify-center gap-2 border border-ink/10 px-3 py-3 text-[10px] font-medium uppercase tracking-[0.22em] text-ink/50 transition-all hover:border-red/30 hover:bg-red/[0.04] hover:text-red sm:px-5 sm:py-4"
+              className="flex items-center justify-center gap-2 border border-ink/10 px-3 py-3 text-[10px] font-medium uppercase tracking-[0.22em] text-ink/65 transition-all hover:border-red/30 hover:bg-red/[0.04] hover:text-red sm:px-5 sm:py-4"
             >
               <LogOut size={14} strokeWidth={1.3} />
               Sign Out
@@ -290,7 +290,7 @@ export default function AccountPage() {
             className="mb-6 flex flex-col gap-3 border-b border-ink/[0.06] pb-6 sm:mb-10 sm:flex-row sm:items-end sm:justify-between sm:pb-8"
           >
             <div>
-              <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/40 sm:mb-3">
+              <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/55 sm:mb-3">
                 Order History
               </p>
               <h2 className="font-serif text-xl font-light text-ink sm:text-3xl">
@@ -317,8 +317,8 @@ export default function AccountPage() {
             </div>
           ) : error ? (
             <div className="flex flex-col items-center gap-4 rounded border border-dashed border-ink/10 py-10 text-center sm:py-16">
-              <AlertCircle size={24} strokeWidth={1.3} className="text-ink/30" />
-              <p className="text-sm text-ink/55">{error}</p>
+              <AlertCircle size={24} strokeWidth={1.3} className="text-ink/45" />
+              <p className="text-sm text-ink/65">{error}</p>
               <button
                 type="button"
                 onClick={fetchOrders}
@@ -337,7 +337,7 @@ export default function AccountPage() {
               <ShoppingBag size={32} strokeWidth={1.2} className="text-gold/40" />
               <div>
                 <p className="font-serif text-xl font-light text-ink">No orders yet</p>
-                <p className="mt-2 text-sm text-ink/45">Your order history will appear here once you make your first purchase.</p>
+                <p className="mt-2 text-sm text-ink/60">Your order history will appear here once you make your first purchase.</p>
               </div>
               <Link
                 href="/shop"

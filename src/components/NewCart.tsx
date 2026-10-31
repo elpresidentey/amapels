@@ -74,7 +74,7 @@ export default function NewCart() {
             {/* Header */}
             <div className="flex items-center justify-between border-b border-ink/[0.06] px-5 py-5 sm:px-7 sm:py-6">
               <div>
-                <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-ink/40">
+                <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-ink/55">
                   Your Bag
                 </p>
                 <h2 className="mt-1 font-serif text-xl font-light text-ink sm:text-2xl">
@@ -83,7 +83,7 @@ export default function NewCart() {
               </div>
               <button
                 onClick={closeCart}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-ink/10 text-ink/50 transition-colors hover:border-ink/25 hover:text-ink"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-ink/10 text-ink/65 transition-colors hover:border-ink/25 hover:text-ink"
                 aria-label="Close bag"
               >
                 <X size={16} strokeWidth={1.5} />
@@ -95,10 +95,10 @@ export default function NewCart() {
               {items.length === 0 ? (
                 <div className="flex h-full flex-col items-center justify-center px-6 py-12 text-center">
                   <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-full border border-ink/8">
-                    <ShoppingBag size={24} strokeWidth={1.25} className="text-ink/30" />
+                    <ShoppingBag size={24} strokeWidth={1.25} className="text-ink/45" />
                   </div>
                   <h3 className="font-serif text-xl font-light text-ink">Your bag is empty</h3>
-                  <p className="mt-2 max-w-xs text-sm text-ink/50">
+                  <p className="mt-2 max-w-xs text-sm text-ink/65">
                     Discover our collection of refined Nigerian jewelry.
                   </p>
                   <Link
@@ -129,7 +129,7 @@ export default function NewCart() {
                       <div className="min-w-0 flex-1">
                         <div className="flex items-start justify-between gap-2">
                           <div className="min-w-0">
-                            <p className="text-[9px] font-medium uppercase tracking-[0.2em] text-ink/40">
+                            <p className="text-[9px] font-medium uppercase tracking-[0.2em] text-ink/55">
                               {item.category}
                             </p>
                             <h4 className="mt-1 line-clamp-2 font-serif text-base font-light text-ink">
@@ -138,7 +138,7 @@ export default function NewCart() {
                           </div>
                           <button
                             onClick={() => removeItem(item.id)}
-                            className="shrink-0 p-1.5 text-ink/30 transition-colors hover:text-ink"
+                            className="shrink-0 p-1.5 text-ink/45 transition-colors hover:text-ink"
                             aria-label={`Remove ${item.name}`}
                           >
                             <Trash2 size={14} strokeWidth={1.5} />
@@ -150,7 +150,7 @@ export default function NewCart() {
                           <div className="flex items-center gap-2">
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                              className="flex h-7 w-7 items-center justify-center border border-ink/10 text-ink/50 transition-colors hover:border-ink/25 hover:text-ink"
+                              className="flex h-7 w-7 items-center justify-center border border-ink/10 text-ink/65 transition-colors hover:border-ink/25 hover:text-ink"
                               aria-label="Decrease quantity"
                             >
                               <Minus size={12} strokeWidth={1.5} />
@@ -160,7 +160,7 @@ export default function NewCart() {
                             </span>
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                              className="flex h-7 w-7 items-center justify-center border border-ink/10 text-ink/50 transition-colors hover:border-ink/25 hover:text-ink"
+                              className="flex h-7 w-7 items-center justify-center border border-ink/10 text-ink/65 transition-colors hover:border-ink/25 hover:text-ink"
                               aria-label="Increase quantity"
                             >
                               <Plus size={12} strokeWidth={1.5} />
@@ -179,15 +179,15 @@ export default function NewCart() {
               <div className="border-t border-ink/[0.06] bg-primary-light/40 px-5 py-5 sm:px-7 sm:py-6">
                 <div className="mb-5 space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-ink/50">Subtotal</span>
+                    <span className="text-ink/65">Subtotal</span>
                     <span className="text-ink">₦{subtotal.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-ink/50">Shipping</span>
+                    <span className="text-ink/65">Shipping</span>
                     <span className="text-ink">₦{shipping.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-ink/50">VAT (7.5%)</span>
+                    <span className="text-ink/65">VAT (7.5%)</span>
                     <span className="text-ink">₦{tax.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between border-t border-ink/[0.06] pt-3 font-medium">
@@ -214,7 +214,7 @@ export default function NewCart() {
                     </Link>
                     <button
                       onClick={clearCart}
-                      className="flex-1 border border-ink/10 py-2.5 text-[10px] font-medium uppercase tracking-[0.18em] text-ink/45 transition-colors hover:border-ink/20 hover:text-ink"
+                      className="flex-1 border border-ink/10 py-2.5 text-[10px] font-medium uppercase tracking-[0.18em] text-ink/60 transition-colors hover:border-ink/20 hover:text-ink"
                     >
                       Clear
                     </button>

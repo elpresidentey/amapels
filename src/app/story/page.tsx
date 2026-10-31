@@ -92,7 +92,7 @@ export default function StoryPage() {
             transition={{ duration: 1, ease }}
             className="max-w-3xl"
           >
-            <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.38em] text-gold/70">
+            <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.38em] text-gold/85">
               The Brand Story
             </p>
             <h1 className="font-serif text-3xl font-light leading-[1.1] sm:text-4xl md:text-5xl lg:text-[3.25rem]">
@@ -115,7 +115,7 @@ export default function StoryPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.9, ease }}
           >
-            <p className="mb-6 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/40">
+            <p className="mb-6 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/55">
               The Beginning
             </p>
             <h2 className="font-serif text-2xl font-light leading-[1.15] text-ink sm:text-3xl md:text-4xl">
@@ -152,7 +152,7 @@ export default function StoryPage() {
             transition={{ duration: 0.7, ease }}
             className="mb-16 text-center"
           >
-            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/40">
+            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/55">
               The Journey
             </p>
             <h2 className="font-serif text-2xl font-light text-ink sm:text-3xl md:text-4xl">
@@ -179,13 +179,13 @@ export default function StoryPage() {
                     index % 2 === 0 ? 'md:right-[-6.5px]' : 'md:left-[-6.5px]'
                   }`}
                 />
-                <span className="mb-2 block font-serif text-2xl font-light text-gold/60">
+                <span className="mb-2 block font-serif text-2xl font-light text-gold/85">
                   {item.year}
                 </span>
                 <h3 className="mb-3 font-serif text-xl font-light text-ink sm:text-2xl">
                   {item.title}
                 </h3>
-                <p className="text-sm leading-relaxed text-ink/55">{item.description}</p>
+                <p className="text-sm leading-relaxed text-ink/65">{item.description}</p>
               </motion.div>
             ))}
           </div>
@@ -202,7 +202,7 @@ export default function StoryPage() {
             transition={{ duration: 0.7, ease }}
             className="mb-16 text-center"
           >
-            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/40">
+            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/55">
               What We Stand For
             </p>
             <h2 className="font-serif text-2xl font-light text-ink sm:text-3xl md:text-4xl">
@@ -220,9 +220,9 @@ export default function StoryPage() {
                 transition={{ duration: 0.7, delay: index * 0.08, ease }}
                 className="group border border-gold/20 bg-base px-8 py-10 transition-all duration-500 hover:border-gold/40 hover:shadow-[0_12px_40px_-12px_rgba(196,163,90,0.15)]"
               >
-                <span className="mb-6 block font-serif text-3xl text-gold/60">{value.icon}</span>
+                <span className="mb-6 block font-serif text-3xl text-gold/85">{value.icon}</span>
                 <h3 className="mb-4 font-serif text-2xl font-light text-ink">{value.title}</h3>
-                <p className="text-sm leading-relaxed text-ink/55">{value.description}</p>
+                <p className="text-sm leading-relaxed text-ink/65">{value.description}</p>
               </motion.div>
             ))}
           </div>
@@ -238,14 +238,14 @@ export default function StoryPage() {
           transition={{ duration: 0.8, ease }}
           className="mx-auto max-w-3xl text-center text-ink"
         >
-          <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.38em] text-gold/60">
+          <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.38em] text-gold/85">
             Come through
           </p>
           <h2 className="font-serif text-2xl font-light leading-[1.15] sm:text-3xl md:text-4xl">
             Every piece has a story. <br />
-            <span className="text-gold/80">What will yours be?</span>
+            <span className="text-gold/90">What will yours be?</span>
           </h2>
-          <p className="mx-auto mt-6 max-w-lg text-sm leading-relaxed text-ink/55">
+          <p className="mx-auto mt-6 max-w-lg text-sm leading-relaxed text-ink/65">
             Whether you&apos;re celebrating a milestone, treating yourself, or finally buying that
             gift — our pieces are waiting to become part of your story.
           </p>

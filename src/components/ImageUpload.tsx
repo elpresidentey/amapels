@@ -144,9 +144,9 @@ export default function ImageUpload({ images, onChange, maxImages = 5 }: ImageUp
               <div className="w-8 h-8 border-2 border-ink border-t-transparent rounded-full animate-spin" />
             ) : (
               <>
-                <Upload size={32} className="text-ink/40 mb-2" />
+                <Upload size={32} className="text-ink/55 mb-2" />
                 <span className="text-sm font-medium text-ink/60">Click to upload images</span>
-                <span className="text-xs text-ink/40 mt-1">JPG, PNG, WEBP up to 5MB each</span>
+                <span className="text-xs text-ink/55 mt-1">JPG, PNG, WEBP up to 5MB each</span>
               </>
             )}
           </label>

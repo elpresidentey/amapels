@@ -71,7 +71,7 @@ export default function ContactPage() {
           className="max-w-6xl mx-auto"
         >
           <div className="text-center mb-16">
-            <p className="text-xs font-semibold uppercase tracking-widest text-ink/50 mb-4">Connect With Us</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-ink/65 mb-4">Connect With Us</p>
             <h1 className="font-serif text-4xl font-light text-ink mb-6">Get In Touch</h1>
             <p className="text-lg text-ink/70 max-w-2xl mx-auto">
               Share your jewelry dreams with us - we're here to bring them to life with care and artistry.
