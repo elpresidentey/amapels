@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import Image from 'next/image'
 import { ShoppingBag, Menu, Search, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Cabin } from 'next/font/google'
@@ -85,9 +86,15 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           {/* Brand */}
           <Link href="/" className="group flex-shrink-0" aria-label="AMAPELS home">
-            <span className="font-serif text-xl font-light tracking-[0.28em] text-ink uppercase transition-opacity duration-300 group-hover:opacity-85 md:text-2xl">
-              AMAPELS
-            </span>
+            <div className="relative h-8 w-32 md:h-10 md:w-40">
+              <Image
+                src="/images/logo.png"
+                alt="AMAPELS"
+                fill
+                className="object-contain transition-opacity duration-300 group-hover:opacity-85"
+                priority
+              />
+            </div>
           </Link>
 
           {/* Desktop Navigation */}

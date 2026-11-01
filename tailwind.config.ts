@@ -10,10 +10,37 @@ const config: Config = {
     extend: {
       colors: {
         // Theme-aware semantic tokens (light/dark switch via --color-* vars)
-        base: "rgb(var(--color-base) / <alpha-value>)",
+        // Named "paper" (not "base") so it never collides with Tailwind's
+        // font-size utility `text-base`, which would otherwise paint text
+        // in the page colour.
+        paper: "rgb(var(--color-base) / <alpha-value>)",
         ink: "rgb(var(--color-ink) / <alpha-value>)",
         "on-ink": "rgb(var(--color-on-ink) / <alpha-value>)",
         chrome: "rgb(var(--color-chrome) / <alpha-value>)",
+        "surface-2": "rgb(var(--color-surface-2) / <alpha-value>)",
+        // Antique gold tuned per theme for WCAG-safe text on base/chrome
+        "gold-ink": "rgb(var(--color-gold-ink) / <alpha-value>)",
+        // Status colours tuned per theme (AA on base/chrome)
+        success: {
+          DEFAULT: "rgb(var(--color-success) / <alpha-value>)",
+          soft: "rgb(var(--color-success-soft) / <alpha-value>)",
+          line: "rgb(var(--color-success-line) / <alpha-value>)",
+        },
+        danger: {
+          DEFAULT: "rgb(var(--color-danger) / <alpha-value>)",
+          soft: "rgb(var(--color-danger-soft) / <alpha-value>)",
+          line: "rgb(var(--color-danger-line) / <alpha-value>)",
+        },
+        warning: {
+          DEFAULT: "rgb(var(--color-warning) / <alpha-value>)",
+          soft: "rgb(var(--color-warning-soft) / <alpha-value>)",
+          line: "rgb(var(--color-warning-line) / <alpha-value>)",
+        },
+        info: {
+          DEFAULT: "rgb(var(--color-info) / <alpha-value>)",
+          soft: "rgb(var(--color-info-soft) / <alpha-value>)",
+          line: "rgb(var(--color-info-line) / <alpha-value>)",
+        },
         // Primary: warm off-white editorial base
         primary: {
           DEFAULT: '#FFFEFB',

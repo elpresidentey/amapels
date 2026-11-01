@@ -40,7 +40,7 @@ const ease = [0.22, 1, 0.36, 1] as const
 
 export default function CollectionsPage() {
   return (
-    <div className="min-h-screen bg-primary pt-24">
+    <div className="min-h-screen bg-paper pt-24">
       <section className="px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-24 lg:px-24 lg:py-28">
         <div className="mx-auto max-w-7xl">
           <motion.div
@@ -51,7 +51,7 @@ export default function CollectionsPage() {
           >
             <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
               <div>
-                <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/55">
+                <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/60">
                   Curated for You
                 </p>
                 <h1 className="font-serif text-3xl font-light tracking-tight text-ink sm:text-4xl md:text-5xl">
@@ -86,16 +86,16 @@ export default function CollectionsPage() {
                     <div className="absolute inset-0 flex items-end p-6 sm:items-center sm:p-10 md:p-12 lg:p-14">
                       <div className="max-w-lg text-white">
                         <div className="mb-3 h-px w-8 bg-gold/70 transition-all duration-500 group-hover:w-14" />
-                        <p className="text-[10px] font-medium uppercase tracking-[0.32em] text-white/45">
+                        <p className="text-[10px] font-medium uppercase tracking-[0.32em] text-white/70">
                           {String(index + 1).padStart(2, '0')}
                         </p>
                         <h2 className="mt-2 font-serif text-2xl font-light sm:text-3xl md:text-4xl">
                           {collection.name}
                         </h2>
-                        <p className="mt-3 max-w-md text-sm leading-relaxed text-white/60 sm:text-base">
+                        <p className="mt-3 max-w-md text-sm leading-relaxed text-white/80 sm:text-base">
                           {collection.description}
                         </p>
-                        <span className="mt-5 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-gold/90">
+                        <span className="mt-5 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-gold-light">
                           Shop Collection
                           <ArrowRight size={13} className="transition-transform group-hover:translate-x-1" />
                         </span>

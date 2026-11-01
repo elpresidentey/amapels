@@ -148,7 +148,7 @@ export default function AdminLoginPage() {
 
         {/* Footer */}
         <div className="text-center mt-6">
-          <p className="text-black/50 text-sm">
+          <p className="text-black/60 text-sm">
             © 2026 AMAPELS. All rights reserved.
           </p>
         </div>

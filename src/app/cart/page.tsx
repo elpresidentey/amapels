@@ -16,7 +16,7 @@ export default function CartPage() {
 
   if (!isLoaded) {
     return (
-      <div className="min-h-screen bg-primary pt-16 sm:pt-20 md:pt-24 pb-8 sm:pb-12">
+      <div className="min-h-screen bg-paper pt-16 sm:pt-20 md:pt-24 pb-8 sm:pb-12">
         <div className="section-shell">
           <div className="text-center py-20">
             <div className="w-8 h-8 border-2 border-ink border-t-transparent rounded-full animate-spin mx-auto mb-4" />
@@ -29,7 +29,7 @@ export default function CartPage() {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-primary pt-16 sm:pt-20 md:pt-24 pb-8 sm:pb-12">
+      <div className="min-h-screen bg-paper pt-16 sm:pt-20 md:pt-24 pb-8 sm:pb-12">
         <div className="section-shell">
           <div className="text-center py-16 sm:py-20 md:py-24">
             <div className="mb-6 md:mb-8">
@@ -53,7 +53,7 @@ export default function CartPage() {
   }
 
   return (
-    <div className="min-h-screen bg-primary pt-16 sm:pt-20 md:pt-24 pb-8 sm:pb-12 md:pb-16">
+    <div className="min-h-screen bg-paper pt-16 sm:pt-20 md:pt-24 pb-8 sm:pb-12 md:pb-16">
       <div className="section-shell">
         <div className="mb-6 md:mb-8">
           <Link
@@ -82,7 +82,7 @@ export default function CartPage() {
                   transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
                   className="flex gap-4 py-6 first:pt-0 last:pb-0 sm:gap-5 md:gap-6"
                 >
-                  <Link href={`/shop/${item.id}`} className="relative w-20 h-24 rounded-sm overflow-hidden bg-primary-light flex-shrink-0 sm:w-24 sm:h-28 md:w-28 md:h-32">
+                  <Link href={`/shop/${item.id}`} className="relative w-20 h-24 rounded-sm overflow-hidden bg-surface-2 flex-shrink-0 sm:w-24 sm:h-28 md:w-28 md:h-32">
                     <Image
                       src={item.image}
                       alt={item.name}
@@ -95,18 +95,18 @@ export default function CartPage() {
                   <div className="flex-1 min-w-0 flex flex-col justify-between">
                     <div>
                       <div className="flex justify-between items-start gap-3 mb-1.5">
-                        <Link href={`/shop/${item.id}`} className="font-serif text-sm sm:text-base md:text-lg font-light text-ink leading-snug hover:text-gold-dark transition-colors line-clamp-2">
+                        <Link href={`/shop/${item.id}`} className="font-serif text-sm sm:text-base md:text-lg font-light text-ink leading-snug hover:text-gold-ink transition-colors line-clamp-2">
                           {item.name}
                         </Link>
                         <button
                           onClick={() => removeItem(item.id)}
-                          className="p-1 text-ink/45 hover:text-ink transition-colors flex-shrink-0"
+                          className="p-1 text-ink/60 hover:text-ink transition-colors flex-shrink-0"
                           aria-label="Remove item"
                         >
                           <X size={14} strokeWidth={1.5} />
                         </button>
                       </div>
-                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/50 sm:text-[11px]">{item.category}</p>
+                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/60 sm:text-[11px]">{item.category}</p>
                       {(item.size || item.color) && (
                         <div className="flex items-center gap-3 mt-2 text-xs text-ink/60">
                           {item.size && <span>Size: {item.size}</span>}
@@ -148,7 +148,7 @@ export default function CartPage() {
             transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="lg:col-span-1"
           >
-            <div className="bg-base border border-gold/20 p-6 sm:p-8 lg:sticky lg:top-32">
+            <div className="bg-chrome border border-gold/20 p-6 sm:p-8 lg:sticky lg:top-32">
               <h2 className="font-serif text-lg sm:text-xl font-light text-ink mb-6">Order Summary</h2>
 
               <div className="space-y-3 mb-6">
@@ -181,11 +181,11 @@ export default function CartPage() {
               </Link>
 
               <div className="mt-6 space-y-2.5">
-                <div className="flex items-center gap-2.5 text-[10px] text-ink/55 sm:text-[11px]">
+                <div className="flex items-center gap-2.5 text-[10px] text-ink/60 sm:text-[11px]">
                   <Shield size={12} strokeWidth={1.5} className="flex-shrink-0" />
                   <span>Secure SSL encrypted checkout</span>
                 </div>
-                <div className="flex items-center gap-2.5 text-[10px] text-ink/55 sm:text-[11px]">
+                <div className="flex items-center gap-2.5 text-[10px] text-ink/60 sm:text-[11px]">
                   <Truck size={12} strokeWidth={1.5} className="flex-shrink-0" />
                   <span>Flat-rate ₦2,500 delivery on every order</span>
                 </div>

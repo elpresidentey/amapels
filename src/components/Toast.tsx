@@ -49,15 +49,15 @@ export default function Toast({
   const getBackgroundColor = () => {
     switch (type) {
       case 'success':
-        return 'bg-accent-emerald'
+        return 'bg-emerald-700'
       case 'error':
-        return 'bg-red-500'
+        return 'bg-red-600'
       case 'warning':
-        return 'bg-amber-500'
+        return 'bg-amber-700'
       case 'info':
-        return 'bg-blue-500'
+        return 'bg-blue-700'
       default:
-        return 'bg-accent-emerald'
+        return 'bg-emerald-700'
     }
   }
 
@@ -82,7 +82,7 @@ export default function Toast({
             
             <button
               onClick={onClose}
-              className="flex-shrink-0 text-white/80 hover:text-white transition-colors"
+              className="flex-shrink-0 text-white/90 hover:text-white transition-colors"
               aria-label="Close notification"
             >
               <X size={18} />

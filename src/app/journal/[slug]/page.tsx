@@ -44,8 +44,8 @@ export default function JournalPostPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-primary pt-24">
-        <Loader2 size={24} className="animate-spin text-gold-dark" />
+      <div className="flex min-h-screen items-center justify-center bg-paper pt-24">
+        <Loader2 size={24} className="animate-spin text-gold-ink" />
       </div>
     )
   }
@@ -61,7 +61,7 @@ export default function JournalPostPage() {
     : ''
 
   return (
-    <div className="min-h-screen bg-primary pt-24">
+    <div className="min-h-screen bg-paper pt-24">
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-20 md:py-24 lg:px-0">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -70,7 +70,7 @@ export default function JournalPostPage() {
         >
           <Link
             href="/journal"
-            className="mb-8 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-ink/55 transition-colors hover:text-gold-dark"
+            className="mb-8 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-ink/60 transition-colors hover:text-gold-ink"
           >
             <ArrowLeft size={12} />
             Back to Journal
@@ -83,12 +83,12 @@ export default function JournalPostPage() {
           )}
 
           <div className="mb-4 flex items-center gap-4">
-            <span className="text-[9px] font-medium uppercase tracking-[0.28em] text-gold/85">
+            <span className="text-[9px] font-medium uppercase tracking-[0.28em] text-gold-ink">
               {post.category}
             </span>
             <span className="h-px flex-1 bg-gold/20" />
             {date && (
-              <span className="text-[9px] font-medium uppercase tracking-[0.22em] text-ink/45">
+              <span className="text-[9px] font-medium uppercase tracking-[0.22em] text-ink/60">
                 {date}
               </span>
             )}
@@ -98,7 +98,7 @@ export default function JournalPostPage() {
             {post.title}
           </h1>
 
-          <p className="mt-3 text-sm text-ink/55">
+          <p className="mt-3 text-sm text-ink/60">
             By {post.author}
           </p>
 

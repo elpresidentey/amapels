@@ -120,7 +120,7 @@ function OrderConfirmationContent() {
 
   if (loading || !mounted) {
     return (
-      <div className="min-h-screen bg-primary pt-24 pb-16 flex items-center justify-center">
+      <div className="min-h-screen bg-paper pt-24 pb-16 flex items-center justify-center">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-ink border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-ink/65 text-sm">Loading your order details...</p>
@@ -130,7 +130,7 @@ function OrderConfirmationContent() {
   }
 
   return (
-    <div className="min-h-screen bg-primary pt-24 pb-16">
+    <div className="min-h-screen bg-paper pt-24 pb-16">
       <div className="section-shell">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -144,7 +144,7 @@ function OrderConfirmationContent() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="w-20 h-20 bg-gold rounded-full flex items-center justify-center mx-auto mb-8"
           >
-            <Check size={36} className="text-white" strokeWidth={2} />
+            <Check size={36} className="text-black-dark" strokeWidth={2} />
           </motion.div>
 
           <motion.div
@@ -165,48 +165,48 @@ function OrderConfirmationContent() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="bg-base border border-gold/20 p-8 md:p-12 mb-12 text-left"
+            className="bg-chrome border border-gold/20 p-8 md:p-12 mb-12 text-left"
           >
             <div className="grid gap-8 md:grid-cols-2">
               <div>
                 <h2 className="font-serif text-xl text-ink mb-6">Order Details</h2>
                 <div className="space-y-5">
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 bg-primary-light rounded-full flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 bg-surface-2 rounded-full flex items-center justify-center flex-shrink-0">
                       <Package size={18} className="text-ink/65" strokeWidth={1.5} />
                     </div>
                     <div>
-                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/55 mb-1">Order Number</p>
+                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/60 mb-1">Order Number</p>
                       <p className="font-mono font-medium text-ink text-sm">{orderNumber}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 bg-primary-light rounded-full flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 bg-surface-2 rounded-full flex items-center justify-center flex-shrink-0">
                       <Truck size={18} className="text-ink/65" strokeWidth={1.5} />
                     </div>
                     <div>
-                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/55 mb-1">Tracking Number</p>
-                      <p className="font-mono font-medium text-gold-dark text-sm">{trackingNumber}</p>
+                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/60 mb-1">Tracking Number</p>
+                      <p className="font-mono font-medium text-gold-ink text-sm">{trackingNumber}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 bg-primary-light rounded-full flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 bg-surface-2 rounded-full flex items-center justify-center flex-shrink-0">
                       <Calendar size={18} className="text-ink/65" strokeWidth={1.5} />
                     </div>
                     <div>
-                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/55 mb-1">Order Date</p>
+                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/60 mb-1">Order Date</p>
                       <p className="font-medium text-ink text-sm">{orderDate}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 bg-primary-light rounded-full flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 bg-surface-2 rounded-full flex items-center justify-center flex-shrink-0">
                       <Mail size={18} className="text-ink/65" strokeWidth={1.5} />
                     </div>
                     <div>
-                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/55 mb-1">Confirmation Email</p>
+                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/60 mb-1">Confirmation Email</p>
                       <p className="font-medium text-ink text-sm">{customerEmail || 'Sent to your email'}</p>
                     </div>
                   </div>
@@ -216,22 +216,22 @@ function OrderConfirmationContent() {
               <div>
                 <h3 className="font-serif text-xl text-ink mb-6">Payment Information</h3>
                 <div className="space-y-4 mb-6">
-                  <div className="bg-primary-light/60 border border-gold/20 p-4">
+                  <div className="bg-surface-2/60 border border-gold/20 p-4">
                     <div className="flex items-center gap-2 mb-1">
-                      <Check size={14} className="text-gold-dark" />
+                      <Check size={14} className="text-gold-ink" />
                       <span className="text-sm font-medium text-ink">Payment Successful</span>
                     </div>
                     <p className="text-xs text-ink/65">Your payment has been processed successfully</p>
                   </div>
 
                   <div>
-                    <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/55 mb-1">Payment Reference</p>
+                    <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/60 mb-1">Payment Reference</p>
                     <p className="font-mono font-medium text-ink text-sm">{paymentReference || 'Confirmed'}</p>
                   </div>
 
                   {totalAmount && (
                     <div>
-                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/55 mb-1">Total Amount</p>
+                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-ink/60 mb-1">Total Amount</p>
                       <p className="font-medium text-xl text-ink">{totalAmount}</p>
                     </div>
                   )}
@@ -257,7 +257,7 @@ function OrderConfirmationContent() {
 
                   <Link
                     href={`/track-order?orderNumber=${orderNumber}`}
-                    className="w-full border border-ink/15 text-ink py-3.5 px-6 text-[10px] font-medium uppercase tracking-[0.22em] hover:border-gold hover:text-gold-dark transition-all flex items-center justify-center gap-2.5 sm:text-[11px]"
+                    className="w-full border border-ink/15 text-ink py-3.5 px-6 text-[10px] font-medium uppercase tracking-[0.22em] hover:border-gold hover:text-gold-ink transition-all flex items-center justify-center gap-2.5 sm:text-[11px]"
                   >
                     Track Order
                     <ArrowRight size={13} />
@@ -289,16 +289,16 @@ function OrderConfirmationContent() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.8 + (index * 0.1) }}
-                  className="border border-gold/20 bg-base p-6 relative"
+                  className="border border-gold/20 bg-chrome p-6 relative"
                 >
                   {step.status === 'completed' && (
                     <div className="absolute top-4 right-4 w-6 h-6 bg-gold rounded-full flex items-center justify-center">
-                      <Check size={12} className="text-white" strokeWidth={2} />
+                      <Check size={12} className="text-black-dark" strokeWidth={2} />
                     </div>
                   )}
 
                   <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-4 ${
-                    step.status === 'completed' ? 'bg-gold text-white' : 'bg-primary-light text-ink/65'
+                    step.status === 'completed' ? 'bg-gold text-black-dark' : 'bg-surface-2 text-ink/65'
                   }`}>
                     {step.icon}
                   </div>
@@ -307,7 +307,7 @@ function OrderConfirmationContent() {
                   <p className="text-ink/65 text-sm leading-relaxed mb-3">{step.description}</p>
 
                   {step.timeframe && (
-                    <div className="inline-flex items-center gap-2 bg-primary-light px-3 py-1.5">
+                    <div className="inline-flex items-center gap-2 bg-surface-2 px-3 py-1.5">
                       <div className="w-1.5 h-1.5 bg-gold rounded-full" />
                       <span className="text-[10px] font-medium text-ink/60 uppercase tracking-wider">{step.timeframe}</span>
                     </div>
@@ -321,7 +321,7 @@ function OrderConfirmationContent() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.2 }}
-            className="mt-16 bg-primary-light/50 border border-gold/15 p-8 text-center"
+            className="mt-16 bg-surface-2/50 border border-gold/15 p-8 text-center"
           >
             <h3 className="font-serif text-xl text-ink mb-3">We Are Here to Help</h3>
             <p className="text-ink/65 text-sm mb-6 max-w-lg mx-auto">
@@ -331,7 +331,7 @@ function OrderConfirmationContent() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/contact"
-                className="btn-premium inline-flex items-center gap-2.5 bg-ink text-on-ink px-6 py-3.5 text-[10px] font-medium uppercase tracking-[0.22em] hover:bg-gold hover:text-ink transition-all sm:text-[11px]"
+                className="btn-premium inline-flex items-center gap-2.5 bg-ink text-on-ink px-6 py-3.5 text-[10px] font-medium uppercase tracking-[0.22em] hover:bg-gold hover:text-black-dark transition-all sm:text-[11px]"
               >
                 <Mail size={13} />
                 Contact Support
@@ -339,7 +339,7 @@ function OrderConfirmationContent() {
 
               <a
                 href="tel:+2348161238148"
-                className="btn-premium inline-flex items-center gap-2.5 border border-ink/15 text-ink px-6 py-3.5 text-[10px] font-medium uppercase tracking-[0.22em] hover:border-gold hover:text-gold-dark transition-all sm:text-[11px]"
+                className="btn-premium inline-flex items-center gap-2.5 border border-ink/15 text-ink px-6 py-3.5 text-[10px] font-medium uppercase tracking-[0.22em] hover:border-gold hover:text-gold-ink transition-all sm:text-[11px]"
               >
                 <Phone size={13} />
                 Call Us: 0816 123 8148
@@ -355,7 +355,7 @@ function OrderConfirmationContent() {
 export default function OrderConfirmationPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-primary pt-24 pb-16 flex items-center justify-center">
+      <div className="min-h-screen bg-paper pt-24 pb-16 flex items-center justify-center">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-ink border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-ink/65 text-sm">Loading...</p>

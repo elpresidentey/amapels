@@ -122,7 +122,7 @@ export default function ImageUpload({ images, onChange, maxImages = 5 }: ImageUp
             <button
               type="button"
               onClick={() => handleRemoveImage(index)}
-              className="absolute top-1 right-1 p-1.5 bg-red-600 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"
+              className="absolute top-1 right-1 p-1.5 bg-red-700 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"
               aria-label={`Remove image ${index + 1}`}
             >
               <X size={14} />
@@ -144,9 +144,9 @@ export default function ImageUpload({ images, onChange, maxImages = 5 }: ImageUp
               <div className="w-8 h-8 border-2 border-ink border-t-transparent rounded-full animate-spin" />
             ) : (
               <>
-                <Upload size={32} className="text-ink/55 mb-2" />
+                <Upload size={32} className="text-ink/60 mb-2" />
                 <span className="text-sm font-medium text-ink/60">Click to upload images</span>
-                <span className="text-xs text-ink/55 mt-1">JPG, PNG, WEBP up to 5MB each</span>
+                <span className="text-xs text-ink/60 mt-1">JPG, PNG, WEBP up to 5MB each</span>
               </>
             )}
           </label>
@@ -154,7 +154,7 @@ export default function ImageUpload({ images, onChange, maxImages = 5 }: ImageUp
       </div>
 
       {uploadError && (
-        <div className="text-sm text-red-600 bg-red-50 px-3 py-2 rounded-lg">
+        <div className="text-sm text-danger bg-danger-soft px-3 py-2 rounded-lg">
           {uploadError}
         </div>
       )}
@@ -168,7 +168,7 @@ export default function ImageUpload({ images, onChange, maxImages = 5 }: ImageUp
       <button
         type="button"
         onClick={handleImageUrlAdd}
-        className="text-sm text-ink hover:text-gold font-medium flex items-center gap-2"
+        className="text-sm text-ink hover:text-gold-ink font-medium flex items-center gap-2"
       >
         <ImageIcon size={16} />
         Or add image URL manually

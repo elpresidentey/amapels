@@ -256,7 +256,7 @@ export default function AdminOrdersPage() {
                   <div key={order._id} className="border border-gold/20 rounded-xl p-4">
                     <div className="flex justify-between items-start mb-3">
                       <div>
-                        <p className="text-xs text-black/50 font-mono mb-1">#{order.orderNumber || order._id.slice(-8)}</p>
+                        <p className="text-xs text-black/60 font-mono mb-1">#{order.orderNumber || order._id.slice(-8)}</p>
                         <h3 className="font-medium text-black-dark text-sm mb-1">
                           {order.customerName}
                         </h3>
@@ -384,7 +384,7 @@ export default function AdminOrdersPage() {
                   <h2 className="font-serif text-xl sm:text-2xl text-black-dark">
                     Order Details
                   </h2>
-                  <p className="text-xs font-mono text-black/50 mt-1">
+                  <p className="text-xs font-mono text-black/60 mt-1">
                     #{selectedOrder.orderNumber || selectedOrder._id.slice(-8)}
                   </p>
                 </div>
@@ -526,7 +526,7 @@ export default function AdminOrdersPage() {
                           onClick={() => copyToClipboard(selectedOrder.trackingNumber || '')}
                           className="p-1 hover:bg-gray-200 rounded transition-colors ml-auto"
                         >
-                          <Copy size={12} className="text-black/50" />
+                          <Copy size={12} className="text-black/60" />
                         </button>
                       </div>
                     )}

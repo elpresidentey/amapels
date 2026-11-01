@@ -81,7 +81,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3, ease }}
-          className="fixed inset-0 z-[80] bg-base/80 backdrop-blur-md"
+          className="fixed inset-0 z-[80] bg-paper/80 backdrop-blur-md"
           onClick={onClose}
         >
           <motion.div
@@ -95,7 +95,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
             <div className="border border-ink/10 bg-chrome/98 shadow-2xl">
               {/* Input row */}
               <div className="flex items-center gap-4 border-b border-ink/10 px-5 py-4 sm:px-6">
-                <Search size={18} strokeWidth={1.5} className="shrink-0 text-gold/85" />
+                <Search size={18} strokeWidth={1.5} className="shrink-0 text-gold-ink" />
                 <input
                   ref={inputRef}
                   type="text"
@@ -103,7 +103,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search pieces, materials, categories..."
                   aria-label="Search products"
-                  className="w-full bg-transparent text-base text-ink placeholder:text-ink/50 focus:outline-none"
+                  className="w-full bg-transparent text-base text-ink placeholder:text-ink/60 focus:outline-none"
                 />
                 <button
                   type="button"
@@ -118,19 +118,19 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
               {/* Results */}
               <div className="max-h-[50vh] overflow-y-auto">
                 {loading && (
-                  <p className="px-6 py-8 text-center text-sm text-ink/55">Loading the collection...</p>
+                  <p className="px-6 py-8 text-center text-sm text-ink/60">Loading the collection...</p>
                 )}
                 {!loading && error && (
-                  <p className="px-6 py-8 text-center text-sm text-ink/55">{error}</p>
+                  <p className="px-6 py-8 text-center text-sm text-ink/60">{error}</p>
                 )}
                 {!loading && !error && query.trim() && results.length === 0 && (
-                  <p className="px-6 py-8 text-center text-sm text-ink/55">
+                  <p className="px-6 py-8 text-center text-sm text-ink/60">
                     No pieces match &ldquo;{query.trim()}&rdquo;
                   </p>
                 )}
                 {!loading && !error && (!query.trim() || results.length === 0) && !query.trim() && (
                   <div className="px-6 py-4">
-                    <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/50">
+                    <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/60">
                       Browse Categories
                     </p>
                     <div className="flex flex-wrap gap-2">
@@ -139,7 +139,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                           key={cat}
                           type="button"
                           onClick={() => setQuery(cat)}
-                          className="border border-ink/15 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.2em] text-ink/70 transition-colors hover:border-gold/50 hover:text-gold"
+                          className="border border-ink/15 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.2em] text-ink/70 transition-colors hover:border-gold/50 hover:text-gold-ink"
                         >
                           {cat}
                         </button>
@@ -169,17 +169,17 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                             <p className="truncate font-serif text-base font-light text-ink">
                               {p.name}
                             </p>
-                            <p className="mt-0.5 text-[10px] font-medium uppercase tracking-[0.22em] text-ink/50">
+                            <p className="mt-0.5 text-[10px] font-medium uppercase tracking-[0.22em] text-ink/60">
                               {p.category}
                             </p>
                           </div>
-                          <span className="shrink-0 text-sm font-medium tracking-wide text-gold">
+                          <span className="shrink-0 text-sm font-medium tracking-wide text-gold-ink">
                             {p.price}
                           </span>
                           <ArrowRight
                             size={14}
                             strokeWidth={1.5}
-                            className="shrink-0 text-ink/45 transition-all duration-300 group-hover:translate-x-1 group-hover:text-gold"
+                            className="shrink-0 text-ink/60 transition-all duration-300 group-hover:translate-x-1 group-hover:text-gold-ink"
                           />
                         </button>
                       </li>

@@ -69,12 +69,12 @@ export default function NewCart() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 30, stiffness: 280 }}
-            className="fixed right-0 top-0 z-50 flex h-full w-full flex-col overflow-hidden bg-primary shadow-editorial-lg sm:max-w-md lg:max-w-lg"
+            className="fixed right-0 top-0 z-50 flex h-full w-full flex-col overflow-hidden bg-chrome shadow-editorial-lg sm:max-w-md lg:max-w-lg"
           >
             {/* Header */}
             <div className="flex items-center justify-between border-b border-ink/[0.06] px-5 py-5 sm:px-7 sm:py-6">
               <div>
-                <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-ink/55">
+                <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-ink/60">
                   Your Bag
                 </p>
                 <h2 className="mt-1 font-serif text-xl font-light text-ink sm:text-2xl">
@@ -95,7 +95,7 @@ export default function NewCart() {
               {items.length === 0 ? (
                 <div className="flex h-full flex-col items-center justify-center px-6 py-12 text-center">
                   <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-full border border-ink/8">
-                    <ShoppingBag size={24} strokeWidth={1.25} className="text-ink/45" />
+                    <ShoppingBag size={24} strokeWidth={1.25} className="text-ink/60" />
                   </div>
                   <h3 className="font-serif text-xl font-light text-ink">Your bag is empty</h3>
                   <p className="mt-2 max-w-xs text-sm text-ink/65">
@@ -116,7 +116,7 @@ export default function NewCart() {
                       key={item.id}
                       className="flex gap-4 border-b border-ink/[0.05] py-4 last:border-0"
                     >
-                      <div className="relative h-20 w-16 shrink-0 overflow-hidden bg-primary-light sm:h-24 sm:w-20">
+                      <div className="relative h-20 w-16 shrink-0 overflow-hidden bg-surface-2 sm:h-24 sm:w-20">
                         <Image
                           src={item.image}
                           alt={item.name}
@@ -129,7 +129,7 @@ export default function NewCart() {
                       <div className="min-w-0 flex-1">
                         <div className="flex items-start justify-between gap-2">
                           <div className="min-w-0">
-                            <p className="text-[9px] font-medium uppercase tracking-[0.2em] text-ink/55">
+                            <p className="text-[9px] font-medium uppercase tracking-[0.2em] text-ink/60">
                               {item.category}
                             </p>
                             <h4 className="mt-1 line-clamp-2 font-serif text-base font-light text-ink">
@@ -138,7 +138,7 @@ export default function NewCart() {
                           </div>
                           <button
                             onClick={() => removeItem(item.id)}
-                            className="shrink-0 p-1.5 text-ink/45 transition-colors hover:text-ink"
+                            className="shrink-0 p-1.5 text-ink/60 transition-colors hover:text-ink"
                             aria-label={`Remove ${item.name}`}
                           >
                             <Trash2 size={14} strokeWidth={1.5} />
@@ -146,7 +146,7 @@ export default function NewCart() {
                         </div>
 
                         <div className="mt-3 flex items-center justify-between">
-                          <span className="text-sm font-medium text-gold-dark">{item.price}</span>
+                          <span className="text-sm font-medium text-gold-ink">{item.price}</span>
                           <div className="flex items-center gap-2">
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity - 1)}
@@ -176,7 +176,7 @@ export default function NewCart() {
 
             {/* Footer */}
             {items.length > 0 && (
-              <div className="border-t border-ink/[0.06] bg-primary-light/40 px-5 py-5 sm:px-7 sm:py-6">
+              <div className="border-t border-ink/[0.06] bg-surface-2/40 px-5 py-5 sm:px-7 sm:py-6">
                 <div className="mb-5 space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-ink/65">Subtotal</span>

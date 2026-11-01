@@ -65,7 +65,7 @@ export default function SizeGuidePage() {
   ]
 
   return (
-    <div className="min-h-screen bg-base">
+    <div className="min-h-screen bg-paper">
       {/* Hero Section */}
       <section className="section-shell pt-12 pb-16 lg:pt-20 lg:pb-24">
         <div className="text-center max-w-4xl mx-auto">
@@ -82,14 +82,14 @@ export default function SizeGuidePage() {
 
       {/* Quick Tips */}
       <section className="section-shell pb-16">
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+        <div className="bg-info-soft border border-info-line rounded-lg p-6">
           <div className="flex items-start gap-3">
-            <Info size={20} className="text-blue-600 mt-1 flex-shrink-0" />
+            <Info size={20} className="text-info mt-1 flex-shrink-0" />
             <div>
-              <h3 className="font-semibold text-blue-800 mb-2">
+              <h3 className="font-semibold text-info mb-2">
                 Sizing Tips for Best Results
               </h3>
-              <ul className="text-sm text-blue-700 space-y-1">
+              <ul className="text-sm text-info space-y-1">
                 <li>• Measure at the end of the day when fingers are largest</li>
                 <li>• Account for knuckle size when measuring ring fingers</li>
                 <li>• Consider the width of the band - wider bands fit tighter</li>
@@ -142,7 +142,7 @@ export default function SizeGuidePage() {
 
         {/* Ring Size Chart */}
         <div className="overflow-x-auto">
-          <table className="w-full bg-base border border-gray-200 rounded-lg">
+          <table className="w-full bg-chrome border border-ink/15 rounded-lg">
             <thead className="bg-ink text-on-ink">
               <tr>
                 <th className="px-4 py-3 text-left text-sm font-semibold">US Size</th>
@@ -153,7 +153,7 @@ export default function SizeGuidePage() {
             </thead>
             <tbody>
               {ringSizes.map((size, index) => (
-                <tr key={index} className={index % 2 === 0 ? 'bg-ink/5' : 'bg-base'}>
+                <tr key={index} className={index % 2 === 0 ? 'bg-ink/5' : 'bg-chrome'}>
                   <td className="px-4 py-3 text-sm font-medium text-ink">{size.us}</td>
                   <td className="px-4 py-3 text-sm text-ink/70">{size.uk}</td>
                   <td className="px-4 py-3 text-sm text-ink/70">{size.circumference}</td>
@@ -188,7 +188,7 @@ export default function SizeGuidePage() {
               <p className="text-ink/70 text-sm leading-relaxed mb-4">
                 {necklace.description}
               </p>
-              <div className="border-t border-ivory/10 pt-3">
+              <div className="border-t border-ink/10 pt-3">
                 <p className="text-ink/60 text-xs font-medium mb-1">BEST FOR:</p>
                 <p className="text-ink/80 text-xs">{necklace.bestFor}</p>
               </div>
@@ -227,7 +227,7 @@ export default function SizeGuidePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {braceletSizes.map((bracelet, index) => (
-              <div key={index} className="border border-gray-200 rounded-lg p-4 text-center">
+              <div key={index} className="border border-ink/15 rounded-lg p-4 text-center">
                 <div className="w-12 h-12 bg-ink text-on-ink rounded-full flex items-center justify-center font-semibold mb-3 mx-auto">
                   {bracelet.size}
                 </div>
@@ -252,7 +252,7 @@ export default function SizeGuidePage() {
         </div>
 
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="bg-base rounded-lg p-6">
+          <div className="bg-chrome rounded-lg p-6">
             <h3 className="font-semibold text-ink mb-4">
               Stud Earrings
             </h3>
@@ -263,7 +263,7 @@ export default function SizeGuidePage() {
             </ul>
           </div>
 
-          <div className="bg-base rounded-lg p-6">
+          <div className="bg-chrome rounded-lg p-6">
             <h3 className="font-semibold text-ink mb-4">
               Drop & Hoop Earrings
             </h3>
@@ -300,7 +300,7 @@ export default function SizeGuidePage() {
               </a>
               <a 
                 href="#"
-                className="inline-flex items-center px-8 py-3 border border-ivory/30 text-ink text-sm font-medium rounded-md hover:bg-ink/10 transition-colors btn-mobile"
+                className="inline-flex items-center px-8 py-3 border border-ink/25 text-ink text-sm font-medium rounded-md hover:bg-ink/10 transition-colors btn-mobile"
               >
                 <Download size={16} className="mr-2" />
                 Download Size Chart

@@ -25,7 +25,7 @@ function ShopContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-primary pt-16 sm:pt-20 md:pt-24">
+      <div className="min-h-screen bg-paper pt-16 sm:pt-20 md:pt-24">
         <section className="px-4 py-16 sm:px-6 sm:py-20 md:px-8 md:py-24 lg:px-12 xl:px-24">
           <div className="mx-auto max-w-7xl">
             <div className="mb-14 animate-pulse border-b border-ink/[0.06] pb-10 sm:mb-16">
@@ -58,7 +58,7 @@ function ShopContent() {
           <button
             type="button"
             onClick={refetch}
-            className="mt-7 border border-ink/10 bg-base px-6 py-2.5 text-[10px] font-medium uppercase tracking-[0.2em] text-ink transition-all duration-300 hover:border-gold/50 hover:bg-gold/10 active:scale-95"
+            className="mt-7 border border-ink/10 bg-chrome px-6 py-2.5 text-[10px] font-medium uppercase tracking-[0.2em] text-ink transition-all duration-300 hover:border-gold/50 hover:bg-gold/10 active:scale-95"
           >
             Try again
           </button>
@@ -68,7 +68,7 @@ function ShopContent() {
   }
 
   return (
-    <div className="min-h-screen bg-primary pt-16 sm:pt-20 md:pt-24">
+    <div className="min-h-screen bg-paper pt-16 sm:pt-20 md:pt-24">
       <section className="px-4 py-14 sm:px-6 sm:py-16 md:px-8 md:py-20 lg:px-12 lg:py-24 xl:px-24">
         <div className="mx-auto max-w-7xl">
           {/* Editorial header */}
@@ -80,7 +80,7 @@ function ShopContent() {
           >
             <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
               <div>
-                <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/55">
+                <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/60">
                   The Collection
                 </p>
                 <h1 className="font-serif text-3xl font-light tracking-tight text-ink sm:text-4xl md:text-5xl">
@@ -123,7 +123,7 @@ function ShopContent() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.15 }}
-              className="mb-8 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/50 sm:mb-10"
+              className="mb-8 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/60 sm:mb-10"
             >
               {products.length} {products.length === 1 ? 'piece' : 'pieces'}
               {selectedCategory !== 'All' ? ` · ${selectedCategory}` : ''}
@@ -154,7 +154,7 @@ export default function ShopPage() {
       fallback={
         <div className="flex min-h-screen items-center justify-center pt-32">
           <div className="text-center">
-            <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border border-gold/30 border-t-gold" />
+            <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border border-ink/25 border-t-gold-ink" />
             <p className="text-sm text-ink/65">Loading the collection…</p>
           </div>
         </div>

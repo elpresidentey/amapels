@@ -125,25 +125,25 @@ export default function CustomerAuth({ onAuthChange }: { onAuthChange?: () => vo
                 initial={{ opacity: 0, scale: 0.95, y: -10 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                className="absolute top-full right-0 mt-2 w-80 bg-base border border-gold/30 shadow-lg p-6 z-50"
+                className="absolute top-full right-0 mt-2 w-80 bg-chrome border border-gold/30 shadow-lg p-6 z-50"
               >
                 <h3 className="font-serif text-lg text-ink mb-4">Welcome Back</h3>
 
                 {/* Success State */}
                 {loginSuccess ? (
                   <div className="flex flex-col items-center gap-3 py-6">
-                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                      <CheckCircle size={24} className="text-green-600" />
+                    <div className="w-12 h-12 bg-success-soft rounded-full flex items-center justify-center">
+                      <CheckCircle size={24} className="text-success" />
                     </div>
-                    <p className="font-medium text-green-700 text-sm">Signed in successfully!</p>
+                    <p className="font-medium text-success text-sm">Signed in successfully!</p>
                     <p className="text-xs text-ink/65">Redirecting to your account...</p>
                   </div>
                 ) : (
                   <form onSubmit={handleLogin} className="space-y-4">
                     {loginError && (
-                      <div className="flex items-start gap-2 p-3 bg-red-50 border border-red-200 rounded-lg">
-                        <AlertCircle size={14} className="mt-0.5 flex-shrink-0 text-red-500" />
-                        <p className="text-xs text-red-700">{loginError}</p>
+                      <div className="flex items-start gap-2 p-3 bg-danger-soft border border-danger-line rounded-lg">
+                        <AlertCircle size={14} className="mt-0.5 flex-shrink-0 text-danger" />
+                        <p className="text-xs text-danger">{loginError}</p>
                       </div>
                     )}
 
@@ -157,7 +157,7 @@ export default function CustomerAuth({ onAuthChange }: { onAuthChange?: () => vo
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full px-3 py-2.5 border border-gold focus:ring-2 focus:ring-gold/20 focus:border-ink outline-none transition-colors"
+                        className="w-full px-3 py-2.5 border border-ink/45 focus:ring-2 focus:ring-gold-ink/30 focus:border-ink outline-none transition-colors"
                         placeholder="your@email.com"
                         aria-required="true"
                       />
@@ -165,19 +165,19 @@ export default function CustomerAuth({ onAuthChange }: { onAuthChange?: () => vo
 
                     <div>
                       <label htmlFor="auth-name" className="block text-sm font-medium text-ink mb-2">
-                        Your Name <span className="text-ink/55">(for a personal touch)</span>
+                        Your Name <span className="text-ink/60">(for a personal touch)</span>
                       </label>
                       <input
                         id="auth-name"
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full px-3 py-2.5 border border-gold focus:ring-2 focus:ring-gold/20 focus:border-ink outline-none transition-colors"
+                        className="w-full px-3 py-2.5 border border-ink/45 focus:ring-2 focus:ring-gold-ink/30 focus:border-ink outline-none transition-colors"
                         placeholder="Chioma"
                       />
                     </div>
 
-                    <div className="bg-primary-light/10 rounded-xl p-3 border border-gold/30">
+                    <div className="bg-surface-2/10 rounded-xl p-3 border border-gold/30">
                       <div className="flex items-start gap-2 text-xs text-ink/70">
                         <ShoppingBag size={14} className="mt-0.5 flex-shrink-0" />
                         <p>
@@ -190,7 +190,7 @@ export default function CustomerAuth({ onAuthChange }: { onAuthChange?: () => vo
                     <button
                       type="submit"
                       disabled={loading || !email.trim()}
-                      className="w-full bg-ink text-on-ink py-2.5 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                      className="w-full bg-ink text-on-ink py-2.5 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-black-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                     >
                       {loading ? (
                         <>
@@ -232,7 +232,7 @@ export default function CustomerAuth({ onAuthChange }: { onAuthChange?: () => vo
                 initial={{ opacity: 0, scale: 0.95, y: -10 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                className="absolute top-full right-0 mt-2 w-48 bg-base border border-gold/30 shadow-lg z-50"
+                className="absolute top-full right-0 mt-2 w-48 bg-chrome border border-gold/30 shadow-lg z-50"
               >
                 <div className="py-2">
                   <div className="px-4 py-2 text-xs text-ink/65 uppercase tracking-wider border-b border-ink/5">
@@ -241,17 +241,17 @@ export default function CustomerAuth({ onAuthChange }: { onAuthChange?: () => vo
                   <Link
                     href="/account"
                     onClick={() => setShowLogin(false)}
-                    className="flex items-center gap-3 px-4 py-2.5 text-sm text-ink hover:bg-primary-light/20 transition-colors"
+                    className="flex items-center gap-3 px-4 py-2.5 text-sm text-ink hover:bg-surface-2/20 transition-colors"
                   >
-                    <UserCircle size={16} className="text-ink/55" />
+                    <UserCircle size={16} className="text-ink/60" />
                     My Account
                   </Link>
                   <button
                     type="button"
                     onClick={handleLogout}
-                    className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-ink hover:bg-primary-light/20 transition-colors"
+                    className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-ink hover:bg-surface-2/20 transition-colors"
                   >
-                    <LogOut size={16} className="text-ink/55" />
+                    <LogOut size={16} className="text-ink/60" />
                     Sign Out
                   </button>
                 </div>

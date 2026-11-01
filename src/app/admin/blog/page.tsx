@@ -225,7 +225,7 @@ export default function AdminBlogPage() {
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="font-serif text-2xl font-light text-black-dark sm:text-3xl">Blog Posts</h1>
-            <p className="mt-1 text-sm text-black/50">Manage your journal &amp; news articles</p>
+            <p className="mt-1 text-sm text-black/60">Manage your journal &amp; news articles</p>
           </div>
           <button
             onClick={openCreate}
@@ -271,7 +271,7 @@ export default function AdminBlogPage() {
             <form onSubmit={handleSave} className="space-y-5">
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
-                  <label className="mb-1.5 block text-[10px] font-medium uppercase tracking-[0.18em] text-black/50">Title *</label>
+                  <label className="mb-1.5 block text-[10px] font-medium uppercase tracking-[0.18em] text-black/60">Title *</label>
                   <input
                     type="text"
                     value={formData.title}
@@ -284,7 +284,7 @@ export default function AdminBlogPage() {
                   />
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-[10px] font-medium uppercase tracking-[0.18em] text-black/50">Slug *</label>
+                  <label className="mb-1.5 block text-[10px] font-medium uppercase tracking-[0.18em] text-black/60">Slug *</label>
                   <input
                     type="text"
                     value={formData.slug}
@@ -297,7 +297,7 @@ export default function AdminBlogPage() {
 
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
-                  <label className="mb-1.5 block text-[10px] font-medium uppercase tracking-[0.18em] text-black/50">Author</label>
+                  <label className="mb-1.5 block text-[10px] font-medium uppercase tracking-[0.18em] text-black/60">Author</label>
                   <input
                     type="text"
                     value={formData.author}
@@ -306,7 +306,7 @@ export default function AdminBlogPage() {
                   />
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-[10px] font-medium uppercase tracking-[0.18em] text-black/50">Category</label>
+                  <label className="mb-1.5 block text-[10px] font-medium uppercase tracking-[0.18em] text-black/60">Category</label>
                   <select
                     value={formData.category}
                     onChange={(e) => setFormData((prev) => ({ ...prev, category: e.target.value }))}
@@ -320,7 +320,7 @@ export default function AdminBlogPage() {
               </div>
 
               <div>
-                <label className="mb-1.5 block text-[10px] font-medium uppercase tracking-[0.18em] text-black/50">Excerpt</label>
+                <label className="mb-1.5 block text-[10px] font-medium uppercase tracking-[0.18em] text-black/60">Excerpt</label>
                 <textarea
                   rows={2}
                   value={formData.excerpt}
@@ -330,7 +330,7 @@ export default function AdminBlogPage() {
               </div>
 
               <div>
-                <label className="mb-1.5 block text-[10px] font-medium uppercase tracking-[0.18em] text-black/50">Content *</label>
+                <label className="mb-1.5 block text-[10px] font-medium uppercase tracking-[0.18em] text-black/60">Content *</label>
                 <textarea
                   rows={10}
                   value={formData.content}
@@ -341,7 +341,7 @@ export default function AdminBlogPage() {
               </div>
 
               <div>
-                <label className="mb-1.5 block text-[10px] font-medium uppercase tracking-[0.18em] text-black/50">Featured Image</label>
+                <label className="mb-1.5 block text-[10px] font-medium uppercase tracking-[0.18em] text-black/60">Featured Image</label>
                 <ImageUpload
                   images={formData.image ? [formData.image] : []}
                   onChange={(urls) => setFormData((prev) => ({ ...prev, image: urls[0] || '' }))}
@@ -349,7 +349,7 @@ export default function AdminBlogPage() {
               </div>
 
               <div>
-                <label className="mb-1.5 block text-[10px] font-medium uppercase tracking-[0.18em] text-black/50">Tags</label>
+                <label className="mb-1.5 block text-[10px] font-medium uppercase tracking-[0.18em] text-black/60">Tags</label>
                 <div className="flex flex-wrap gap-2">
                   {formData.tags.map((tag) => (
                     <span key={tag} className="inline-flex items-center gap-1 border border-gold/20 bg-primary-light px-2.5 py-1 text-[10px] uppercase tracking-[0.12em] text-black/60">
@@ -367,7 +367,7 @@ export default function AdminBlogPage() {
                     placeholder="Add tag..."
                     className="flex-1 border border-gold/20 px-3 py-2 text-sm outline-none focus:border-gold-dark"
                   />
-                  <button type="button" onClick={addTag} className="border border-gold/20 px-3 py-2 text-[10px] uppercase tracking-[0.18em] text-black/50 hover:bg-black-dark hover:text-white transition-colors">Add</button>
+                  <button type="button" onClick={addTag} className="border border-gold/20 px-3 py-2 text-[10px] uppercase tracking-[0.18em] text-black/60 hover:bg-black-dark hover:text-white transition-colors">Add</button>
                 </div>
               </div>
 
@@ -394,7 +394,7 @@ export default function AdminBlogPage() {
                 <button
                   type="button"
                   onClick={closeForm}
-                  className="border border-black/10 px-6 py-2.5 text-[10px] uppercase tracking-[0.22em] text-black/50 transition-colors hover:border-black/30"
+                  className="border border-black/10 px-6 py-2.5 text-[10px] uppercase tracking-[0.22em] text-black/60 transition-colors hover:border-black/30"
                 >
                   Cancel
                 </button>
@@ -420,7 +420,7 @@ export default function AdminBlogPage() {
           <div className="overflow-x-auto">
             <table className="w-full border-collapse text-sm">
               <thead>
-                <tr className="border-b border-gold/20 text-left text-[10px] uppercase tracking-[0.18em] text-black/50">
+                <tr className="border-b border-gold/20 text-left text-[10px] uppercase tracking-[0.18em] text-black/60">
                   <th className="py-3 pr-4">
                     <button onClick={() => toggleSort('title')} className="inline-flex items-center gap-1 hover:text-black-dark">
                       Title <ArrowUpDown size={11} />
@@ -459,7 +459,7 @@ export default function AdminBlogPage() {
                           {post.published ? 'Published' : 'Draft'}
                         </button>
                     </td>
-                    <td className="px-4 py-3 text-[11px] text-black/50">
+                    <td className="px-4 py-3 text-[11px] text-black/60">
                       {new Date(post.createdAt).toLocaleDateString()}
                     </td>
                     <td className="px-4 py-3 text-right">

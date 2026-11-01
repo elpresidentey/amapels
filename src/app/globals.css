@@ -3,22 +3,55 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    /* Light mode (default): white surfaces, near-black ink */
-    --color-base: 255 255 255;
-    --color-chrome: 255 255 255;
-    --color-ink: 12 10 8;
-    --color-on-ink: 255 255 255;
-    --color-wash: 255 255 255;
+  /* Light mode (default): warm paper, ink type, antique gold.
+     Every semantic token is defined in both themes so components never
+     need to know which mode is active. */
+  :root,
+  [data-theme="light"] {
+    color-scheme: light;
+    --color-base: 250 246 239;      /* page paper            #FAF6EF */
+    --color-chrome: 255 253 248;    /* nav, panels, cards    #FFFDF8 */
+    --color-surface-2: 244 238 228; /* tinted wells          #F4EEE4 */
+    --color-ink: 18 15 11;          /* body + headings       #120F0B */
+    --color-on-ink: 255 253 248;    /* text on ink fills     #FFFDF8 */
+    --color-wash: 250 246 239;      /* photo wash over paper */
+    --color-gold-ink: 128 96 42;    /* AA gold text          #80602A */
+    --color-success: 21 128 61;     /* #15803D */
+    --color-success-soft: 241 248 243;
+    --color-success-line: 191 224 203;
+    --color-danger: 185 28 28;      /* #B91C1C */
+    --color-danger-soft: 253 242 241;
+    --color-danger-line: 243 201 198;
+    --color-warning: 180 83 9;      /* #B45309 */
+    --color-warning-soft: 253 248 236;
+    --color-warning-line: 235 211 165;
+    --color-info: 29 78 216;        /* #1D4ED8 */
+    --color-info-soft: 239 244 253;
+    --color-info-line: 201 216 245;
   }
 
   [data-theme="dark"] {
-    /* Dark mode: current AMAPELS editorial look */
-    --color-base: 12 10 8;
-    --color-chrome: 23 22 20;
-    --color-ink: 255 254 251;
-    --color-on-ink: 12 10 8;
+    /* Dark mode: the original AMAPELS editorial look */
+    color-scheme: dark;
+    --color-base: 12 10 8;          /* #0C0A08 */
+    --color-chrome: 23 22 20;       /* #171614 */
+    --color-surface-2: 32 29 25;    /* #201D19 */
+    --color-ink: 255 254 251;       /* #FFFEFB */
+    --color-on-ink: 12 10 8;        /* #0C0A08 */
     --color-wash: 12 10 8;
+    --color-gold-ink: 232 213 163;  /* light gold for AA text */
+    --color-success: 134 239 172;   /* #86EFAC */
+    --color-success-soft: 20 38 27;
+    --color-success-line: 36 85 58;
+    --color-danger: 252 165 165;    /* #FCA5A5 */
+    --color-danger-soft: 46 21 20;
+    --color-danger-line: 107 48 44;
+    --color-warning: 252 211 77;    /* #FCD34D */
+    --color-warning-soft: 44 36 17;
+    --color-warning-line: 107 85 32;
+    --color-info: 147 197 253;      /* #93C5FD */
+    --color-info-soft: 20 31 48;
+    --color-info-line: 46 76 120;
   }
 
   html {
@@ -28,10 +61,11 @@
   }
 
   body {
-    @apply bg-base text-ink antialiased;
+    @apply bg-paper text-ink antialiased;
     font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
-    /* Prevent horizontal scroll */
-    overflow-x: hidden;
+    /* Clip horizontal overflow without turning <body> into a second scroll
+       container (which would break scroll-linked hero animations). */
+    overflow-x: clip;
     /* Better touch scrolling on iOS */
     -webkit-overflow-scrolling: touch;
     /* Prevent layout shift during font loading */
@@ -49,7 +83,7 @@
   textarea:focus-visible,
   select:focus-visible,
   a:focus-visible {
-    @apply outline-none ring-1 ring-gold/50 ring-offset-2 ring-offset-base;
+    @apply outline-none ring-2 ring-gold-ink ring-offset-2 ring-offset-paper;
   }
 
   /* Ensure images don't break layout */
@@ -116,6 +150,26 @@
       rgb(var(--color-wash) / 0.6) 40%,
       rgb(var(--color-wash) / 0.9) 100%
     );
+  }
+
+  /* Hero: copy sits left on desktop, full-width on mobile */
+  .hero-wash {
+    background-image: linear-gradient(
+      105deg,
+      rgb(var(--color-wash) / 0.97) 0%,
+      rgb(var(--color-wash) / 0.9) 48%,
+      rgb(var(--color-wash) / 0.55) 100%
+    );
+  }
+  @media (max-width: 1023px) {
+    .hero-wash {
+      background-image: linear-gradient(
+        160deg,
+        rgb(var(--color-wash) / 0.96) 0%,
+        rgb(var(--color-wash) / 0.9) 55%,
+        rgb(var(--color-wash) / 0.8) 100%
+      );
+    }
   }
 
   /* Responsive container with proper mobile padding */
@@ -189,7 +243,7 @@
 
   /* Admin card improvements */
   .admin-card {
-    @apply bg-white;
+    @apply bg-chrome;
     @apply rounded-xl sm:rounded-2xl;
     @apply border border-gold/30;
     @apply p-5 sm:p-6;
@@ -262,14 +316,14 @@
    PREMIUM SMOOTH SCROLLING & MICRO-INTERACTIONS
    ======================================== */
 
-/* Custom premium scrollbar — muted gold */
+/* Custom premium scrollbar — theme aware */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #F9F6F1;
+  background: rgb(var(--color-surface-2));
 }
 
 ::-webkit-scrollbar-thumb {
@@ -285,7 +339,7 @@
 /* Firefox scrollbar */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #C4A35A #F9F6F1;
+  scrollbar-color: #C4A35A rgb(var(--color-surface-2));
 }
 
 @layer components {
@@ -402,7 +456,7 @@
 
   /* Editorial section eyebrow */
   .eyebrow {
-    @apply text-[10px] font-medium uppercase tracking-[0.38em] text-black/55;
+    @apply text-[10px] font-medium uppercase tracking-[0.38em] text-ink/60;
   }
 
   /* Thin gold hairline rule */
@@ -445,7 +499,12 @@
 
   /* Text shimmer for luxury feel */
   .text-shimmer {
-    background: linear-gradient(90deg, #000 0%, #D4AF37 50%, #000 100%);
+    background: linear-gradient(
+      90deg,
+      rgb(var(--color-ink)) 0%,
+      rgb(var(--color-gold-ink)) 50%,
+      rgb(var(--color-ink)) 100%
+    );
     background-size: 200% auto;
     -webkit-background-clip: text;
     background-clip: text;
@@ -461,7 +520,7 @@
 
   /* Glass morphism */
   .glass {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgb(var(--color-chrome) / 0.88);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
   }
@@ -529,7 +588,7 @@
 
   /* Solid antique gold type (editorial, not neon gradient) */
   .text-gradient-gold {
-    color: #9A7B32;
+    color: rgb(var(--color-gold-ink));
   }
 
   /* Pulse effect for CTAs — subtle */

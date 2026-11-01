@@ -286,7 +286,7 @@ export default function SalesPage() {
                           <div className="w-24 h-1.5 rounded-full bg-gold/15 overflow-hidden">
                             <div className="h-full rounded-full bg-gold" style={{ width: `${Math.min(share, 100)}%` }} />
                           </div>
-                          <span className="text-xs text-black/50">{share.toFixed(1)}%</span>
+                          <span className="text-xs text-black/60">{share.toFixed(1)}%</span>
                         </div>
                       </td>
                     </tr>
@@ -358,7 +358,7 @@ export default function SalesPage() {
                   <tr key={order._id || index} className="border-b border-gold/10 hover:bg-gray-100/5 transition-colors">
                     <td className="px-4 py-4">
                       <p className="text-xs sm:text-sm text-black-dark font-medium">{order.customerName || 'Guest'}</p>
-                      <p className="text-xs text-black/50 hidden md:block">{order.customerEmail}</p>
+                      <p className="text-xs text-black/60 hidden md:block">{order.customerEmail}</p>
                     </td>
                     <td className="px-4 py-4 text-xs sm:text-sm text-black/80 hidden sm:table-cell">
                       {order.items?.map((item) => item.name).join(', ') || '—'}

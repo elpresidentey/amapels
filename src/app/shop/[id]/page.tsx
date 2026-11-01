@@ -55,7 +55,7 @@ export default function ProductPage() {
     return (
       <div className="flex min-h-screen items-center justify-center pt-32">
         <div className="text-center">
-          <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border border-gold/30 border-t-gold" />
+          <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border border-ink/25 border-t-gold-ink" />
           <p className="text-sm text-ink/65">Loading piece&hellip;</p>
         </div>
       </div>
@@ -81,7 +81,7 @@ export default function ProductPage() {
   }
 
   return (
-    <div className="min-h-screen bg-primary pt-24">
+    <div className="min-h-screen bg-paper pt-24">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 md:px-12 lg:px-24 lg:py-20">
         <Link
           href="/shop"
@@ -98,7 +98,7 @@ export default function ProductPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease }}
           >
-            <div className="relative mb-4 aspect-[3/4] overflow-hidden bg-primary-light sm:mb-5">
+            <div className="relative mb-4 aspect-[3/4] overflow-hidden bg-surface-2 sm:mb-5">
               <Image
                 src={product.images[selectedImage]}
                 alt={product.name}
@@ -118,7 +118,7 @@ export default function ProductPage() {
                     onClick={() => setSelectedImage(index)}
                     className={`relative aspect-square overflow-hidden transition-all duration-300 ${
                       selectedImage === index
-                        ? 'ring-1 ring-gold ring-offset-2 ring-offset-primary'
+                        ? 'ring-1 ring-gold-ink ring-offset-2 ring-offset-paper'
                         : 'opacity-70 hover:opacity-100'
                     }`}
                   >
@@ -143,33 +143,33 @@ export default function ProductPage() {
             transition={{ duration: 0.8, delay: 0.1, ease }}
             className="flex flex-col lg:pt-4"
           >
-            <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.32em] text-ink/55">
+            <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.32em] text-ink/60">
               {product.category}
             </p>
             <h1 className="font-serif text-2xl font-light leading-snug text-ink sm:text-3xl md:text-[2.2rem]">
               {product.name}
             </h1>
-            <p className="mt-4 text-xl font-medium tracking-wide text-gold-dark sm:text-2xl">
+            <p className="mt-4 text-xl font-medium tracking-wide text-gold-ink sm:text-2xl">
               {product.price}
             </p>
 
             {/* Gift packaging callout */}
             <div className="mt-5 flex items-center gap-3 rounded border border-gold/20 bg-gold/[0.04] px-4 py-3">
-              <Package size={16} strokeWidth={1.3} className="shrink-0 text-gold-dark" />
+              <Package size={16} strokeWidth={1.3} className="shrink-0 text-gold-ink" />
               <p className="text-[11px] leading-relaxed text-ink/60">
                 Each order comes beautifully packaged with our signature AMAPELS box, drawstring pouch, and a handwritten gift note — complimentary with every purchase.
               </p>
             </div>
 
-            <div className="my-8 h-px w-full bg-black/[0.06] sm:my-10" />
+            <div className="my-8 h-px w-full bg-ink/10 sm:my-10" />
 
             <p className="text-base leading-relaxed text-ink/60">
               {product.description}
             </p>
 
             {/* The Inspiration */}
-            <div className="mt-8 border-l-2 border-gold/40 bg-[#faf8f5] px-5 py-5 sm:px-6 sm:py-6">
-              <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-gold/85">
+            <div className="mt-8 border-l-2 border-gold/40 bg-surface-2 px-5 py-5 sm:px-6 sm:py-6">
+              <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-gold-ink">
                 The Inspiration
               </p>
               <p className="text-sm leading-relaxed italic text-ink/65">
@@ -184,7 +184,7 @@ export default function ProductPage() {
               <button
                 onClick={handleAddToCart}
                 disabled={addedToCart}
-                className="btn-premium flex flex-1 items-center justify-center gap-2.5 bg-ink py-4 text-[10px] font-medium uppercase tracking-[0.22em] text-on-ink transition-colors hover:bg-ink/90 disabled:bg-gold disabled:text-ink sm:py-5 sm:text-[11px]"
+                className="btn-premium flex flex-1 items-center justify-center gap-2.5 bg-ink py-4 text-[10px] font-medium uppercase tracking-[0.22em] text-on-ink transition-colors hover:bg-ink/90 disabled:bg-gold disabled:text-black-dark sm:py-5 sm:text-[11px]"
               >
                 {addedToCart ? (
                   <>
@@ -204,7 +204,7 @@ export default function ProductPage() {
                 aria-label={wishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
                 className={`flex h-14 w-14 items-center justify-center border transition-all duration-300 sm:h-[3.75rem] sm:w-[3.75rem] ${
                   wishlisted
-                    ? 'border-gold bg-gold/10 text-gold-dark'
+                    ? 'border-gold-ink bg-gold/10 text-gold-ink'
                     : 'border-ink/15 text-ink/65 hover:border-ink/40 hover:text-ink'
                 }`}
               >
@@ -216,22 +216,22 @@ export default function ProductPage() {
             <div className="mt-12 space-y-6 border-t border-ink/[0.06] pt-10 sm:mt-14">
               {/* Specs */}
               <div>
-                <h3 className="mb-4 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/55">
+                <h3 className="mb-4 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/60">
                   Product Details
                 </h3>
                 <div className="space-y-2.5 text-sm text-ink/60">
                   <div className="flex gap-4">
-                    <span className="w-28 shrink-0 text-[10px] font-medium uppercase tracking-[0.16em] text-ink/55">Category</span>
+                    <span className="w-28 shrink-0 text-[10px] font-medium uppercase tracking-[0.16em] text-ink/60">Category</span>
                     <span>{product.category}</span>
                   </div>
                   {product.materials && (
                     <div className="flex gap-4">
-                      <span className="w-28 shrink-0 text-[10px] font-medium uppercase tracking-[0.16em] text-ink/55">Materials</span>
+                      <span className="w-28 shrink-0 text-[10px] font-medium uppercase tracking-[0.16em] text-ink/60">Materials</span>
                       <span>{product.materials}</span>
                     </div>
                   )}
                   <div className="flex gap-4">
-                    <span className="w-28 shrink-0 text-[10px] font-medium uppercase tracking-[0.16em] text-ink/55">Ships From</span>
+                    <span className="w-28 shrink-0 text-[10px] font-medium uppercase tracking-[0.16em] text-ink/60">Ships From</span>
                     <span>Abuja, Nigeria</span>
                   </div>
                 </div>
@@ -239,7 +239,7 @@ export default function ProductPage() {
 
               {/* Details list */}
               <div>
-                <h3 className="mb-4 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/55">
+                <h3 className="mb-4 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/60">
                   Features
                 </h3>
                 <ul className="space-y-3 text-sm text-ink/60">
@@ -262,7 +262,7 @@ export default function ProductPage() {
               {/* Care */}
               {product.care && (
                 <div>
-                  <h3 className="mb-3 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/55">
+                  <h3 className="mb-3 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/60">
                     Care
                   </h3>
                   <p className="text-sm leading-relaxed text-ink/65">{product.care}</p>
@@ -283,7 +283,7 @@ export default function ProductPage() {
           >
             <div className="mb-12 flex flex-col gap-5 border-b border-ink/[0.06] pb-8 sm:mb-14 md:flex-row md:items-end md:justify-between">
               <div>
-                <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/55">
+                <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/60">
                   Complete The Look
                 </p>
                 <h2 className="font-serif text-2xl font-light text-ink sm:text-3xl">
@@ -292,7 +292,7 @@ export default function ProductPage() {
               </div>
               <Link
                 href={`/shop?category=${product.category}`}
-                className="group inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.24em] text-ink transition-colors hover:text-gold-dark"
+                className="group inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.24em] text-ink transition-colors hover:text-gold-ink"
               >
                 View All {product.category}
                 <ArrowLeft size={14} strokeWidth={1.5} className="rotate-180 transition-transform group-hover:translate-x-0.5" />

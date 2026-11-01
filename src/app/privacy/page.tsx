@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-base pt-28 pb-16">
+    <div className="min-h-screen bg-paper pt-28 pb-16">
       <div className="section-shell">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -20,7 +20,7 @@ export default function PrivacyPage() {
             </p>
           </div>
 
-          <div className="bg-base rounded-3xl border border-gold/30 p-8 md:p-12">
+          <div className="bg-chrome rounded-3xl border border-gold/30 p-8 md:p-12">
             <div className="prose prose-lg max-w-none">
               <section className="mb-8">
                 <h2 className="font-serif text-2xl text-ink mb-4">1. Information We Collect</h2>

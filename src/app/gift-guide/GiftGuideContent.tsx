@@ -231,13 +231,13 @@ export default function GiftGuideContent() {
 
   if (error) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-base">
+      <div className="flex min-h-screen items-center justify-center bg-paper">
         <div className="max-w-md px-6 text-center">
           <p className="mb-3 font-serif text-2xl font-light text-ink">Something went wrong</p>
           <p className="mb-6 text-sm text-ink/65">{error}</p>
           <Link
             href="/shop"
-            className="inline-flex items-center px-8 py-3 bg-ink text-on-ink text-sm font-medium rounded-md hover:bg-gold transition-colors"
+            className="inline-flex items-center px-8 py-3 bg-ink text-on-ink text-sm font-medium rounded-md hover:bg-gold hover:text-black-dark transition-colors"
           >
             Browse the Shop
           </Link>
@@ -248,13 +248,13 @@ export default function GiftGuideContent() {
 
   if (!products || products.length === 0) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-base">
+      <div className="flex min-h-screen items-center justify-center bg-paper">
         <div className="max-w-md px-6 text-center">
           <p className="mb-3 font-serif text-2xl font-light text-ink">Our gift guide is being restocked</p>
           <p className="mb-6 text-sm text-ink/65">No pieces are available right now — check back soon.</p>
           <Link
             href="/shop"
-            className="inline-flex items-center px-8 py-3 bg-ink text-on-ink text-sm font-medium rounded-md hover:bg-gold transition-colors"
+            className="inline-flex items-center px-8 py-3 bg-ink text-on-ink text-sm font-medium rounded-md hover:bg-gold hover:text-black-dark transition-colors"
           >
             Go to Shop
           </Link>
@@ -268,7 +268,7 @@ export default function GiftGuideContent() {
   const budgetTiers = buildBudgetTiers(products)
 
   return (
-    <div className="min-h-screen bg-base">
+    <div className="min-h-screen bg-paper">
       {/* Hero Section */}
       <section className="section-shell pt-12 pb-16 lg:pt-20 lg:pb-24">
         <div className="text-center max-w-4xl mx-auto">
@@ -285,7 +285,7 @@ export default function GiftGuideContent() {
           </p>
           <Link 
             href="/shop"
-            className="inline-flex items-center px-8 py-3 bg-ink text-on-ink text-sm font-medium rounded-md hover:bg-gold transition-colors btn-mobile"
+            className="inline-flex items-center px-8 py-3 bg-ink text-on-ink text-sm font-medium rounded-md hover:bg-gold hover:text-black-dark transition-colors btn-mobile"
           >
             Shop All Gifts
           </Link>
@@ -449,13 +449,13 @@ export default function GiftGuideContent() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               href="/contact"
-              className="inline-flex items-center px-8 py-3 bg-ink text-on-ink text-sm font-medium hover:bg-gold transition-colors btn-mobile"
+              className="inline-flex items-center px-8 py-3 bg-ink text-on-ink text-sm font-medium hover:bg-gold hover:text-black-dark transition-colors btn-mobile"
             >
               Get Expert Advice
             </Link>
             <Link 
               href="/shop"
-              className="inline-flex items-center px-8 py-3 border border-ink text-ink text-sm font-medium hover:bg-gold hover:text-on-ink transition-colors btn-mobile"
+              className="inline-flex items-center px-8 py-3 border border-ink text-ink text-sm font-medium hover:bg-gold hover:text-black-dark transition-colors btn-mobile"
             >
               Browse All Jewelry
             </Link>
@@ -468,7 +468,7 @@ export default function GiftGuideContent() {
 
 function GiftGuideSkeleton() {
   return (
-    <div className="min-h-screen bg-base">
+    <div className="min-h-screen bg-paper">
       <section className="section-shell pt-12 pb-16 lg:pt-20 lg:pb-24">
         <div className="mx-auto max-w-4xl text-center">
           <div className="mx-auto mb-6 h-10 w-64 animate-pulse rounded-full bg-ink/[0.04]" />

@@ -97,7 +97,7 @@ export default function CareGuidePage() {
   }
 
   return (
-    <div className="min-h-screen bg-base">
+    <div className="min-h-screen bg-paper">
       {/* Hero Section */}
       <section className="section-shell pt-12 pb-16 lg:pt-20 lg:pb-24">
         <div className="text-center max-w-4xl mx-auto">
@@ -170,7 +170,7 @@ export default function CareGuidePage() {
                 {guide.care}
               </p>
               <div className="flex items-start gap-2">
-                <AlertTriangle size={16} className="text-gold-dark mt-0.5 flex-shrink-0" />
+                <AlertTriangle size={16} className="text-gold-ink mt-0.5 flex-shrink-0" />
                 <p className="text-ink/80 text-xs">
                   {guide.warning}
                 </p>
@@ -193,40 +193,40 @@ export default function CareGuidePage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
           {/* Do's */}
-          <div className="bg-green-50 rounded-lg p-6 lg:p-8">
+          <div className="bg-success-soft rounded-lg p-6 lg:p-8">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
+              <div className="w-8 h-8 bg-green-700 rounded-full flex items-center justify-center">
                 <span className="text-white text-sm font-bold">✓</span>
               </div>
-              <h3 className="font-semibold text-lg text-green-800">
+              <h3 className="font-semibold text-lg text-success">
                 Do's
               </h3>
             </div>
             <ul className="space-y-3">
               {dosDonts.dos.map((item, index) => (
                 <li key={index} className="flex items-start gap-3">
-                  <span className="text-green-600 text-sm mt-0.5">•</span>
-                  <span className="text-green-700 text-sm leading-relaxed">{item}</span>
+                  <span className="text-success text-sm mt-0.5">•</span>
+                  <span className="text-success text-sm leading-relaxed">{item}</span>
                 </li>
               ))}
             </ul>
           </div>
 
           {/* Don'ts */}
-          <div className="bg-red-50 rounded-lg p-6 lg:p-8">
+          <div className="bg-danger-soft rounded-lg p-6 lg:p-8">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center">
+              <div className="w-8 h-8 bg-red-700 rounded-full flex items-center justify-center">
                 <span className="text-white text-sm font-bold">✕</span>
               </div>
-              <h3 className="font-semibold text-lg text-red-800">
+              <h3 className="font-semibold text-lg text-danger">
                 Don'ts
               </h3>
             </div>
             <ul className="space-y-3">
               {dosDonts.donts.map((item, index) => (
                 <li key={index} className="flex items-start gap-3">
-                  <span className="text-red-600 text-sm mt-0.5">•</span>
-                  <span className="text-red-700 text-sm leading-relaxed">{item}</span>
+                  <span className="text-danger text-sm mt-0.5">•</span>
+                  <span className="text-danger text-sm leading-relaxed">{item}</span>
                 </li>
               ))}
             </ul>
@@ -255,7 +255,7 @@ export default function CareGuidePage() {
             </div>
             <a 
               href="mailto:amapelsng@gmail.com"
-              className="inline-flex items-center px-8 py-3 bg-ink text-on-ink text-sm font-medium rounded-md hover:bg-gold transition-colors btn-mobile"
+              className="inline-flex items-center px-8 py-3 bg-ink text-on-ink text-sm font-medium rounded-md hover:bg-gold hover:text-black-dark transition-colors btn-mobile"
             >
               Contact Care Team
             </a>
@@ -264,14 +264,14 @@ export default function CareGuidePage() {
       </section>
 
       {/* Emergency Care */}
-      <section className="bg-yellow-50 border-l-4 border-yellow-400 section-shell py-8">
+      <section className="bg-warning-soft border-l-4 border-yellow-400 section-shell py-8">
         <div className="flex items-start gap-4">
-          <AlertTriangle size={20} className="text-yellow-600 mt-1 flex-shrink-0" />
+          <AlertTriangle size={20} className="text-warning mt-1 flex-shrink-0" />
           <div>
-            <h3 className="font-semibold text-yellow-800 mb-2">
+            <h3 className="font-semibold text-warning mb-2">
               Emergency Care Tips
             </h3>
-            <div className="text-sm text-yellow-700 space-y-1">
+            <div className="text-sm text-warning space-y-1">
               <p>• If a stone becomes loose, stop wearing immediately and contact us</p>
               <p>• For broken chains, keep all pieces and avoid DIY repairs</p>
               <p>• Tarnishing on silver is normal and easily reversible</p>

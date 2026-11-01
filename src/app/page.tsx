@@ -146,7 +146,7 @@ export default function Home() {
   const goToNext = () => setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
 
   return (
-    <div className="min-h-screen bg-base">
+    <div className="min-h-screen bg-paper">
       {/* Hero — Cinematic parallax */}
       <section ref={heroRef} className="relative min-h-[100svh] overflow-hidden bg-chrome text-ink">
         <motion.div
@@ -176,7 +176,7 @@ export default function Home() {
               />
             </motion.div>
           </AnimatePresence>
-          <div className="absolute inset-0 bg-[linear-gradient(105deg,rgb(var(--color-wash)/0.92)_0%,rgb(var(--color-wash)/0.72)_48%,rgb(var(--color-wash)/0.45)_100%)]" />
+          <div className="absolute inset-0 hero-wash" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(196,163,90,0.08),transparent_50%)]" />
         </motion.div>
 
@@ -200,7 +200,7 @@ export default function Home() {
                 initial={false}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 0.16, ease }}
-                className="mt-4 max-w-lg text-sm leading-relaxed text-ink/90 sm:mt-6 sm:text-base md:text-lg"
+                className="mt-4 max-w-lg text-sm leading-relaxed text-ink sm:mt-6 sm:text-base md:text-lg"
               >
                 {activeSlide.description}
               </motion.p>
@@ -219,7 +219,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href="/shop"
-                  className="btn-premium inline-flex items-center justify-center gap-2.5 border border-ink/25 bg-ink/[0.04] px-7 py-3.5 text-[10px] font-medium uppercase tracking-[0.22em] text-ink backdrop-blur-sm transition-all hover:border-ink/45 hover:bg-ink/10 sm:py-4 sm:text-[11px]"
+                  className="btn-premium inline-flex items-center justify-center gap-2.5 border border-ink/50 bg-chrome/60 px-7 py-3.5 text-[10px] font-medium uppercase tracking-[0.22em] text-ink backdrop-blur-sm transition-all hover:border-ink/70 hover:bg-chrome sm:py-4 sm:text-[11px]"
                 >
                   Shop Gifts
                 </Link>
@@ -231,20 +231,20 @@ export default function Home() {
               initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.3, ease }}
-              className="hidden border border-ink/10 bg-ink/[0.05] p-6 backdrop-blur-md lg:flex lg:flex-col"
+              className="hidden border border-ink/10 bg-chrome/95 p-6 backdrop-blur-xl lg:flex lg:flex-col"
             >
-              <div className="flex items-center justify-between text-[10px] font-medium uppercase tracking-[0.32em] text-ink/60">
+              <div className="flex items-center justify-between text-[10px] font-medium uppercase tracking-[0.32em] text-ink/70">
                 <span>This Week&apos;s Picks</span>
-                <span className="text-gold/90">{String(currentSlide + 1).padStart(2, '0')} / 03</span>
+                <span className="text-gold-ink">{String(currentSlide + 1).padStart(2, '0')} / 03</span>
               </div>
               <div className="mt-8 flex-1">
                 {activeSlide.accent ? (
-                  <p className="text-xs tracking-wide text-gold/85">{activeSlide.accent}</p>
+                  <p className="text-xs tracking-wide text-gold-ink">{activeSlide.accent}</p>
                 ) : null}
                 <h2 className="mt-3 font-serif text-2xl font-light leading-snug">
                   {activeSlide.eyebrow}
                 </h2>
-                <p className="mt-4 text-sm leading-relaxed text-ink/65">
+                <p className="mt-4 text-sm leading-relaxed text-ink/70">
                   Picked because we&apos;d happily wear them ourselves.
                 </p>
               </div>
@@ -253,7 +253,7 @@ export default function Home() {
                   <button
                     type="button"
                     onClick={goToPrevious}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-ink/15 text-ink transition-all hover:border-gold/40 hover:bg-ink/8"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-ink/25 text-ink transition-all hover:border-gold-ink/60 hover:bg-ink/[0.06]"
                     aria-label="Previous slide"
                   >
                     <ChevronLeft size={16} strokeWidth={1.5} />
@@ -261,13 +261,13 @@ export default function Home() {
                   <button
                     type="button"
                     onClick={goToNext}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-ink/15 text-ink transition-all hover:border-gold/40 hover:bg-ink/8"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-ink/25 text-ink transition-all hover:border-gold-ink/60 hover:bg-ink/[0.06]"
                     aria-label="Next slide"
                   >
                     <ChevronRight size={16} strokeWidth={1.5} />
                   </button>
                 </div>
-                <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-ink/65">
+                <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-ink/70">
                   AMAPELS NG
                 </span>
               </div>
@@ -275,24 +275,24 @@ export default function Home() {
           </div>
 
           {/* Mobile slide controls */}
-          <div className="mt-6 flex items-center justify-between border border-ink/10 bg-ink/[0.04] px-3 py-2.5 backdrop-blur-md sm:mt-8 md:hidden">
+          <div className="mt-6 flex items-center justify-between border border-ink/10 bg-chrome/95 px-3 py-2.5 backdrop-blur-xl sm:mt-8 md:hidden">
             <button
               type="button"
               onClick={goToPrevious}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-ink/15 text-ink transition-all hover:bg-ink/10"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-ink/25 text-ink transition-all hover:bg-ink/[0.06]"
               aria-label="Previous slide"
             >
               <ChevronLeft size={15} strokeWidth={1.5} />
             </button>
-            <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-ink/65">
-              <span className="text-gold/90">{String(currentSlide + 1).padStart(2, '0')}</span>
-              <span className="mx-1.5 text-ink/60">/</span>
-              <span className="text-ink/65">{String(heroSlides.length).padStart(2, '0')}</span>
+            <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-ink/70">
+              <span className="text-gold-ink">{String(currentSlide + 1).padStart(2, '0')}</span>
+              <span className="mx-1.5 text-ink/70">/</span>
+              <span className="text-ink/70">{String(heroSlides.length).padStart(2, '0')}</span>
             </span>
             <button
               type="button"
               onClick={goToNext}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-ink/15 text-ink transition-all hover:bg-ink/10"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-ink/25 text-ink transition-all hover:bg-ink/[0.06]"
               aria-label="Next slide"
             >
               <ChevronRight size={15} strokeWidth={1.5} />
@@ -300,13 +300,13 @@ export default function Home() {
           </div>
 
           {/* Slide strip */}
-          <div className="mt-6 hidden border border-ink/10 bg-ink/[0.04] p-3 backdrop-blur-md sm:mt-8 sm:p-4 md:block lg:mt-10">
+          <div className="mt-6 hidden border border-ink/10 bg-chrome/95 p-3 backdrop-blur-xl sm:mt-8 sm:p-4 md:block lg:mt-10">
             <div className="grid grid-cols-[auto_1fr] items-stretch gap-2 sm:gap-3">
               <div className="flex flex-col items-center justify-center gap-2">
                 <button
                   type="button"
                   onClick={goToPrevious}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-ink/15 text-ink transition-all hover:bg-ink/10 lg:h-10 lg:w-10"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-ink/25 text-ink transition-all hover:bg-ink/[0.06] lg:h-10 lg:w-10"
                   aria-label="Previous slide"
                 >
                   <ChevronLeft size={15} strokeWidth={1.5} />
@@ -314,7 +314,7 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={goToNext}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-ink/15 text-ink transition-all hover:bg-ink/10 lg:h-10 lg:w-10"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-ink/25 text-ink transition-all hover:bg-ink/[0.06] lg:h-10 lg:w-10"
                   aria-label="Next slide"
                 >
                   <ChevronRight size={15} strokeWidth={1.5} />
@@ -329,16 +329,16 @@ export default function Home() {
                     onClick={() => goToSlide(index)}
                     className={`group flex h-full flex-col border px-2.5 py-3 text-left transition-all duration-300 sm:px-4 sm:py-4 lg:px-5 lg:py-5 ${
                       currentSlide === index
-                        ? 'border-gold/30 bg-ink/[0.08]'
-                        : 'border-ink/8 bg-transparent hover:border-ink/18 hover:bg-ink/[0.04]'
+                        ? 'border-gold-ink/40 bg-ink/[0.06]'
+                        : 'border-ink/12 bg-transparent hover:border-ink/25 hover:bg-ink/[0.04]'
                     }`}
                     aria-label={`Go to ${slide.eyebrow}`}
                   >
                     <div className="mb-2.5 flex items-center justify-between gap-2 sm:mb-3">
-                      <p className="hidden truncate text-[9px] font-medium uppercase tracking-[0.28em] text-ink/60 md:block sm:text-[10px]">
+                      <p className="hidden truncate text-[9px] font-medium uppercase tracking-[0.28em] text-ink/70 md:block sm:text-[10px]">
                         {slide.eyebrow}
                       </p>
-                      <span className="ml-auto shrink-0 text-[9px] font-medium tracking-[0.2em] text-ink/65 sm:text-[10px]">
+                      <span className="ml-auto shrink-0 text-[9px] font-medium tracking-[0.2em] text-ink/70 sm:text-[10px]">
                         {String(index + 1).padStart(2, '0')}
                       </span>
                     </div>
@@ -353,7 +353,7 @@ export default function Home() {
                       {slide.title}
                     </p>
                     {slide.accent ? (
-                      <p className="mt-2 hidden line-clamp-1 text-[11px] text-ink/65 sm:block sm:text-xs">
+                      <p className="mt-2 hidden line-clamp-1 text-[11px] text-ink/70 sm:block sm:text-xs">
                         {slide.accent}
                       </p>
                     ) : (
@@ -460,7 +460,7 @@ export default function Home() {
               </div>
               <Link
                 href="/story"
-                className="group mt-10 inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.24em] text-ink transition-colors hover:text-gold-dark"
+                className="group mt-10 inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.24em] text-ink transition-colors hover:text-gold-ink"
               >
                 Read the Full Story
                 <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
@@ -485,7 +485,7 @@ export default function Home() {
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(135deg,rgb(var(--color-wash)/0.3)_0%,transparent_60%)]" />
                 <div className="absolute bottom-0 left-0 right-0 bg-[linear-gradient(180deg,transparent_0%,rgb(var(--color-wash)/0.55)_28%,rgb(var(--color-wash)/0.88)_55%,rgb(var(--color-wash)/0.96)_100%)] p-8 text-ink">
-                  <p className="mb-2 font-serif text-2xl font-light italic text-gold/90">&ldquo;If it turns your finger green, we&apos;ve failed. Simple.&rdquo;</p>
+                  <p className="mb-2 font-serif text-2xl font-light italic text-gold-ink">&ldquo;If it turns your finger green, we&apos;ve failed. Simple.&rdquo;</p>
                   <p className="text-xs text-ink/70">- The AMAPELS team</p>
                 </div>
               </motion.div>
@@ -521,13 +521,13 @@ export default function Home() {
             transition={{ duration: 1.2, delay: 0.2, ease }}
             className="max-w-2xl"
           >
-            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-gold/85">
+            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-gold-ink">
               The AMAPELS Philosophy
             </p>
             <blockquote className="font-serif text-2xl font-light leading-[1.2] text-ink sm:text-3xl md:text-4xl">
               &ldquo;Your jewellery speaks before you do.
               <br />
-              <span className="text-gold/90">We just make sure it says something worth hearing.</span>&rdquo;
+              <span className="text-gold-ink">We just make sure it says something worth hearing.</span>&rdquo;
             </blockquote>
             <div className="mt-8 h-px w-16 bg-gold/50" />
             <p className="mt-6 max-w-lg text-sm leading-relaxed text-ink/85">
@@ -552,7 +552,7 @@ export default function Home() {
             </div>
             <Link
               href="/collections"
-              className="group inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.24em] text-ink transition-colors hover:text-gold-dark"
+              className="group inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.24em] text-ink transition-colors hover:text-gold-ink"
             >
               Explore All
               <ArrowUpRight size={14} strokeWidth={1.5} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -588,7 +588,7 @@ export default function Home() {
                     <p className="mt-2.5 max-w-sm text-sm leading-relaxed text-ink/75">
                       {collection.description}
                     </p>
-                    <span className="mt-4 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-gold/90">
+                    <span className="mt-4 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-gold-ink">
                       Explore
                       <ArrowRight size={13} className="transition-transform group-hover:translate-x-1" />
                     </span>
@@ -619,7 +619,7 @@ export default function Home() {
               </p>
               <Link
                 href="/shop"
-                className="group inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.24em] text-ink transition-colors hover:text-gold-dark"
+                className="group inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.24em] text-ink transition-colors hover:text-gold-ink"
               >
                 View All Pieces
                 <ArrowUpRight size={14} strokeWidth={1.5} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -657,13 +657,13 @@ export default function Home() {
             transition={{ duration: 1, ease }}
             className="mb-16 text-center"
           >
-            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-gold/85">
+            <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-gold-ink">
               Jewellery With Meaning
             </p>
             <h2 className="font-serif text-2xl font-light leading-[1.15] text-ink sm:text-3xl md:text-4xl">
               Because it&apos;s never
               <br />
-              <span className="text-gold/90">just jewellery.</span>
+              <span className="text-gold-ink">just jewellery.</span>
             </h2>
             <motion.div
               initial={{ scaleX: 0 }}
@@ -708,7 +708,7 @@ export default function Home() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.3 + index * 0.12, ease }}
-                  className="mb-6 block font-serif text-4xl text-gold/90"
+                  className="mb-6 block font-serif text-4xl text-gold-ink"
                 >
                   {item.icon}
                 </motion.span>
@@ -742,7 +742,7 @@ export default function Home() {
             </div>
             <Link
               href="/journal"
-              className="group inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.24em] text-ink transition-colors hover:text-gold-dark"
+              className="group inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.24em] text-ink transition-colors hover:text-gold-ink"
             >
               Read the Journal
               <ArrowUpRight size={14} strokeWidth={1.5} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -785,7 +785,7 @@ export default function Home() {
                         : ''}
                     </span>
                   </div>
-                  <h3 className="font-serif text-lg font-light leading-snug text-ink transition-colors duration-300 group-hover:text-gold-dark sm:text-xl">
+                  <h3 className="font-serif text-lg font-light leading-snug text-ink transition-colors duration-300 group-hover:text-gold-ink sm:text-xl">
                     {article.title}
                   </h3>
                   <p className="mt-3 text-sm leading-relaxed text-ink/65">{article.excerpt}</p>
@@ -795,7 +795,7 @@ export default function Home() {
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: 0.4 + index * 0.12, ease }}
-                      className="mt-4 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-ink/65 transition-colors duration-300 group-hover:text-gold-dark"
+                      className="mt-4 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-ink/65 transition-colors duration-300 group-hover:text-gold-ink"
                     >
                       Read More
                       <ArrowRight size={12} className="transition-transform group-hover:translate-x-1" />
@@ -824,7 +824,7 @@ export default function Home() {
             <h2 className="font-serif text-2xl font-light leading-snug text-ink sm:text-3xl md:text-[2.2rem]">
               So, which one&apos;s
               <br />
-              <span className="text-gold-dark">calling you?</span>
+              <span className="text-gold-ink">calling you?</span>
             </h2>
           </div>
           <div className="flex flex-col justify-between">

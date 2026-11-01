@@ -86,7 +86,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div data-theme="light" className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-black/70">Loading...</p>
@@ -96,7 +96,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   if (pathname === '/admin/login') {
-    return <>{children}</>
+    return (
+      <div data-theme="light" className="min-h-screen bg-white">
+        {children}
+      </div>
+    )
   }
 
   if (!isAuthenticated) {
@@ -104,7 +108,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div data-theme="light" className="min-h-screen bg-white">
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black border-b border-ivory/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-20">

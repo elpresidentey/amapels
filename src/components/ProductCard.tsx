@@ -110,7 +110,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
       role="article"
       aria-label={`${product.name}, ${product.category}, ${product.price}`}
     >
-      <div className="relative w-full overflow-hidden bg-primary-light" style={{ aspectRatio: '3/4' }}>
+      <div className="relative w-full overflow-hidden bg-surface-2" style={{ aspectRatio: '3/4' }}>
         <Link
           href={productHref}
           className="absolute inset-0 z-0 block"
@@ -231,22 +231,22 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
       </div>
 
       <Link href={productHref} className="mt-4 block px-0.5 pt-1 focus-visible:outline-2 focus-visible:outline-gold sm:mt-5" tabIndex={-1} aria-hidden="true">
-        <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-ink/55 transition-colors duration-300 group-hover:text-gold-dark">
+        <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-ink/60 transition-colors duration-300 group-hover:text-gold-ink">
           {product.category}
         </p>
         <h3 className="mt-1.5 line-clamp-2 font-serif text-base font-light leading-snug text-ink transition-colors duration-300 group-hover:text-ink sm:text-lg md:text-xl">
           {product.name}
         </h3>
         {detailLine && (
-          <p className="mt-1.5 line-clamp-1 text-[11px] tracking-[0.06em] text-ink/55">
+          <p className="mt-1.5 line-clamp-1 text-[11px] tracking-[0.06em] text-ink/60">
             {detailLine}
           </p>
         )}
         <div className="mt-3 flex items-center justify-between gap-3">
-          <p className="text-base font-medium tracking-wide text-gold-dark sm:text-lg">
+          <p className="text-base font-medium tracking-wide text-gold-ink sm:text-lg">
             {product.price}
           </p>
-          <span className="inline-flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.18em] text-ink/55 transition-colors duration-300 group-hover:text-black-dark">
+          <span className="inline-flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.18em] text-ink/60 transition-colors duration-300 group-hover:text-ink">
             {addedToCart ? (
               <>
                 <Check size={11} strokeWidth={1.75} />

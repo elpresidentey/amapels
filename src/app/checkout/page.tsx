@@ -57,14 +57,14 @@ const OptimizedInput = memo<{
         value={value}
         onChange={handleChange}
         disabled={disabled}
-        className={`w-full px-3 py-2.5 md:px-4 md:py-3 border rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-ink outline-none transition-colors text-base ${
-          error ? 'border-red-400' : 'border-gold'
+        className={`w-full px-3 py-2.5 md:px-4 md:py-3 border rounded-xl focus:ring-2 focus:ring-gold-ink/30 focus:border-ink outline-none transition-colors text-base ${
+          error ? 'border-danger' : 'border-ink/45'
         } ${disabled ? 'bg-ink/5 text-ink/65 cursor-not-allowed' : ''}`}
         placeholder={placeholder}
         maxLength={maxLength}
         style={{ fontSize: '16px' }} // Prevents zoom on iOS
       />
-      {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
+      {error && <p className="text-danger text-xs mt-1">{error}</p>}
     </div>
   )
 })
@@ -95,8 +95,8 @@ const OptimizedSelect = memo<{
         required={required}
         value={value}
         onChange={handleChange}
-        className={`w-full px-3 py-2.5 md:px-4 md:py-3 border rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-ink outline-none transition-colors text-base ${
-          error ? 'border-red-400' : 'border-gold'
+        className={`w-full px-3 py-2.5 md:px-4 md:py-3 border rounded-xl focus:ring-2 focus:ring-gold-ink/30 focus:border-ink outline-none transition-colors text-base ${
+          error ? 'border-danger' : 'border-ink/45'
         }`}
         style={{ fontSize: '16px' }} // Prevents zoom on iOS
       >
@@ -105,7 +105,7 @@ const OptimizedSelect = memo<{
           <option key={option} value={option}>{option}</option>
         ))}
       </select>
-      {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
+      {error && <p className="text-danger text-xs mt-1">{error}</p>}
     </div>
   )
 })
@@ -643,12 +643,12 @@ export default function CheckoutPage() {
   // Enhanced loading state with error handling
   if (!mounted || !isLoaded || authLoading) {
     return (
-      <div className="min-h-screen bg-base pt-28 pb-16 flex items-center justify-center">
+      <div className="min-h-screen bg-paper pt-28 pb-16 flex items-center justify-center">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-ink border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-ink/70">{authLoading ? 'Checking your account...' : 'Loading checkout...'}</p>
           {!isOnline && (
-            <div className="flex items-center justify-center gap-2 mt-4 text-red-600">
+            <div className="flex items-center justify-center gap-2 mt-4 text-danger">
               <WifiOff size={16} />
               <span className="text-sm">No internet connection</span>
             </div>
@@ -666,34 +666,34 @@ export default function CheckoutPage() {
   // Auth gate — require login before checkout
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-base pt-20 sm:pt-24 md:pt-28 pb-8 sm:pb-12 md:pb-16">
+      <div className="min-h-screen bg-paper pt-20 sm:pt-24 md:pt-28 pb-8 sm:pb-12 md:pb-16">
         <Toast message={toastMessage} type={toastType} isVisible={showToast} onClose={() => setShowToast(false)} duration={5000} />
         <div className="section-shell">
           <div className="max-w-lg mx-auto">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
               <div className="text-center mb-8">
-                <div className="w-16 h-16 bg-primary-light rounded-full flex items-center justify-center mx-auto mb-4">
-                  <User size={28} className="text-gold-dark" />
+                <div className="w-16 h-16 bg-surface-2 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <User size={28} className="text-gold-ink" />
                 </div>
                 <h1 className="font-serif text-xl sm:text-2xl text-ink mb-3">Sign in to Continue</h1>
                 <p className="text-ink/60 text-sm">Create an account or sign in to place your order. This helps us keep you updated on your delivery.</p>
               </div>
 
-              <div className="bg-base border border-gold/30 rounded-2xl p-6 sm:p-8">
+              <div className="bg-chrome border border-gold/30 rounded-2xl p-6 sm:p-8">
                 {loginSuccess ? (
                   <div className="flex flex-col items-center gap-3 py-6">
-                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                      <CheckCircle size={24} className="text-green-600" />
+                    <div className="w-12 h-12 bg-success-soft rounded-full flex items-center justify-center">
+                      <CheckCircle size={24} className="text-success" />
                     </div>
-                    <p className="font-medium text-green-700 text-sm">Signed in successfully!</p>
+                    <p className="font-medium text-success text-sm">Signed in successfully!</p>
                     <p className="text-xs text-ink/65">Continue to checkout...</p>
                   </div>
                 ) : (
                   <form onSubmit={handleLogin} className="space-y-5">
                     {loginError && (
-                      <div className="flex items-start gap-2 p-3 bg-red-50 border border-red-200 rounded-lg">
-                        <AlertCircle size={14} className="mt-0.5 flex-shrink-0 text-red-500" />
-                        <p className="text-xs text-red-700">{loginError}</p>
+                      <div className="flex items-start gap-2 p-3 bg-danger-soft border border-danger-line rounded-lg">
+                        <AlertCircle size={14} className="mt-0.5 flex-shrink-0 text-danger" />
+                        <p className="text-xs text-danger">{loginError}</p>
                       </div>
                     )}
                     <div>
@@ -704,24 +704,24 @@ export default function CheckoutPage() {
                         required
                         value={loginEmail}
                         onChange={(e) => setLoginEmail(e.target.value)}
-                        className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-ink outline-none transition-colors text-base"
+                        className="w-full px-4 py-3 border border-ink/45 rounded-xl focus:ring-2 focus:ring-gold-ink/30 focus:border-ink outline-none transition-colors text-base"
                         placeholder="your@email.com"
                       />
                     </div>
                     <div>
                       <label htmlFor="checkout-name" className="block text-sm font-medium text-ink mb-2">
-                        Full Name <span className="text-ink/55">(for your order)</span>
+                        Full Name <span className="text-ink/60">(for your order)</span>
                       </label>
                       <input
                         id="checkout-name"
                         type="text"
                         value={loginName}
                         onChange={(e) => setLoginName(e.target.value)}
-                        className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-ink outline-none transition-colors text-base"
+                        className="w-full px-4 py-3 border border-ink/45 rounded-xl focus:ring-2 focus:ring-gold-ink/30 focus:border-ink outline-none transition-colors text-base"
                         placeholder="Chioma Okafor"
                       />
                     </div>
-                    <div className="bg-primary-light/10 rounded-xl p-4 border border-gold/30">
+                    <div className="bg-surface-2/10 rounded-xl p-4 border border-gold/30">
                       <div className="flex items-start gap-3 text-xs text-ink/70">
                         <ShoppingBag size={14} className="mt-0.5 flex-shrink-0" />
                         <div>
@@ -738,7 +738,7 @@ export default function CheckoutPage() {
                     <button
                       type="submit"
                       disabled={loginLoading || !loginEmail.trim()}
-                      className="w-full bg-ink text-on-ink py-3.5 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                      className="w-full bg-ink text-on-ink py-3.5 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-black-dark transition-colors rounded-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                     >
                       {loginLoading ? (
                         <>
@@ -770,7 +770,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen bg-base pt-20 sm:pt-24 md:pt-28 pb-8 sm:pb-12 md:pb-16">
+    <div className="min-h-screen bg-paper pt-20 sm:pt-24 md:pt-28 pb-8 sm:pb-12 md:pb-16">
       {/* Toast Notification */}
       <Toast
         message={toastMessage}
@@ -782,7 +782,7 @@ export default function CheckoutPage() {
       
       {/* System Status Bar */}
       {(!isOnline || systemErrors.length > 0) && (
-        <div className="fixed top-16 sm:top-20 left-0 right-0 z-50 bg-red-500 text-white px-4 py-2 text-sm safe-top">
+        <div className="fixed top-16 sm:top-20 left-0 right-0 z-50 bg-red-600 text-white px-4 py-2 text-sm safe-top">
           <div className="section-shell flex items-center justify-center gap-2">
             <AlertCircle size={16} />
             {!isOnline ? (
@@ -810,7 +810,7 @@ export default function CheckoutPage() {
         <div className="mb-8 md:mb-12">
           {/* Mobile Progress - Vertical Stack */}
           <div className="block md:hidden">
-            <div className="bg-base rounded-2xl border border-gold/30 p-4 mb-6">
+            <div className="bg-chrome rounded-2xl border border-gold/30 p-4 mb-6">
               <div className="text-center mb-4">
                 <div className="text-lg font-medium text-ink">
                   Step {currentStep} of {CHECKOUT_STEPS.length}
@@ -870,9 +870,9 @@ export default function CheckoutPage() {
 
         {/* Account Info Bar */}
         {customerSession && (
-          <div className="mb-6 bg-primary-light/30 border border-gold/20 rounded-xl px-4 py-3 flex flex-wrap items-center justify-between gap-2">
+          <div className="mb-6 bg-surface-2/30 border border-gold/20 rounded-xl px-4 py-3 flex flex-wrap items-center justify-between gap-2">
             <div className="flex items-center gap-3">
-              <User size={16} className="text-gold-dark" />
+              <User size={16} className="text-gold-ink" />
               <span className="text-sm text-ink">
                 Signed in as <strong>{customerSession.name || customerSession.email}</strong>
               </span>
@@ -880,7 +880,7 @@ export default function CheckoutPage() {
             <button
               type="button"
               onClick={handleLogout}
-              className="flex items-center gap-1.5 text-xs text-ink/65 hover:text-red-600 transition-colors"
+              className="flex items-center gap-1.5 text-xs text-ink/65 hover:text-danger transition-colors"
             >
               <LogOut size={12} />
               Sign Out
@@ -895,7 +895,7 @@ export default function CheckoutPage() {
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="bg-base rounded-2xl md:rounded-3xl border border-gold/30 p-4 md:p-8"
+                className="bg-chrome rounded-2xl md:rounded-3xl border border-gold/30 p-4 md:p-8"
               >
                 <h2 className="font-serif text-xl md:text-2xl text-ink mb-6 md:mb-8">Delivery Information</h2>
                 
@@ -981,7 +981,7 @@ export default function CheckoutPage() {
                   
                   <button
                     type="submit"
-                    className="w-full bg-ink text-on-ink py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl flex items-center justify-center gap-2"
+                    className="w-full bg-ink text-on-ink py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-black-dark transition-colors rounded-xl flex items-center justify-center gap-2"
                   >
                     Continue to Payment
                     <ArrowRight size={16} />
@@ -994,19 +994,19 @@ export default function CheckoutPage() {
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="bg-base rounded-2xl md:rounded-3xl border border-gold/30 p-4 md:p-8"
+                className="bg-chrome rounded-2xl md:rounded-3xl border border-gold/30 p-4 md:p-8"
               >
                 <div className="flex items-center gap-3 mb-6 md:mb-8">
-                  <Lock size={18} className="md:w-5 md:h-5 text-accent-emerald" />
+                  <Lock size={18} className="md:w-5 md:h-5 text-success" />
                   <h2 className="font-serif text-xl md:text-2xl text-ink">Secure Payment</h2>
                 </div>
                 
                 <div className="space-y-4 md:space-y-6">
                   {/* Paystack Info */}
-                  <div className="bg-primary-light/10 rounded-xl md:rounded-2xl p-4 md:p-6 border border-gold/30">
+                  <div className="bg-surface-2/10 rounded-xl md:rounded-2xl p-4 md:p-6 border border-gold/30">
                     <div className="flex items-start gap-3 md:gap-4 mb-4">
                       <div className="w-10 h-10 md:w-12 md:h-12 bg-gold/10 rounded-full flex items-center justify-center flex-shrink-0">
-                        <Lock size={16} className="md:w-5 md:h-5 text-gold-dark" />
+                        <Lock size={16} className="md:w-5 md:h-5 text-gold-ink" />
                       </div>
                       <div>
                         <h3 className="font-medium text-ink mb-2 text-sm md:text-base">Secure Payment with Paystack</h3>
@@ -1019,22 +1019,22 @@ export default function CheckoutPage() {
                     
                     <div className="grid gap-2 md:gap-3 mt-4">
                       <div className="flex items-center gap-2 text-xs md:text-sm text-ink/70">
-                        <Check size={14} className="md:w-4 md:h-4 text-gold-dark" />
+                        <Check size={14} className="md:w-4 md:h-4 text-gold-ink" />
                         <span>Bank-grade SSL encryption</span>
                       </div>
                       <div className="flex items-center gap-2 text-xs md:text-sm text-ink/70">
-                        <Check size={14} className="md:w-4 md:h-4 text-gold-dark" />
+                        <Check size={14} className="md:w-4 md:h-4 text-gold-ink" />
                         <span>PCI DSS compliant</span>
                       </div>
                       <div className="flex items-center gap-2 text-xs md:text-sm text-ink/70">
-                        <Check size={14} className="md:w-4 md:h-4 text-gold-dark" />
+                        <Check size={14} className="md:w-4 md:h-4 text-gold-ink" />
                         <span>Supports all Nigerian banks & cards</span>
                       </div>
                     </div>
                   </div>
 
                   {/* Payment Summary */}
-                  <div className="bg-base rounded-xl md:rounded-2xl border border-gold/30 p-4 md:p-6">
+                  <div className="bg-chrome rounded-xl md:rounded-2xl border border-gold/30 p-4 md:p-6">
                     <h3 className="font-medium text-ink mb-4 text-sm md:text-base">Payment Summary</h3>
                     <div className="space-y-2 md:space-y-3">
                       <div className="flex justify-between text-ink/70 text-sm md:text-base">
@@ -1062,7 +1062,7 @@ export default function CheckoutPage() {
                     <button
                       type="button"
                       onClick={goToShipping}
-                      className="flex-1 border border-ink text-ink py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-on-ink transition-colors rounded-xl"
+                      className="flex-1 border border-ink text-ink py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-black-dark transition-colors rounded-xl"
                     >
                       Back
                     </button>
@@ -1070,7 +1070,7 @@ export default function CheckoutPage() {
                     <button
                       type="button"
                       onClick={() => nextStep()}
-                      className="flex-1 bg-ink text-on-ink py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl flex items-center justify-center gap-2"
+                      className="flex-1 bg-ink text-on-ink py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-black-dark transition-colors rounded-xl flex items-center justify-center gap-2"
                     >
                       Review Order
                       <ArrowRight size={16} />
@@ -1084,7 +1084,7 @@ export default function CheckoutPage() {
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="bg-base rounded-2xl md:rounded-3xl border border-gold/30 p-4 md:p-8"
+                className="bg-chrome rounded-2xl md:rounded-3xl border border-gold/30 p-4 md:p-8"
               >
                 <h2 className="font-serif text-xl md:text-2xl text-ink mb-6 md:mb-8">Confirm Your Order</h2>
                 
@@ -1104,7 +1104,7 @@ export default function CheckoutPage() {
                     <h3 className="font-medium text-ink mb-3 md:mb-4 text-sm md:text-base">Payment Method</h3>
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 md:w-10 md:h-10 bg-gold/10 rounded-full flex items-center justify-center">
-                        <CreditCard size={16} className="md:w-5 md:h-5 text-gold-dark" />
+                        <CreditCard size={16} className="md:w-5 md:h-5 text-gold-ink" />
                       </div>
                       <div>
                         <p className="font-medium text-ink text-sm md:text-base">Paystack</p>
@@ -1118,7 +1118,7 @@ export default function CheckoutPage() {
                   <button
                     type="button"
                     onClick={goToPayment}
-                    className="flex-1 border border-ink text-ink py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-on-ink transition-colors rounded-xl"
+                    className="flex-1 border border-ink text-ink py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-black-dark transition-colors rounded-xl"
                   >
                     Back
                   </button>
@@ -1126,7 +1126,7 @@ export default function CheckoutPage() {
                   <button
                     onClick={handlePaystackPayment}
                     disabled={loading || paymentProcessing || !isOnline || systemErrors.length > 0 || !paystackReady}
-                    className="flex-1 bg-ink text-on-ink py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors rounded-xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 bg-ink text-on-ink py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-black-dark transition-colors rounded-xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading || paymentProcessing ? (
                       <>
@@ -1169,7 +1169,7 @@ export default function CheckoutPage() {
           <div className="lg:col-span-1">
             {/* Mobile Order Summary - Collapsible */}
             <div className="lg:hidden mb-6">
-              <div className="bg-base rounded-2xl border border-gold/30 p-4">
+              <div className="bg-chrome rounded-2xl border border-gold/30 p-4">
                 <div className="flex justify-between items-center mb-3">
                   <h3 className="font-serif text-lg text-ink">Order Summary</h3>
                   <div className="text-lg font-medium text-ink">
@@ -1185,7 +1185,7 @@ export default function CheckoutPage() {
                     <div className="space-y-3 mb-4">
                       {items.map((item) => (
                         <div key={item.id} className="flex gap-3">
-                          <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-primary-light/20 flex-shrink-0">
+                          <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-surface-2/20 flex-shrink-0">
                             <Image
                               src={item.image}
                               alt={item.name}
@@ -1224,13 +1224,13 @@ export default function CheckoutPage() {
             </div>
 
             {/* Desktop Order Summary - Always visible */}
-            <div className="hidden lg:block bg-base rounded-3xl border border-gold/30 p-8 sticky top-32">
+            <div className="hidden lg:block bg-chrome rounded-3xl border border-gold/30 p-8 sticky top-32">
               <h3 className="font-serif text-xl text-ink mb-6">Your Bag</h3>
               
               <div className="space-y-4 mb-6">
                 {items.map((item) => (
                   <div key={item.id} className="flex gap-4">
-                    <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-primary-light/20">
+                    <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-surface-2/20">
                       <Image
                         src={item.image}
                         alt={item.name}

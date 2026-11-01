@@ -47,7 +47,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
 
 function DefaultErrorFallback({ error, retry }: { error?: Error; retry?: () => void }) {
   return (
-    <div className="min-h-screen bg-base flex items-center justify-center px-6">
+    <div className="min-h-screen bg-paper flex items-center justify-center px-6">
       <div className="text-center max-w-md">
         <div className="w-16 h-16 bg-accent-orange/10 rounded-full flex items-center justify-center mx-auto mb-6">
           <AlertTriangle size={32} className="text-accent-orange" />
@@ -62,11 +62,11 @@ function DefaultErrorFallback({ error, retry }: { error?: Error; retry?: () => v
         </p>
         
         {process.env.NODE_ENV === 'development' && error && (
-          <details className="text-left bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
-            <summary className="font-medium text-red-800 cursor-pointer">
+          <details className="text-left bg-danger-soft border border-danger-line rounded-lg p-4 mb-6">
+            <summary className="font-medium text-danger cursor-pointer">
               Error Details (Development Only)
             </summary>
-            <pre className="mt-2 text-sm text-red-700 whitespace-pre-wrap">
+            <pre className="mt-2 text-sm text-danger whitespace-pre-wrap">
               {error.message}
               {error.stack && `\n\n${error.stack}`}
             </pre>
@@ -84,7 +84,7 @@ function DefaultErrorFallback({ error, retry }: { error?: Error; retry?: () => v
           
           <button
             onClick={() => window.location.href = '/'}
-            className="inline-flex items-center gap-2 border-2 border-gold text-ink px-6 py-3 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors"
+            className="inline-flex items-center gap-2 border-2 border-gold-ink text-ink px-6 py-3 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-black-dark transition-colors"
           >
             Go Home
           </button>

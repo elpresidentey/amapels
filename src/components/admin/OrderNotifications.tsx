@@ -126,11 +126,11 @@ export default function OrderNotifications() {
 
             <div className="max-h-80 overflow-y-auto">
               {loading ? (
-                <div className="px-4 py-6 text-center text-sm text-black/50">Loading orders...</div>
+                <div className="px-4 py-6 text-center text-sm text-black/60">Loading orders...</div>
               ) : orders.length === 0 ? (
                 <div className="flex flex-col items-center gap-2 px-4 py-8 text-center">
                   <ShoppingBag size={20} className="text-black/20" />
-                  <p className="text-sm text-black/50">No orders yet</p>
+                  <p className="text-sm text-black/60">No orders yet</p>
                 </div>
               ) : (
                 orders.map((order, index) => (
@@ -143,13 +143,13 @@ export default function OrderNotifications() {
                     } ${index > 0 ? 'border-t border-black/[0.04]' : ''}`}
                   >
                     <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-black/5">
-                      <ShoppingBag size={15} className="text-black/50" />
+                      <ShoppingBag size={15} className="text-black/60" />
                     </div>
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-medium text-black">
                         {order.customerName}
                       </p>
-                      <p className="text-xs text-black/50">
+                      <p className="text-xs text-black/60">
                         {order.orderNumber ? `${order.orderNumber} · ` : ''}
                         ₦{order.total.toLocaleString()}
                       </p>

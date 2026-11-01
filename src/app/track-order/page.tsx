@@ -175,16 +175,16 @@ export default function TrackOrderPage() {
   const getStatusIcon = (status: OrderStatusType) => {
     switch (status) {
       case OrderStatus.PROCESSING:
-        return <Clock className="text-yellow-600" size={24} />
+        return <Clock className="text-warning" size={24} />
       case OrderStatus.SHIPPED:
       case OrderStatus.IN_TRANSIT:
-        return <Truck className="text-blue-600" size={24} />
+        return <Truck className="text-info" size={24} />
       case OrderStatus.OUT_FOR_DELIVERY:
         return <MapPin className="text-orange-600" size={24} />
       case OrderStatus.DELIVERED:
-        return <CheckCircle className="text-green-600" size={24} />
+        return <CheckCircle className="text-success" size={24} />
       default:
-        return <Package className="text-gray-600" size={24} />
+        return <Package className="text-ink/70" size={24} />
     }
   }
 
@@ -208,21 +208,21 @@ export default function TrackOrderPage() {
   const getStatusColor = (status: OrderStatusType) => {
     switch (status) {
       case OrderStatus.PROCESSING:
-        return 'text-yellow-600 bg-yellow-50'
+        return 'text-warning bg-warning-soft'
       case OrderStatus.SHIPPED:
       case OrderStatus.IN_TRANSIT:
-        return 'text-blue-600 bg-blue-50'
+        return 'text-info bg-info-soft'
       case OrderStatus.OUT_FOR_DELIVERY:
         return 'text-orange-600 bg-orange-50'
       case OrderStatus.DELIVERED:
-        return 'text-green-600 bg-green-50'
+        return 'text-success bg-success-soft'
       default:
-        return 'text-gray-600 bg-gray-50'
+        return 'text-ink/70 bg-surface-2'
     }
   }
 
   return (
-    <div className="min-h-screen bg-base">
+    <div className="min-h-screen bg-paper">
       {/* Hero Section */}
       <section className="section-shell pt-12 pb-16 lg:pt-20 lg:pb-24">
         <div className="text-center max-w-4xl mx-auto">
@@ -238,7 +238,7 @@ export default function TrackOrderPage() {
       {/* Tracking Form */}
       <section className="section-shell pb-16">
         <div className="max-w-2xl mx-auto">
-          <div className="bg-base border border-gray-200 rounded-lg p-6 lg:p-8">
+          <div className="bg-chrome border border-ink/15 rounded-lg p-6 lg:p-8">
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="flex-1">
                 <label htmlFor="orderNumber" className="block text-sm font-medium text-ink mb-2">
@@ -250,7 +250,7 @@ export default function TrackOrderPage() {
                   value={orderNumber}
                   onChange={(e) => setOrderNumber(e.target.value)}
                   placeholder="e.g., AMP2024001 or TRK789012345"
-                  className="w-full px-4 py-3 border border-gray-200 rounded-md text-ink placeholder:text-ink/55 focus:ring-2 focus:ring-brown/20 focus:border-gray-800 min-h-[44px] text-base"
+                  className="w-full px-4 py-3 border border-ink/45 rounded-md text-ink placeholder:text-ink/60 focus:ring-2 focus:ring-gold-ink/40 focus:border-ink min-h-[44px] text-base"
                    onKeyDown={(e) => e.key === 'Enter' && handleTrackOrder()}
                 />
               </div>
@@ -258,11 +258,11 @@ export default function TrackOrderPage() {
                 <button
                   onClick={handleTrackOrder}
                   disabled={isLoading}
-                  className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3 bg-ink text-on-ink text-sm font-medium rounded-md hover:bg-gold transition-colors disabled:opacity-50 btn-mobile"
+                  className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3 bg-ink text-on-ink text-sm font-medium rounded-md hover:bg-gold hover:text-black-dark transition-colors disabled:opacity-50 btn-mobile"
                 >
                   {isLoading ? (
                     <>
-                      <div className="animate-spin h-4 w-4 border-2 border-ivory border-t-transparent rounded-full"></div>
+                      <div className="animate-spin h-4 w-4 border-2 border-on-ink border-t-transparent rounded-full"></div>
                       Tracking...
                     </>
                   ) : (
@@ -276,9 +276,9 @@ export default function TrackOrderPage() {
             </div>
 
             {error && (
-              <div className="mt-4 flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-md">
-                <AlertCircle size={20} className="text-red-600 flex-shrink-0" />
-                <p className="text-red-700 text-sm">{error}</p>
+              <div className="mt-4 flex items-center gap-3 p-4 bg-danger-soft border border-danger-line rounded-md">
+                <AlertCircle size={20} className="text-danger flex-shrink-0" />
+                <p className="text-danger text-sm">{error}</p>
               </div>
             )}
           </div>
@@ -290,7 +290,7 @@ export default function TrackOrderPage() {
         <section className="section-shell pb-16 lg:pb-24">
           <div className="max-w-4xl mx-auto">
             {/* Order Summary */}
-            <div className="bg-base border border-gray-200 rounded-lg p-6 lg:p-8 mb-8">
+            <div className="bg-chrome border border-ink/15 rounded-lg p-6 lg:p-8 mb-8">
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
                 <div>
                   <h2 className="font-serif text-xl lg:text-2xl font-light text-ink mb-2">
@@ -319,7 +319,7 @@ export default function TrackOrderPage() {
               </div>
 
               {/* Payment Information */}
-              <div className="mt-6 pt-6 border-t border-gray-200">
+              <div className="mt-6 pt-6 border-t border-ink/15">
                 <h3 className="font-semibold text-ink mb-4">Payment Information</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
@@ -328,7 +328,7 @@ export default function TrackOrderPage() {
                   </div>
                   <div>
                     <p className="text-ink/70 text-sm mb-1">Payment Status</p>
-                    <p className={`font-medium ${trackingData.paymentStatus === 'paid' ? 'text-green-600' : 'text-yellow-600'}`}>
+                    <p className={`font-medium ${trackingData.paymentStatus === 'paid' ? 'text-success' : 'text-warning'}`}>
                       {trackingData.paymentStatus === 'paid' ? 'Paid' : 'Pending'}
                     </p>
                   </div>
@@ -346,7 +346,7 @@ export default function TrackOrderPage() {
 
             {/* Shipping Address */}
             {trackingData.shippingAddress && (
-              <div className="bg-base border border-gray-200 rounded-lg p-6 mb-8">
+              <div className="bg-chrome border border-ink/15 rounded-lg p-6 mb-8">
                 <h3 className="font-semibold text-ink mb-4">Shipping Address</h3>
                 <div className="text-sm text-ink space-y-1">
                   <p>{trackingData.customerName}</p>
@@ -360,13 +360,13 @@ export default function TrackOrderPage() {
 
             {/* Order Items */}
             {trackingData.items && trackingData.items.length > 0 && (
-              <div className="bg-base border border-gray-200 rounded-lg p-6 lg:p-8 mb-8">
+              <div className="bg-chrome border border-ink/15 rounded-lg p-6 lg:p-8 mb-8">
                 <h3 className="font-semibold text-ink mb-4">Order Items ({trackingData.items.length})</h3>
                 <div className="space-y-4">
                   {trackingData.items.map((item, index) => (
-                    <div key={index} className="flex gap-4 pb-4 border-b border-gray-100 last:border-0 last:pb-0">
+                    <div key={index} className="flex gap-4 pb-4 border-b border-ink/10 last:border-0 last:pb-0">
                       {item.image && (
-                        <div className="w-16 h-16 flex-shrink-0 bg-gray-50 rounded-lg overflow-hidden">
+                        <div className="w-16 h-16 flex-shrink-0 bg-surface-2 rounded-lg overflow-hidden">
                           <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                         </div>
                       )}
@@ -382,7 +382,7 @@ export default function TrackOrderPage() {
                     </div>
                   ))}
                 </div>
-                <div className="mt-4 pt-4 border-t border-gray-200 space-y-1">
+                <div className="mt-4 pt-4 border-t border-ink/15 space-y-1">
                   <div className="flex justify-between text-sm">
                     <span className="text-ink/70">Subtotal</span>
                     <span>₦{trackingData.subtotal?.toLocaleString()}</span>
@@ -397,7 +397,7 @@ export default function TrackOrderPage() {
                       <span>₦{trackingData.tax?.toLocaleString()}</span>
                     </div>
                   )}
-                  <div className="flex justify-between font-medium pt-2 border-t border-gray-200">
+                  <div className="flex justify-between font-medium pt-2 border-t border-ink/15">
                     <span>Total</span>
                     <span>{trackingData.totalAmount}</span>
                   </div>
@@ -432,7 +432,7 @@ export default function TrackOrderPage() {
             </div>
 
             {/* Timeline */}
-            <div className="bg-base border border-gray-200 rounded-lg p-6 lg:p-8">
+            <div className="bg-chrome border border-ink/15 rounded-lg p-6 lg:p-8">
               <h3 className="font-semibold text-ink mb-6">Delivery Timeline</h3>
               
               <div className="relative">
@@ -442,7 +442,7 @@ export default function TrackOrderPage() {
                     {index < trackingData.timeline.length - 1 && (
                       <div 
                         className={`absolute left-3 top-8 w-0.5 h-full ${
-                          event.completed ? 'bg-green-300' : 'bg-gray-200'
+                          event.completed ? 'bg-success/40' : 'bg-ink/15'
                         }`}
                       />
                     )}
@@ -451,8 +451,8 @@ export default function TrackOrderPage() {
                     <div 
                       className={`relative z-10 w-6 h-6 rounded-full border-2 flex-shrink-0 ${
                         event.completed 
-                          ? 'bg-green-500 border-green-500' 
-                          : 'bg-base border-gray-300'
+                          ? 'bg-green-700 border-green-700' 
+                          : 'bg-chrome border-ink/25'
                       }`}
                     >
                       {event.completed && (
@@ -529,17 +529,17 @@ export default function TrackOrderPage() {
       {/* Demo Instructions */}
       <section className="section-shell py-16 lg:pb-24">
         <div className="max-w-2xl mx-auto">
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-            <h3 className="font-semibold text-blue-800 mb-3 flex items-center gap-2">
+          <div className="bg-info-soft border border-info-line rounded-lg p-6">
+            <h3 className="font-semibold text-info mb-3 flex items-center gap-2">
               <AlertCircle size={20} />
               Demo Instructions
             </h3>
-            <p className="text-blue-700 text-sm leading-relaxed mb-3">
+            <p className="text-info text-sm leading-relaxed mb-3">
               This is a demo page. To see tracking results, try entering:
             </p>
-            <ul className="text-blue-700 text-sm space-y-1">
-              <li>• <code className="bg-blue-100 px-2 py-1 rounded">AMP2024001</code> - Sample order number</li>
-              <li>• <code className="bg-blue-100 px-2 py-1 rounded">TRK789012345</code> - Sample tracking number</li>
+            <ul className="text-info text-sm space-y-1">
+              <li>• <code className="bg-info-soft px-2 py-1 rounded">AMP2024001</code> - Sample order number</li>
+              <li>• <code className="bg-info-soft px-2 py-1 rounded">TRK789012345</code> - Sample tracking number</li>
             </ul>
           </div>
         </div>

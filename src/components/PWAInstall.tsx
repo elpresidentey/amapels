@@ -110,7 +110,7 @@ export default function PWAInstall() {
               className="flex-shrink-0 rounded-md"
             />
             <div className="min-w-0 flex-1">
-              <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-gold">
+              <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-gold-light">
                 Install AMAPELS
               </p>
               {showInstructions ? (
@@ -134,7 +134,7 @@ export default function PWAInstall() {
                   </button>
                   <button
                     onClick={handleDismiss}
-                    className="text-[10px] uppercase tracking-[0.18em] text-white/40 hover:text-white/70 transition-colors"
+                    className="text-[10px] uppercase tracking-[0.18em] text-white/70 hover:text-white/70 transition-colors"
                   >
                     Not now
                   </button>
@@ -143,7 +143,7 @@ export default function PWAInstall() {
               {showInstructions && (
                 <button
                   onClick={handleDismiss}
-                  className="mt-3 text-[10px] uppercase tracking-[0.18em] text-white/40 hover:text-white/70 transition-colors"
+                  className="mt-3 text-[10px] uppercase tracking-[0.18em] text-white/70 hover:text-white/70 transition-colors"
                 >
                   Got it
                 </button>
@@ -152,7 +152,7 @@ export default function PWAInstall() {
             <button
               onClick={handleDismiss}
               aria-label="Close install prompt"
-              className="flex h-6 w-6 flex-shrink-0 items-center justify-center text-white/40 hover:text-white transition-colors"
+              className="flex h-6 w-6 flex-shrink-0 items-center justify-center text-white/70 hover:text-white transition-colors"
             >
               ×
             </button>

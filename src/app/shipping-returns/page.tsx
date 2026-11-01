@@ -50,7 +50,7 @@ export default function ShippingReturnsPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-paper">
       {/* Hero Section */}
       <section className="section-shell pt-12 pb-16 lg:pt-20 lg:pb-24">
         <div className="text-center max-w-4xl mx-auto">
@@ -94,14 +94,14 @@ export default function ShippingReturnsPage() {
           {shippingOptions.map((option, index) => {
             const Icon = option.icon
             return (
-              <div key={index} className="border border-gray-200 rounded-lg p-6 text-center hover:shadow-lg transition-shadow">
+              <div key={index} className="border border-ink/15 rounded-lg p-6 text-center hover:shadow-lg transition-shadow">
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-ink/5 rounded-full mb-4">
                   <Icon size={24} className="text-ink" />
                 </div>
                 <h3 className="font-semibold text-lg text-ink mb-2">
                   {option.method}
                 </h3>
-                <p className="text-black font-medium mb-2">
+                <p className="text-ink font-medium mb-2">
                   {option.time}
                 </p>
                 <p className="text-ink text-xl font-semibold mb-3">
@@ -129,14 +129,14 @@ export default function ShippingReturnsPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {locations.map((location, index) => (
-            <div key={index} className="bg-white rounded-lg p-6">
+            <div key={index} className="bg-chrome rounded-lg p-6">
               <div className="flex items-center gap-2 mb-3">
                 <MapPin size={16} className="text-ink" />
                 <h3 className="font-semibold text-ink">
                   {location.city}
                 </h3>
               </div>
-              <p className="text-black text-sm font-medium mb-3">
+              <p className="text-ink text-sm font-medium mb-3">
                 {location.delivery}
               </p>
               <ul className="space-y-1">
@@ -165,8 +165,8 @@ export default function ShippingReturnsPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div className="text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
-              <RotateCcw size={24} className="text-green-600" />
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-success-soft rounded-full mb-4">
+              <RotateCcw size={24} className="text-success" />
             </div>
             <h3 className="font-semibold text-lg text-ink mb-2">
               30-Day Returns
@@ -177,8 +177,8 @@ export default function ShippingReturnsPage() {
           </div>
 
           <div className="text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
-              <Shield size={24} className="text-blue-600" />
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-info-soft rounded-full mb-4">
+              <Shield size={24} className="text-info" />
             </div>
             <h3 className="font-semibold text-lg text-ink mb-2">
               Free Return Shipping

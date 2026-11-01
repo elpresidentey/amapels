@@ -16,7 +16,7 @@ const FAQAccordion = ({ question, answer, isOpen, onToggle }: {
   onToggle: () => void
 }) => {
   return (
-    <div className="border-b border-gray-800/10 last:border-b-0">
+    <div className="border-b border-ink/10 last:border-b-0">
       <button
         onClick={onToggle}
         className="w-full flex items-center justify-between py-4 lg:py-6 text-left hover:text-ink transition-colors"
@@ -196,7 +196,7 @@ export default function FAQPage() {
   }
 
   return (
-    <div className="min-h-screen bg-base">
+    <div className="min-h-screen bg-paper">
       {/* Hero Section */}
       <section className="section-shell pt-12 pb-16 lg:pt-20 lg:pb-24">
         <div className="text-center max-w-4xl mx-auto">
@@ -235,7 +235,7 @@ export default function FAQPage() {
       {/* FAQ List */}
       <section className="section-shell pb-16 lg:pb-24">
         <div className="max-w-4xl mx-auto">
-          <div className="bg-base border border-gray-800/10 rounded-lg">
+          <div className="bg-chrome border border-ink/10 rounded-lg">
             {filteredFAQs.map((faq, index) => (
               <FAQAccordion
                 key={index}

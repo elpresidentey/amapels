@@ -34,7 +34,7 @@ export default function ContactPage() {
 
   if (submitted) {
     return (
-      <div className="min-h-screen bg-base pt-28 pb-16">
+      <div className="min-h-screen bg-paper pt-28 pb-16">
         <div className="section-shell">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -51,7 +51,7 @@ export default function ContactPage() {
                 setSubmitted(false)
                 setFormData({ name: '', email: '', subject: '', message: '' })
               }}
-              className="bg-ink text-on-ink px-8 py-4 text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors"
+              className="bg-ink text-on-ink px-8 py-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-black-dark transition-colors"
             >
               Send Another Message
             </button>
@@ -62,7 +62,7 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="min-h-screen bg-base pt-28 pb-16">
+    <div className="min-h-screen bg-paper pt-28 pb-16">
       <div className="section-shell">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -90,7 +90,7 @@ export default function ContactPage() {
                   transition={{ duration: 0.6, delay: 0.1 }}
                   className="flex items-start gap-4"
                 >
-                  <div className="w-12 h-12 bg-primary-light/30 rounded-full flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-surface-2/30 rounded-full flex items-center justify-center flex-shrink-0">
                     <Mail size={20} className="text-ink" />
                   </div>
                   <div>
@@ -105,7 +105,7 @@ export default function ContactPage() {
                   transition={{ duration: 0.6, delay: 0.2 }}
                   className="flex items-start gap-4"
                 >
-                  <div className="w-12 h-12 bg-primary-light/30 rounded-full flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-surface-2/30 rounded-full flex items-center justify-center flex-shrink-0">
                     <Phone size={20} className="text-ink" />
                   </div>
                   <div>
@@ -120,7 +120,7 @@ export default function ContactPage() {
                   transition={{ duration: 0.6, delay: 0.3 }}
                   className="flex items-start gap-4"
                 >
-                  <div className="w-12 h-12 bg-primary-light/30 rounded-full flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-surface-2/30 rounded-full flex items-center justify-center flex-shrink-0">
                     <MapPin size={20} className="text-ink" />
                   </div>
                   <div>
@@ -136,7 +136,7 @@ export default function ContactPage() {
                   transition={{ duration: 0.6, delay: 0.4 }}
                   className="flex items-start gap-4"
                 >
-                  <div className="w-12 h-12 bg-primary-light/30 rounded-full flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-surface-2/30 rounded-full flex items-center justify-center flex-shrink-0">
                     <Clock size={20} className="text-ink" />
                   </div>
                   <div>
@@ -155,7 +155,7 @@ export default function ContactPage() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="lg:col-span-2"
             >
-              <div className="bg-base rounded-3xl border border-gold/30 p-8 md:p-12">
+              <div className="bg-chrome rounded-3xl border border-gold/30 p-8 md:p-12">
                 <h2 className="font-serif text-2xl text-ink mb-8">Share Your Vision</h2>
                 
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -171,7 +171,7 @@ export default function ContactPage() {
                         value={formData.name}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none transition-colors"
+                        className="w-full px-4 py-3 border border-ink/45 rounded-xl focus:ring-2 focus:ring-gold-ink/30 focus:border-ink outline-none transition-colors"
                         placeholder="Enter your full name"
                       />
                     </div>
@@ -187,7 +187,7 @@ export default function ContactPage() {
                         value={formData.email}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none transition-colors"
+                        className="w-full px-4 py-3 border border-ink/45 rounded-xl focus:ring-2 focus:ring-gold-ink/30 focus:border-ink outline-none transition-colors"
                         placeholder="Enter your email"
                       />
                     </div>
@@ -204,7 +204,7 @@ export default function ContactPage() {
                       value={formData.subject}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none transition-colors"
+                      className="w-full px-4 py-3 border border-ink/45 rounded-xl focus:ring-2 focus:ring-gold-ink/30 focus:border-ink outline-none transition-colors"
                       placeholder="What's this about?"
                     />
                   </div>
@@ -220,7 +220,7 @@ export default function ContactPage() {
                       onChange={handleInputChange}
                       required
                       rows={6}
-                      className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none transition-colors resize-vertical"
+                      className="w-full px-4 py-3 border border-ink/45 rounded-xl focus:ring-2 focus:ring-gold-ink/30 focus:border-ink outline-none transition-colors resize-vertical"
                       placeholder="Tell us more about your inquiry..."
                     />
                   </div>
@@ -228,7 +228,7 @@ export default function ContactPage() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-ink text-on-ink py-4 px-8 rounded-xl text-sm font-medium uppercase tracking-wider hover:bg-gold transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="w-full bg-ink text-on-ink py-4 px-8 rounded-xl text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-black-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {isSubmitting ? 'Sending...' : (
                       <>
