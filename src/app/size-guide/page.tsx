@@ -1,10 +1,12 @@
-import { Metadata } from 'next'
 import { Ruler, Info, Download, Heart } from 'lucide-react'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Size Guide - AMAPELS',
-  description: 'Find your perfect fit with our comprehensive jewelry size guide. Includes ring sizing, bracelet measurements, necklace lengths and helpful tips.',
-}
+export const metadata = pageMetadata({
+  title: 'Jewellery Size Guide',
+  description:
+    'Find your perfect fit — ring sizing, bracelet measurements and necklace lengths, with simple tips for measuring at home.',
+  path: '/size-guide',
+})
 
 export default function SizeGuidePage() {
   const ringSizes = [

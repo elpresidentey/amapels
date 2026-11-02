@@ -1,10 +1,12 @@
-import { Metadata } from 'next'
 import { Shield, Droplets, Sun, Clock, AlertTriangle, Sparkles } from 'lucide-react'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Jewelry Care Guide - AMAPELS',
-  description: 'Learn how to properly care for your AMAPELS jewelry. Expert tips on cleaning, storage, and maintenance to keep your pieces beautiful for years.',
-}
+export const metadata = pageMetadata({
+  title: 'Jewellery Care Guide',
+  description:
+    'How to clean, store and care for your AMAPELS pieces so they stay bright — practical tips for plated jewellery in the Nigerian climate.',
+  path: '/care-guide',
+})
 
 export default function CareGuidePage() {
   const careSteps = [

@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google"
 import "./globals.css"
 import ClientLayoutWrapper from "@/components/ClientLayoutWrapper"
 import ErrorBoundary from "@/components/ErrorBoundary"
+import { SITE_NAME, SITE_URL, absoluteUrl, jsonLd } from "@/lib/seo"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -18,18 +19,25 @@ const playfair = Playfair_Display({
   preload: true,
 })
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://amapelsng.com"
+const siteUrl = SITE_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "AMAPELS - Modern Nigerian Elegance",
+  // `default` is the homepage title; every other route sets its own title and
+  // the template appends the brand. Routes that set a title should NOT append
+  // "- AMAPELS" themselves.
+  title: {
+    default: "Jewellery Shop in Abuja | AMAPELS",
+    template: `%s | ${SITE_NAME}`,
+  },
   description: "A Nigerian jewellery shop in Abuja. Shop earrings, necklaces, bracelets, and jewellery sets — handpicked, gift-ready, and delivered nationwide.",
   keywords: "Nigerian jewellery, jewellery shop Abuja, African jewelry, gold earrings, pearl necklaces, bracelets, statement jewelry, gift jewellery",
   authors: [{ name: "AMAPELS" }],
   creator: "AMAPELS",
   openGraph: {
-    title: "AMAPELS - Modern Nigerian Elegance",
+    title: "Jewellery Shop in Abuja | AMAPELS",
     description: "Handpicked Nigerian jewellery. Live in Abuja, delivered nationwide.",
+    // Homepage only — every other route overrides this via pageMetadata().
     url: siteUrl,
     siteName: "AMAPELS",
     locale: "en_NG",
@@ -45,14 +53,23 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "AMAPELS - Modern Nigerian Elegance",
+    title: "Jewellery Shop in Abuja | AMAPELS",
     description: "Handpicked Nigerian jewellery. Live in Abuja, delivered nationwide.",
     images: ["/og-image.png"],
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
+  // Homepage canonical. Every other route overrides it in its own metadata —
+  // see src/lib/seo.ts for why that is mandatory.
   alternates: {
     canonical: "/",
   },
@@ -98,6 +115,38 @@ export default function RootLayout({
             __html:
               "try{var t=localStorage.getItem('amapels-theme');document.documentElement.dataset.theme=(t==='dark'||t==='light')?t:'light'}catch(e){document.documentElement.dataset.theme='light'}",
           }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={jsonLd({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "Organization",
+                "@id": `${SITE_URL}/#organization`,
+                name: SITE_NAME,
+                url: SITE_URL,
+                logo: absoluteUrl("/icons/icon-512.png"),
+                description:
+                  "A Nigerian jewellery shop in Abuja. Handpicked earrings, necklaces, bracelets and jewellery sets, delivered nationwide.",
+                email: "amapelsng@gmail.com",
+                telephone: "+2348161238148",
+                address: {
+                  "@type": "PostalAddress",
+                  addressLocality: "Abuja",
+                  addressCountry: "NG",
+                },
+              },
+              {
+                "@type": "WebSite",
+                "@id": `${SITE_URL}/#website`,
+                name: SITE_NAME,
+                url: SITE_URL,
+                inLanguage: "en-NG",
+                publisher: { "@id": `${SITE_URL}/#organization` },
+              },
+            ],
+          })}
         />
         <ErrorBoundary>
           <ClientLayoutWrapper>{children}</ClientLayoutWrapper>

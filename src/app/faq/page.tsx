@@ -1,13 +1,7 @@
 'use client'
 
-import { Metadata } from 'next'
 import { useState } from 'react'
 import { ChevronDown, Search, Package, CreditCard, RefreshCw, Shield, Mail, Phone } from 'lucide-react'
-
-const metadata: Metadata = {
-  title: 'FAQ - AMAPELS',
-  description: 'Find answers to frequently asked questions about AMAPELS jewelry, shipping, returns, care instructions, and more.',
-}
 
 const FAQAccordion = ({ question, answer, isOpen, onToggle }: {
   question: string

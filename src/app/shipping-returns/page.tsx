@@ -1,10 +1,12 @@
-import { Metadata } from 'next'
 import { Truck, Clock, Shield, RotateCcw, Package, MapPin } from 'lucide-react'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Shipping & Returns - AMAPELS',
-  description: 'Learn about our AMAPELS shipping options, delivery times, and return policy. Flat-rate ₦2,500 delivery with secure packaging and easy returns.',
-}
+export const metadata = pageMetadata({
+  title: 'Shipping & Returns',
+  description:
+    'AMAPELS delivery across Nigeria — flat-rate ₦2,500 standard delivery, express options, secure packaging and a straightforward returns policy.',
+  path: '/shipping-returns',
+})
 
 export default function ShippingReturnsPage() {
   const shippingOptions = [

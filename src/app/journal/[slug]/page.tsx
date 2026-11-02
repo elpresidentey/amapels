@@ -1,114 +1,70 @@
-'use client'
+import type { Metadata } from "next"
+import { absoluteUrl, jsonLd, pageMetadata } from "@/lib/seo"
+import { getPostForSeo } from "@/lib/blog-seo"
+import JournalPostClient from "./JournalPostClient"
 
-import { useEffect, useState } from 'react'
-import { useParams, useRouter } from 'next/navigation'
-import { motion } from 'framer-motion'
-import Link from 'next/link'
-import { ArrowLeft, Loader2 } from 'lucide-react'
+// Posts come from MongoDB at request time, not at build time.
+export const dynamic = "force-dynamic"
 
-const ease = [0.22, 1, 0.36, 1] as const
+type Props = { params: { slug: string } }
 
-interface BlogPost {
-  _id: string
-  title: string
-  slug: string
-  content: string
-  excerpt: string
-  author: string
-  category: string
-  image: string
-  publishedAt?: string
-  createdAt: string
-}
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const post = await getPostForSeo(params.slug)
 
-export default function JournalPostPage() {
-  const params = useParams()
-  const router = useRouter()
-  const [post, setPost] = useState<BlogPost | null>(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    if (!params.slug) return
-    fetch(`/api/blog/slug/${params.slug}`)
-      .then((res) => {
-        if (!res.ok) throw new Error('Not found')
-        return res.json()
-      })
-      .then((data) => {
-        if (data.post) setPost(data.post)
-        else router.push('/journal')
-      })
-      .catch(() => router.push('/journal'))
-      .finally(() => setLoading(false))
-  }, [params.slug, router])
-
-  if (loading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-paper pt-24">
-        <Loader2 size={24} className="animate-spin text-gold-ink" />
-      </div>
-    )
+  if (!post) {
+    return pageMetadata({
+      title: "Journal",
+      description: "Notes on jewellery, styling and gifting from AMAPELS in Abuja.",
+      path: `/journal/${params.slug}`,
+      noIndex: true,
+    })
   }
 
-  if (!post) return null
+  return pageMetadata({
+    title: `${post.title.trim()} | AMAPELS`,
+    description: post.excerpt || `${post.title} — from the AMAPELS journal.`,
+    path: `/journal/${post.slug}`,
+    image: post.image,
+    imageAlt: post.title,
+    type: "article",
+    publishedTime: post.publishedAt,
+    modifiedTime: post.updatedAt,
+  })
+}
 
-  const date = post.publishedAt
-    ? new Date(post.publishedAt).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      })
-    : ''
+export default async function JournalPostPage({ params }: Props) {
+  const post = await getPostForSeo(params.slug)
+  const url = absoluteUrl(`/journal/${params.slug}`)
+
+  const structuredData = post
+    ? {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline: post.title,
+        description: post.excerpt || post.title,
+        url,
+        mainEntityOfPage: { "@type": "WebPage", "@id": url },
+        ...(post.image
+          ? { image: post.image.startsWith("http") ? post.image : absoluteUrl(post.image) }
+          : {}),
+        author: { "@type": "Person", name: post.author || "AMAPELS" },
+        publisher: {
+          "@type": "Organization",
+          name: "AMAPELS",
+          logo: { "@type": "ImageObject", url: absoluteUrl("/icons/icon-512.png") },
+        },
+        ...(post.publishedAt ? { datePublished: post.publishedAt } : {}),
+        ...(post.updatedAt ? { dateModified: post.updatedAt } : {}),
+        ...(post.category ? { articleSection: post.category } : {}),
+      }
+    : null
 
   return (
-    <div className="min-h-screen bg-paper pt-24">
-      <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-20 md:py-24 lg:px-0">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease }}
-        >
-          <Link
-            href="/journal"
-            className="mb-8 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-ink/60 transition-colors hover:text-gold-ink"
-          >
-            <ArrowLeft size={12} />
-            Back to Journal
-          </Link>
-
-          {post.image && (
-            <div className="mb-8 overflow-hidden">
-              <img src={post.image} alt={post.title} className="w-full object-cover" />
-            </div>
-          )}
-
-          <div className="mb-4 flex items-center gap-4">
-            <span className="text-[9px] font-medium uppercase tracking-[0.28em] text-gold-ink">
-              {post.category}
-            </span>
-            <span className="h-px flex-1 bg-gold/20" />
-            {date && (
-              <span className="text-[9px] font-medium uppercase tracking-[0.22em] text-ink/60">
-                {date}
-              </span>
-            )}
-          </div>
-
-          <h1 className="font-serif text-2xl font-light leading-[1.1] text-ink sm:text-3xl md:text-4xl">
-            {post.title}
-          </h1>
-
-          <p className="mt-3 text-sm text-ink/60">
-            By {post.author}
-          </p>
-
-          <div className="mt-10 border-t border-gold/15 pt-8 text-base leading-relaxed text-ink/70 sm:text-lg sm:leading-relaxed">
-            {post.content.split('\n').map((paragraph, i) => (
-              paragraph.trim() ? <p key={i} className="mb-5">{paragraph}</p> : null
-            ))}
-          </div>
-        </motion.div>
-      </article>
-    </div>
+    <>
+      {structuredData ? (
+        <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(structuredData)} />
+      ) : null}
+      <JournalPostClient />
+    </>
   )
 }

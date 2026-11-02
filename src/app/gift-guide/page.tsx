@@ -1,10 +1,12 @@
-import { Metadata } from 'next'
 import GiftGuideContent from './GiftGuideContent'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Gift Guide - AMAPELS',
-  description: 'Find the perfect jewelry gift for every occasion. Explore our curated gift collections for birthdays, anniversaries, graduations and special moments.',
-}
+export const metadata = pageMetadata({
+  title: 'Jewellery Gift Guide',
+  description:
+    'Find the perfect jewellery gift for every occasion — birthdays, anniversaries, graduations and special moments. Curated by AMAPELS in Abuja.',
+  path: '/gift-guide',
+})
 
 export default function GiftGuidePage() {
   return <GiftGuideContent />

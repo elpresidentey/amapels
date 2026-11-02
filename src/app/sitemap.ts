@@ -1,8 +1,13 @@
 import type { MetadataRoute } from "next"
 import { getProducts } from "@/lib/supabase"
 import { isShopifyConfigured, getShopifyProducts } from "@/lib/shopify"
+import dbConnect from "@/lib/mongodb"
+import BlogPost from "@/models/BlogPost"
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://amapelsng.com"
+
+// Regenerate hourly so new products and journal posts appear without a deploy.
+export const revalidate = 3600
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -57,7 +62,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // routes so the sitemap never 500s.
   }
 
-  return [...staticRoutes, ...dedupe(productRoutes)]
+  // Journal posts (MongoDB). A failure here must never break the sitemap.
+  const journalRoutes: MetadataRoute.Sitemap = []
+  try {
+    await dbConnect()
+    const posts = (await BlogPost.find({ published: true })
+      .select("slug updatedAt publishedAt")
+      .sort({ publishedAt: -1 })
+      .limit(200)
+      .lean()) as Array<{ slug?: string; updatedAt?: Date; publishedAt?: Date }>
+
+    for (const post of posts) {
+      if (!post.slug) continue
+      journalRoutes.push({
+        url: `${siteUrl}/journal/${post.slug}`,
+        lastModified: post.updatedAt || post.publishedAt || undefined,
+        changeFrequency: "monthly",
+        priority: 0.6,
+      })
+    }
+  } catch {
+    // Journal unavailable — still serve products and static routes.
+  }
+
+  return [...staticRoutes, ...dedupe([...productRoutes, ...journalRoutes])]
 
   function dedupe(routes: MetadataRoute.Sitemap) {
     const seen = new Set<string>()
