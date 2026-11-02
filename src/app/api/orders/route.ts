@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createOrder, getOrders } from '@/lib/supabase'
 import { requireAdmin } from '@/lib/admin-guard'
 import { subscribeToNewsletter } from '@/lib/newsletter'
+import { sendOrderConfirmation } from '@/lib/email'
 
 // Validation schemas
 const validateEmail = (email: string): boolean => {
@@ -157,6 +158,48 @@ export async function POST(request: NextRequest) {
     try {
       const order = await createOrder(sanitizedOrderData)
 
+      // Confirmation email: only for paid orders, and never allowed to fail
+      // the response. The function resolves to { sent: false } on any error.
+      let confirmationEmailSent = false
+      if (order.payment_status === 'paid') {
+        try {
+          const emailResult = await sendOrderConfirmation({
+            customerName: order.customer_name,
+            customerEmail: order.customer_email,
+            orderNumber: order.order_number,
+            items: (order.items || []).map((item) => ({
+              name: item.name,
+              quantity: item.quantity,
+              price: item.price,
+            })),
+            subtotal: order.subtotal,
+            shippingCost: order.shipping_cost,
+            tax: order.tax,
+            total: order.total,
+            paymentReference: order.payment_reference,
+            estimatedDelivery: order.estimated_delivery,
+            shippingAddress: {
+              street: order.shipping_address?.street || '',
+              city: order.shipping_address?.city || '',
+              state: order.shipping_address?.state || '',
+              country: order.shipping_address?.country || '',
+              postalCode: order.shipping_address?.postalCode || '',
+            },
+          })
+
+          confirmationEmailSent = emailResult.sent
+          if (!emailResult.sent) {
+            console.warn(
+              `Order confirmation not sent for ${order.order_number}:`,
+              emailResult.reason || 'unknown reason'
+            )
+          }
+        } catch (emailError) {
+          // Defensive: sendOrderConfirmation already swallows errors.
+          console.error('Unexpected order email failure:', emailError)
+        }
+      }
+
       let newsletterSubscribed = false
       if (orderData.marketingOptIn === true) {
         try {
@@ -178,6 +221,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({
         message: 'Order created successfully',
         newsletterSubscribed,
+        confirmationEmailSent,
         order: {
           id: order.id,
           orderNumber: order.order_number,
