@@ -3,6 +3,9 @@ export interface CustomerSession {
   name: string
 }
 
+/** Fired on window after a customer successfully signs in. */
+export const CUSTOMER_LOGIN_EVENT = 'amapels:customer-login'
+
 let cachedSession: CustomerSession | null = null
 let sessionPromise: Promise<CustomerSession | null> | null = null
 
@@ -51,6 +54,11 @@ export async function customerLogin(email: string, name?: string): Promise<Custo
   const data = await res.json()
   const session: CustomerSession = { email: data.user.email, name: data.user.name }
   cachedSession = session
+
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent(CUSTOMER_LOGIN_EVENT, { detail: session }))
+  }
+
   return session
 }
 
