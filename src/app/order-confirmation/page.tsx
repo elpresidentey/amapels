@@ -8,6 +8,7 @@ import Link from 'next/link'
 import PrintableReceipt from '@/components/PrintableReceipt'
 import Logo from '@/components/Logo'
 import LogoLoader from '@/components/LogoLoader'
+import NewsletterSignup from '@/components/NewsletterSignup'
 
 function OrderConfirmationContent() {
   const searchParams = useSearchParams()
@@ -275,6 +276,20 @@ function OrderConfirmationContent() {
                 </div>
               </div>
             </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+            className="mb-12"
+          >
+            <NewsletterSignup
+              defaultEmail={customerEmail}
+              orderReference={orderNumber}
+              source="order-confirmation"
+              defaultSubscribed={searchParams.get('newsletter') === '1'}
+            />
           </motion.div>
 
           <motion.div

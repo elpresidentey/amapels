@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createOrder, getOrders } from '@/lib/supabase'
 import { requireAdmin } from '@/lib/admin-guard'
+import { subscribeToNewsletter } from '@/lib/newsletter'
 
 // Validation schemas
 const validateEmail = (email: string): boolean => {
@@ -89,6 +90,10 @@ const validateOrderData = (data: any) => {
     errors.push('Total amount cannot be less than subtotal')
   }
 
+  if (typeof data.marketingOptIn !== 'undefined' && typeof data.marketingOptIn !== 'boolean') {
+    errors.push('marketingOptIn must be a boolean')
+  }
+
   return errors
 }
 
@@ -151,10 +156,28 @@ export async function POST(request: NextRequest) {
     // Create order using Supabase
     try {
       const order = await createOrder(sanitizedOrderData)
+
+      let newsletterSubscribed = false
+      if (orderData.marketingOptIn === true) {
+        try {
+          await subscribeToNewsletter({
+            email: order.customer_email,
+            name: order.customer_name,
+            source: 'checkout',
+            orderReference: order.order_number,
+            metadata: { orderId: order.id },
+          })
+          newsletterSubscribed = true
+        } catch (newsletterError) {
+          // Never fail an order because the marketing list is unavailable.
+          console.error('Newsletter opt-in failed for order', order.order_number, newsletterError)
+        }
+      }
       
       // Return success response
       return NextResponse.json({
         message: 'Order created successfully',
+        newsletterSubscribed,
         order: {
           id: order.id,
           orderNumber: order.order_number,

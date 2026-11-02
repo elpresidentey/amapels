@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
 import { verifyAdminSession, logoutAdmin } from '@/lib/auth'
-import { Home, Package, ShoppingCart, BarChart3, FileText, LogOut, Menu, X } from 'lucide-react'
+import { Home, Package, ShoppingCart, BarChart3, FileText, Mail, LogOut, Menu, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import OrderNotifications from '@/components/admin/OrderNotifications'
 import Logo from '@/components/Logo'
@@ -23,7 +23,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { name: 'Products', href: '/admin/products', icon: Package },
     { name: 'Orders', href: '/admin/orders', icon: ShoppingCart },
     { name: 'Sales', href: '/admin/sales', icon: BarChart3 },
-    { name: 'Blog', href: '/admin/blog', icon: FileText }
+    { name: 'Blog', href: '/admin/blog', icon: FileText },
+    { name: 'Newsletter', href: '/admin/subscribers', icon: Mail }
   ]
 
   useEffect(() => {
@@ -120,7 +121,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               </span>
             </Link>
 
-            <div className="hidden md:flex items-center space-x-1">
+            <div className="hidden lg:flex items-center space-x-1">
               {navItems.map((item) => {
                 const Icon = item.icon
                 const isActive = pathname === item.href
@@ -159,7 +160,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="md:hidden p-2 text-white hover:bg-white/5 rounded-lg transition-colors"
+                className="lg:hidden p-2 text-white hover:bg-white/5 rounded-lg transition-colors"
               >
                 {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
               </button>
@@ -173,7 +174,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden border-t border-ivory/10 bg-black/98 backdrop-blur-xl"
+              className="lg:hidden border-t border-ivory/10 bg-black/98 backdrop-blur-xl"
             >
               <div className="px-4 py-4 space-y-2">
                 {navItems.map((item) => {

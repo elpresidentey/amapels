@@ -122,6 +122,7 @@ export default function CheckoutPage() {
   const [paystackReady, setPaystackReady] = useState(false)
   const [systemErrors, setSystemErrors] = useState<string[]>([])
   const paymentAttemptRef = useRef(0)
+  const [marketingOptIn, setMarketingOptIn] = useState(false)
   
   // Authentication state
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -473,6 +474,7 @@ export default function CheckoutPage() {
                           },
                           paymentReference: response.reference,
                           paymentStatus: 'paid',
+                          marketingOptIn,
                           subtotal,
                           shippingCost: shipping,
                           total,
@@ -502,7 +504,8 @@ export default function CheckoutPage() {
                           tracking: trackingNumber,
                           payment_ref: response.reference,
                           amount,
-                          email: shippingData.email.trim()
+                          email: shippingData.email.trim(),
+                          newsletter: orderResult?.newsletterSubscribed ? '1' : '0'
                         })
                         
                         // Store order data for receipt
@@ -939,7 +942,23 @@ export default function CheckoutPage() {
                       error={errors.phone}
                     />
                   </div>
-                  
+
+                  <label
+                    htmlFor="marketing-opt-in"
+                    className="flex cursor-pointer select-none items-start gap-3"
+                  >
+                    <input
+                      id="marketing-opt-in"
+                      type="checkbox"
+                      checked={marketingOptIn}
+                      onChange={(event) => setMarketingOptIn(event.target.checked)}
+                      className="mt-0.5 h-4 w-4 shrink-0 rounded border-ink/45 accent-gold focus:ring-2 focus:ring-gold-ink/30 focus:ring-offset-0"
+                    />
+                    <span className="text-xs leading-relaxed text-ink/65">
+                      Email me new arrivals and price drops. Optional — unsubscribe anytime.
+                    </span>
+                  </label>
+
                   <OptimizedInput
                     label="Street Address"
                     value={shippingData.address}

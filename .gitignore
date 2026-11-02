@@ -53,6 +53,7 @@ skills-lock.json
 
 # Database
 *.sql
+!supabase/migrations/*.sql
 
 .vercel
 
@@ -61,3 +62,6 @@ dev-server*.log
 tsc-check.log
 vercel-*.log
 
+
+# Local agent screenshots / tooling state
+.openchamber/
