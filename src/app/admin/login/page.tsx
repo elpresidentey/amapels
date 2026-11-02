@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Eye, EyeOff, Lock, Mail, AlertCircle } from 'lucide-react'
 import { loginAdmin } from '@/lib/auth'
+import Logo from '@/components/Logo'
 
 export default function AdminLoginPage() {
   const router = useRouter()
@@ -49,12 +50,16 @@ export default function AdminLoginPage() {
         {/* Login Card */}
         <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border-2 border-gold">
           {/* Header Section */}
-          <div className="bg-gradient-to-r from-black via-black to-gold p-8 text-center">
-            <div className="w-20 h-20 bg-gold/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-gold">
-              <Lock className="w-10 h-10 text-gold" />
+          <div className="bg-gradient-to-r from-black via-[#0C0A08] to-[#2a2113] p-8 text-center">
+            <div className="mb-5 flex justify-center">
+              <Logo
+                variant="wordmark"
+                tone="gold"
+                className="h-8 w-64"
+                priority
+              />
             </div>
-            <h1 className="font-serif text-3xl text-white mb-2">AMAPELS</h1>
-            <p className="text-gold text-sm uppercase tracking-widest">Admin Portal</p>
+            <p className="text-gold-light text-[11px] uppercase tracking-[0.28em]">Admin Portal</p>
           </div>
 
           {/* Form Section */}

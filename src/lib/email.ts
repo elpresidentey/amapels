@@ -4,6 +4,7 @@ const resendApiKey = process.env.RESEND_API_KEY
 const resend = resendApiKey ? new Resend(resendApiKey) : null
 
 const FROM_EMAIL = 'AMAPELS <amapelsng@gmail.com>'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://amapelsng.com'
 
 interface OrderConfirmationData {
   customerName: string
@@ -39,8 +40,8 @@ function buildOrderHtml(data: OrderConfirmationData): string {
     <tr><td align="center" style="padding:40px 20px;">
       <table width="540" cellpadding="0" cellspacing="0" style="background:#ffffff;border:1px solid #e8e3dc;">
         <tr><td style="padding:48px 40px 32px;text-align:center;border-bottom:1px solid #d4c5a0;">
-          <h1 style="margin:0;font-size:22px;letter-spacing:6px;color:#1a1714;font-weight:400;">AMAPELS</h1>
-          <p style="margin:8px 0 0;font-size:11px;letter-spacing:3px;color:#9a8a72;text-transform:uppercase;">Nigerian Artistry, Global Elegance</p>
+          <img src="${SITE_URL}/images/brand/wordmark-ink.png" width="190" alt="AMAPELS" style="display:block;margin:0 auto;width:190px;height:auto;" />
+          <p style="margin:14px 0 0;font-size:11px;letter-spacing:3px;color:#9a8a72;text-transform:uppercase;">Nigerian Artistry, Global Elegance</p>
         </td></tr>
         <tr><td style="padding:40px;">
           <p style="font-size:15px;color:#3a3530;line-height:1.7;">Dear ${data.customerName},</p>
@@ -70,7 +71,8 @@ function buildOrderHtml(data: OrderConfirmationData): string {
           <p style="font-size:13px;color:#6a6560;line-height:1.6;font-style:italic;">"Every piece of jewellery tells a story — ours begins with you."</p>
         </td></tr>
         <tr><td style="padding:32px 40px;background:#1a1714;text-align:center;">
-          <p style="margin:0;font-size:11px;color:#9a8a72;letter-spacing:2px;">AMAPELS — Abuja, Nigeria</p>
+          <img src="${SITE_URL}/images/brand/wordmark-gold.png" width="140" alt="AMAPELS" style="display:block;margin:0 auto 12px;width:140px;height:auto;" />
+          <p style="margin:0;font-size:11px;color:#9a8a72;letter-spacing:2px;">Abuja, Nigeria</p>
           <p style="margin:6px 0 0;font-size:10px;color:#6a6560;">Designed with passion. Worn with purpose.</p>
         </td></tr>
       </table>

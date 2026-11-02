@@ -52,6 +52,7 @@ export default function PrintableReceipt(props: PrintableReceiptProps) {
     const sub = subtotal ?? 0
     const ship = shippingCost ?? 0
     const t = tax ?? 0
+    const logoSrc = `${typeof window !== 'undefined' ? window.location.origin : ''}/images/brand/wordmark-ink.png`
 
     const receiptHtml = `<!DOCTYPE html>
 <html>
@@ -82,7 +83,7 @@ export default function PrintableReceipt(props: PrintableReceiptProps) {
 <body>
 <div class="receipt">
   <div class="header">
-    <h1>AMAPELS</h1>
+    <img src="${logoSrc}" alt="AMAPELS" style="display:block;margin:0 auto;width:190px;height:auto;" />
     <p>Nigerian Artistry, Global Elegance</p>
   </div>
 
@@ -133,7 +134,8 @@ export default function PrintableReceipt(props: PrintableReceiptProps) {
   </div>
 
   <div class="footer">
-    <strong>AMAPELS</strong> — Abuja, Nigeria<br>
+    <img src="${logoSrc}" width="120" alt="AMAPELS" style="display:block;margin:0 auto 10px;width:120px;height:auto;" />
+    Abuja, Nigeria<br>
     Designed with passion. Worn with purpose.<br>
     <span style="font-size:10px;">For inquiries: amapelsng@gmail.com</span>
   </div>

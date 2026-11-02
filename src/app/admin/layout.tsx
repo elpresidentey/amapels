@@ -7,6 +7,7 @@ import { verifyAdminSession, logoutAdmin } from '@/lib/auth'
 import { Home, Package, ShoppingCart, BarChart3, FileText, LogOut, Menu, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import OrderNotifications from '@/components/admin/OrderNotifications'
+import Logo from '@/components/Logo'
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter()
@@ -113,9 +114,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-20">
             <Link href="/admin" className="flex items-center gap-3">
-              <div className="font-serif text-lg sm:text-xl font-light tracking-[0.25em] text-white uppercase">
-                AMAPELS
-              </div>
+              <Logo variant="wordmark" tone="gold" className="h-6 w-40" priority />
               <span className="hidden sm:inline text-white/40 text-xs font-medium uppercase tracking-wider">
                 / Admin
               </span>

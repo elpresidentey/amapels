@@ -1,6 +1,6 @@
 /* AMAPELS service worker — offline support + fast repeat visits */
 /* NOTE: bump VERSION on every deploy that changes styling/pages so old caches are purged on activate */
-const VERSION = 'amapels-v2'
+const VERSION = 'amapels-v3'
 const STATIC_CACHE = `${VERSION}-static`
 const PAGES_CACHE = `${VERSION}-pages`
 const IMAGES_CACHE = `${VERSION}-images`

@@ -34,6 +34,20 @@ export const metadata: Metadata = {
     siteName: "AMAPELS",
     locale: "en_NG",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "AMAPELS — Modern Nigerian Elegance",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AMAPELS - Modern Nigerian Elegance",
+    description: "Handpicked Nigerian jewellery. Live in Abuja, delivered nationwide.",
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,

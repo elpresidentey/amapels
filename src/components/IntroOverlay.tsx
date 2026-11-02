@@ -1,18 +1,29 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
+import Logo from '@/components/Logo'
 
 export default function IntroOverlay() {
+  const pathname = usePathname()
   const [show, setShow] = useState(false)
 
   useEffect(() => {
+    // A splash belongs on the storefront entrance, not on order, checkout,
+    // account or admin deep links where it would block the page someone
+    // actually came for.
+    if (pathname !== "/") {
+      setShow(false)
+      return
+    }
+
     const seen = sessionStorage.getItem("amapels_intro_seen")
     if (!seen) {
       setShow(true)
       sessionStorage.setItem("amapels_intro_seen", "1")
     }
-  }, [])
+  }, [pathname])
 
   const handleDismiss = () => setShow(false)
 
@@ -32,13 +43,13 @@ export default function IntroOverlay() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
+            transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
             className="text-center"
           >
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+              transition={{ duration: 0.8, delay: 0.35, ease: "easeOut" }}
               className="font-serif text-4xl md:text-5xl lg:text-[4rem] tracking-[0.15em] text-white mb-4"
             >
               Welcome to
@@ -46,21 +57,26 @@ export default function IntroOverlay() {
             <motion.div
               initial={{ opacity: 0, scaleX: 0 }}
               animate={{ opacity: 1, scaleX: 1 }}
-              transition={{ duration: 0.8, delay: 1.2, ease: "easeOut" }}
+              transition={{ duration: 0.8, delay: 0.65, ease: "easeOut" }}
               className="h-px w-24 md:w-32 bg-gold mx-auto mb-6"
             />
-            <motion.p
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.5, ease: "easeOut" }}
-              className="font-serif text-2xl md:text-3xl lg:text-4xl tracking-[0.25em] text-gold-light uppercase"
+              transition={{ duration: 0.8, delay: 0.9, ease: "easeOut" }}
+              className="flex justify-center"
             >
-              AMAPELS NG
-            </motion.p>
+              <Logo
+                variant="wordmark"
+                tone="gold"
+                className="h-7 w-56 md:h-9 md:w-72 lg:h-11 lg:w-96"
+                priority
+              />
+            </motion.div>
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 2.2, ease: "easeOut" }}
+              transition={{ duration: 1, delay: 1.35, ease: "easeOut" }}
               className="mt-8 text-sm md:text-base text-white/60 tracking-[0.3em] uppercase"
             >
               Modern Nigerian Elegance
@@ -70,7 +86,7 @@ export default function IntroOverlay() {
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 3 }}
+            transition={{ duration: 1, delay: 1.9 }}
             className="absolute bottom-12 text-xs text-white/60 tracking-widest uppercase animate-pulse"
           >
             Tap to enter

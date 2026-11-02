@@ -220,7 +220,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                 type="button"
                 onClick={handleQuickView}
                 aria-label="Quick view product details"
-                className="mt-2 flex w-full items-center justify-center gap-2 whitespace-nowrap border border-ink/30 bg-ink/[0.08] px-2 py-2.5 text-[10px] font-medium uppercase tracking-[0.18em] text-ink backdrop-blur-sm transition-all duration-300 hover:bg-ink/[0.18] active:scale-95 active:scale-95"
+                className="mt-2 flex w-full items-center justify-center gap-2 whitespace-nowrap border border-white/35 bg-white/10 px-2 py-2.5 text-[10px] font-medium uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-all duration-300 hover:border-white/55 hover:bg-white/20 active:scale-95"
               >
                 <Eye size={13} strokeWidth={1.5} />
                 <span>View</span>

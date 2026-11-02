@@ -343,6 +343,19 @@
 }
 
 @layer components {
+  /* Brand logo — painted per theme without a client-side theme check */
+  .logo-on-dark {
+    display: none;
+  }
+
+  [data-theme='dark'] .logo-on-dark {
+    display: block;
+  }
+
+  [data-theme='dark'] .logo-on-light {
+    display: none;
+  }
+
   /* Premium animations */
   .animate-fade-in {
     animation: fadeIn 0.6s ease-in-out;

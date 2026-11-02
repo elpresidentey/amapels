@@ -6,6 +6,8 @@ import { motion } from 'framer-motion'
 import { Check, Package, Truck, Mail, ArrowRight, Calendar, Phone } from 'lucide-react'
 import Link from 'next/link'
 import PrintableReceipt from '@/components/PrintableReceipt'
+import Logo from '@/components/Logo'
+import LogoLoader from '@/components/LogoLoader'
 
 function OrderConfirmationContent() {
   const searchParams = useSearchParams()
@@ -121,10 +123,7 @@ function OrderConfirmationContent() {
   if (loading || !mounted) {
     return (
       <div className="min-h-screen bg-paper pt-24 pb-16 flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-8 h-8 border-2 border-ink border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-ink/65 text-sm">Loading your order details...</p>
-        </div>
+        <LogoLoader message="Loading your order details..." />
       </div>
     )
   }
@@ -138,6 +137,10 @@ function OrderConfirmationContent() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="max-w-4xl mx-auto text-center"
         >
+          <div className="mb-10 flex justify-center">
+            <Logo variant="wordmark" className="h-7 w-52" priority />
+          </div>
+
           <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}

@@ -3,7 +3,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import Image from 'next/image'
 import { ShoppingBag, Menu, Search, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Cabin } from 'next/font/google'
@@ -11,6 +10,7 @@ import { useCartStore } from '@/store/newCartStore'
 import CustomerAuth from '@/components/CustomerAuth'
 import SearchOverlay from '@/components/SearchOverlay'
 import ThemeToggle from '@/components/ThemeToggle'
+import Logo from '@/components/Logo'
 import { isCustomerAuthenticated } from '@/lib/customerAuth'
 
 const cabin = Cabin({
@@ -86,15 +86,11 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           {/* Brand */}
           <Link href="/" className="group flex-shrink-0" aria-label="AMAPELS home">
-            <div className="relative h-8 w-32 md:h-10 md:w-40">
-              <Image
-                src="/images/logo.png"
-                alt="AMAPELS"
-                fill
-                className="object-contain transition-opacity duration-300 group-hover:opacity-85"
-                priority
-              />
-            </div>
+            <Logo 
+              variant="wordmark"
+              className="h-6 w-36 md:h-7 md:w-44"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}

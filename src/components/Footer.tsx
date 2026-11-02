@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { Instagram, Facebook, Twitter, Mail, Phone } from 'lucide-react'
+import Logo from '@/components/Logo'
 
 export default function Footer() {
   return (
@@ -9,15 +9,11 @@ export default function Footer() {
         {/* Top brand strip */}
         <div className="mb-12 flex flex-col items-start justify-between gap-6 border-b border-ink/[0.06] pb-10 sm:mb-14 sm:pb-12 md:flex-row md:items-end lg:mb-16">
           <div>
-            <Link href="/" className="inline-block">
-              <div className="relative h-10 w-40 sm:h-12 sm:w-48">
-                <Image
-                  src="/images/logo.png"
-                  alt="AMAPELS"
-                  fill
-                  className="object-contain"
-                />
-              </div>
+            <Link href="/" className="inline-block" aria-label="AMAPELS home">
+              <Logo 
+                variant="wordmark"
+                className="h-9 w-52 sm:h-10 sm:w-60"
+              />
             </Link>
             <p className="mt-3 max-w-md text-sm leading-relaxed text-ink/65 sm:mt-4">
               Exquisite Nigerian jewellery, handpicked in Abuja to be worn, gifted, and treasured.
