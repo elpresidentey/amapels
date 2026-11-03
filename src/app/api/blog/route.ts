@@ -95,6 +95,13 @@ export async function POST(request: NextRequest) {
     if (error.code === 11000) {
       return NextResponse.json({ error: 'Duplicate slug' }, { status: 409 })
     }
-    return NextResponse.json({ error: 'Failed to create post' }, { status: 500 })
+    const detail =
+      error?.message ||
+      error?.errmsg ||
+      (error?.errors ? Object.values(error.errors).map((e: any) => e.message).join('; ') : '')
+    return NextResponse.json(
+      { error: 'Failed to create post', ...(detail ? { detail } : {}) },
+      { status: 500 }
+    )
   }
 }
