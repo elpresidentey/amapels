@@ -146,53 +146,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-paper">
-      {/* Curated pieces */}
-      <section className="bg-chrome px-4 py-20 sm:px-6 sm:py-24 md:px-12 md:py-28 lg:px-24 lg:py-32">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-12 flex flex-col gap-5 border-b border-ink/[0.06] pb-8 sm:mb-14 md:mb-16 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/65">
-                Curated Pieces
-              </p>
-              <h2 className="font-serif text-2xl font-light text-ink sm:text-3xl md:text-4xl">
-                Pieces we&apos;re loving right now.
-              </h2>
-            </div>
-            <div className="flex flex-col items-start gap-4 md:items-end">
-              <p className="max-w-sm text-sm leading-relaxed text-ink/65 md:text-right">
-                Selected for people who like quiet elegance — and for the gift you keep
-                meaning to buy.
-              </p>
-              <Link
-                href="/shop"
-                className="group inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.24em] text-ink transition-colors hover:text-gold-ink"
-              >
-                View All Pieces
-                <ArrowUpRight size={14} strokeWidth={1.5} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-              </Link>
-            </div>
-          </div>
-
-          {loading ? (
-            <div className="grid gap-10 md:grid-cols-3 md:gap-8">
-              {[1, 2, 3].map((i) => (
-                <ProductCardSkeleton key={i} />
-              ))}
-            </div>
-          ) : curatedPieces.length > 0 ? (
-            <div className="grid gap-10 md:grid-cols-3 md:gap-8 lg:gap-10">
-              {curatedPieces.map((piece, index) => (
-                <ProductCard key={piece._id} product={piece} index={index} />
-              ))}
-            </div>
-          ) : (
-            <div className="border border-dashed border-ink/10 py-16 text-center">
-              <p className="text-sm text-ink/60">New pieces are coming. Check back soon!</p>
-            </div>
-          )}
-        </div>
-      </section>
-
       {/* Hero — Cinematic parallax */}
       <section ref={heroRef} className="relative min-h-[100svh] overflow-hidden bg-chrome text-ink">
         <motion.div
@@ -411,6 +364,53 @@ export default function Home() {
             </div>
           </div>
         </motion.div>
+      </section>
+
+      {/* Curated pieces — right after the hero so products are easy to reach */}
+      <section className="bg-chrome px-4 py-20 sm:px-6 sm:py-24 md:px-12 md:py-28 lg:px-24 lg:py-32">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-12 flex flex-col gap-5 border-b border-ink/[0.06] pb-8 sm:mb-14 md:mb-16 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/65">
+                Curated Pieces
+              </p>
+              <h2 className="font-serif text-2xl font-light text-ink sm:text-3xl md:text-4xl">
+                Pieces we&apos;re loving right now.
+              </h2>
+            </div>
+            <div className="flex flex-col items-start gap-4 md:items-end">
+              <p className="max-w-sm text-sm leading-relaxed text-ink/65 md:text-right">
+                Selected for people who like quiet elegance — and for the gift you keep
+                meaning to buy.
+              </p>
+              <Link
+                href="/shop"
+                className="group inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.24em] text-ink transition-colors hover:text-gold-ink"
+              >
+                View All Pieces
+                <ArrowUpRight size={14} strokeWidth={1.5} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </Link>
+            </div>
+          </div>
+
+          {loading ? (
+            <div className="grid gap-10 md:grid-cols-3 md:gap-8">
+              {[1, 2, 3].map((i) => (
+                <ProductCardSkeleton key={i} />
+              ))}
+            </div>
+          ) : curatedPieces.length > 0 ? (
+            <div className="grid gap-10 md:grid-cols-3 md:gap-8 lg:gap-10">
+              {curatedPieces.map((piece, index) => (
+                <ProductCard key={piece._id} product={piece} index={index} />
+              ))}
+            </div>
+          ) : (
+            <div className="border border-dashed border-ink/10 py-16 text-center">
+              <p className="text-sm text-ink/60">New pieces are coming. Check back soon!</p>
+            </div>
+          )}
+        </div>
       </section>
 
       {/* Brand pillars */}
