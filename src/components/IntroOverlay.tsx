@@ -79,7 +79,7 @@ export default function IntroOverlay() {
               transition={{ duration: 1, delay: 1.35, ease: "easeOut" }}
               className="mt-8 text-center font-serif text-lg italic md:text-xl text-white/70 tracking-wide"
             >
-              Love it. <span className="text-gold">Repeat.</span>
+              Style it. Love it. <span className="text-gold">Repeat.</span>
             </motion.p>
           </motion.div>
 
