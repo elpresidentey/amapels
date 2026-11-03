@@ -90,8 +90,13 @@ export async function POST(request: NextRequest) {
   }
 
   const result = await sendOrderConfirmation(sample)
+  const provider = process.env.GMAIL_APP_PASSWORD ? 'gmail' : 'resend'
+  const from = provider === 'gmail'
+    ? `AMAPELS <${process.env.GMAIL_USER || 'amapelsng@gmail.com'}>`
+    : process.env.EMAIL_FROM || 'AMAPELS <orders@amapelsng.com>'
+
   return NextResponse.json(
-    { ...result, to: recipient, from: process.env.EMAIL_FROM || 'AMAPELS <orders@amapelsng.com>' },
+    { ...result, to: recipient, from, provider },
     { status: result.sent ? 200 : 503 }
   )
 }

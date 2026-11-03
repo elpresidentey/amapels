@@ -1,11 +1,20 @@
 import { Resend } from 'resend'
 
+// eslint-disable-next-line
+const nodemailer = require('nodemailer')
+
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://amapelsng.com').replace(/\/$/, '')
 
 // The sender MUST be on a domain verified in Resend. A gmail.com address can
 // never be used as `from` — Resend rejects it.
 const FROM_EMAIL = process.env.EMAIL_FROM?.trim() || 'AMAPELS <orders@amapelsng.com>'
 const REPLY_TO = process.env.EMAIL_REPLY_TO?.trim() || 'amapelsng@gmail.com'
+
+// Gmail SMTP fallback: works without any DNS setup, sends as the Gmail address
+// itself. Used when GMAIL_APP_PASSWORD is configured; otherwise Resend.
+const GMAIL_USER = process.env.GMAIL_USER?.trim() || 'amapelsng@gmail.com'
+const GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD?.trim()
+const GMAIL_FROM = `AMAPELS <${GMAIL_USER}>`
 
 export interface OrderEmailItem {
   name: string
@@ -38,6 +47,7 @@ export interface EmailResult {
   skipped?: boolean
   reason?: string
   id?: string
+  provider?: 'gmail' | 'resend'
 }
 
 // Checkout waits on this call, so cap it. A slow provider must not turn a paid
@@ -242,6 +252,32 @@ function buildOrderText(data: OrderConfirmationData): string {
   return lines.filter((line) => line !== '').join('\n')
 }
 
+let gmailTransport: any = null
+
+/**
+ * Gmail SMTP transport, used when GMAIL_APP_PASSWORD is configured.
+ * Requires 2-Step Verification + an App Password on the Google account.
+ */
+function getGmailTransport() {
+  if (!GMAIL_APP_PASSWORD) return null
+
+  if (!gmailTransport) {
+    gmailTransport = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: GMAIL_USER,
+        // App passwords are displayed in groups of four; spaces are not part of it.
+        pass: GMAIL_APP_PASSWORD.replace(/\s+/g, ''),
+      },
+      connectionTimeout: 8000,
+      greetingTimeout: 8000,
+      socketTimeout: 12000,
+    })
+  }
+
+  return gmailTransport
+}
+
 /**
  * Send the order confirmation. Never throws: a mail outage must not turn a
  * paid order into a failed checkout.
@@ -249,14 +285,51 @@ function buildOrderText(data: OrderConfirmationData): string {
 export async function sendOrderConfirmation(
   data: OrderConfirmationData
 ): Promise<EmailResult> {
+  if (!data.customerEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.customerEmail)) {
+    return { sent: false, skipped: true, reason: 'Invalid customer email address' }
+  }
+
+  const subject = `Order ${data.orderNumber} confirmed — AMAPELS`
+  const html = buildOrderHtml(data)
+  const text = buildOrderText(data)
+
+  // Prefer Gmail when configured: it needs no DNS verification.
+  const gmail = getGmailTransport()
+  if (gmail) {
+    try {
+      const info = await withTimeout<any>(
+        gmail.sendMail({
+          from: GMAIL_FROM,
+          replyTo: GMAIL_USER,
+          to: data.customerEmail,
+          subject,
+          html,
+          text,
+        }),
+        EMAIL_TIMEOUT_MS
+      )
+
+      if (!info) {
+        console.error('Gmail SMTP timed out after', EMAIL_TIMEOUT_MS, 'ms')
+        return { sent: false, reason: 'Gmail SMTP timed out', provider: 'gmail' }
+      }
+
+      console.log(`Order confirmation sent via Gmail: ${data.orderNumber}`)
+      return { sent: true, id: info.messageId, provider: 'gmail' }
+    } catch (error) {
+      console.error('Gmail send error:', error)
+      return {
+        sent: false,
+        reason: error instanceof Error ? error.message : 'Unknown Gmail error',
+        provider: 'gmail',
+      }
+    }
+  }
+
   const { client, reason } = getResend()
   if (!client) {
     console.warn(`Order confirmation email skipped: ${reason}`)
     return { sent: false, skipped: true, reason }
-  }
-
-  if (!data.customerEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.customerEmail)) {
-    return { sent: false, skipped: true, reason: 'Invalid customer email address' }
   }
 
   try {
@@ -265,31 +338,32 @@ export async function sendOrderConfirmation(
         from: FROM_EMAIL,
         replyTo: REPLY_TO,
         to: data.customerEmail,
-        subject: `Order ${data.orderNumber} confirmed — AMAPELS`,
-        html: buildOrderHtml(data),
-        text: buildOrderText(data),
+        subject,
+        html,
+        text,
       }),
       EMAIL_TIMEOUT_MS
     )
 
     if (!response) {
       console.error('Order confirmation email timed out after', EMAIL_TIMEOUT_MS, 'ms')
-      return { sent: false, reason: 'Email provider timed out' }
+      return { sent: false, reason: 'Email provider timed out', provider: 'resend' }
     }
 
     const { data: result, error } = response
 
     if (error) {
       console.error('Failed to send order confirmation:', error)
-      return { sent: false, reason: error.message }
+      return { sent: false, reason: error.message, provider: 'resend' }
     }
 
-    return { sent: true, id: result?.id }
+    return { sent: true, id: result?.id, provider: 'resend' }
   } catch (error) {
     console.error('Order confirmation email error:', error)
     return {
       sent: false,
       reason: error instanceof Error ? error.message : 'Unknown email error',
+      provider: 'resend',
     }
   }
 }
