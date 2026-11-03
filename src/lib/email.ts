@@ -40,6 +40,27 @@ export interface EmailResult {
   id?: string
 }
 
+// Checkout waits on this call, so cap it. A slow provider must not turn a paid
+// order into a client-side timeout while the order actually succeeded.
+const EMAIL_TIMEOUT_MS = 8000
+
+function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T | null> {
+  return new Promise((resolve) => {
+    const timer = setTimeout(() => resolve(null), ms)
+    promise.then(
+      (value) => {
+        clearTimeout(timer)
+        resolve(value)
+      },
+      (error) => {
+        clearTimeout(timer)
+        console.error('Email request rejected:', error)
+        resolve(null)
+      }
+    )
+  })
+}
+
 let resendState: { client: Resend | null; reason?: string } | null = null
 
 /**
@@ -239,14 +260,24 @@ export async function sendOrderConfirmation(
   }
 
   try {
-    const { data: result, error } = await client.emails.send({
-      from: FROM_EMAIL,
-      replyTo: REPLY_TO,
-      to: data.customerEmail,
-      subject: `Order ${data.orderNumber} confirmed — AMAPELS`,
-      html: buildOrderHtml(data),
-      text: buildOrderText(data),
-    })
+    const response = await withTimeout(
+      client.emails.send({
+        from: FROM_EMAIL,
+        replyTo: REPLY_TO,
+        to: data.customerEmail,
+        subject: `Order ${data.orderNumber} confirmed — AMAPELS`,
+        html: buildOrderHtml(data),
+        text: buildOrderText(data),
+      }),
+      EMAIL_TIMEOUT_MS
+    )
+
+    if (!response) {
+      console.error('Order confirmation email timed out after', EMAIL_TIMEOUT_MS, 'ms')
+      return { sent: false, reason: 'Email provider timed out' }
+    }
+
+    const { data: result, error } = response
 
     if (error) {
       console.error('Failed to send order confirmation:', error)
