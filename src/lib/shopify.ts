@@ -78,7 +78,7 @@ export interface ShopifyMappedProduct {
   _id: string
   name: string
   price: string
-  category: 'Earrings' | 'Necklaces' | 'Bracelets' | 'Jewellery Sets'
+  category: 'Earrings' | 'Necklaces' | 'Bracelets' | 'Jewellery Sets' | 'Rings'
   story: string
   material: string
   description: string
@@ -107,7 +107,7 @@ function formatNaira(amountStr: string, currencyCode: string): string {
 }
 
 function mapCategory(productType: string, tags: string[]): ShopifyMappedProduct['category'] {
-  const valid = ['Earrings', 'Necklaces', 'Bracelets', 'Jewellery Sets']
+  const valid = ['Earrings', 'Necklaces', 'Bracelets', 'Jewellery Sets', 'Rings']
   if (valid.includes(productType)) return productType as ShopifyMappedProduct['category']
   for (const t of tags) {
     const match = valid.find((v) => v.toLowerCase() === t.toLowerCase().trim())

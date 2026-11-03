@@ -134,7 +134,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                       Browse Categories
                     </p>
                     <div className="flex flex-wrap gap-2">
-                      {['Earrings', 'Necklaces', 'Bracelets', 'Jewellery Sets'].map((cat) => (
+                      {['Earrings', 'Necklaces', 'Bracelets', 'Jewellery Sets', 'Rings'].map((cat) => (
                         <button
                           key={cat}
                           type="button"

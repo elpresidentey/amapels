@@ -2,7 +2,7 @@ export interface ProductData {
   _id: string
   name: string
   price: string
-  category: 'Earrings' | 'Necklaces' | 'Bracelets' | 'Jewellery Sets'
+  category: 'Earrings' | 'Necklaces' | 'Bracelets' | 'Jewellery Sets' | 'Rings'
   story: string
   material: string
   description: string

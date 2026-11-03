@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation'
 import { useProducts } from '@/hooks/useProducts'
 import ProductCard, { ProductCardSkeleton } from '@/components/ProductCard'
 
-const categories = ['All', 'Earrings', 'Necklaces', 'Bracelets', 'Jewellery Sets']
+const categories = ['All', 'Earrings', 'Necklaces', 'Bracelets', 'Jewellery Sets', 'Rings']
 
 function ShopContent() {
   const searchParams = useSearchParams()

@@ -32,7 +32,7 @@ const ProductSchema: Schema<IProduct> = new Schema(
     category: {
       type: String,
       required: [true, 'Please provide a category'],
-      enum: ['Earrings', 'Necklaces', 'Bracelets', 'Jewellery Sets'],
+      enum: ['Earrings', 'Necklaces', 'Bracelets', 'Jewellery Sets', 'Rings'],
     },
     story: {
       type: String,

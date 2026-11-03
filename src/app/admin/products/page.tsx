@@ -25,7 +25,7 @@ interface Product {
   updatedAt?: string
 }
 
-const CATEGORIES = ['Earrings', 'Necklaces', 'Bracelets', 'Jewellery Sets']
+const CATEGORIES = ['Earrings', 'Necklaces', 'Bracelets', 'Jewellery Sets', 'Rings']
 
 const initialFormData: Omit<Product, '_id' | 'createdAt' | 'updatedAt'> = {
   name: '',

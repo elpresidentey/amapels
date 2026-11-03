@@ -51,31 +51,30 @@ const featuredCollections = [
   {
     title: 'Earrings',
     description: 'Tiny studs for Monday. Big drops for Saturday. Pick your mood.',
-    image: '/images/mayank-gehlot-lsxBmX8Hmwc-unsplash.webp',
+    image: '/images/godfred-kwakye-fOcFLNzGtd0-unsplash.webp',
     link: '/shop?category=Earrings',
     span: 'md:col-span-2'
   },
   {
     title: 'Bracelets',
     description: 'Stack them, mix them, then forget you\'re even wearing them.',
-    image: '/images/carlos-esteves-1MWbwTaeJIA-unsplash.webp',
+    image: '/images/k-studios-hbCWaqLnD_s-unsplash.webp',
     link: '/shop?category=Bracelets',
-    span: ''
-  },
-  {
-    title: 'Occasion Pieces',
-    description:
-      'For the aso ebi, the owambe, and the \'I need to look good tonight.\'',
-    image: '/images/pexels-gabriela-brasiliano-515209300-32225451.webp',
-    link: '/shop',
     span: ''
   },
   {
     title: 'Necklaces',
     description: 'The little chain you never take off, and the one that starts conversations.',
-    image: '/images/pexels-vedat-29043373.webp',
+    image: '/images/prahant-studio-h0evAOsNNtg-unsplash.webp',
     link: '/shop?category=Necklaces',
     span: 'md:col-span-2'
+  },
+  {
+    title: 'Rings',
+    description: 'The small glints that pull a whole look together.',
+    image: '/images/muhammad-taha-ibrahim-DWcGIvmI30Y-unsplash.webp',
+    link: '/shop?category=Rings',
+    span: ''
   }
 ]
 
@@ -147,6 +146,53 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-paper">
+      {/* Curated pieces */}
+      <section className="bg-chrome px-4 py-20 sm:px-6 sm:py-24 md:px-12 md:py-28 lg:px-24 lg:py-32">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-12 flex flex-col gap-5 border-b border-ink/[0.06] pb-8 sm:mb-14 md:mb-16 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/65">
+                Curated Pieces
+              </p>
+              <h2 className="font-serif text-2xl font-light text-ink sm:text-3xl md:text-4xl">
+                Pieces we&apos;re loving right now.
+              </h2>
+            </div>
+            <div className="flex flex-col items-start gap-4 md:items-end">
+              <p className="max-w-sm text-sm leading-relaxed text-ink/65 md:text-right">
+                Selected for people who like quiet elegance — and for the gift you keep
+                meaning to buy.
+              </p>
+              <Link
+                href="/shop"
+                className="group inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.24em] text-ink transition-colors hover:text-gold-ink"
+              >
+                View All Pieces
+                <ArrowUpRight size={14} strokeWidth={1.5} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </Link>
+            </div>
+          </div>
+
+          {loading ? (
+            <div className="grid gap-10 md:grid-cols-3 md:gap-8">
+              {[1, 2, 3].map((i) => (
+                <ProductCardSkeleton key={i} />
+              ))}
+            </div>
+          ) : curatedPieces.length > 0 ? (
+            <div className="grid gap-10 md:grid-cols-3 md:gap-8 lg:gap-10">
+              {curatedPieces.map((piece, index) => (
+                <ProductCard key={piece._id} product={piece} index={index} />
+              ))}
+            </div>
+          ) : (
+            <div className="border border-dashed border-ink/10 py-16 text-center">
+              <p className="text-sm text-ink/60">New pieces are coming. Check back soon!</p>
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* Hero — Cinematic parallax */}
       <section ref={heroRef} className="relative min-h-[100svh] overflow-hidden bg-chrome text-ink">
         <motion.div
@@ -578,7 +624,7 @@ export default function Home() {
                       priority={index < 2}
                       sizes={collection.span ? '(max-width: 768px) 100vw, 66vw' : '(max-width: 768px) 100vw, 33vw'}
                       quality={85}
-                      className={`object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.04] ${index === 0 ? 'object-[center_25%]' : ''}`}
+                      className={`object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.04]`}
                     />
                   </div>
                   <div className="absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--color-wash)/0.15)_0%,rgb(var(--color-wash)/0.6)_40%,rgb(var(--color-wash)/0.9)_100%)] transition-opacity duration-500 group-hover:opacity-95" />
@@ -597,53 +643,6 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Curated pieces */}
-      <section className="bg-chrome px-4 py-20 sm:px-6 sm:py-24 md:px-12 md:py-28 lg:px-24 lg:py-32">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-12 flex flex-col gap-5 border-b border-ink/[0.06] pb-8 sm:mb-14 md:mb-16 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.38em] text-ink/65">
-                Curated Pieces
-              </p>
-              <h2 className="font-serif text-2xl font-light text-ink sm:text-3xl md:text-4xl">
-                Pieces we&apos;re loving right now.
-              </h2>
-            </div>
-            <div className="flex flex-col items-start gap-4 md:items-end">
-              <p className="max-w-sm text-sm leading-relaxed text-ink/65 md:text-right">
-                Selected for people who like quiet elegance — and for the gift you keep
-                meaning to buy.
-              </p>
-              <Link
-                href="/shop"
-                className="group inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.24em] text-ink transition-colors hover:text-gold-ink"
-              >
-                View All Pieces
-                <ArrowUpRight size={14} strokeWidth={1.5} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-              </Link>
-            </div>
-          </div>
-
-          {loading ? (
-            <div className="grid gap-10 md:grid-cols-3 md:gap-8">
-              {[1, 2, 3].map((i) => (
-                <ProductCardSkeleton key={i} />
-              ))}
-            </div>
-          ) : curatedPieces.length > 0 ? (
-            <div className="grid gap-10 md:grid-cols-3 md:gap-8 lg:gap-10">
-              {curatedPieces.map((piece, index) => (
-                <ProductCard key={piece._id} product={piece} index={index} />
-              ))}
-            </div>
-          ) : (
-            <div className="border border-dashed border-ink/10 py-16 text-center">
-              <p className="text-sm text-ink/60">New pieces are coming. Check back soon!</p>
-            </div>
-          )}
         </div>
       </section>
 

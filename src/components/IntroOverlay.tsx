@@ -77,9 +77,9 @@ export default function IntroOverlay() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 1.35, ease: "easeOut" }}
-              className="mt-8 text-sm md:text-base text-white/60 tracking-[0.3em] uppercase"
+              className="mt-8 text-center font-serif text-lg italic md:text-xl text-white/70 tracking-wide"
             >
-              Modern Nigerian Elegance
+              Love it. <span className="text-gold">Repeat.</span>
             </motion.p>
           </motion.div>
 
