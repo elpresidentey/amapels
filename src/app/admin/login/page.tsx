@@ -86,7 +86,7 @@ export default function AdminLoginPage() {
                   Email Address
                 </label>
                 <div className="relative">
-                  <div className="absolute left-3 top-1/2 -translate-y-1/2 text-black/40">
+                  <div className="pointer-events-none absolute left-3 top-1/2 z-10 -translate-y-1/2 text-black/40">
                     <Mail size={18} />
                   </div>
                   <input
@@ -95,7 +95,7 @@ export default function AdminLoginPage() {
                     autoComplete="email"
                     value={formData.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
-                    className="w-full pl-12 pr-4 py-3.5 border border-gold rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-gold outline-none text-base transition-all min-h-[48px] relative z-10 cursor-text"
+                    className="relative z-0 w-full pl-12 pr-4 py-3.5 border border-gold rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-gold outline-none text-base transition-all min-h-[48px] cursor-text"
                     placeholder="amapelsng@gmail.com"
                     required
                   />
@@ -107,7 +107,7 @@ export default function AdminLoginPage() {
                   Password
                 </label>
                 <div className="relative">
-                  <div className="absolute left-3 top-1/2 -translate-y-1/2 text-black/40">
+                  <div className="pointer-events-none absolute left-3 top-1/2 z-10 -translate-y-1/2 text-black/40">
                     <Lock size={18} />
                   </div>
                   <input
@@ -116,7 +116,7 @@ export default function AdminLoginPage() {
                     autoComplete="current-password"
                     value={formData.password}
                     onChange={(e) => handleInputChange('password', e.target.value)}
-                    className="w-full pl-12 pr-14 py-3.5 border border-gold rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-gold outline-none text-base transition-all min-h-[48px] relative z-10 cursor-text"
+                    className="relative z-0 w-full pl-12 pr-14 py-3.5 border border-gold rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-gold outline-none text-base transition-all min-h-[48px] cursor-text"
                     placeholder="Enter your password"
                     required
                   />
