@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import Image from 'next/image'
 import { Heart, ShoppingBag, ArrowLeft, Check, Package } from 'lucide-react'
 import Link from 'next/link'
@@ -17,6 +17,7 @@ export default function ProductPage() {
   const [selectedImage, setSelectedImage] = useState(0)
   const [addedToCart, setAddedToCart] = useState(false)
   const [wishlisted, setWishlisted] = useState(false)
+  const prefersReducedMotion = useReducedMotion()
 
   const { product, loading, error } = useProduct(params.id)
   const { products: relatedProducts } = useProducts(product?.category || undefined)
@@ -94,9 +95,9 @@ export default function ProductPage() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
           {/* Gallery */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease }}
+            transition={{ duration: prefersReducedMotion ? 0.15 : 0.7, ease }}
           >
             <div className="relative mb-4 aspect-[3/4] overflow-hidden bg-surface-2 sm:mb-5">
               <Image
@@ -138,9 +139,9 @@ export default function ProductPage() {
 
           {/* Product info */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1, ease }}
+            transition={{ duration: prefersReducedMotion ? 0.15 : 0.7, delay: prefersReducedMotion ? 0 : 0.08, ease }}
             className="flex flex-col lg:pt-4"
           >
             <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.32em] text-ink/60">
@@ -168,7 +169,13 @@ export default function ProductPage() {
             </p>
 
             {/* The Inspiration */}
-            <div className="mt-8 border-l-2 border-gold/40 bg-surface-2 px-5 py-5 sm:px-6 sm:py-6">
+            <motion.div
+              initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-35px' }}
+              transition={{ duration: prefersReducedMotion ? 0.15 : 0.55, ease }}
+              className="mt-8 border-l-2 border-gold/40 bg-surface-2 px-5 py-5 sm:px-6 sm:py-6"
+            >
               <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-gold-ink">
                 The Inspiration
               </p>
@@ -177,7 +184,7 @@ export default function ProductPage() {
                   ? `Inspired by the interplay of ${product.materials.toLowerCase()}, this piece captures the essence of Nigerian elegance — where tradition meets the contemporary woman who moves through the world with grace and intention.`
                   : `Every curve and contour of this piece is a conversation between heritage and the modern woman — picked for moments that deserve to be remembered.`}
               </p>
-            </div>
+            </motion.div>
 
             {/* Add to cart */}
             <div className="mt-10 flex gap-3 sm:mt-12">
@@ -213,7 +220,13 @@ export default function ProductPage() {
             </div>
 
             {/* Details accordion */}
-            <div className="mt-12 space-y-6 border-t border-ink/[0.06] pt-10 sm:mt-14">
+            <motion.div
+              initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-35px' }}
+              transition={{ duration: prefersReducedMotion ? 0.15 : 0.6, ease }}
+              className="mt-12 space-y-6 border-t border-ink/[0.06] pt-10 sm:mt-14"
+            >
               {/* Specs */}
               <div>
                 <h3 className="mb-4 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/60">
@@ -268,17 +281,17 @@ export default function ProductPage() {
                   <p className="text-sm leading-relaxed text-ink/65">{product.care}</p>
                 </div>
               )}
-            </div>
+            </motion.div>
           </motion.div>
         </div>
 
         {/* Shop The Look */}
         {shopTheLook.length > 0 && (
           <motion.section
-            initial={{ opacity: 0, y: 28 }}
+            initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 22 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: prefersReducedMotion ? 0.15 : 0.7, ease }}
             className="mt-20 border-t border-ink/[0.06] pt-14 sm:mt-24 sm:pt-16 md:mt-28 md:pt-20"
           >
             <div className="mb-12 flex flex-col gap-5 border-b border-ink/[0.06] pb-8 sm:mb-14 md:flex-row md:items-end md:justify-between">

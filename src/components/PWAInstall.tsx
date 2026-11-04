@@ -151,6 +151,10 @@ export default function PWAInstall() {
     return null
   }
 
+  // Keep the storefront entrance clear; installation can be offered after
+  // the shopper has moved into the catalogue or another supporting page.
+  if (pathname === '/') return null
+
   const show = visible && !cartOpen
   const installLabel = deferredPrompt ? 'Install app' : 'How to install'
 

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getProducts, supabase, getProductImages } from '@/lib/supabase'
 import { isShopifyConfigured, getShopifyProducts } from '@/lib/shopify'
 import { requireAdmin } from '@/lib/admin-guard'
+import { getProductFinish } from '@/lib/productFinish'
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
@@ -87,6 +88,7 @@ async function buildCatalogPayload(category: string | null) {
         description: p.description,
         images: getProductImages(p),
         featured: p.featured,
+        finish: getProductFinish({ name: p.name, description: p.description || '' }),
         story: 'Picked with care',
         material: 'Premium materials',
         details: ['Elegant design', 'High quality', 'Perfect for any occasion'],

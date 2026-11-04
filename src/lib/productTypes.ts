@@ -12,6 +12,7 @@ export interface ProductData {
   options: string[]
   images: string[]
   featured: boolean
+  finish?: 'gold' | 'silver' | 'mixed' | 'other'
   createdAt: string
   updatedAt: string
 }

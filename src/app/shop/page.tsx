@@ -1,27 +1,28 @@
 'use client'
 
-import { Suspense, useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
-import { useSearchParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useProducts } from '@/hooks/useProducts'
 import ProductCard, { ProductCardSkeleton } from '@/components/ProductCard'
+import { matchesFinish, type FinishFilter } from '@/lib/productFinish'
 
 const categories = ['All', 'Earrings', 'Necklaces', 'Bracelets', 'Rings']
 
-function ShopContent() {
-  const searchParams = useSearchParams()
-  const [selectedCategory, setSelectedCategory] = useState('All')
+function ShopContent({ initialCategory, initialFinish }: { initialCategory: string; initialFinish: FinishFilter }) {
+  const prefersReducedMotion = useReducedMotion()
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory)
+  const [selectedFinish, setSelectedFinish] = useState<FinishFilter>(initialFinish)
 
   useEffect(() => {
-    const categoryFromQuery = searchParams.get('category')
-    if (categoryFromQuery && categories.includes(categoryFromQuery)) {
-      setSelectedCategory(categoryFromQuery)
-      return
-    }
-    setSelectedCategory('All')
-  }, [searchParams])
+    setSelectedCategory(initialCategory)
+  }, [initialCategory])
+
+  useEffect(() => {
+    setSelectedFinish(initialFinish)
+  }, [initialFinish])
 
   const { products, loading, error, refetch } = useProducts(selectedCategory)
+  const visibleProducts = products.filter((product) => matchesFinish(product, selectedFinish))
 
   if (loading) {
     return (
@@ -73,9 +74,9 @@ function ShopContent() {
         <div className="mx-auto max-w-7xl">
           {/* Editorial header */}
           <motion.div
-            initial={{ opacity: 0, y: 28 }}
+            initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 22 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: prefersReducedMotion ? 0.15 : 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="mb-12 border-b border-ink/[0.06] pb-10 sm:mb-14 sm:pb-12 md:mb-16"
           >
             <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
@@ -95,9 +96,9 @@ function ShopContent() {
 
           {/* Category filters */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: prefersReducedMotion ? 0.15 : 0.6, delay: prefersReducedMotion ? 0 : 0.1, ease: [0.22, 1, 0.36, 1] }}
             className="mb-10 flex flex-wrap items-center gap-2 sm:mb-12 sm:gap-2.5 md:mb-14"
           >
             {categories.map((category) => {
@@ -118,26 +119,53 @@ function ShopContent() {
             })}
           </motion.div>
 
-          {products && products.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-30px' }}
+            transition={{ duration: prefersReducedMotion ? 0.15 : 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="mb-10 flex flex-wrap items-center gap-x-6 gap-y-3 border-b border-ink/[0.06] pb-5 sm:mb-12 md:mb-14"
+            aria-label="Filter by finish"
+          >
+            <span className="text-[9px] font-medium uppercase tracking-[0.2em] text-ink/45">Finish</span>
+            {([
+              ['all', 'All finishes'],
+              ['gold', 'Gold'],
+              ['silver', 'Silver'],
+            ] as const).map(([finish, label]) => (
+              <button
+                key={finish}
+                type="button"
+                onClick={() => setSelectedFinish(finish)}
+                aria-pressed={selectedFinish === finish}
+                className={`border-b pb-1.5 text-[10px] font-medium uppercase tracking-[0.17em] transition-colors sm:text-[11px] ${selectedFinish === finish ? 'border-gold-ink text-ink' : 'border-transparent text-ink/50 hover:text-ink'}`}
+              >
+                {label}
+              </button>
+            ))}
+          </motion.div>
+
+          {visibleProducts && visibleProducts.length > 0 && (
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.15 }}
+              transition={{ duration: prefersReducedMotion ? 0.15 : 0.5, delay: prefersReducedMotion ? 0 : 0.15 }}
               className="mb-8 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/60 sm:mb-10"
             >
-              {products.length} {products.length === 1 ? 'piece' : 'pieces'}
+              {visibleProducts.length} {visibleProducts.length === 1 ? 'piece' : 'pieces'}
               {selectedCategory !== 'All' ? ` · ${selectedCategory}` : ''}
+              {selectedFinish !== 'all' ? ` · ${selectedFinish} finish` : ''}
             </motion.p>
           )}
 
-          {!products || products.length === 0 ? (
+          {!visibleProducts || visibleProducts.length === 0 ? (
             <div className="border border-dashed border-ink/10 py-20 text-center">
-              <p className="font-serif text-xl font-light text-ink">Nothing here yet</p>
-              <p className="mt-2 text-sm text-ink/60">Check back soon for new pieces in this category.</p>
+              <p className="font-serif text-xl font-light text-ink">No {selectedFinish === 'all' ? '' : `${selectedFinish} `}pieces here yet</p>
+              <p className="mt-2 text-sm text-ink/60">Try another finish or explore the full collection.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 sm:gap-x-7 sm:gap-y-14 md:gap-x-8 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-16">
-              {products.map((product, index) => (
+              {visibleProducts.map((product, index) => (
                 <ProductCard key={product._id} product={product} index={index} />
               ))}
             </div>
@@ -148,19 +176,19 @@ function ShopContent() {
   )
 }
 
-export default function ShopPage() {
-  return (
-    <Suspense
-      fallback={
-        <div className="flex min-h-screen items-center justify-center pt-32">
-          <div className="text-center">
-            <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border border-ink/25 border-t-gold-ink" />
-            <p className="text-sm text-ink/65">Loading the collection…</p>
-          </div>
-        </div>
-      }
-    >
-      <ShopContent />
-    </Suspense>
-  )
+export default function ShopPage({
+  searchParams,
+}: {
+  searchParams: { category?: string | string[]; finish?: string | string[] }
+}) {
+  const queryCategory = Array.isArray(searchParams.category)
+    ? searchParams.category[0]
+    : searchParams.category
+  const initialCategory = queryCategory && categories.includes(queryCategory)
+    ? queryCategory
+    : 'All'
+  const finishParam = Array.isArray(searchParams.finish) ? searchParams.finish[0] : searchParams.finish
+  const initialFinish: FinishFilter = finishParam === 'gold' || finishParam === 'silver' ? finishParam : 'all'
+
+  return <ShopContent key={`${initialCategory}-${initialFinish}`} initialCategory={initialCategory} initialFinish={initialFinish} />
 }

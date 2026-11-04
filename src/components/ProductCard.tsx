@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
+import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -37,6 +37,7 @@ export function ProductCardSkeleton() {
 export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   const router = useRouter()
   const { addItem, openCart } = useCartStore()
+  const prefersReducedMotion = useReducedMotion()
   const [isHovered, setIsHovered] = useState(false)
   const [wishlisted, setWishlisted] = useState(false)
   const [addedToCart, setAddedToCart] = useState(false)
@@ -100,10 +101,10 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   return (
     <motion.div
       ref={cardRef}
-      initial={{ opacity: 0, y: 32 }}
+      initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 26 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.8, delay: Math.min(index * 0.08, 0.4), ease }}
+      transition={{ duration: prefersReducedMotion ? 0.15 : 0.6, delay: prefersReducedMotion ? 0 : Math.min(index * 0.06, 0.3), ease }}
       className="group relative w-full"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -117,7 +118,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
           aria-label={`View ${product.name} — ${product.price}`}
           tabIndex={0}
         >
-          <motion.div className="relative h-full w-full overflow-hidden" style={{ scale: imageParallax }}>
+          <motion.div className="relative h-full w-full overflow-hidden" style={{ scale: prefersReducedMotion ? 1 : imageParallax }}>
             <Image
               src={primaryImage}
               alt={product.name}
@@ -230,19 +231,17 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
         </AnimatePresence>
       </div>
 
-      <Link href={productHref} className="mt-4 block px-0.5 pt-1 focus-visible:outline-2 focus-visible:outline-gold sm:mt-5" tabIndex={-1} aria-hidden="true">
-        <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-ink/60 transition-colors duration-300 group-hover:text-gold-ink">
+      <Link href={productHref} className="mt-4 flex min-h-[146px] flex-col px-0.5 pt-1 focus-visible:outline-2 focus-visible:outline-gold sm:mt-5" tabIndex={-1} aria-hidden="true">
+        <p className="h-4 text-[10px] font-medium uppercase tracking-[0.24em] text-ink/60 transition-colors duration-300 group-hover:text-gold-ink">
           {product.category}
         </p>
-        <h3 className="mt-1.5 line-clamp-2 font-serif text-base font-light leading-snug text-ink transition-colors duration-300 group-hover:text-ink sm:text-lg md:text-xl">
+        <h3 className="mt-2 min-h-12 line-clamp-2 font-serif text-base font-light leading-6 text-ink transition-colors duration-300 group-hover:text-ink sm:text-lg md:min-h-14 md:text-xl md:leading-7">
           {product.name}
         </h3>
-        {detailLine && (
-          <p className="mt-1.5 line-clamp-1 text-[11px] tracking-[0.06em] text-ink/60">
-            {detailLine}
-          </p>
-        )}
-        <div className="mt-3 flex items-center justify-between gap-3">
+        <p aria-hidden={!detailLine} className="mt-1.5 min-h-4 line-clamp-1 text-[11px] leading-4 tracking-[0.04em] text-ink/60">
+          {detailLine || '\u00a0'}
+        </p>
+        <div className="mt-auto flex items-center justify-between gap-3 pt-3">
           <p className="text-base font-medium tracking-wide text-gold-ink sm:text-lg">
             {product.price}
           </p>

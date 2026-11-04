@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getProduct, supabase, getProductImages } from '@/lib/supabase'
 import { isShopifyConfigured, getShopifyProductById } from '@/lib/shopify'
 import { requireAdmin } from '@/lib/admin-guard'
+import { getProductFinish } from '@/lib/productFinish'
 
 export async function GET(
   request: NextRequest,
@@ -45,6 +46,7 @@ export async function GET(
         options: ['Standard'],
         images: getProductImages(product),
         featured: product.featured,
+        finish: getProductFinish({ name: product.name, description: product.description || '' }),
         createdAt: product.created_at,
         updatedAt: product.updated_at
       }

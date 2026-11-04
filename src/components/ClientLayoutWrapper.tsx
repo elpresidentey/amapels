@@ -6,7 +6,6 @@ import NewCart from '@/components/NewCart'
 import Footer from '@/components/Footer'
 import ScrollToTop from '@/components/ScrollToTop'
 import WhatsAppButton from '@/components/WhatsAppButton'
-import IntroOverlay from '@/components/IntroOverlay'
 import SessionInitializer from '@/components/SessionInitializer'
 import PWAInstall from '@/components/PWAInstall'
 
@@ -20,7 +19,6 @@ export default function ClientLayoutWrapper({ children }: { children: React.Reac
 
   return (
     <>
-      <IntroOverlay />
       <SessionInitializer />
       <PWAInstall />
       <Navbar />
