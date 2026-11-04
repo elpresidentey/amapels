@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
 import { verifyAdminSession, logoutAdmin } from '@/lib/auth'
-import { Home, Package, ShoppingCart, BarChart3, LogOut, Menu, X } from 'lucide-react'
+import { Home, Package, ShoppingCart, BarChart3, FileText, Mail, LogOut, Menu, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import OrderNotifications from '@/components/admin/OrderNotifications'
 import Logo from '@/components/Logo'
@@ -22,7 +22,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { name: 'Dashboard', href: '/admin', icon: Home },
     { name: 'Products', href: '/admin/products', icon: Package },
     { name: 'Orders', href: '/admin/orders', icon: ShoppingCart },
-    { name: 'Sales', href: '/admin/sales', icon: BarChart3 }
+    { name: 'Sales', href: '/admin/sales', icon: BarChart3 },
+    { name: 'Blog', href: '/admin/blog', icon: FileText },
+    { name: 'Newsletter', href: '/admin/subscribers', icon: Mail }
   ]
 
   useEffect(() => {
