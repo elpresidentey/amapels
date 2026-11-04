@@ -3,7 +3,6 @@ import type { AdminSession } from '@/lib/adminSession'
 export type { AdminSession }
 
 const STORAGE_KEY = 'admin_session'
-const ACTIVE_KEY = 'admin_active'
 
 /**
  * Logs in via the server API. The server sets an httpOnly signed cookie and
@@ -29,20 +28,31 @@ export async function loginAdmin(email: string, password: string): Promise<Admin
 /**
  * Verifies the session against the server (validates the signed httpOnly
  * cookie server-side). Falls back to false on any network error.
+ *
+ * The cookie is the only source of truth: it lasts 24h, so we must not let
+ * browser storage decide whether the admin is signed in. Doing that used to
+ * log the admin out whenever they opened the dashboard in a new tab
+ * (sessionStorage is per-tab) even though the cookie was still valid.
  */
 export async function verifyAdminSession(): Promise<boolean> {
   if (typeof window === 'undefined') return false
 
-  // Fast local pre-check to avoid needless API calls when logged out
-  if (!getAdminSession()) return false
-
   try {
     const res = await fetch('/api/admin/session', { cache: 'no-store' })
     const data = await res.json()
+
     if (!data.authenticated) {
       clearAdminSession()
+      return false
     }
-    return Boolean(data.authenticated)
+
+    // Rebuild the local mirror when the cookie survived but storage did not
+    // (new tab, cleared site data, private window reopened).
+    if (!getAdminSession() && data.session) {
+      setAdminSession(data.session)
+    }
+
+    return true
   } catch {
     return false
   }
@@ -62,7 +72,6 @@ export async function logoutAdmin(): Promise<void> {
 export function setAdminSession(session: AdminSession): void {
   if (typeof window === 'undefined') return
   localStorage.setItem(STORAGE_KEY, JSON.stringify(session))
-  sessionStorage.setItem(ACTIVE_KEY, 'true')
 }
 
 export function getAdminSession(): AdminSession | null {
@@ -70,9 +79,7 @@ export function getAdminSession(): AdminSession | null {
 
   try {
     const sessionData = localStorage.getItem(STORAGE_KEY)
-    const isActive = sessionStorage.getItem(ACTIVE_KEY)
-
-    if (!sessionData || !isActive) return null
+    if (!sessionData) return null
 
     const session: AdminSession = JSON.parse(sessionData)
 
@@ -91,7 +98,6 @@ export function getAdminSession(): AdminSession | null {
 export function clearAdminSession(): void {
   if (typeof window === 'undefined') return
   localStorage.removeItem(STORAGE_KEY)
-  sessionStorage.removeItem(ACTIVE_KEY)
 }
 
 export function isAdminAuthenticated(): boolean {

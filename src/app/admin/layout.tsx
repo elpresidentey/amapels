@@ -9,6 +9,14 @@ import { AnimatePresence, motion } from 'framer-motion'
 import OrderNotifications from '@/components/admin/OrderNotifications'
 import Logo from '@/components/Logo'
 
+/**
+ * Sign the admin out after this much inactivity. The signed session cookie
+ * itself lasts 24 hours; this is only a "left the desk" guard. Two minutes
+ * signed people out mid-task (writing a product description, packing orders),
+ * which read as the dashboard randomly logging them out.
+ */
+const IDLE_TIMEOUT_MS = 30 * 60 * 1000
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter()
   const pathname = usePathname()
@@ -16,7 +24,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const [loading, setLoading] = useState(true)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const IDLE_TIMEOUT_MS = 2 * 60 * 1000
 
   const navItems = [
     { name: 'Dashboard', href: '/admin', icon: Home },
