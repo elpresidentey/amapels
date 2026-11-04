@@ -164,7 +164,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="border-t border-ink/[0.06] bg-chrome/98 backdrop-blur-2xl lg:hidden overflow-x-hidden"
+            className="border-t border-ink/[0.06] bg-chrome/95 backdrop-blur-2xl lg:hidden overflow-x-hidden"
           >
             <div className="mx-auto max-w-7xl px-4 sm:px-6">
               <div className="space-y-1 py-8">
