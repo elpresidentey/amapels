@@ -88,6 +88,21 @@ function categoryNoun(category?: string): string {
 }
 
 /**
+ * Social preview image for a product.
+ *
+ * Catalogue photos are stored at full resolution — a single PNG is often
+ * 2 MB, which WhatsApp and Twitter reject or time out on, so link previews
+ * come out blank. Routing the same file through Next's image optimizer gives
+ * a ~300 KB PNG at 1080px, which every platform accepts.
+ */
+export function productOgImage(product: ProductSeo): string | undefined {
+  const image = product.images[0]
+  if (!image) return undefined
+  const source = image.startsWith("http") || image.startsWith("/") ? image : `/${image}`
+  return `/_next/image?url=${encodeURIComponent(source)}&w=1080&q=75`
+}
+
+/**
  * Product page title. Leads with the piece name and adds its category so the
  * title carries the word people actually search for ("gold ring Abuja").
  */

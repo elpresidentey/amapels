@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { absoluteUrl, jsonLd, pageMetadata } from "@/lib/seo"
-import { getProductForSeo, productDescription, productTitle } from "@/lib/product-seo"
+import { getProductForSeo, productDescription, productOgImage, productTitle } from "@/lib/product-seo"
 import ProductDetailClient from "./ProductDetailClient"
 
 // Product data comes from Shopify/Supabase at request time; never bake it in
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: productTitle(product),
     description: productDescription(product),
     path: `/shop/${params.id}`,
-    image: product.images[0],
+    image: productOgImage(product),
     imageAlt: `${product.name} — AMAPELS`,
   })
 }
