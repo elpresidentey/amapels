@@ -79,3 +79,20 @@ export function productDescription(product: ProductSeo): string {
     `${product.name} from AMAPELS — handpicked jewellery in Abuja, gift-ready and delivered nationwide.`
   return base.replace(/\s+/g, " ").slice(0, 160)
 }
+
+/** "Rings" -> "Ring", so a single piece reads correctly in a title. */
+function categoryNoun(category?: string): string {
+  const value = category?.trim()
+  if (!value) return ""
+  return /s$/i.test(value) ? value.slice(0, -1) : value
+}
+
+/**
+ * Product page title. Leads with the piece name and adds its category so the
+ * title carries the word people actually search for ("gold ring Abuja").
+ */
+export function productTitle(product: ProductSeo): string {
+  const name = product.name.trim()
+  const noun = categoryNoun(product.category)
+  return noun ? `${name} ${noun} | AMAPELS` : `${name} | AMAPELS`
+}

@@ -122,20 +122,51 @@ export default function RootLayout({
             "@context": "https://schema.org",
             "@graph": [
               {
-                "@type": "Organization",
+                "@type": ["Organization", "JewelryStore"],
                 "@id": `${SITE_URL}/#organization`,
                 name: SITE_NAME,
                 url: SITE_URL,
                 logo: absoluteUrl("/icons/icon-512.png"),
+                image: absoluteUrl("/icons/icon-512.png"),
                 description:
                   "A Nigerian jewellery shop in Abuja. Handpicked earrings, necklaces, bracelets and jewellery sets, delivered nationwide.",
                 email: "amapelsng@gmail.com",
                 telephone: "+2348161238148",
+                priceRange: "₦₦",
+                currenciesAccepted: "NGN",
+                areaServed: { "@type": "Country", name: "Nigeria" },
+                sameAs: [
+                  "https://instagram.com/amapels",
+                  "https://facebook.com/amapels",
+                  "https://twitter.com/amapels",
+                ],
                 address: {
                   "@type": "PostalAddress",
+                  streetAddress: "Wuse II",
                   addressLocality: "Abuja",
+                  addressRegion: "FCT",
                   addressCountry: "NG",
                 },
+                openingHoursSpecification: [
+                  {
+                    "@type": "OpeningHoursSpecification",
+                    dayOfWeek: [
+                      "Monday",
+                      "Tuesday",
+                      "Wednesday",
+                      "Thursday",
+                      "Friday",
+                    ],
+                    opens: "09:00",
+                    closes: "18:00",
+                  },
+                  {
+                    "@type": "OpeningHoursSpecification",
+                    dayOfWeek: "Saturday",
+                    opens: "10:00",
+                    closes: "16:00",
+                  },
+                ],
               },
               {
                 "@type": "WebSite",
