@@ -30,9 +30,18 @@ async function dbConnect() {
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
+      serverSelectionTimeoutMS: 5_000,
+      connectTimeoutMS: 5_000,
+      maxPoolSize: 5,
+      minPoolSize: 0,
+      maxIdleTimeMS: 10_000,
     }
 
-    cached.promise = mongoose.connect(MONGODB_URI, opts)
+    cached.promise = mongoose.connect(MONGODB_URI, opts).catch((error) => {
+      cached.promise = null
+      cached.conn = null
+      throw error
+    })
   }
   cached.conn = await cached.promise
   return cached.conn

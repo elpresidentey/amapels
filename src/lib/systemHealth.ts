@@ -17,6 +17,22 @@ interface SystemHealthReport {
 export async function validateEnvironment(): Promise<HealthCheck[]> {
   const checks: HealthCheck[] = []
 
+  checks.push({
+    name: 'Session Signing Secret',
+    status: process.env.JWT_SECRET && process.env.JWT_SECRET.length >= 32 ? 'pass' : 'fail',
+    message: process.env.JWT_SECRET && process.env.JWT_SECRET.length >= 32
+      ? 'Session signing secret configured'
+      : 'JWT_SECRET is missing or too short (minimum 32 characters)',
+  })
+
+  checks.push({
+    name: 'Supabase Service Role',
+    status: process.env.SUPABASE_SERVICE_ROLE_KEY ? 'pass' : 'fail',
+    message: process.env.SUPABASE_SERVICE_ROLE_KEY
+      ? 'Server-side Supabase key configured'
+      : 'Missing SUPABASE_SERVICE_ROLE_KEY environment variable',
+  })
+
   // Check Paystack configuration
   const paystackPublicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY
   const paystackSecretKey = process.env.PAYSTACK_SECRET_KEY

@@ -37,18 +37,31 @@ export function getCachedSession(): CustomerSession | null {
   return cachedSession
 }
 
-export async function customerLogin(email: string, name?: string): Promise<CustomerSession> {
-  const displayName = name || email.split('@')[0]
+export async function requestCustomerLoginCode(email: string, name?: string): Promise<void> {
   const res = await fetch('/api/auth/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
-    body: JSON.stringify({ email, name: displayName }),
+    body: JSON.stringify({ email, name }),
   })
 
   if (!res.ok) {
     const data = await res.json().catch(() => ({}))
-    throw new Error(data.error || 'Login failed')
+    throw new Error(data.error || 'Could not send a verification code')
+  }
+}
+
+export async function verifyCustomerLoginCode(email: string, code: string): Promise<CustomerSession> {
+  const res = await fetch('/api/auth/verify-login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify({ email, code }),
+  })
+
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}))
+    throw new Error(data.error || 'The verification code is invalid or expired')
   }
 
   const data = await res.json()

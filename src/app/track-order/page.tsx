@@ -1,549 +1,113 @@
 'use client'
 
-import { useState } from 'react'
-import { Metadata } from 'next'
-import { Search, Package, Truck, CheckCircle, Clock, AlertCircle, MapPin, Phone, Mail } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { AlertCircle, CheckCircle, Clock, Mail, MapPin, Package, Search, Truck } from 'lucide-react'
 
-const metadata: Metadata = {
-  title: 'Track Your Order - AMAPELS',
-  description: 'Track your AMAPELS jewelry order in real-time. Enter your order number or tracking ID to see delivery status and estimated arrival time.',
-}
-
-const OrderStatus = {
-  PROCESSING: 'processing',
-  SHIPPED: 'shipped', 
-  IN_TRANSIT: 'in_transit',
-  OUT_FOR_DELIVERY: 'out_for_delivery',
-  DELIVERED: 'delivered'
-} as const
-
-type OrderStatusType = typeof OrderStatus[keyof typeof OrderStatus]
-
-interface TrackingInfo {
+const statuses = ['processing', 'shipped', 'in_transit', 'out_for_delivery', 'delivered'] as const
+type Status = typeof statuses[number]
+type TrackingInfo = {
   orderId: string
-  status: OrderStatusType
-  estimatedDelivery: string
+  status: Status
+  estimatedDelivery: string | null
   currentLocation: string
-  trackingNumber: string
+  trackingNumber: string | null
   courierName: string
-  courierPhone: string
-  paymentReference: string
-  paymentStatus: string
-  totalAmount: string
-  customerName: string
-  customerEmail: string
-  customerPhone: string
-  items: Array<{
-    productId: string
-    name: string
-    price: number
-    quantity: number
-    image: string
-  }>
-  shippingAddress: {
-    street: string
-    city: string
-    state: string
-    postalCode: string
-    country: string
-  }
-  subtotal: number
-  shippingCost: number
-  tax: number
-  total: number
-  timeline: {
-    date: string
-    time: string
-    status: string
-    location: string
-    completed: boolean
-  }[]
+  timeline: { date: string; time: string; status: string; location: string; completed: boolean }[]
 }
 
 export default function TrackOrderPage() {
-  const [orderNumber, setOrderNumber] = useState('')
+  const [identifier, setIdentifier] = useState('')
+  const [email, setEmail] = useState('')
   const [trackingData, setTrackingData] = useState<TrackingInfo | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
 
-  // Mock tracking data for demonstration
-  const mockTrackingData: TrackingInfo = {
-    orderId: 'AMP2024001',
-    status: OrderStatus.IN_TRANSIT,
-    estimatedDelivery: '2026-07-06 by 6:00 PM',
-    currentLocation: 'Abuja Distribution Center',
-    trackingNumber: 'TRK789012345',
-    courierName: 'Express Logistics',
-    courierPhone: '+234-800-123-4567',
-    paymentReference: 'PAY-20240703-ABC123',
-    paymentStatus: 'paid',
-    totalAmount: '₦85,000',
-    customerName: 'Chioma Okafor',
-    customerEmail: 'customer@example.com',
-    customerPhone: '+234-809-123-4567',
-    items: [
-      { productId: '1', name: 'Royal Gold Pendant', price: 45000, quantity: 1, image: '' },
-      { productId: '2', name: 'Diamond Stud Earrings', price: 28000, quantity: 1, image: '' },
-      { productId: '3', name: 'Silver Cuff Bracelet', price: 12000, quantity: 1, image: '' }
-    ],
-    shippingAddress: {
-      street: '42 Awolowo Way',
-      city: 'Abuja',
-      state: 'Abuja',
-      postalCode: '234001',
-      country: 'Nigeria'
-    },
-    subtotal: 85000,
-    shippingCost: 2500,
-    tax: 6375,
-    total: 93875,
-    timeline: [
-      {
-        date: '2026-07-03',
-        time: '2:30 PM',
-        status: 'Order confirmed and payment received',
-        location: 'AMAPELS Abuja',
-        completed: true
-      },
-      {
-        date: '2026-07-04',
-        time: '10:15 AM',
-        status: 'Package prepared and handed to courier',
-        location: 'AMAPELS Fulfillment Center',
-        completed: true
-      },
-      {
-        date: '2026-07-04',
-        time: '4:20 PM',
-        status: 'Package received at sorting facility',
-        location: 'Abuja Distribution Center',
-        completed: true
-      },
-      {
-        date: '2026-07-05',
-        time: '9:45 AM',
-        status: 'Package in transit to destination',
-        location: 'Abuja Distribution Center',
-        completed: true
-      },
-      {
-        date: '2026-07-06',
-        time: 'Estimated',
-        status: 'Out for delivery',
-        location: 'Abuja Hub',
-        completed: false
-      },
-      {
-        date: '2026-07-06',
-        time: 'Estimated',
-        status: 'Package delivered',
-        location: 'Your Address',
-        completed: false
-      }
-    ]
-  }
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    setIdentifier(params.get('orderNumber') || params.get('ref') || params.get('trackingNumber') || '')
+  }, [])
 
-  const handleTrackOrder = async () => {
-    if (!orderNumber.trim()) {
-      setError('Please enter an order number')
+  async function handleTrackOrder(event?: React.FormEvent) {
+    event?.preventDefault()
+    if (!identifier.trim() || !email.trim()) {
+      setError('Enter your order number and the email used at checkout.')
       return
     }
-
     setIsLoading(true)
     setError('')
-
+    setTrackingData(null)
     try {
-      const response = await fetch(`/api/orders/track?orderNumber=${encodeURIComponent(orderNumber)}`)
+      const response = await fetch('/api/orders/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ identifier, email }),
+      })
       const result = await response.json()
-
-      if (result.success) {
-        setTrackingData(result.data)
-        setError('')
-      } else {
-        setError(result.error || 'Order not found. Please check your order number and try again.')
-        setTrackingData(null)
-      }
-    } catch (error) {
-      console.error('Error tracking order:', error)
-      setError('Failed to track order. Please try again later.')
-      setTrackingData(null)
+      if (!response.ok || !result.success) throw new Error(result.error || 'Order not found. Check your details and try again.')
+      setTrackingData(result.data)
+    } catch (trackError) {
+      setError(trackError instanceof Error ? trackError.message : 'Order tracking is temporarily unavailable.')
     } finally {
       setIsLoading(false)
     }
   }
 
-  const getStatusIcon = (status: OrderStatusType) => {
-    switch (status) {
-      case OrderStatus.PROCESSING:
-        return <Clock className="text-warning" size={24} />
-      case OrderStatus.SHIPPED:
-      case OrderStatus.IN_TRANSIT:
-        return <Truck className="text-info" size={24} />
-      case OrderStatus.OUT_FOR_DELIVERY:
-        return <MapPin className="text-orange-600" size={24} />
-      case OrderStatus.DELIVERED:
-        return <CheckCircle className="text-success" size={24} />
-      default:
-        return <Package className="text-ink/70" size={24} />
-    }
-  }
-
-  const getStatusText = (status: OrderStatusType) => {
-    switch (status) {
-      case OrderStatus.PROCESSING:
-        return 'Processing'
-      case OrderStatus.SHIPPED:
-        return 'Shipped'
-      case OrderStatus.IN_TRANSIT:
-        return 'In Transit'
-      case OrderStatus.OUT_FOR_DELIVERY:
-        return 'Out for Delivery'
-      case OrderStatus.DELIVERED:
-        return 'Delivered'
-      default:
-        return 'Unknown'
-    }
-  }
-
-  const getStatusColor = (status: OrderStatusType) => {
-    switch (status) {
-      case OrderStatus.PROCESSING:
-        return 'text-warning bg-warning-soft'
-      case OrderStatus.SHIPPED:
-      case OrderStatus.IN_TRANSIT:
-        return 'text-info bg-info-soft'
-      case OrderStatus.OUT_FOR_DELIVERY:
-        return 'text-orange-600 bg-orange-50'
-      case OrderStatus.DELIVERED:
-        return 'text-success bg-success-soft'
-      default:
-        return 'text-ink/70 bg-surface-2'
-    }
-  }
+  const statusText = (status: string) => status.replaceAll('_', ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+  const statusIcon = (status: string) => status === 'delivered' ? <CheckCircle size={22} /> : status === 'processing' ? <Clock size={22} /> : status === 'out_for_delivery' ? <MapPin size={22} /> : <Truck size={22} />
 
   return (
     <div className="min-h-screen bg-paper">
-      {/* Hero Section */}
-      <section className="section-shell pt-12 pb-16 lg:pt-20 lg:pb-24">
-        <div className="text-center max-w-4xl mx-auto">
-          <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-light text-ink mb-6 lg:mb-8">
-            Track Your Order
-          </h1>
-          <p className="text-lg sm:text-xl text-ink/70 leading-relaxed">
-            Enter your order number or tracking ID to see real-time updates on your AMAPELS jewelry delivery.
-          </p>
-        </div>
-      </section>
-
-      {/* Tracking Form */}
-      <section className="section-shell pb-16">
-        <div className="max-w-2xl mx-auto">
-          <div className="bg-chrome border border-ink/15 rounded-lg p-6 lg:p-8">
-            <div className="flex flex-col sm:flex-row gap-4">
-              <div className="flex-1">
-                <label htmlFor="orderNumber" className="block text-sm font-medium text-ink mb-2">
-                  Order Number or Tracking ID
-                </label>
-                <input
-                  id="orderNumber"
-                  type="text"
-                  value={orderNumber}
-                  onChange={(e) => setOrderNumber(e.target.value)}
-                  placeholder="e.g., AMP2024001 or TRK789012345"
-                  className="w-full px-4 py-3 border border-ink/45 rounded-md text-ink placeholder:text-ink/60 focus:ring-2 focus:ring-gold-ink/40 focus:border-ink min-h-[44px] text-base"
-                   onKeyDown={(e) => e.key === 'Enter' && handleTrackOrder()}
-                />
-              </div>
-              <div className="sm:pt-7">
-                <button
-                  onClick={handleTrackOrder}
-                  disabled={isLoading}
-                  className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3 bg-ink text-on-ink text-sm font-medium rounded-md hover:bg-gold hover:text-black-dark transition-colors disabled:opacity-50 btn-mobile"
-                >
-                  {isLoading ? (
-                    <>
-                      <div className="animate-spin h-4 w-4 border-2 border-on-ink border-t-transparent rounded-full"></div>
-                      Tracking...
-                    </>
-                  ) : (
-                    <>
-                      <Search size={16} />
-                      Track Order
-                    </>
-                  )}
-                </button>
-              </div>
-            </div>
-
-            {error && (
-              <div className="mt-4 flex items-center gap-3 p-4 bg-danger-soft border border-danger-line rounded-md">
-                <AlertCircle size={20} className="text-danger flex-shrink-0" />
-                <p className="text-danger text-sm">{error}</p>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* Tracking Results */}
-      {trackingData && (
-        <section className="section-shell pb-16 lg:pb-24">
-          <div className="max-w-4xl mx-auto">
-            {/* Order Summary */}
-            <div className="bg-chrome border border-ink/15 rounded-lg p-6 lg:p-8 mb-8">
-              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-                <div>
-                  <h2 className="font-serif text-xl lg:text-2xl font-light text-ink mb-2">
-                    Order #{trackingData.orderId}
-                  </h2>
-                  <p className="text-ink/70 mb-4">
-                    Tracking: <span className="font-medium text-ink">{trackingData.trackingNumber}</span>
-                  </p>
-                  
-                  <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full ${getStatusColor(trackingData.status)}`}>
-                    {getStatusIcon(trackingData.status)}
-                    <span className="font-medium">{getStatusText(trackingData.status)}</span>
-                  </div>
-                </div>
-
-                <div className="text-left lg:text-right">
-                  <div className="mb-4">
-                    <p className="text-ink/70 text-sm mb-1">Current Location</p>
-                    <p className="font-medium text-ink">{trackingData.currentLocation}</p>
-                  </div>
-                  <div>
-                    <p className="text-ink/70 text-sm mb-1">Estimated Delivery</p>
-                    <p className="font-medium text-ink">{trackingData.estimatedDelivery}</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Payment Information */}
-              <div className="mt-6 pt-6 border-t border-ink/15">
-                <h3 className="font-semibold text-ink mb-4">Payment Information</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <p className="text-ink/70 text-sm mb-1">Payment Reference</p>
-                    <p className="font-mono font-medium text-ink">{trackingData.paymentReference}</p>
-                  </div>
-                  <div>
-                    <p className="text-ink/70 text-sm mb-1">Payment Status</p>
-                    <p className={`font-medium ${trackingData.paymentStatus === 'paid' ? 'text-success' : 'text-warning'}`}>
-                      {trackingData.paymentStatus === 'paid' ? 'Paid' : 'Pending'}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-ink/70 text-sm mb-1">Total Amount</p>
-                    <p className="font-bold text-ink">{trackingData.totalAmount}</p>
-                  </div>
-                  <div>
-                    <p className="text-ink/70 text-sm mb-1">Customer Email</p>
-                    <p className="font-medium text-ink">{trackingData.customerEmail}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Shipping Address */}
-            {trackingData.shippingAddress && (
-              <div className="bg-chrome border border-ink/15 rounded-lg p-6 mb-8">
-                <h3 className="font-semibold text-ink mb-4">Shipping Address</h3>
-                <div className="text-sm text-ink space-y-1">
-                  <p>{trackingData.customerName}</p>
-                  <p>{trackingData.shippingAddress.street}</p>
-                  <p>{trackingData.shippingAddress.city}, {trackingData.shippingAddress.state} {trackingData.shippingAddress.postalCode}</p>
-                  <p>{trackingData.shippingAddress.country}</p>
-                  <p className="text-ink/70 mt-2">{trackingData.customerPhone}</p>
-                </div>
-              </div>
-            )}
-
-            {/* Order Items */}
-            {trackingData.items && trackingData.items.length > 0 && (
-              <div className="bg-chrome border border-ink/15 rounded-lg p-6 lg:p-8 mb-8">
-                <h3 className="font-semibold text-ink mb-4">Order Items ({trackingData.items.length})</h3>
-                <div className="space-y-4">
-                  {trackingData.items.map((item, index) => (
-                    <div key={index} className="flex gap-4 pb-4 border-b border-ink/10 last:border-0 last:pb-0">
-                      {item.image && (
-                        <div className="w-16 h-16 flex-shrink-0 bg-surface-2 rounded-lg overflow-hidden">
-                          <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
-                        </div>
-                      )}
-                      <div className="flex-1 min-w-0">
-                        <p className="font-medium text-ink">{item.name}</p>
-                        <p className="text-ink/70 text-sm mt-1">
-                          Qty: {item.quantity} × ₦{item.price.toLocaleString()}
-                        </p>
-                      </div>
-                      <div className="text-right flex-shrink-0">
-                        <p className="font-medium text-ink">₦{(item.price * item.quantity).toLocaleString()}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-4 pt-4 border-t border-ink/15 space-y-1">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-ink/70">Subtotal</span>
-                    <span>₦{trackingData.subtotal?.toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-ink/70">Shipping</span>
-                    <span>₦{trackingData.shippingCost?.toLocaleString()}</span>
-                  </div>
-                  {trackingData.tax > 0 && (
-                    <div className="flex justify-between text-sm">
-                      <span className="text-ink/70">Tax</span>
-                      <span>₦{trackingData.tax?.toLocaleString()}</span>
-                    </div>
-                  )}
-                  <div className="flex justify-between font-medium pt-2 border-t border-ink/15">
-                    <span>Total</span>
-                    <span>{trackingData.totalAmount}</span>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Courier Info */}
-            <div className="bg-ink/5 rounded-lg p-6 mb-8">
-              <h3 className="font-semibold text-ink mb-4">Courier Information</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="flex items-center gap-3">
-                  <Truck size={20} className="text-ink" />
-                  <div>
-                    <p className="font-medium text-ink">{trackingData.courierName}</p>
-                    <p className="text-ink/70 text-sm">Delivery Partner</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Phone size={20} className="text-ink" />
-                  <div>
-                    <a 
-                      href={`tel:${trackingData.courierPhone}`}
-                      className="font-medium text-ink hover:text-ink"
-                    >
-                      {trackingData.courierPhone}
-                    </a>
-                    <p className="text-ink/70 text-sm">Contact Courier</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Timeline */}
-            <div className="bg-chrome border border-ink/15 rounded-lg p-6 lg:p-8">
-              <h3 className="font-semibold text-ink mb-6">Delivery Timeline</h3>
-              
-              <div className="relative">
-                {trackingData.timeline.map((event, index) => (
-                  <div key={index} className="relative flex gap-4 pb-8 last:pb-0">
-                    {/* Timeline Line */}
-                    {index < trackingData.timeline.length - 1 && (
-                      <div 
-                        className={`absolute left-3 top-8 w-0.5 h-full ${
-                          event.completed ? 'bg-success/40' : 'bg-ink/15'
-                        }`}
-                      />
-                    )}
-                    
-                    {/* Timeline Dot */}
-                    <div 
-                      className={`relative z-10 w-6 h-6 rounded-full border-2 flex-shrink-0 ${
-                        event.completed 
-                          ? 'bg-green-700 border-green-700' 
-                          : 'bg-chrome border-ink/25'
-                      }`}
-                    >
-                      {event.completed && (
-                        <CheckCircle size={12} className="text-white absolute inset-0.5" />
-                      )}
-                    </div>
-                    
-                    {/* Event Details */}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-1">
-                        <p className={`font-medium ${event.completed ? 'text-ink' : 'text-ink/60'}`}>
-                          {event.status}
-                        </p>
-                        <div className="text-sm text-ink/60">
-                          <span>{event.date}</span>
-                          {event.time !== 'Estimated' && (
-                            <span className="ml-2">{event.time}</span>
-                          )}
-                          {event.time === 'Estimated' && (
-                            <span className="ml-2 text-orange-600 font-medium">Estimated</span>
-                          )}
-                        </div>
-                      </div>
-                      <p className="text-ink/60 text-sm flex items-center gap-1">
-                        <MapPin size={12} />
-                        {event.location}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Help Section */}
-      <section className="bg-chrome text-ink section-shell py-16 lg:py-24">
+      <section className="section-shell pt-16 pb-10 lg:pt-24">
         <div className="text-center max-w-3xl mx-auto">
-          <h2 className="font-serif text-2xl lg:text-3xl font-light mb-6">
-            Need Help with Your Order?
-          </h2>
-          <p className="text-ink/80 leading-relaxed mb-8">
-            If you have questions about your delivery or need to make changes to your order, 
-            our customer service team is here to help.
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <a 
-              href="mailto:amapelsng@gmail.com"
-              className="flex items-center justify-center gap-3 bg-ink/10 rounded-lg p-4 hover:bg-ink/20 transition-colors btn-mobile"
-            >
-              <Mail size={20} />
-              <div className="text-left">
-                <div className="font-medium">Order Support</div>
-                <div className="text-sm text-ink/70">amapelsng@gmail.com</div>
-              </div>
-            </a>
-            
-            <a 
-              href="tel:+2348161238148"
-              className="flex items-center justify-center gap-3 bg-ink/10 rounded-lg p-4 hover:bg-ink/20 transition-colors btn-mobile"
-            >
-              <Phone size={20} />
-              <div className="text-left">
-                <div className="font-medium">Call Support</div>
-                <div className="text-sm text-ink/70">0816 123 8148</div>
-              </div>
-            </a>
-          </div>
+          <h1 className="font-serif text-3xl lg:text-4xl font-light text-ink mb-5">Track Your Order</h1>
+          <p className="text-lg text-ink/70 leading-relaxed">Enter your order number and the email address used at checkout to view delivery updates.</p>
         </div>
       </section>
 
-      {/* Demo Instructions */}
-      <section className="section-shell py-16 lg:pb-24">
-        <div className="max-w-2xl mx-auto">
-          <div className="bg-info-soft border border-info-line rounded-lg p-6">
-            <h3 className="font-semibold text-info mb-3 flex items-center gap-2">
-              <AlertCircle size={20} />
-              Demo Instructions
-            </h3>
-            <p className="text-info text-sm leading-relaxed mb-3">
-              This is a demo page. To see tracking results, try entering:
-            </p>
-            <ul className="text-info text-sm space-y-1">
-              <li>• <code className="bg-info-soft px-2 py-1 rounded">AMP2024001</code> - Sample order number</li>
-              <li>• <code className="bg-info-soft px-2 py-1 rounded">TRK789012345</code> - Sample tracking number</li>
-            </ul>
+      <section className="section-shell pb-16">
+        <form onSubmit={handleTrackOrder} className="max-w-2xl mx-auto bg-chrome border border-ink/15 rounded-lg p-6 lg:p-8 space-y-5">
+          <div>
+            <label htmlFor="orderNumber" className="block text-sm font-medium text-ink mb-2">Order Number or Tracking ID</label>
+            <input id="orderNumber" required value={identifier} onChange={(e) => setIdentifier(e.target.value)} placeholder="Order or tracking number" className="w-full px-4 py-3 border border-ink/45 rounded-md text-ink placeholder:text-ink/50 focus:ring-2 focus:ring-gold-ink/40 focus:border-ink min-h-[44px] text-base" />
+          </div>
+          <div>
+            <label htmlFor="trackingEmail" className="block text-sm font-medium text-ink mb-2">Checkout Email</label>
+            <input id="trackingEmail" type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" className="w-full px-4 py-3 border border-ink/45 rounded-md text-ink placeholder:text-ink/50 focus:ring-2 focus:ring-gold-ink/40 focus:border-ink min-h-[44px] text-base" />
+          </div>
+          <button type="submit" disabled={isLoading} className="w-full flex items-center justify-center gap-2 px-8 py-3 bg-ink text-on-ink text-sm font-medium rounded-md hover:bg-gold hover:text-black-dark transition-colors disabled:opacity-50">
+            {isLoading ? <><span className="animate-spin h-4 w-4 border-2 border-on-ink border-t-transparent rounded-full" />Checking...</> : <><Search size={16} />Track Order</>}
+          </button>
+          {error && <div role="alert" className="flex items-center gap-3 p-4 bg-danger-soft border border-danger-line rounded-md"><AlertCircle size={20} className="text-danger flex-shrink-0" /><p className="text-danger text-sm">{error}</p></div>}
+        </form>
+      </section>
+
+      {trackingData && <section className="section-shell pb-16 lg:pb-24">
+        <div className="max-w-4xl mx-auto space-y-6">
+          <div className="bg-chrome border border-ink/15 rounded-lg p-6 lg:p-8">
+            <div className="flex flex-col sm:flex-row sm:justify-between gap-5">
+              <div>
+                <h2 className="font-serif text-2xl text-ink mb-2">Order #{trackingData.orderId}</h2>
+                <p className="text-ink/70 mb-4">Tracking: <span className="font-medium text-ink">{trackingData.trackingNumber || 'Pending'}</span></p>
+                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-2 text-ink">{statusIcon(trackingData.status)}{statusText(trackingData.status)}</span>
+              </div>
+              <div className="sm:text-right space-y-3">
+                <div><p className="text-ink/65 text-sm">Current Location</p><p className="font-medium text-ink">{trackingData.currentLocation}</p></div>
+                <div><p className="text-ink/65 text-sm">Estimated Delivery</p><p className="font-medium text-ink">{trackingData.estimatedDelivery ? new Date(trackingData.estimatedDelivery).toLocaleDateString() : 'To be determined'}</p></div>
+              </div>
+            </div>
+            <div className="mt-6 pt-5 border-t border-ink/15 flex items-center gap-3 text-sm text-ink/70"><Package size={18} />Delivery partner: <span className="font-medium text-ink">{trackingData.courierName}</span></div>
+          </div>
+          <div className="bg-chrome border border-ink/15 rounded-lg p-6 lg:p-8">
+            <h3 className="font-semibold text-ink mb-6">Delivery Timeline</h3>
+            {trackingData.timeline.length ? <div className="space-y-5">{trackingData.timeline.map((event, index) => <div key={`${event.date}-${index}`} className="flex gap-4">
+              <div className={`mt-1 h-5 w-5 rounded-full border-2 flex-shrink-0 ${event.completed ? 'bg-success border-success' : 'border-ink/25'}`} />
+              <div className="min-w-0"><p className={`font-medium ${event.completed ? 'text-ink' : 'text-ink/60'}`}>{event.status || 'Order update'}</p><p className="text-sm text-ink/60">{[event.date, event.time].filter(Boolean).join(' · ')}</p>{event.location && <p className="text-ink/60 text-sm flex items-center gap-1 mt-1"><MapPin size={12} />{event.location}</p>}</div>
+            </div>)}</div> : <p className="text-sm text-ink/65">No delivery updates yet. Please check again later.</p>}
           </div>
         </div>
-      </section>
+      </section>}
+
+      <section className="bg-chrome text-ink section-shell py-12"><div className="text-center"><h2 className="font-serif text-2xl font-light mb-3">Need Help with Your Order?</h2><a href="mailto:amapelsng@gmail.com" className="inline-flex items-center gap-2 text-sm underline"><Mail size={16} />amapelsng@gmail.com</a></div></section>
     </div>
   )
 }

@@ -5,7 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { User, Mail, LogOut, ShoppingBag, UserCircle, CheckCircle, AlertCircle } from 'lucide-react'
 import {
-  customerLogin,
+  requestCustomerLoginCode,
+  verifyCustomerLoginCode,
   customerLogout,
   isCustomerAuthenticated,
   getCachedSession,
@@ -17,6 +18,8 @@ export default function CustomerAuth({ onAuthChange }: { onAuthChange?: () => vo
   const [showLogin, setShowLogin] = useState(false)
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
+  const [verificationCode, setVerificationCode] = useState('')
+  const [loginStep, setLoginStep] = useState<'email' | 'code'>('email')
   const [customerName, setCustomerName] = useState('')
   const [loading, setLoading] = useState(false)
   const [authLoading, setAuthLoading] = useState(true)
@@ -66,9 +69,14 @@ export default function CustomerAuth({ onAuthChange }: { onAuthChange?: () => vo
     setLoginSuccess(false)
 
     try {
-      clearCart()
-      const session = await customerLogin(email, name || undefined)
+      if (loginStep === 'email') {
+        await requestCustomerLoginCode(email, name || undefined)
+        setLoginStep('code')
+        return
+      }
+      const session = await verifyCustomerLoginCode(email, verificationCode)
 
+      clearCart()
       setIsAuthenticated(true)
       setCustomerName(session.name)
       setLoginSuccess(true)
@@ -80,6 +88,8 @@ export default function CustomerAuth({ onAuthChange }: { onAuthChange?: () => vo
         setLoginSuccess(false)
         setEmail('')
         setName('')
+        setVerificationCode('')
+        setLoginStep('email')
       }, 1500)
     } catch (error) {
       setLoginError(error instanceof Error ? error.message : 'Login failed. Please try again.')
@@ -147,7 +157,7 @@ export default function CustomerAuth({ onAuthChange }: { onAuthChange?: () => vo
                       </div>
                     )}
 
-                    <div>
+                    {loginStep === 'email' && <div>
                       <label htmlFor="auth-email" className="block text-sm font-medium text-ink mb-2">
                         Email Address *
                       </label>
@@ -161,9 +171,9 @@ export default function CustomerAuth({ onAuthChange }: { onAuthChange?: () => vo
                         placeholder="your@email.com"
                         aria-required="true"
                       />
-                    </div>
+                    </div>}
 
-                    <div>
+                    {loginStep === 'email' && <div>
                       <label htmlFor="auth-name" className="block text-sm font-medium text-ink mb-2">
                         Your Name <span className="text-ink/60">(for a personal touch)</span>
                       </label>
@@ -175,32 +185,37 @@ export default function CustomerAuth({ onAuthChange }: { onAuthChange?: () => vo
                         className="w-full px-3 py-2.5 border border-ink/45 focus:ring-2 focus:ring-gold-ink/30 focus:border-ink outline-none transition-colors"
                         placeholder="Chioma"
                       />
-                    </div>
+                    </div>}
 
-                    <div className="bg-surface-2/10 rounded-xl p-3 border border-gold/30">
+                    {loginStep === 'code' && <div>
+                      <label htmlFor="auth-code" className="block text-sm font-medium text-ink mb-2">Email verification code *</label>
+                      <input id="auth-code" inputMode="numeric" autoComplete="one-time-code" required value={verificationCode} onChange={(e) => setVerificationCode(e.target.value.replace(/\D/g, '').slice(0, 8))} className="w-full px-3 py-2.5 border border-ink/45 focus:ring-2 focus:ring-gold-ink/30 focus:border-ink outline-none" placeholder="8-digit code" />
+                      <button type="button" onClick={() => { setLoginStep('email'); setVerificationCode('') }} className="mt-2 text-xs underline">Use a different email</button>
+                    </div>}
+
+                    {loginStep === 'email' && <div className="bg-surface-2/10 rounded-xl p-3 border border-gold/30">
                       <div className="flex items-start gap-2 text-xs text-ink/70">
                         <ShoppingBag size={14} className="mt-0.5 flex-shrink-0" />
                         <p>
-                          <strong>Note:</strong> Logging in will clear your current cart items.
-                          This ensures a fresh shopping session.
+                          Your cart stays saved while you verify your email.
                         </p>
                       </div>
-                    </div>
+                    </div>}
 
                     <button
                       type="submit"
-                      disabled={loading || !email.trim()}
+                      disabled={loading || !email.trim() || (loginStep === 'code' && verificationCode.length !== 8)}
                       className="w-full bg-ink text-on-ink py-2.5 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-black-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                     >
                       {loading ? (
                         <>
                           <div className="w-4 h-4 border-2 border-on-ink border-t-transparent rounded-full animate-spin" role="status" aria-label="Signing in" />
-                          Signing In...
+                          {loginStep === 'email' ? 'Sending Code...' : 'Verifying...'}
                         </>
                       ) : (
                         <>
                           <Mail size={16} />
-                          Sign In
+                          {loginStep === 'email' ? 'Email Me a Code' : 'Verify & Sign In'}
                         </>
                       )}
                     </button>
@@ -208,7 +223,7 @@ export default function CustomerAuth({ onAuthChange }: { onAuthChange?: () => vo
                 )}
 
                 <p className="text-xs text-ink/60 text-center mt-4">
-                  Email-based access. No password needed — we'll remember you.
+                  {loginStep === 'email' ? 'We’ll email you a one-time sign-in code.' : `Enter the code sent to ${email}.`}
                 </p>
               </motion.div>
             )}

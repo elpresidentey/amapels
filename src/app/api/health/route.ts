@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 import { validateEnvironment, checkPaystackService } from '@/lib/systemHealth'
+import dbConnect from '@/lib/mongodb'
 
 export async function GET(request: NextRequest) {
   try {
@@ -36,6 +37,20 @@ export async function GET(request: NextRequest) {
           status: 'fail',
           message: 'Database connection failed',
           details: error instanceof Error ? error.message : 'Unknown error'
+        })
+      }
+    }
+
+    if (check === 'all' || check === 'mongo') {
+      try {
+        await dbConnect()
+        checks.push({ name: 'MongoDB Connection', status: 'pass', message: 'MongoDB connected successfully' })
+      } catch (error) {
+        checks.push({
+          name: 'MongoDB Connection',
+          status: 'fail',
+          message: 'MongoDB connection failed',
+          details: error instanceof Error ? error.message : 'Unknown error',
         })
       }
     }

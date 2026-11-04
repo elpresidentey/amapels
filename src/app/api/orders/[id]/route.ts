@@ -6,6 +6,9 @@ export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const authError = requireAdmin(request)
+  if (authError) return authError
+
   try {
     const order = await getOrder(params.id)
     

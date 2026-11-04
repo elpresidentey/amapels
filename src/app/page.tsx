@@ -53,7 +53,7 @@ const heroSlides = [
     position: '66% 57%',
     eyebrow: 'Ready to give',
     title: 'Give them something to keep',
-    description: 'For your wife, your sister, your best friend, and the one who always says “don’t buy me anything.” Packed in Abuja, delivered nationwide.',
+    description: 'For your wife, sister, or best friend — even the one who says “don’t buy me anything.” Packed in Abuja, delivered nationwide.',
     accent: 'Wrapped and ready to give.',
   },
 ]

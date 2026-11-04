@@ -12,7 +12,7 @@ import {
   type ShippingData
 } from '@/store/checkoutStore'
 import { initializePaystackPayment, nairaToKobo, generateReference, loadPaystackScript } from '@/lib/paystack'
-import { customerLogin, customerLogout, isCustomerAuthenticated, getCachedSession, getServerSession } from '@/lib/customerAuth'
+import { requestCustomerLoginCode, verifyCustomerLoginCode, customerLogout, isCustomerAuthenticated, getCachedSession, getServerSession } from '@/lib/customerAuth'
 import Toast from '@/components/Toast'
 
 // Memoized step configuration
@@ -130,6 +130,8 @@ export default function CheckoutPage() {
   const [showLoginForm, setShowLoginForm] = useState(false)
   const [loginEmail, setLoginEmail] = useState('')
   const [loginName, setLoginName] = useState('')
+  const [loginCode, setLoginCode] = useState('')
+  const [loginStep, setLoginStep] = useState<'email' | 'code'>('email')
   const [loginLoading, setLoginLoading] = useState(false)
   const [loginSuccess, setLoginSuccess] = useState(false)
   const [loginError, setLoginError] = useState('')
@@ -287,7 +289,12 @@ export default function CheckoutPage() {
     setLoginError('')
     setLoginSuccess(false)
     try {
-      const session = await customerLogin(loginEmail, loginName || undefined)
+      if (loginStep === 'email') {
+        await requestCustomerLoginCode(loginEmail, loginName || undefined)
+        setLoginStep('code')
+        return
+      }
+      const session = await verifyCustomerLoginCode(loginEmail, loginCode)
       setIsAuthenticated(true)
       setCustomerSession(session)
       setLoginSuccess(true)
@@ -295,13 +302,15 @@ export default function CheckoutPage() {
         setShowLoginForm(false)
         setLoginEmail('')
         setLoginName('')
+        setLoginCode('')
+        setLoginStep('email')
       }, 1200)
     } catch (error) {
       setLoginError(error instanceof Error ? error.message : 'Login failed. Please try again.')
     } finally {
       setLoginLoading(false)
     }
-  }, [loginEmail, loginName])
+  }, [loginEmail, loginName, loginCode, loginStep])
 
   const handleLogout = useCallback(async () => {
     await customerLogout()
@@ -699,7 +708,7 @@ export default function CheckoutPage() {
                         <p className="text-xs text-danger">{loginError}</p>
                       </div>
                     )}
-                    <div>
+                    {loginStep === 'email' && <div>
                       <label htmlFor="checkout-email" className="block text-sm font-medium text-ink mb-2">Email Address *</label>
                       <input
                         id="checkout-email"
@@ -710,8 +719,8 @@ export default function CheckoutPage() {
                         className="w-full px-4 py-3 border border-ink/45 rounded-xl focus:ring-2 focus:ring-gold-ink/30 focus:border-ink outline-none transition-colors text-base"
                         placeholder="your@email.com"
                       />
-                    </div>
-                    <div>
+                    </div>}
+                    {loginStep === 'email' && <div>
                       <label htmlFor="checkout-name" className="block text-sm font-medium text-ink mb-2">
                         Full Name <span className="text-ink/60">(for your order)</span>
                       </label>
@@ -723,8 +732,13 @@ export default function CheckoutPage() {
                         className="w-full px-4 py-3 border border-ink/45 rounded-xl focus:ring-2 focus:ring-gold-ink/30 focus:border-ink outline-none transition-colors text-base"
                         placeholder="Chioma Okafor"
                       />
-                    </div>
-                    <div className="bg-surface-2/10 rounded-xl p-4 border border-gold/30">
+                    </div>}
+                    {loginStep === 'code' && <div>
+                      <label htmlFor="checkout-code" className="block text-sm font-medium text-ink mb-2">Email verification code *</label>
+                      <input id="checkout-code" inputMode="numeric" autoComplete="one-time-code" required value={loginCode} onChange={(e) => setLoginCode(e.target.value.replace(/\D/g, '').slice(0, 8))} className="w-full px-4 py-3 border border-ink/45 rounded-xl focus:ring-2 focus:ring-gold-ink/30 focus:border-ink outline-none text-base" placeholder="8-digit code" />
+                      <button type="button" onClick={() => { setLoginStep('email'); setLoginCode('') }} className="mt-2 text-xs underline">Use a different email</button>
+                    </div>}
+                    {loginStep === 'email' && <div className="bg-surface-2/10 rounded-xl p-4 border border-gold/30">
                       <div className="flex items-start gap-3 text-xs text-ink/70">
                         <ShoppingBag size={14} className="mt-0.5 flex-shrink-0" />
                         <div>
@@ -737,25 +751,25 @@ export default function CheckoutPage() {
                           </ul>
                         </div>
                       </div>
-                    </div>
+                    </div>}
                     <button
                       type="submit"
-                      disabled={loginLoading || !loginEmail.trim()}
+                      disabled={loginLoading || !loginEmail.trim() || (loginStep === 'code' && loginCode.length !== 8)}
                       className="w-full bg-ink text-on-ink py-3.5 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-black-dark transition-colors rounded-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                     >
                       {loginLoading ? (
                         <>
                           <div className="w-4 h-4 border-2 border-on-ink border-t-transparent rounded-full animate-spin" />
-                          Signing In...
+                          {loginStep === 'email' ? 'Sending Code...' : 'Verifying...'}
                         </>
                       ) : (
                         <>
                           <Mail size={16} />
-                          Sign In & Continue
+                          {loginStep === 'email' ? 'Email Me a Code' : 'Verify Code & Continue'}
                         </>
                       )}
                     </button>
-                    <p className="text-xs text-ink/65 text-center">No password needed — we'll email you a verification link.</p>
+                    <p className="text-xs text-ink/65 text-center">{loginStep === 'email' ? 'We’ll email you a one-time sign-in code.' : `Enter the code sent to ${loginEmail}.`}</p>
                   </form>
                 )}
               </div>

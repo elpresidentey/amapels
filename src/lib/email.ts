@@ -278,6 +278,46 @@ function getGmailTransport() {
   return gmailTransport
 }
 
+export async function sendCustomerLoginCode(email: string, code: string): Promise<EmailResult> {
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return { sent: false, skipped: true, reason: 'Invalid customer email address' }
+  }
+
+  const subject = 'Your AMAPELS sign-in code'
+  const text = `Your AMAPELS verification code is ${code}. It expires in 10 minutes. If you did not request this code, you can ignore this email.`
+  const html = `<!doctype html><html><body style="margin:0;padding:32px;background:#faf6ef;font-family:Arial,sans-serif;color:#211b15"><div style="max-width:520px;margin:auto;padding:32px;background:#fffdf8;border:1px solid #e8dfd0"><p style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#80602a">AMAPELS</p><h1 style="font-size:24px;font-weight:400">Your sign-in code</h1><p>Enter this code to securely sign in to your AMAPELS account:</p><p style="font-size:32px;letter-spacing:8px;font-weight:600">${escapeHtml(code)}</p><p style="font-size:13px;color:#655f57">This code expires in 10 minutes. If you did not request it, you can ignore this email.</p></div></body></html>`
+
+  const gmail = getGmailTransport()
+  if (gmail) {
+    const result = await withTimeout<any>(gmail.sendMail({
+      from: GMAIL_FROM,
+      replyTo: GMAIL_USER,
+      to: email,
+      subject,
+      text,
+      html,
+    }), EMAIL_TIMEOUT_MS)
+    return result
+      ? { sent: true, id: result.messageId, provider: 'gmail' }
+      : { sent: false, reason: 'Gmail SMTP timed out', provider: 'gmail' }
+  }
+
+  const { client, reason } = getResend()
+  if (!client) return { sent: false, skipped: true, reason }
+
+  const response = await withTimeout(client.emails.send({
+    from: FROM_EMAIL,
+    replyTo: REPLY_TO,
+    to: email,
+    subject,
+    text,
+    html,
+  }), EMAIL_TIMEOUT_MS)
+  if (!response) return { sent: false, reason: 'Email provider timed out', provider: 'resend' }
+  if (response.error) return { sent: false, reason: response.error.message, provider: 'resend' }
+  return { sent: true, id: response.data?.id, provider: 'resend' }
+}
+
 /**
  * Send the order confirmation. Never throws: a mail outage must not turn a
  * paid order into a failed checkout.

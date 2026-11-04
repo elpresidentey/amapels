@@ -9,6 +9,7 @@ const COOKIE_NAME = 'amp_customer'
 const SESSION_DURATION_MS = 24 * 60 * 60 * 1000
 
 export interface SessionPayload {
+  version: 2
   email: string
   name: string
   exp: number
@@ -29,9 +30,12 @@ function decode(token: string): SessionPayload | null {
   const parts = token.split('.')
   if (parts.length !== 2) return null
   const [data, sig] = parts
-  if (sign(data) !== sig) return null
+  const expected = Buffer.from(sign(data), 'hex')
+  const received = Buffer.from(sig, 'hex')
+  if (expected.length !== received.length || !crypto.timingSafeEqual(expected, received)) return null
   try {
     const payload = JSON.parse(Buffer.from(data, 'base64url').toString()) as SessionPayload
+    if (payload.version !== 2) return null
     if (Date.now() > payload.exp) return null
     return payload
   } catch {
@@ -41,6 +45,7 @@ function decode(token: string): SessionPayload | null {
 
 export function createSessionCookie(email: string, name: string): { name: string; value: string; options: Record<string, unknown> } {
   const payload: SessionPayload = {
+    version: 2,
     email: email.toLowerCase().trim(),
     name: name.trim(),
     exp: Date.now() + SESSION_DURATION_MS,
