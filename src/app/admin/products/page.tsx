@@ -25,7 +25,7 @@ interface Product {
   updatedAt?: string
 }
 
-const CATEGORIES = ['Earrings', 'Necklaces', 'Bracelets', 'Jewellery Sets', 'Rings']
+const CATEGORIES = ['Earrings', 'Necklaces', 'Bracelets', 'Rings']
 
 const initialFormData: Omit<Product, '_id' | 'createdAt' | 'updatedAt'> = {
   name: '',
@@ -463,7 +463,7 @@ export default function AdminProductsPage() {
         </div>
 
         {/* Search and Filters */}
-        <div className="bg-white rounded-2xl md:rounded-3xl border border-gold/30 p-4 mb-6">
+        <div className="bg-white rounded-2xl md:rounded-3xl border border-gold/40 p-4 mb-6">
           <div className="flex flex-col lg:flex-row gap-4">
             {/* Search */}
             <div className="flex-1">
@@ -474,7 +474,7 @@ export default function AdminProductsPage() {
                   placeholder="Search products..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none text-sm"
+                  className="w-full pl-10 pr-4 py-2.5 border border-gold rounded-xl focus:ring-2 focus:ring-gold/30 focus:border-gold-dark outline-none text-sm text-black-dark"
                 />
               </div>
             </div>
@@ -484,7 +484,8 @@ export default function AdminProductsPage() {
               <select
                 value={categoryFilter}
                 onChange={(e) => setCategoryFilter(e.target.value)}
-                className="w-full px-4 py-2.5 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none text-sm bg-white"
+                className="w-full px-4 py-2.5 border border-gold rounded-xl focus:ring-2 focus:ring-gold/30 focus:border-gold-dark outline-none text-sm bg-white text-black-dark appearance-none cursor-pointer"
+                style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke=\'%23b8860b\'%3E%3Cpath stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M19 9l-7 7-7-7\'%3E%3C/path%3E%3C/svg%3E")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 0.75rem center', backgroundSize: '1rem' }}
               >
                 <option value="all">All Categories</option>
                 {CATEGORIES.map(category => (
@@ -498,7 +499,8 @@ export default function AdminProductsPage() {
               <select
                 value={featuredFilter}
                 onChange={(e) => setFeaturedFilter(e.target.value)}
-                className="w-full px-4 py-2.5 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none text-sm bg-white"
+                className="w-full px-4 py-2.5 border border-gold rounded-xl focus:ring-2 focus:ring-gold/30 focus:border-gold-dark outline-none text-sm bg-white text-black-dark appearance-none cursor-pointer"
+                style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke=\'%23b8860b\'%3E%3Cpath stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M19 9l-7 7-7-7\'%3E%3C/path%3E%3C/svg%3E")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 0.75rem center', backgroundSize: '1rem' }}
               >
                 <option value="all">All Products</option>
                 <option value="featured">Featured Only</option>
@@ -515,7 +517,8 @@ export default function AdminProductsPage() {
                   setSortBy(field)
                   setSortOrder(order as 'asc' | 'desc')
                 }}
-                className="w-full px-4 py-2.5 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none text-sm bg-white"
+                className="w-full px-4 py-2.5 border border-gold rounded-xl focus:ring-2 focus:ring-gold/30 focus:border-gold-dark outline-none text-sm bg-white text-black-dark appearance-none cursor-pointer"
+                style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke=\'%23b8860b\'%3E%3Cpath stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M19 9l-7 7-7-7\'%3E%3C/path%3E%3C/svg%3E")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 0.75rem center', backgroundSize: '1rem' }}
               >
                 <option value="name-asc">Name (A-Z)</option>
                 <option value="name-desc">Name (Z-A)</option>
@@ -528,7 +531,7 @@ export default function AdminProductsPage() {
           </div>
 
           {/* Results count and bulk actions */}
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mt-4 pt-4 border-t border-gold/20">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mt-4 pt-4 border-t border-gold/30">
             <p className="text-sm text-black/70">
               Showing {filteredProducts.length} of {products.length} products
             </p>
@@ -552,17 +555,17 @@ export default function AdminProductsPage() {
                   <button
                     onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                     disabled={currentPage === 1}
-                    className="px-3 py-1 border border-gold rounded-lg text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gold/10"
+                    className="px-3 py-1 border border-gold rounded-lg text-sm text-black-dark disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gold/10 hover:text-black"
                   >
                     Previous
                   </button>
-                  <span className="px-3 py-1 text-sm text-black/70">
+                  <span className="px-3 py-1 text-sm text-black-dark">
                     Page {currentPage} of {totalPages}
                   </span>
                   <button
                     onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                     disabled={currentPage === totalPages}
-                    className="px-3 py-1 border border-gold rounded-lg text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gold/10"
+                    className="px-3 py-1 border border-gold rounded-lg text-sm text-black-dark disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gold/10 hover:text-black"
                   >
                     Next
                   </button>
@@ -572,12 +575,12 @@ export default function AdminProductsPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl md:rounded-3xl border border-gold/30 overflow-hidden">
+        <div className="bg-white rounded-2xl md:rounded-3xl border border-gold/40 overflow-hidden">
           {/* Mobile Table */}
           <div className="block md:hidden">
             <div className="p-4 space-y-4">
               {paginatedProducts.map((product) => (
-                <div key={product._id} className="border border-gold/20 rounded-xl p-3 sm:p-4">
+                <div key={product._id} className="border border-gold/30 rounded-xl p-3 sm:p-4">
                   <div className="flex gap-2 mb-3 sm:gap-3">
                     <input
                       type="checkbox"
@@ -602,7 +605,7 @@ export default function AdminProductsPage() {
                     </div>
                   </div>
                   
-                  <div className="flex items-center justify-between pt-2 border-t border-gold/20 sm:pt-3">
+                  <div className="flex items-center justify-between pt-2 border-t border-gold/30 sm:pt-3">
 <button
                       onClick={() => toggleFeatured(product)}
                       className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs transition-colors ${
@@ -650,7 +653,7 @@ export default function AdminProductsPage() {
           {/* Desktop Table */}
           <div className="hidden md:block overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-100/20">
+              <thead className="bg-gold/5">
                 <tr>
                   <th className="px-4 py-4 text-left">
                     <input
@@ -660,24 +663,24 @@ export default function AdminProductsPage() {
                       className="w-4 h-4 border-gold rounded"
                     />
                   </th>
-                  <th className="px-6 py-4 text-left text-black-dark font-medium cursor-pointer hover:bg-gray-100/30" onClick={() => handleSort('name')}>
+                  <th className="px-6 py-4 text-left text-black-dark font-semibold cursor-pointer hover:bg-gold/10" onClick={() => handleSort('name')}>
                     Product {sortBy === 'name' && (sortOrder === 'asc' ? <ChevronUp size={14} className="inline" /> : <ChevronDown size={14} className="inline" />)}
                   </th>
-                  <th className="px-6 py-4 text-left text-black-dark font-medium cursor-pointer hover:bg-gray-100/30" onClick={() => handleSort('category')}>
+                  <th className="px-6 py-4 text-left text-black-dark font-semibold cursor-pointer hover:bg-gold/10" onClick={() => handleSort('category')}>
                     Category {sortBy === 'category' && (sortOrder === 'asc' ? <ChevronUp size={14} className="inline" /> : <ChevronDown size={14} className="inline" />)}
                   </th>
-                  <th className="px-6 py-4 text-left text-black-dark font-medium cursor-pointer hover:bg-gray-100/30" onClick={() => handleSort('price')}>
+                  <th className="px-6 py-4 text-left text-black-dark font-semibold cursor-pointer hover:bg-gold/10" onClick={() => handleSort('price')}>
                     Price {sortBy === 'price' && (sortOrder === 'asc' ? <ChevronUp size={14} className="inline" /> : <ChevronDown size={14} className="inline" />)}
                   </th>
-                  <th className="px-6 py-4 text-left text-black-dark font-medium cursor-pointer hover:bg-gray-100/30" onClick={() => handleSort('featured')}>
+                  <th className="px-6 py-4 text-left text-black-dark font-semibold cursor-pointer hover:bg-gold/10" onClick={() => handleSort('featured')}>
                     Featured {sortBy === 'featured' && (sortOrder === 'asc' ? <ChevronUp size={14} className="inline" /> : <ChevronDown size={14} className="inline" />)}
                   </th>
-                  <th className="px-6 py-4 text-left text-black-dark font-medium">Actions</th>
+                  <th className="px-6 py-4 text-left text-black-dark font-semibold">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {paginatedProducts.map((product) => (
-                  <tr key={product._id} className="border-b border-gold/20 hover:bg-gray-50/30">
+                  <tr key={product._id} className="border-b border-gold/30 hover:bg-gold/5">
                     <td className="px-4 py-4">
                       <input
                         type="checkbox"
@@ -817,7 +820,8 @@ export default function AdminProductsPage() {
                     <select
                       value={formData.category}
                       onChange={(e) => handleInputChange('category', e.target.value)}
-                      className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none"
+                      className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-gold/30 focus:border-gold-dark outline-none bg-white text-black-dark appearance-none cursor-pointer"
+                      style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke=\'%23b8860b\'%3E%3Cpath stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M19 9l-7 7-7-7\'%3E%3C/path%3E%3C/svg%3E")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 0.75rem center', backgroundSize: '1rem' }}
                       required
                     >
                       {CATEGORIES.map(category => (
@@ -834,7 +838,7 @@ export default function AdminProductsPage() {
                       value={formData.description}
                       onChange={(e) => handleInputChange('description', e.target.value)}
                       rows={4}
-                      className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-brown/20 focus:border-black outline-none"
+                      className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-gold/30 focus:border-gold-dark outline-none text-black-dark"
                       placeholder="Describe your product... What makes it special?"
                       required
                     />

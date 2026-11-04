@@ -218,7 +218,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href="/shop"
-                  className="btn-premium inline-flex items-center justify-center gap-2.5 border border-ink/50 bg-chrome/60 px-7 py-3.5 text-[10px] font-medium uppercase tracking-[0.22em] text-ink backdrop-blur-sm transition-all hover:border-ink/70 hover:bg-chrome sm:py-4 sm:text-[11px]"
+                  className="btn-premium inline-flex items-center justify-center gap-2.5 border border-ink/60 bg-ink/95 px-7 py-3.5 text-[10px] font-medium uppercase tracking-[0.22em] text-on-ink backdrop-blur-sm transition-all hover:border-ink hover:bg-ink sm:py-4 sm:text-[11px]"
                 >
                   Shop Gifts
                 </Link>
@@ -252,7 +252,7 @@ export default function Home() {
                   <button
                     type="button"
                     onClick={goToPrevious}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-ink/25 text-ink transition-all hover:border-gold-ink/60 hover:bg-ink/[0.06]"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-ink/40 text-ink transition-all hover:border-gold-ink hover:bg-ink/10"
                     aria-label="Previous slide"
                   >
                     <ChevronLeft size={16} strokeWidth={1.5} />
@@ -260,7 +260,7 @@ export default function Home() {
                   <button
                     type="button"
                     onClick={goToNext}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-ink/25 text-ink transition-all hover:border-gold-ink/60 hover:bg-ink/[0.06]"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-ink/40 text-ink transition-all hover:border-gold-ink hover:bg-ink/10"
                     aria-label="Next slide"
                   >
                     <ChevronRight size={16} strokeWidth={1.5} />
@@ -278,7 +278,7 @@ export default function Home() {
             <button
               type="button"
               onClick={goToPrevious}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-ink/25 text-ink transition-all hover:bg-ink/[0.06]"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-ink/40 text-ink transition-all hover:bg-ink/10"
               aria-label="Previous slide"
             >
               <ChevronLeft size={15} strokeWidth={1.5} />
@@ -291,7 +291,7 @@ export default function Home() {
             <button
               type="button"
               onClick={goToNext}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-ink/25 text-ink transition-all hover:bg-ink/[0.06]"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border opacity-70 border-ink/40 text-ink transition-all hover:bg-ink/10 hover:opacity-100"
               aria-label="Next slide"
             >
               <ChevronRight size={15} strokeWidth={1.5} />
@@ -305,7 +305,7 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={goToPrevious}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-ink/25 text-ink transition-all hover:bg-ink/[0.06] lg:h-10 lg:w-10"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-ink/40 text-ink transition-all hover:bg-ink/10 lg:h-10 lg:w-10"
                   aria-label="Previous slide"
                 >
                   <ChevronLeft size={15} strokeWidth={1.5} />
@@ -313,7 +313,7 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={goToNext}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-ink/25 text-ink transition-all hover:bg-ink/[0.06] lg:h-10 lg:w-10"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-ink/40 text-ink transition-all hover:bg-ink/10 lg:h-10 lg:w-10"
                   aria-label="Next slide"
                 >
                   <ChevronRight size={15} strokeWidth={1.5} />
@@ -329,15 +329,15 @@ export default function Home() {
                     className={`group flex h-full flex-col border px-2.5 py-3 text-left transition-all duration-300 sm:px-4 sm:py-4 lg:px-5 lg:py-5 ${
                       currentSlide === index
                         ? 'border-gold-ink/40 bg-ink/[0.06]'
-                        : 'border-ink/12 bg-transparent hover:border-ink/25 hover:bg-ink/[0.04]'
+                        : 'border-ink/40 bg-ink/5 hover:border-gold-ink/60 hover:bg-ink/15'
                     }`}
                     aria-label={`Go to ${slide.eyebrow}`}
                   >
                     <div className="mb-2.5 flex items-center justify-between gap-2 sm:mb-3">
-                      <p className="hidden truncate text-[9px] font-medium uppercase tracking-[0.28em] text-ink/70 md:block sm:text-[10px]">
+                      <p className="hidden truncate text-[9px] font-medium uppercase tracking-[0.28em] text-ink md:block sm:text-[10px]">
                         {slide.eyebrow}
                       </p>
-                      <span className="ml-auto shrink-0 text-[9px] font-medium tracking-[0.2em] text-ink/70 sm:text-[10px]">
+                      <span className="ml-auto shrink-0 text-[9px] font-medium tracking-[0.2em] text-ink sm:text-[10px]">
                         {String(index + 1).padStart(2, '0')}
                       </span>
                     </div>
@@ -352,7 +352,7 @@ export default function Home() {
                       {slide.title}
                     </p>
                     {slide.accent ? (
-                      <p className="mt-2 hidden line-clamp-1 text-[11px] text-ink/70 sm:block sm:text-xs">
+                      <p className="mt-2 hidden line-clamp-1 text-[11px] text-ink sm:block sm:text-xs">
                         {slide.accent}
                       </p>
                     ) : (

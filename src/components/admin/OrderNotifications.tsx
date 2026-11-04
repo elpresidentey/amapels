@@ -93,12 +93,12 @@ export default function OrderNotifications() {
       <button
         type="button"
         onClick={handleOpen}
-        className="relative p-2 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+        className="relative p-2 text-gold hover:text-gold-light hover:bg-white/10 rounded-lg transition-colors border border-transparent hover:border-gold/30"
         aria-label={`Notifications${unreadCount > 0 ? ` (${unreadCount} new)` : ''}`}
       >
         <Bell size={18} />
         {unreadCount > 0 && (
-          <span className="absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-semibold text-white">
+          <span className="absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-semibold text-white border-2 border-black">
             {unreadCount > 9 ? '9+' : unreadCount}
           </span>
         )}
@@ -111,14 +111,14 @@ export default function OrderNotifications() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.97 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full right-0 mt-2 w-80 max-w-[calc(100vw-2rem)] bg-white border border-black/10 shadow-xl rounded-xl overflow-hidden z-50"
+            className="absolute top-full right-0 mt-2 w-80 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 shadow-xl rounded-xl overflow-hidden z-50"
           >
-            <div className="flex items-center justify-between px-4 py-3 border-b border-black/5">
-              <h3 className="text-sm font-semibold text-black">New Orders</h3>
+            <div className="flex items-center justify-between px-4 py-3 border-b border-gold/20 bg-gray-50">
+              <h3 className="text-sm font-semibold text-black-dark">New Orders</h3>
               <Link
                 href="/admin/orders"
                 onClick={() => setOpen(false)}
-                className="text-xs text-black/60 hover:text-black transition-colors"
+                className="text-xs text-black-dark/70 hover:text-black-dark transition-colors font-medium"
               >
                 View all
               </Link>
@@ -126,11 +126,11 @@ export default function OrderNotifications() {
 
             <div className="max-h-80 overflow-y-auto">
               {loading ? (
-                <div className="px-4 py-6 text-center text-sm text-black/60">Loading orders...</div>
+                <div className="px-4 py-6 text-center text-sm text-black/70">Loading orders...</div>
               ) : orders.length === 0 ? (
                 <div className="flex flex-col items-center gap-2 px-4 py-8 text-center">
-                  <ShoppingBag size={20} className="text-black/20" />
-                  <p className="text-sm text-black/60">No orders yet</p>
+                  <ShoppingBag size={20} className="text-gold/40" />
+                  <p className="text-sm text-black/70">No orders yet</p>
                 </div>
               ) : (
                 orders.map((order, index) => (
@@ -138,23 +138,23 @@ export default function OrderNotifications() {
                     key={order._id}
                     href="/admin/orders"
                     onClick={() => setOpen(false)}
-                    className={`flex items-center gap-3 px-4 py-3 transition-colors hover:bg-black/[0.03] ${
-                      index < unreadCount ? 'bg-red-50/60' : ''
-                    } ${index > 0 ? 'border-t border-black/[0.04]' : ''}`}
+                    className={`flex items-center gap-3 px-4 py-3 transition-colors hover:bg-gold/5 ${
+                      index < unreadCount ? 'bg-gold/10' : ''
+                    } ${index > 0 ? 'border-t border-gold/10' : ''}`}
                   >
-                    <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-black/5">
-                      <ShoppingBag size={15} className="text-black/60" />
+                    <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-gold/10">
+                      <ShoppingBag size={15} className="text-gold-dark" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-medium text-black">
+                      <p className="truncate text-sm font-medium text-black-dark">
                         {order.customerName}
                       </p>
-                      <p className="text-xs text-black/60">
+                      <p className="text-xs text-black/70">
                         {order.orderNumber ? `${order.orderNumber} · ` : ''}
                         ₦{order.total.toLocaleString()}
                       </p>
                     </div>
-                    <span className="shrink-0 text-[10px] text-black/40">
+                    <span className="shrink-0 text-[10px] text-black/50">
                       {new Date(order.createdAt).toLocaleDateString('en-US', {
                         month: 'short',
                         day: 'numeric',

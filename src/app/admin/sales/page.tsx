@@ -325,13 +325,14 @@ export default function SalesPage() {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search customer or product..."
-                  className="w-full sm:w-56 pl-9 pr-3 py-2 border border-gold rounded-lg text-sm focus:ring-2 focus:ring-brown/20 focus:border-black outline-none"
+                  className="w-full sm:w-56 pl-9 pr-3 py-2 border border-gold rounded-lg text-sm focus:ring-2 focus:ring-gold/30 focus:border-gold-dark outline-none text-black-dark"
                 />
               </div>
               <select
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
-                className="px-3 py-2 border border-gold rounded-lg focus:ring-2 focus:ring-brown/20 focus:border-black outline-none text-sm"
+                className="px-3 py-2 border border-gold rounded-lg focus:ring-2 focus:ring-gold/30 focus:border-gold-dark outline-none text-sm bg-white text-black-dark appearance-none cursor-pointer"
+                style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke=\'%23b8860b\'%3E%3Cpath stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M19 9l-7 7-7-7\'%3E%3C/path%3E%3C/svg%3E")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 0.75rem center', backgroundSize: '1rem' }}
               >
                 {ORDER_STATUSES.map((status) => (
                   <option key={status} value={status}>
@@ -344,18 +345,18 @@ export default function SalesPage() {
 
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-100/10">
+              <thead className="bg-gold/5">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-black-dark">Customer</th>
-                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-black-dark hidden sm:table-cell">Items</th>
-                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-black-dark">Total</th>
-                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-black-dark">Payment</th>
-                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-black-dark">Date</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-semibold text-black-dark">Customer</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-semibold text-black-dark hidden sm:table-cell">Items</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-semibold text-black-dark">Total</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-semibold text-black-dark">Payment</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-semibold text-black-dark">Date</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredOrders.map((order, index) => (
-                  <tr key={order._id || index} className="border-b border-gold/10 hover:bg-gray-100/5 transition-colors">
+                  <tr key={order._id || index} className="border-b border-gold/15 hover:bg-gold/5 transition-colors">
                     <td className="px-4 py-4">
                       <p className="text-xs sm:text-sm text-black-dark font-medium">{order.customerName || 'Guest'}</p>
                       <p className="text-xs text-black/60 hidden md:block">{order.customerEmail}</p>

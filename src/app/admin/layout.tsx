@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
 import { verifyAdminSession, logoutAdmin } from '@/lib/auth'
-import { Home, Package, ShoppingCart, BarChart3, FileText, Mail, LogOut, Menu, X } from 'lucide-react'
+import { Home, Package, ShoppingCart, BarChart3, LogOut, Menu, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import OrderNotifications from '@/components/admin/OrderNotifications'
 import Logo from '@/components/Logo'
@@ -22,9 +22,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { name: 'Dashboard', href: '/admin', icon: Home },
     { name: 'Products', href: '/admin/products', icon: Package },
     { name: 'Orders', href: '/admin/orders', icon: ShoppingCart },
-    { name: 'Sales', href: '/admin/sales', icon: BarChart3 },
-    { name: 'Blog', href: '/admin/blog', icon: FileText },
-    { name: 'Newsletter', href: '/admin/subscribers', icon: Mail }
+    { name: 'Sales', href: '/admin/sales', icon: BarChart3 }
   ]
 
   useEffect(() => {
@@ -129,10 +127,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                       isActive
-                        ? 'bg-white/10 text-white'
-                        : 'text-white/70 hover:text-white hover:bg-white/5'
+                        ? 'bg-gold text-black-dark'
+                        : 'text-white/80 hover:text-white hover:bg-white/10'
                     }`}
                   >
                     <Icon size={16} />
@@ -142,20 +140,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               })}
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <OrderNotifications />
-              <Link
-                href="/"
-                className="hidden sm:inline-flex text-xs text-white/70 hover:text-white transition-colors uppercase tracking-wider"
-              >
-                View Store
-              </Link>
               <button
                 onClick={handleLogout}
-                className="hidden sm:flex items-center gap-2 px-4 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+                className="hidden sm:flex items-center gap-2 px-3 py-2 text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
               >
                 <LogOut size={16} />
-                Logout
+                <span className="hidden lg:inline">Logout</span>
               </button>
               
               <button
@@ -187,8 +179,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                       onClick={() => setIsMobileMenuOpen(false)}
                       className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
                         isActive
-                          ? 'bg-white/10 text-white'
-                          : 'text-white/70 hover:text-white hover:bg-white/5'
+                          ? 'bg-gold text-black-dark'
+                          : 'text-white/80 hover:text-white hover:bg-white/10'
                       }`}
                     >
                       <Icon size={18} />

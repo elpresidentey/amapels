@@ -95,10 +95,9 @@ export default function AdminLoginPage() {
                     autoComplete="email"
                     value={formData.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-gold outline-none text-base transition-all"
-                    placeholder="admin@amapels.com"
+                    className="w-full pl-12 pr-4 py-3.5 border border-gold rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-gold outline-none text-base transition-all min-h-[48px] relative z-10 cursor-text"
+                    placeholder="amapelsng@gmail.com"
                     required
-                    style={{ fontSize: '16px' }}
                   />
                 </div>
               </div>
@@ -117,15 +116,14 @@ export default function AdminLoginPage() {
                     autoComplete="current-password"
                     value={formData.password}
                     onChange={(e) => handleInputChange('password', e.target.value)}
-                    className="w-full pl-10 pr-12 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-gold outline-none text-base transition-all"
+                    className="w-full pl-12 pr-14 py-3.5 border border-gold rounded-xl focus:ring-2 focus:ring-gold/20 focus:border-gold outline-none text-base transition-all min-h-[48px] relative z-10 cursor-text"
                     placeholder="Enter your password"
                     required
-                    style={{ fontSize: '16px' }}
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-black/70 hover:text-black-dark transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-black/70 hover:text-black-dark transition-colors p-1 min-w-[36px] min-h-[36px] flex items-center justify-center"
                     aria-label={showPassword ? 'Hide password' : 'Show password'}
                   >
                     {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -136,7 +134,7 @@ export default function AdminLoginPage() {
               <button
                 type="submit"
                 disabled={loading || !formData.email || !formData.password}
-                className="w-full bg-black text-white py-3.5 px-4 rounded-xl font-medium hover:bg-gold hover:text-black transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg hover:shadow-xl border-2 border-gold"
+                className="w-full bg-black text-white py-3.5 px-4 rounded-xl font-medium hover:bg-gold hover:text-black transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg hover:shadow-xl border-2 border-gold min-h-[52px]"
               >
                 {loading ? (
                   <>

@@ -135,15 +135,15 @@ export default function AdminDashboard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="bg-white rounded-xl sm:rounded-2xl border border-gold/30 p-5 sm:p-6 hover:shadow-lg transition-shadow flex flex-col justify-between"
+            className="bg-white rounded-xl sm:rounded-2xl border border-gold/40 p-5 sm:p-6 hover:shadow-lg hover:border-gold/60 transition-shadow flex flex-col justify-between"
           >
             <div className="flex items-start justify-between mb-3 sm:mb-4">
-              <div className="p-2.5 sm:p-3 bg-blue-50 rounded-lg sm:rounded-xl">
-                <Package className="text-blue-600" size={20} />
+              <div className="p-2.5 sm:p-3 bg-gold/10 rounded-lg sm:rounded-xl">
+                <Package className="text-gold-dark" size={20} />
               </div>
               <Link
                 href="/admin/products"
-                className="text-black/60 hover:text-black-dark transition-colors p-1"
+                className="text-gold/60 hover:text-gold-dark transition-colors p-1"
               >
                 <Eye size={16} className="sm:w-[18px] sm:h-[18px]" />
               </Link>
@@ -161,15 +161,15 @@ export default function AdminDashboard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="bg-white rounded-xl sm:rounded-2xl border border-gold/30 p-5 sm:p-6 hover:shadow-lg transition-shadow flex flex-col justify-between"
+className="bg-white rounded-xl sm:rounded-2xl border border-gold/40 p-5 sm:p-6 hover:shadow-lg hover:border-gold/60 transition-shadow flex flex-col justify-between"
           >
             <div className="flex items-start justify-between mb-3 sm:mb-4">
-              <div className="p-2.5 sm:p-3 bg-green-50 rounded-lg sm:rounded-xl">
-                <ShoppingCart className="text-green-600" size={20} />
+              <div className="p-2.5 sm:p-3 bg-gold/10 rounded-lg sm:rounded-xl">
+                <ShoppingCart className="text-gold-dark" size={20} />
               </div>
               <Link
                 href="/admin/orders"
-                className="text-black/60 hover:text-black-dark transition-colors p-1"
+                className="text-gold/60 hover:text-gold-dark transition-colors p-1"
               >
                 <Eye size={16} className="sm:w-[18px] sm:h-[18px]" />
               </Link>
@@ -187,15 +187,15 @@ export default function AdminDashboard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-white rounded-xl sm:rounded-2xl border border-gold/30 p-5 sm:p-6 hover:shadow-lg transition-shadow flex flex-col justify-between"
+className="bg-white rounded-xl sm:rounded-2xl border border-gold/40 p-5 sm:p-6 hover:shadow-lg hover:border-gold/60 transition-shadow flex flex-col justify-between"
           >
             <div className="flex items-start justify-between mb-3 sm:mb-4">
-              <div className="p-2.5 sm:p-3 bg-accent-emerald/10 rounded-lg sm:rounded-xl">
-                <DollarSign className="text-accent-emerald" size={20} />
+              <div className="p-2.5 sm:p-3 bg-gold/10 rounded-lg sm:rounded-xl">
+                <DollarSign className="text-gold-dark" size={20} />
               </div>
               <Link
                 href="/admin/sales"
-                className="text-black/60 hover:text-black-dark transition-colors p-1"
+                className="text-gold/60 hover:text-gold-dark transition-colors p-1"
               >
                 <Eye size={16} className="sm:w-[18px] sm:h-[18px]" />
               </Link>
@@ -213,11 +213,11 @@ export default function AdminDashboard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="bg-white rounded-xl sm:rounded-2xl border border-gold/30 p-5 sm:p-6 hover:shadow-lg transition-shadow flex flex-col justify-between"
+className="bg-white rounded-xl sm:rounded-2xl border border-gold/40 p-5 sm:p-6 hover:shadow-lg hover:border-gold/60 transition-shadow flex flex-col justify-between"
           >
             <div className="flex items-start justify-between mb-3 sm:mb-4">
-              <div className="p-2.5 sm:p-3 bg-accent-orange/10 rounded-lg sm:rounded-xl">
-                <TrendingUp className="text-accent-orange" size={20} />
+              <div className="p-2.5 sm:p-3 bg-gold/10 rounded-lg sm:rounded-xl">
+                <TrendingUp className="text-gold-dark" size={20} />
               </div>
             </div>
             <div>
@@ -234,40 +234,40 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 gap-4 mb-8 sm:grid-cols-2 sm:gap-5 md:gap-6 lg:grid-cols-3">
           <Link
             href="/admin/products"
-            className="bg-white rounded-xl border border-gold/30 p-5 sm:p-6 hover:border-black transition-all group flex items-center"
+            className="bg-white rounded-xl border border-gold/40 p-5 sm:p-6 hover:border-gold transition-all group flex items-center"
           >
             <div className="flex items-center justify-between w-full gap-3">
               <div className="flex-1 min-w-0">
                 <h3 className="font-medium text-black-dark mb-1 text-sm sm:text-base">Manage Products</h3>
                 <p className="text-black/70 text-xs sm:text-sm">Add, edit, or remove products</p>
               </div>
-              <ArrowRight className="text-black/40 group-hover:text-black-dark group-hover:translate-x-1 transition-all flex-shrink-0" size={18} />
+              <ArrowRight className="text-gold/60 group-hover:text-gold-dark group-hover:translate-x-1 transition-all flex-shrink-0" size={18} />
             </div>
           </Link>
 
           <Link
             href="/admin/orders"
-            className="bg-white rounded-xl border border-gold/30 p-5 sm:p-6 hover:border-black transition-all group flex items-center"
+            className="bg-white rounded-xl border border-gold/40 p-5 sm:p-6 hover:border-gold transition-all group flex items-center"
           >
             <div className="flex items-center justify-between w-full gap-3">
               <div className="flex-1 min-w-0">
                 <h3 className="font-medium text-black-dark mb-1 text-sm sm:text-base">View Orders</h3>
                 <p className="text-black/70 text-xs sm:text-sm">Track and manage customer orders</p>
               </div>
-              <ArrowRight className="text-black/40 group-hover:text-black-dark group-hover:translate-x-1 transition-all flex-shrink-0" size={18} />
+              <ArrowRight className="text-gold/60 group-hover:text-gold-dark group-hover:translate-x-1 transition-all flex-shrink-0" size={18} />
             </div>
           </Link>
 
           <Link
             href="/admin/sales"
-            className="bg-white rounded-xl border border-gold/30 p-5 sm:p-6 hover:border-black transition-all group flex items-center sm:col-span-2 lg:col-span-1"
+            className="bg-white rounded-xl border border-gold/40 p-5 sm:p-6 hover:border-gold transition-all group flex items-center sm:col-span-2 lg:col-span-1"
           >
             <div className="flex items-center justify-between w-full gap-3">
               <div className="flex-1 min-w-0">
                 <h3 className="font-medium text-black-dark mb-1 text-sm sm:text-base">Sales Reports</h3>
                 <p className="text-black/70 text-xs sm:text-sm">View sales analytics and trends</p>
               </div>
-              <ArrowRight className="text-black/40 group-hover:text-black-dark group-hover:translate-x-1 transition-all flex-shrink-0" size={18} />
+              <ArrowRight className="text-gold/60 group-hover:text-gold-dark group-hover:translate-x-1 transition-all flex-shrink-0" size={18} />
             </div>
           </Link>
         </div>
@@ -277,9 +277,9 @@ export default function AdminDashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="bg-white rounded-2xl border border-gold/30 overflow-hidden"
+          className="bg-white rounded-2xl border border-gold/40 overflow-hidden"
         >
-          <div className="p-6 border-b border-gold/20 flex justify-between items-center">
+          <div className="p-6 border-b border-gold/30 flex justify-between items-center">
             <h2 className="font-serif text-xl sm:text-2xl text-black-dark">Recent Orders</h2>
             <Link
               href="/admin/orders"
@@ -292,18 +292,18 @@ export default function AdminDashboard() {
 
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-100/10">
+              <thead className="bg-gold/5">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-black-dark">Order ID</th>
-                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-black-dark">Customer</th>
-                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-black-dark hidden sm:table-cell">Items</th>
-                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-black-dark">Total</th>
-                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium text-black-dark">Status</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-semibold text-black-dark">Order ID</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-semibold text-black-dark">Customer</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-semibold text-black-dark hidden sm:table-cell">Items</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-semibold text-black-dark">Total</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-semibold text-black-dark">Status</th>
                 </tr>
               </thead>
               <tbody>
                 {stats.recentOrders.map((order, index) => (
-                  <tr key={order._id || index} className="border-b border-gold/10 hover:bg-gray-100/5 transition-colors">
+                  <tr key={order._id || index} className="border-b border-gold/15 hover:bg-gold/5 transition-colors">
                     <td className="px-4 py-4 text-xs sm:text-sm text-black-dark font-mono">
                       #{order._id?.slice(-6) || 'N/A'}
                     </td>
@@ -317,12 +317,12 @@ export default function AdminDashboard() {
                       ₦{(order.total || 0).toLocaleString()}
                     </td>
                     <td className="px-4 py-4">
-                      <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${
+                      <span className={`inline-block px-2 py-1 rounded-full text-xs font-semibold ${
                         order.paymentStatus === 'paid'
-                          ? 'bg-green-50 text-green-700'
+                          ? 'bg-gold/20 text-gold-dark border border-gold/30'
                           : order.paymentStatus === 'pending'
-                          ? 'bg-yellow-50 text-yellow-700'
-                          : 'bg-red-50 text-red-700'
+                          ? 'bg-yellow-100 text-yellow-800'
+                          : 'bg-red-100 text-red-800'
                       }`}>
                         {order.paymentStatus || 'Pending'}
                       </span>
