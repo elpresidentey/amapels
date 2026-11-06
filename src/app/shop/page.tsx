@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
+import Link from 'next/link'
 import { useProducts } from '@/hooks/useProducts'
 import ProductCard, { ProductCardSkeleton } from '@/components/ProductCard'
 import { matchesFinish, type FinishFilter } from '@/lib/productFinish'
 
 const categories = ['All', 'Earrings', 'Necklaces', 'Bracelets', 'Rings']
 
-function ShopContent({ initialCategory, initialFinish }: { initialCategory: string; initialFinish: FinishFilter }) {
+function ShopContent({ initialCategory, initialFinish, initialQuery, maxPrice }: { initialCategory: string; initialFinish: FinishFilter; initialQuery: string; maxPrice: number | null }) {
   const prefersReducedMotion = useReducedMotion()
   const [selectedCategory, setSelectedCategory] = useState(initialCategory)
   const [selectedFinish, setSelectedFinish] = useState<FinishFilter>(initialFinish)
@@ -22,7 +23,11 @@ function ShopContent({ initialCategory, initialFinish }: { initialCategory: stri
   }, [initialFinish])
 
   const { products, loading, error, refetch } = useProducts(selectedCategory)
-  const visibleProducts = products.filter((product) => matchesFinish(product, selectedFinish))
+  const query = initialQuery.trim().toLowerCase()
+  const visibleProducts = products
+    .filter((product) => matchesFinish(product, selectedFinish))
+    .filter((product) => !query || `${product.name} ${product.story} ${product.description} ${product.material} ${product.materials}`.toLowerCase().includes(query))
+    .filter((product) => maxPrice === null || Number(product.price.replace(/[^\d.]/g, '')) <= maxPrice)
 
   if (loading) {
     return (
@@ -132,6 +137,7 @@ function ShopContent({ initialCategory, initialFinish }: { initialCategory: stri
               ['all', 'All finishes'],
               ['gold', 'Gold'],
               ['silver', 'Silver'],
+              ['mixed', 'Mixed metal'],
             ] as const).map(([finish, label]) => (
               <button
                 key={finish}
@@ -161,7 +167,8 @@ function ShopContent({ initialCategory, initialFinish }: { initialCategory: stri
           {!visibleProducts || visibleProducts.length === 0 ? (
             <div className="border border-dashed border-ink/10 py-20 text-center">
               <p className="font-serif text-xl font-light text-ink">No {selectedFinish === 'all' ? '' : `${selectedFinish} `}pieces here yet</p>
-              <p className="mt-2 text-sm text-ink/60">Try another finish or explore the full collection.</p>
+              <p className="mt-2 text-sm text-ink/60">Try another filter or explore the full collection.</p>
+              {(query || maxPrice !== null || selectedCategory !== 'All' || selectedFinish !== 'all') && <Link href="/shop" className="mt-4 inline-block text-[10px] font-medium uppercase tracking-[0.18em] text-gold-ink underline underline-offset-4">Clear filters</Link>}
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 sm:gap-x-7 sm:gap-y-14 md:gap-x-8 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-16">
@@ -179,7 +186,7 @@ function ShopContent({ initialCategory, initialFinish }: { initialCategory: stri
 export default function ShopPage({
   searchParams,
 }: {
-  searchParams: { category?: string | string[]; finish?: string | string[] }
+  searchParams: { category?: string | string[]; finish?: string | string[]; q?: string | string[]; maxPrice?: string | string[] }
 }) {
   const queryCategory = Array.isArray(searchParams.category)
     ? searchParams.category[0]
@@ -188,7 +195,11 @@ export default function ShopPage({
     ? queryCategory
     : 'All'
   const finishParam = Array.isArray(searchParams.finish) ? searchParams.finish[0] : searchParams.finish
-  const initialFinish: FinishFilter = finishParam === 'gold' || finishParam === 'silver' ? finishParam : 'all'
+  const initialFinish: FinishFilter = finishParam === 'gold' || finishParam === 'silver' || finishParam === 'mixed' ? finishParam : 'all'
+  const initialQuery = Array.isArray(searchParams.q) ? searchParams.q[0] || '' : searchParams.q || ''
+  const maxPriceParam = Array.isArray(searchParams.maxPrice) ? searchParams.maxPrice[0] : searchParams.maxPrice
+  const maxPriceNumber = Number(maxPriceParam)
+  const maxPrice = maxPriceParam && Number.isFinite(maxPriceNumber) && maxPriceNumber > 0 ? maxPriceNumber : null
 
-  return <ShopContent key={`${initialCategory}-${initialFinish}`} initialCategory={initialCategory} initialFinish={initialFinish} />
+  return <ShopContent key={`${initialCategory}-${initialFinish}-${initialQuery}-${maxPrice ?? ''}`} initialCategory={initialCategory} initialFinish={initialFinish} initialQuery={initialQuery} maxPrice={maxPrice} />
 }

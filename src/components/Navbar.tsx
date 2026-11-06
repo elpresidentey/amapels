@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { ShoppingBag, Menu, Search, X } from 'lucide-react'
+import { ChevronDown, ShoppingBag, Menu, Search, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Cabin } from 'next/font/google'
 import { useCartStore } from '@/store/newCartStore'
@@ -12,6 +12,7 @@ import SearchOverlay from '@/components/SearchOverlay'
 import ThemeToggle from '@/components/ThemeToggle'
 import Logo from '@/components/Logo'
 import { isCustomerAuthenticated } from '@/lib/customerAuth'
+import { SHOP_NAV_MENUS } from '@/lib/shop-navigation'
 
 const cabin = Cabin({
   subsets: ['latin'],
@@ -24,6 +25,7 @@ export default function Navbar() {
   const [mounted, setMounted] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null)
   const pathname = usePathname()
 
   const { getTotalItems, isLoaded, items, toggleCart } = useCartStore()
@@ -33,13 +35,6 @@ export default function Navbar() {
     const authed = await isCustomerAuthenticated()
     setIsAuthenticated(authed)
   }, [])
-
-  const navItems = [
-    { name: 'Home', href: '/' },
-    { name: 'Collections', href: '/collections' },
-    { name: 'Shop', href: '/shop' },
-    { name: 'Our Story', href: '/story' },
-  ]
 
   useEffect(() => {
     setMounted(true)
@@ -63,23 +58,33 @@ export default function Navbar() {
   // Close mobile menu on route change
   useEffect(() => {
     setIsMenuOpen(false)
+    setActiveMegaMenu(null)
   }, [pathname])
+
+  useEffect(() => {
+    if (!activeMegaMenu) return
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setActiveMegaMenu(null)
+    }
+    document.addEventListener('keydown', closeOnEscape)
+    return () => document.removeEventListener('keydown', closeOnEscape)
+  }, [activeMegaMenu])
 
   const closeMenu = useCallback(() => {
     setIsMenuOpen(false)
   }, [])
 
-  const isActive = (href: string) => {
-    if (href === '/') return pathname === '/'
-    return pathname.startsWith(href)
+  const closeMenus = () => {
+    setActiveMegaMenu(null)
+    closeMenu()
   }
 
   return (
     <nav
       className={`${cabin.className} fixed top-0 left-0 right-0 z-50 safe-top transition-all duration-500 ease-out ${
         scrolled
-          ? 'border-b border-ink/[0.06] bg-chrome/90 py-3 backdrop-blur-2xl md:py-3.5'
-          : 'border-b border-transparent bg-gradient-to-b from-chrome/70 to-transparent py-4 md:py-5'
+          ? 'border-b border-ink/[0.06] bg-chrome/90 py-1.5 backdrop-blur-2xl md:py-2'
+          : 'border-b border-transparent bg-gradient-to-b from-chrome/70 to-transparent py-2 md:py-2.5'
       }`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12 xl:px-24">
@@ -88,36 +93,34 @@ export default function Navbar() {
           <Link href="/" className="group flex-shrink-0" aria-label="AMAPELS home">
             <Logo 
               variant="wordmark"
-              className="h-6 w-36 md:h-7 md:w-44"
+              className="h-5 w-32 md:h-6 md:w-40"
               priority
             />
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden items-center gap-10 lg:flex xl:gap-12">
-            {navItems.map((item) => {
-              const active = isActive(item.href)
+          <div className="hidden items-center gap-3 lg:flex xl:gap-5">
+            {SHOP_NAV_MENUS.map((item) => {
+              const open = activeMegaMenu === item.id
               return (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`group relative py-1 text-[11px] font-medium uppercase tracking-[0.18em] transition-colors duration-300 ${
-                    active ? 'text-ink' : 'text-ink/70 hover:text-ink'
-                  }`}
+                <button
+                  key={item.id}
+                  type="button"
+                  aria-expanded={open}
+                  aria-controls={`nav-menu-${item.id}`}
+                  onClick={() => setActiveMegaMenu(open ? null : item.id)}
+                  className={`group relative inline-flex items-center gap-1 py-1.5 text-[10px] font-medium uppercase tracking-[0.14em] transition-colors duration-300 xl:text-[11px] ${open ? 'text-ink' : 'text-ink/70 hover:text-ink'}`}
                 >
-                  {item.name}
-                  <span
-                    className={`absolute -bottom-0.5 left-0 h-px bg-gold transition-all duration-300 ${
-                      active ? 'w-full' : 'w-0 group-hover:w-full'
-                    }`}
-                  />
-                </Link>
+                  {item.label}
+                  <ChevronDown size={12} className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+                  <span className={`absolute -bottom-0.5 left-0 h-px bg-gold transition-all duration-300 ${open ? 'w-full' : 'w-0 group-hover:w-full'}`} />
+                </button>
               )
             })}
           </div>
 
           {/* Right Actions */}
-          <div className="flex items-center gap-5 md:gap-6">
+          <div className="flex items-center gap-3 md:gap-4">
             <ThemeToggle className="hidden sm:block" />
             <div className="hidden lg:block">
               <CustomerAuth onAuthChange={checkAuth} />
@@ -125,7 +128,7 @@ export default function Navbar() {
 
             <button
               onClick={() => setIsSearchOpen(true)}
-              className="p-2 text-ink/75 transition-colors duration-300 hover:text-ink"
+              className="flex h-10 w-10 items-center justify-center text-ink/75 transition-colors duration-300 hover:text-ink"
               aria-label="Search products"
             >
               <Search size={19} strokeWidth={1.4} />
@@ -133,7 +136,7 @@ export default function Navbar() {
 
             <button
               onClick={toggleCart}
-              className="relative p-2 text-ink/75 transition-colors duration-300 hover:text-ink"
+              className="relative flex h-10 w-10 items-center justify-center text-ink/75 transition-colors duration-300 hover:text-ink"
               aria-label="Shopping bag"
             >
               <ShoppingBag size={19} strokeWidth={1.4} />
@@ -145,7 +148,7 @@ export default function Navbar() {
             </button>
 
             <button
-              className="p-3 text-ink/90 transition-colors hover:text-ink lg:hidden"
+              className="flex h-11 w-11 items-center justify-center text-ink/90 transition-colors hover:text-ink lg:hidden"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle menu"
               aria-expanded={isMenuOpen}
@@ -156,6 +159,40 @@ export default function Navbar() {
         </div>
       </div>
 
+      <AnimatePresence>
+        {activeMegaMenu && !isMenuOpen && (() => {
+          const menu = SHOP_NAV_MENUS.find((item) => item.id === activeMegaMenu)
+          if (!menu) return null
+          return (
+            <motion.div
+              id={`nav-menu-${menu.id}`}
+              key={menu.id}
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.18 }}
+              onMouseLeave={() => setActiveMegaMenu(null)}
+              className="absolute left-0 right-0 top-full z-50 border-t border-ink/10 bg-chrome shadow-lg"
+            >
+              <div className="mx-auto grid max-w-7xl gap-8 px-6 py-8 sm:px-10 lg:grid-cols-3 lg:px-12 xl:px-24">
+                {menu.sections.map((section) => (
+                  <div key={section.heading}>
+                    <h2 className="mb-4 text-[9px] font-semibold uppercase tracking-[0.24em] text-ink/50">{section.heading}</h2>
+                    <div className="grid grid-cols-2 gap-x-8 gap-y-2 xl:grid-cols-3">
+                      {section.links.map((link) => (
+                        <Link key={link.label} href={link.href} onClick={closeMenus} className="py-1 text-sm text-ink/75 transition-colors hover:text-gold-ink">
+                          {link.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          )
+        })()}
+      </AnimatePresence>
+
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMenuOpen && (
@@ -164,35 +201,52 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="border-t border-ink/[0.06] bg-chrome/95 backdrop-blur-2xl lg:hidden overflow-x-hidden"
+            className="max-h-[calc(100svh-5rem)] overflow-x-hidden overflow-y-auto overscroll-contain border-t border-ink/[0.06] bg-chrome/95 backdrop-blur-2xl lg:hidden"
           >
             <div className="mx-auto max-w-7xl px-4 sm:px-6">
-              <div className="space-y-1 py-8">
-                {navItems.map((item, index) => (
-                  <motion.div
-                    key={`mobile-${item.name}`}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.25, delay: index * 0.04 }}
-                  >
-                    <Link
-                      href={item.href}
-                      onClick={closeMenu}
-                      className={`block border-l-2 py-4 pl-5 text-base font-light tracking-[0.12em] uppercase transition-colors duration-200 ${
-                        isActive(item.href)
-                          ? 'border-gold text-ink'
-                          : 'border-transparent text-ink/75 hover:border-gold/40 hover:text-ink'
-                      }`}
+              <div className="space-y-1 py-5">
+                {SHOP_NAV_MENUS.map((item, index) => {
+                  const open = activeMegaMenu === item.id
+                  return (
+                    <motion.div
+                      key={`mobile-${item.id}`}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.25, delay: index * 0.04 }}
                     >
-                      {item.name}
-                    </Link>
-                  </motion.div>
-                ))}
+                      <button
+                        type="button"
+                        aria-expanded={open}
+                        onClick={() => setActiveMegaMenu(open ? null : item.id)}
+                        className="flex w-full items-center justify-between border-l-2 border-transparent py-3 pl-5 text-left text-sm font-light uppercase tracking-[0.12em] text-ink/80 transition-colors hover:border-gold/40 hover:text-ink"
+                      >
+                        {item.label}
+                        <ChevronDown size={15} className={`mr-2 transition-transform ${open ? 'rotate-180' : ''}`} />
+                      </button>
+                      <AnimatePresence initial={false}>
+                        {open && (
+                          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden pl-5">
+                            {item.sections.map((section) => (
+                              <div key={section.heading} className="border-l border-ink/10 py-3 pl-4">
+                                <h2 className="mb-2 text-[9px] font-semibold uppercase tracking-[0.22em] text-ink/45">{section.heading}</h2>
+                                <div className="grid grid-cols-2 gap-x-3 gap-y-1">
+                                  {section.links.map((link) => (
+                                    <Link key={link.label} href={link.href} onClick={closeMenus} className="py-1.5 text-xs text-ink/70 transition-colors hover:text-gold-ink">{link.label}</Link>
+                                  ))}
+                                </div>
+                              </div>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </motion.div>
+                  )
+                })}
 
                 {isAuthenticated && (
                   <Link
                     href="/account"
-                    onClick={closeMenu}
+                    onClick={closeMenus}
                     className="block border-l-2 border-transparent py-4 pl-5 text-base font-light tracking-[0.12em] uppercase text-ink/75 transition-colors duration-200 hover:border-gold/40 hover:text-ink"
                   >
                     Account

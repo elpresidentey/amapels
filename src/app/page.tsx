@@ -1,10 +1,10 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowDown, ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, Gift, PackageCheck, Sparkles } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Gift, PackageCheck, Sparkles } from 'lucide-react'
 import ProductCard, { ProductCardSkeleton } from '@/components/ProductCard'
 import NewsletterSignup from '@/components/NewsletterSignup'
 import { useProducts } from '@/hooks/useProducts'
@@ -25,39 +25,6 @@ const collections = [
   },
 ]
 
-const heroSlides = [
-  {
-    id: 'gold',
-    image: '/images/pexels-gabriela-brasiliano-515209300-32225451.webp',
-    alt: 'A woman wearing sculptural gold earrings among tropical leaves',
-    position: '58% 48%',
-    eyebrow: 'Checked, worn, approved',
-    title: 'Say It in Gold',
-    description: 'They notice it before you say a word. So we only list what we would happily wear ourselves — no green skin, no dull days.',
-    accent: "Only what we'd wear.",
-  },
-  {
-    id: 'everyday',
-    image: '/images/pexels-ben-iwara-1033992193-27152278.webp',
-    alt: 'A woman wearing a statement flower earring in a black and white portrait',
-    position: '67% 45%',
-    eyebrow: 'Everyday pieces',
-    title: 'Made to stay',
-    description: "Won't tarnish, won't fade. Earrings, chains and bangles that survive work, church, traffic and weddings — the whole weekend.",
-    accent: "Won't tarnish. Won't fade.",
-  },
-  {
-    id: 'gift',
-    image: '/images/mayank-gehlot-lsxBmX8Hmwc-unsplash.webp',
-    alt: 'A pair of sparkling gold earrings against a dark background',
-    position: '66% 57%',
-    eyebrow: 'Ready to give',
-    title: 'Give them something to keep',
-    description: 'For your wife, sister, or best friend — even the one who says “don’t buy me anything.” Packed in Abuja, delivered nationwide.',
-    accent: 'Wrapped and ready to give.',
-  },
-]
-
 const assurances = [
   { icon: Sparkles, title: 'Chosen with care', text: 'Every piece is reviewed before it earns a place in the collection.' },
   { icon: PackageCheck, title: 'Packed in Abuja', text: 'Your order is carefully prepared and tracked on its way to you.' },
@@ -70,18 +37,11 @@ export default function Home() {
   const { products, loading } = useProducts()
   const [journalPosts, setJournalPosts] = useState<any[]>([])
   const [arrivalFinish, setArrivalFinish] = useState<FinishFilter>('all')
-  const [activeHeroSlide, setActiveHeroSlide] = useState(0)
   const prefersReducedMotion = useReducedMotion()
-  const heroRef = useRef<HTMLElement>(null)
   const storyRef = useRef<HTMLElement>(null)
   const { scrollYProgress: pageProgress } = useScroll()
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
-  const heroScale = useTransform(scrollYProgress, [0, 1], [1, 1.12])
-  const heroTextY = useTransform(scrollYProgress, [0, 0.82], [0, 72])
-  const heroTextOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0.25])
   const { scrollYProgress: storyProgress } = useScroll({ target: storyRef, offset: ['start end', 'end start'] })
   const storyScale = useTransform(storyProgress, [0, 1], [1, 1.1])
-  const activeSlide = heroSlides[activeHeroSlide]
   const pieces = [...products]
     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
     .reduce<typeof products>((selected, product) => {
@@ -98,14 +58,6 @@ export default function Home() {
       .catch(() => setJournalPosts([]))
   }, [])
 
-  useEffect(() => {
-    if (prefersReducedMotion) return
-    const timer = window.setInterval(() => {
-      setActiveHeroSlide((current) => (current + 1) % heroSlides.length)
-    }, 6500)
-    return () => window.clearInterval(timer)
-  }, [activeHeroSlide, prefersReducedMotion])
-
   return (
     <div className="bg-paper text-ink">
       <motion.div
@@ -113,102 +65,55 @@ export default function Home() {
         className="pointer-events-none fixed inset-x-0 top-0 z-[70] h-[2px] origin-left bg-gold-ink"
         style={{ scaleX: prefersReducedMotion ? 0 : pageProgress }}
       />
-      {/* The original AMAPELS campaign copy paired with landscape jewellery photography. */}
-      <section
-        ref={heroRef}
-        aria-label="AMAPELS campaign images"
-        aria-roledescription="carousel"
-        className="relative isolate flex min-h-[min(860px,calc(100svh-5rem))] w-full items-end overflow-hidden bg-[#211912] text-white"
-      >
-        <motion.div className="absolute inset-0 -z-10" style={{ scale: prefersReducedMotion ? 1 : heroScale }}>
-          <AnimatePresence initial={false} mode="sync">
-            <motion.div
-              key={activeSlide.id}
-              className="absolute inset-0"
-              initial={{ opacity: 0, scale: 1.035 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ opacity: { duration: prefersReducedMotion ? 0.15 : 0.8 }, scale: { duration: prefersReducedMotion ? 0 : 7.2, ease: 'linear' } }}
-            >
-              <Image
-                src={activeSlide.image}
-                alt={activeSlide.alt}
-                fill
-                priority={activeHeroSlide === 0}
-                fetchPriority={activeHeroSlide === 0 ? 'high' : 'auto'}
-                sizes="100vw"
-                quality={88}
-                style={{ objectPosition: activeSlide.position }}
-                className="object-cover"
-              />
-            </motion.div>
-          </AnimatePresence>
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(15,12,10,0.84)_0%,rgba(15,12,10,0.68)_35%,rgba(15,12,10,0.3)_68%,rgba(15,12,10,0.08)_100%)]" />
-          <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(15,12,10,0.52)_0%,transparent_50%)]" />
-        </motion.div>
+      <section className="pb-8 pt-16 sm:pb-12 sm:pt-20">
+        <motion.div
+          initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: prefersReducedMotion ? 0.15 : 0.7, ease }}
+          className="relative flex min-h-[650px] items-center overflow-hidden bg-[#28190f] px-5 py-12 text-white sm:min-h-[620px] sm:px-10 lg:min-h-[650px] lg:px-[8vw]"
+        >
+          <div aria-hidden="true" className="absolute inset-0 lg:hidden">
+            <Image src="/images/hero-model.webp" alt="" fill priority sizes="100vw" className="object-cover object-[58%_center]" />
+          </div>
+          <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(90deg,rgba(35,19,12,0.96)_0%,rgba(35,19,12,0.88)_48%,rgba(35,19,12,0.3)_100%)] lg:hidden" />
 
-        <div className="mx-auto flex min-h-[min(860px,calc(100svh-5rem))] w-full max-w-[1600px] flex-col justify-end px-5 pb-8 pt-28 sm:px-10 sm:pb-12 md:px-16 md:pb-14 lg:px-24 lg:pb-16">
-          <motion.div className="mb-12 min-h-[310px] max-w-[1280px] sm:mb-16 sm:min-h-[340px] md:min-h-[390px]" style={{ y: prefersReducedMotion ? 0 : heroTextY, opacity: prefersReducedMotion ? 1 : heroTextOpacity }}>
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={activeSlide.id}
-                initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: prefersReducedMotion ? 0 : -10 }}
-                transition={{ duration: prefersReducedMotion ? 0.15 : 0.45, ease }}
-                className="max-w-[1200px] text-left"
-              >
-                <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.32em] text-[#e8cc91] sm:mb-6 sm:text-[11px]">{activeSlide.eyebrow}</p>
-                <h1 className={`max-w-[1200px] text-balance font-serif font-light leading-[0.96] tracking-[-0.045em] text-white ${activeSlide.id === 'gift' ? 'text-[clamp(1.9rem,4.6vw,4.6rem)] md:whitespace-nowrap' : 'text-[clamp(3rem,7vw,6.6rem)]'}`}>
-                  {activeSlide.id === 'gift' ? <>Give them something<br className="md:hidden" />{' '}to keep</> : activeSlide.title}
-                </h1>
-                <p className="mt-5 max-w-[530px] text-sm leading-7 text-white/90 sm:mt-7 sm:text-base sm:leading-8">
-                  {activeSlide.description}
-                </p>
-                <p className="mt-4 text-[10px] font-medium uppercase tracking-[0.2em] text-[#e8cc91] sm:mt-5 sm:text-[11px]">{activeSlide.accent}</p>
-              </motion.div>
-            </AnimatePresence>
-            <div className="mt-6 flex flex-wrap items-center gap-x-7 gap-y-3 sm:mt-8">
-              <Link href="/shop" className="group inline-flex min-h-12 items-center gap-4 border-b border-[#e5c98c] pb-2 text-[10px] font-medium uppercase tracking-[0.24em] text-white transition-colors hover:text-[#e5c98c] sm:text-[11px]">
-                Shop the collection <ArrowRight size={15} strokeWidth={1.5} className="transition-transform group-hover:translate-x-1" />
-              </Link>
-              <Link href="/gift-guide" className="inline-flex min-h-12 items-center gap-2 text-[10px] font-medium uppercase tracking-[0.2em] text-white/80 transition-colors hover:text-white sm:text-[11px]">
-                Find a gift <ArrowUpRight size={14} strokeWidth={1.5} />
-              </Link>
+          <div role="group" aria-label="AMAPELS jewelry campaign photographs" className="absolute inset-y-0 right-0 hidden w-[58%] grid-cols-[1.3fr_0.7fr] grid-rows-3 gap-[3px] bg-[#28190f] lg:grid">
+            <div className="relative row-span-3 overflow-hidden">
+              <Image src="/images/hero-model.webp" alt="Model wearing gold AMAPELS jewelry" fill sizes="(max-width: 1200px) 52vw, 46vw" className="object-cover object-[50%_center]" />
+            </div>
+            <div className="relative overflow-hidden"><Image src="/images/hero-earrings.webp" alt="Gold hoops and delicate diamond earrings" fill sizes="22vw" className="object-cover" /></div>
+            <div className="relative overflow-hidden"><Image src="/images/hero-rings.webp" alt="Gold rings styled on hand" fill sizes="22vw" className="object-cover" /></div>
+            <div className="relative overflow-hidden"><Image src="/images/hero-necklaces.webp" alt="Layered gold necklaces with pendants" fill sizes="22vw" className="object-cover" /></div>
+          </div>
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden bg-[linear-gradient(90deg,#28190f_0%,rgba(40,25,15,0.98)_30%,rgba(40,25,15,0.82)_48%,rgba(40,25,15,0.1)_70%,transparent_100%)] lg:block" />
+
+          <motion.div className="relative z-10 max-w-[570px]">
+            <p className="mb-5 text-[9px] font-medium uppercase tracking-[0.3em] text-[#e8cc91] sm:mb-7 sm:text-[10px]">Style it. Love it. Repeat.</p>
+            <h1 className="text-balance font-serif text-[clamp(2.5rem,5vw,4rem)] font-light leading-[0.98] tracking-[-0.035em]">
+              Give them<br /> <span className="text-[#e8cc91]">something to keep.</span>
+            </h1>
+            <p className="mt-5 max-w-[480px] text-sm leading-7 text-white/75 sm:mt-7 sm:text-base sm:leading-8">
+              From Monday meetings to Saturday owambe, pieces that keep up with you.
+            </p>
+            <p className="mt-5 text-[9px] font-medium uppercase tracking-[0.2em] text-[#d8c3a2] sm:mt-7 sm:text-[10px]">
+              Won&apos;t tarnish · Won&apos;t fade · Won&apos;t disappoint
+            </p>
+            <Link href="/shop" className="group mt-7 inline-flex min-h-12 items-center gap-4 bg-[#e8c27e] px-6 text-[9px] font-medium uppercase tracking-[0.18em] text-[#24170e] transition-colors hover:bg-[#f1d49f] sm:mt-9 sm:text-[10px]">
+              Shop the collection <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
+            </Link>
+            <div aria-hidden="true" className="mt-8 flex gap-2 lg:hidden">
+              {[
+                ['/images/hero-earrings.webp', 'Gold earrings'],
+                ['/images/hero-rings.webp', 'Gold rings'],
+                ['/images/hero-necklaces.webp', 'Layered necklaces'],
+              ].map(([src, label]) => (
+                <div key={src} className="relative h-16 w-16 overflow-hidden border border-white/35">
+                  <Image src={src} alt={label} fill sizes="64px" className="object-cover" />
+                </div>
+              ))}
             </div>
           </motion.div>
-
-          <div className="flex items-center justify-between gap-6 border-t border-white/30 pt-4 sm:pt-5">
-            <a href="#new-in" className="inline-flex min-h-11 items-center gap-2 text-[9px] uppercase tracking-[0.2em] text-white/80 transition-colors hover:text-white sm:text-[10px]">
-              Discover the edit <ArrowDown size={13} strokeWidth={1.4} />
-            </a>
-            <div className="flex items-center gap-4 sm:gap-5" aria-label="Campaign slide controls">
-              <span className="hidden text-[10px] tabular-nums tracking-[0.2em] text-white/75 sm:inline">{String(activeHeroSlide + 1).padStart(2, '0')} / {String(heroSlides.length).padStart(2, '0')}</span>
-              <div className="flex items-center gap-2" role="group" aria-label="Choose hero image">
-                {heroSlides.map((slide, index) => (
-                  <button
-                    key={slide.id}
-                    type="button"
-                    onClick={() => setActiveHeroSlide(index)}
-                    aria-label={`Show “${slide.title}” campaign slide`}
-                    aria-current={activeHeroSlide === index ? 'true' : undefined}
-                    className="group flex h-11 items-center px-1"
-                  >
-                    <span className={`block h-[2px] transition-all duration-500 ${activeHeroSlide === index ? 'w-9 bg-[#e8cc91]' : 'w-5 bg-white/45 group-hover:bg-white/80'}`} />
-                  </button>
-                ))}
-              </div>
-              <div className="flex items-center border-l border-white/30 pl-3 sm:pl-4">
-                <button type="button" onClick={() => setActiveHeroSlide((activeHeroSlide + heroSlides.length - 1) % heroSlides.length)} aria-label="Previous hero image" className="flex h-11 w-10 items-center justify-center text-white/80 transition-colors hover:text-[#e8cc91]">
-                  <ChevronLeft size={19} strokeWidth={1.4} />
-                </button>
-                <button type="button" onClick={() => setActiveHeroSlide((activeHeroSlide + 1) % heroSlides.length)} aria-label="Next hero image" className="flex h-11 w-10 items-center justify-center text-white/80 transition-colors hover:text-[#e8cc91]">
-                  <ChevronRight size={19} strokeWidth={1.4} />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* A concise service promise helps shoppers decide with confidence. */}
