@@ -118,13 +118,14 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
           aria-label={`View ${product.name} — ${product.price}`}
           tabIndex={0}
         >
-          <motion.div className="relative h-full w-full overflow-hidden" style={{ scale: prefersReducedMotion ? 1 : imageParallax }}>
+          <motion.div className="absolute inset-0 overflow-hidden" style={{ scale: prefersReducedMotion ? 1 : imageParallax }}>
             <Image
               src={primaryImage}
               alt={product.name}
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 50vw, 33vw"
-              className={`!h-full !w-full !max-w-none object-cover transition-all duration-700 ease-out group-hover:scale-[1.06] ${hasSwap ? 'group-hover:opacity-0' : ''}`}
+              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', maxWidth: 'none', objectFit: 'cover', objectPosition: 'center' }}
+              className={`transition-all duration-700 ease-out group-hover:scale-[1.06] ${hasSwap ? 'group-hover:opacity-0' : ''}`}
               loading={index < 4 ? 'eager' : 'lazy'}
               quality={80}
             />
@@ -135,7 +136,8 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                 aria-hidden
                 fill
                 sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 50vw, 33vw"
-                className="absolute inset-0 !h-full !w-full !max-w-none object-cover opacity-0 transition-all duration-700 ease-out group-hover:scale-[1.06] group-hover:opacity-100"
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', maxWidth: 'none', objectFit: 'cover', objectPosition: 'center' }}
+                className="opacity-0 transition-all duration-700 ease-out group-hover:scale-[1.06] group-hover:opacity-100"
                 loading="lazy"
                 quality={80}
               />
