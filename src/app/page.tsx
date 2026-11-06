@@ -37,25 +37,43 @@ export default function Home() {
   const { products, loading } = useProducts()
   const [journalPosts, setJournalPosts] = useState<any[]>([])
   const [arrivalFinish, setArrivalFinish] = useState<FinishFilter>('all')
+  const [bestsellerIds, setBestsellerIds] = useState<string[]>([])
+  const [bestsellersLoading, setBestsellersLoading] = useState(true)
   const prefersReducedMotion = useReducedMotion()
   const storyRef = useRef<HTMLElement>(null)
   const { scrollYProgress: pageProgress } = useScroll()
   const { scrollYProgress: storyProgress } = useScroll({ target: storyRef, offset: ['start end', 'end start'] })
   const storyScale = useTransform(storyProgress, [0, 1], [1, 1.1])
-  const pieces = [...products]
+  const newestPieces = [...products]
     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-    .reduce<typeof products>((selected, product) => {
-      if (!selected.some((item) => item.category === product.category)) selected.push(product)
-      return selected
-    }, [])
     .slice(0, 4)
-  const visiblePieces = pieces.filter((product) => matchesFinish(product, arrivalFinish))
+  const featuredPieces = products.filter((product) => product.featured).slice(0, 4)
+  const visiblePieces = newestPieces.filter((product) => matchesFinish(product, arrivalFinish))
+  const bestsellerPieces = bestsellerIds
+    .map((id) => products.find((product) => product._id === id))
+    .filter((product): product is (typeof products)[number] => Boolean(product))
 
   useEffect(() => {
     fetch('/api/blog?limit=3')
       .then((response) => response.ok ? response.json() : Promise.reject())
       .then((data) => setJournalPosts(Array.isArray(data.posts) ? data.posts : []))
       .catch(() => setJournalPosts([]))
+  }, [])
+
+  useEffect(() => {
+    let ignore = false
+    fetch('/api/products/bestsellers')
+      .then((response) => response.ok ? response.json() : Promise.reject())
+      .then((data) => {
+        if (!ignore) setBestsellerIds(Array.isArray(data.productIds) ? data.productIds : [])
+      })
+      .catch(() => {
+        if (!ignore) setBestsellerIds([])
+      })
+      .finally(() => {
+        if (!ignore) setBestsellersLoading(false)
+      })
+    return () => { ignore = true }
   }, [])
 
   return (
@@ -116,30 +134,38 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* A concise service promise helps shoppers decide with confidence. */}
-      <section aria-label="Shopping with AMAPELS" className="border-b border-ink/10 bg-chrome">
-        <div className="mx-auto grid max-w-7xl divide-y divide-ink/10 px-5 py-2 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:px-8 lg:px-16">
-          {assurances.map(({ icon: Icon, title, text }, index) => (
-            <motion.div
-              key={title}
-              initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-30px' }}
-              transition={{ duration: prefersReducedMotion ? 0.15 : 0.55, delay: prefersReducedMotion ? 0 : index * 0.08, ease }}
-              className="flex items-center gap-4 py-5 sm:px-6 sm:py-7 lg:px-10"
-            >
-              <Icon className="shrink-0 text-gold-ink" size={20} strokeWidth={1.3} />
-              <div>
-                <h2 className="text-[10px] font-medium uppercase tracking-[0.17em]">{title}</h2>
-                <p className="mt-1 text-xs leading-5 text-ink/60">{text}</p>
-              </div>
-            </motion.div>
-          ))}
+      {/* Featured products lead the shopping edit. */}
+      <section id="featured" className="scroll-mt-24 px-5 py-16 sm:px-8 sm:py-20 lg:px-16 lg:py-24">
+        <div className="mx-auto max-w-7xl">
+          <motion.div
+            initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: prefersReducedMotion ? 0.15 : 0.65, ease }}
+            className="mb-8 border-b border-ink/10 pb-6 sm:mb-10 sm:pb-8"
+          >
+            <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.28em] text-gold-ink sm:text-[11px]">The AMAPELS edit</p>
+            <h2 className="font-serif text-3xl font-light tracking-tight sm:text-4xl md:text-[3.25rem]">Featured collection.</h2>
+          </motion.div>
+          {loading ? (
+            <div className="grid grid-cols-2 gap-x-4 gap-y-9 sm:gap-x-7 md:grid-cols-4 md:gap-x-6 lg:gap-x-9">
+              {[0, 1, 2, 3].map((item) => <ProductCardSkeleton key={item} />)}
+            </div>
+          ) : featuredPieces.length ? (
+            <div className="grid grid-cols-2 gap-x-4 gap-y-9 sm:gap-x-7 md:grid-cols-4 md:gap-x-6 lg:gap-x-9">
+              {featuredPieces.map((piece, index) => <ProductCard key={piece._id} product={piece} index={index} />)}
+            </div>
+          ) : (
+            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-ink/10 pb-6">
+              <p className="text-sm text-ink/60">Our featured pieces are being curated.</p>
+              <Link href="/shop" className="inline-flex items-center gap-2 border-b border-ink/30 pb-2 text-[10px] font-medium uppercase tracking-[0.18em]">Explore the shop <ArrowUpRight size={14} /></Link>
+            </div>
+          )}
         </div>
       </section>
 
-      {/* Live products put the route to purchase close to the first screen. */}
-      <section id="new-in" className="scroll-mt-24 px-5 py-20 sm:px-8 sm:py-24 lg:px-16 lg:py-32">
+      {/* The newest collection stays close to the top of the page. */}
+      <section id="new-in" className="scroll-mt-24 px-5 py-16 sm:px-8 sm:py-20 lg:px-16 lg:py-24">
         <div className="mx-auto max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 18 }}
@@ -150,7 +176,7 @@ export default function Home() {
           >
             <div>
               <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.28em] text-gold-ink sm:text-[11px]">Just added</p>
-              <h2 className="font-serif text-3xl font-light tracking-tight sm:text-4xl md:text-[3.25rem]">New arrivals.</h2>
+              <h2 className="font-serif text-3xl font-light tracking-tight sm:text-4xl md:text-[3.25rem]">Newest collection.</h2>
             </div>
           </motion.div>
 
@@ -200,6 +226,52 @@ export default function Home() {
           <Link href="/shop" className="group mt-9 inline-flex items-center gap-2 border-b border-ink/30 pb-2 text-[10px] font-medium uppercase tracking-[0.18em] transition-colors hover:border-gold-ink hover:text-gold-ink sm:hidden">
             Shop all pieces <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
           </Link>
+        </div>
+      </section>
+
+      {/* Purchase history ranks bestsellers by units from paid orders. */}
+      <section id="bestsellers" className="scroll-mt-24 bg-[#eee7dc] px-5 py-16 text-[#211b15] sm:px-8 sm:py-20 lg:px-16 lg:py-24">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-8 flex flex-wrap items-end justify-between gap-5 border-b border-[#211b15]/15 pb-6 sm:mb-10 sm:pb-8">
+            <div>
+              <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.28em] text-[#80602a] sm:text-[11px]">Loved by our customers</p>
+              <h2 className="font-serif text-3xl font-light tracking-tight sm:text-4xl md:text-[3.25rem]">Bestsellers.</h2>
+            </div>
+            <Link href="/shop" className="inline-flex items-center gap-2 border-b border-[#211b15]/40 pb-2 text-[10px] font-medium uppercase tracking-[0.18em]">Shop all <ArrowUpRight size={14} /></Link>
+          </div>
+          {bestsellersLoading || loading ? (
+            <div className="grid grid-cols-2 gap-x-4 gap-y-9 sm:gap-x-7 md:grid-cols-4 md:gap-x-6 lg:gap-x-9">
+              {[0, 1, 2, 3].map((item) => <ProductCardSkeleton key={item} />)}
+            </div>
+          ) : bestsellerPieces.length ? (
+            <div className="grid grid-cols-2 gap-x-4 gap-y-9 sm:gap-x-7 md:grid-cols-4 md:gap-x-6 lg:gap-x-9">
+              {bestsellerPieces.map((piece, index) => <ProductCard key={piece._id} product={piece} index={index} />)}
+            </div>
+          ) : (
+            <p className="py-4 text-sm text-[#211b15]/65">Our customer favourites are taking shape. Browse the full collection in the meantime.</p>
+          )}
+        </div>
+      </section>
+
+      {/* A concise service promise helps shoppers decide with confidence. */}
+      <section aria-label="Shopping with AMAPELS" className="border-y border-ink/10 bg-chrome">
+        <div className="mx-auto grid max-w-7xl divide-y divide-ink/10 px-5 py-2 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:px-8 lg:px-16">
+          {assurances.map(({ icon: Icon, title, text }, index) => (
+            <motion.div
+              key={title}
+              initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-30px' }}
+              transition={{ duration: prefersReducedMotion ? 0.15 : 0.55, delay: prefersReducedMotion ? 0 : index * 0.08, ease }}
+              className="flex items-center gap-4 py-5 sm:px-6 sm:py-7 lg:px-10"
+            >
+              <Icon className="shrink-0 text-gold-ink" size={20} strokeWidth={1.3} />
+              <div>
+                <h2 className="text-[10px] font-medium uppercase tracking-[0.17em]">{title}</h2>
+                <p className="mt-1 text-xs leading-5 text-ink/60">{text}</p>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </section>
 
