@@ -17,7 +17,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/journal`, changeFrequency: "weekly", priority: 0.7 },
     { url: `${siteUrl}/gift-guide`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${siteUrl}/story`, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${siteUrl}/track-order`, changeFrequency: "monthly", priority: 0.6 },
     { url: `${siteUrl}/contact`, changeFrequency: "monthly", priority: 0.5 },
     { url: `${siteUrl}/faq`, changeFrequency: "monthly", priority: 0.5 },
     { url: `${siteUrl}/size-guide`, changeFrequency: "monthly", priority: 0.4 },
@@ -27,7 +26,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const productRoutes: MetadataRoute.Sitemap = []
 
-  // Shopify-first catalog, matching the /api/products strategy
+  // Match the catalog source served by /api/products: use Shopify when it has
+  // products, and fall back to Supabase only when Shopify is unavailable/empty.
+  let hasShopifyCatalog = false
   if (isShopifyConfigured()) {
     try {
       const shopifyProducts = await getShopifyProducts()
@@ -40,26 +41,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           })
         }
       }
+      hasShopifyCatalog = shopifyProducts.length > 0
     } catch {
       // fall through to Supabase below
     }
   }
 
-  try {
-    const products = await getProducts({})
-    for (const p of products) {
-      if (p?.id) {
-        productRoutes.push({
-          url: `${siteUrl}/shop/${p.id}`,
-          lastModified: p.updated_at || p.created_at || undefined,
-          changeFrequency: "weekly",
-          priority: 0.8,
-        })
+  if (!hasShopifyCatalog) {
+    try {
+      const products = await getProducts({})
+      for (const p of products) {
+        if (p?.id) {
+          productRoutes.push({
+            url: `${siteUrl}/shop/${p.id}`,
+            lastModified: p.updated_at || p.created_at || undefined,
+            changeFrequency: "weekly",
+            priority: 0.8,
+          })
+        }
       }
+    } catch {
+      // If the database is temporarily unreachable we still return the static
+      // routes so the sitemap never 500s.
     }
-  } catch {
-    // If the database is temporarily unreachable we still return the static
-    // routes so the sitemap never 500s.
   }
 
   // Journal posts (MongoDB). A failure here must never break the sitemap.

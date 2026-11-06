@@ -4,7 +4,7 @@ import { pageMetadata } from "@/lib/seo"
 export const metadata: Metadata = pageMetadata({
   title: "Shop All Jewellery",
   description:
-    "Browse every AMAPELS piece — earrings, necklaces, bracelets and jewellery sets. Handpicked in Abuja, gift-ready, and delivered nationwide.",
+    "Shop AMAPELS earrings, necklaces, bracelets and rings. Handpicked in Abuja, gift-ready and delivered nationwide.",
   path: "/shop",
   keywords: [
     "buy jewellery online Nigeria",
@@ -12,6 +12,7 @@ export const metadata: Metadata = pageMetadata({
     "gold earrings Nigeria",
     "necklaces Abuja",
     "bracelets Nigeria",
+    "rings Nigeria",
   ],
 })
 

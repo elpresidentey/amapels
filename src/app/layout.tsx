@@ -30,13 +30,13 @@ export const metadata: Metadata = {
     default: "Jewellery Shop in Abuja | AMAPELS",
     template: `%s | ${SITE_NAME}`,
   },
-  description: "A Nigerian jewellery shop in Abuja. Shop earrings, necklaces, bracelets, and jewellery sets — handpicked, gift-ready, and delivered nationwide.",
-  keywords: "Nigerian jewellery, jewellery shop Abuja, African jewelry, gold earrings, pearl necklaces, bracelets, statement jewelry, gift jewellery",
+  description: "A Nigerian jewellery shop in Abuja for earrings, necklaces, bracelets and rings. Shop handpicked gold, silver and statement pieces, gift-ready and delivered nationwide.",
+  keywords: "Nigerian jewellery, jewellery shop Abuja, buy jewellery online Nigeria, gold earrings Nigeria, pearl necklaces, bracelets, rings, statement jewellery, gift jewellery",
   authors: [{ name: "AMAPELS" }],
   creator: "AMAPELS",
   openGraph: {
     title: "Jewellery Shop in Abuja | AMAPELS",
-    description: "Handpicked Nigerian jewellery. Live in Abuja, delivered nationwide.",
+    description: "Shop handpicked Nigerian jewellery in Abuja, with gift-ready pieces delivered nationwide.",
     // Homepage only — every other route overrides this via pageMetadata().
     url: siteUrl,
     siteName: "AMAPELS",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Jewellery Shop in Abuja | AMAPELS",
-    description: "Handpicked Nigerian jewellery. Live in Abuja, delivered nationwide.",
+    description: "Shop handpicked Nigerian jewellery in Abuja, with gift-ready pieces delivered nationwide.",
     images: ["/og-image.png"],
   },
   robots: {
@@ -129,7 +129,7 @@ export default function RootLayout({
                 logo: absoluteUrl("/icons/icon-512.png"),
                 image: absoluteUrl("/icons/icon-512.png"),
                 description:
-                  "A Nigerian jewellery shop in Abuja. Handpicked earrings, necklaces, bracelets and jewellery sets, delivered nationwide.",
+                  "A Nigerian jewellery shop in Abuja. Handpicked earrings, necklaces, bracelets, rings and statement pieces, delivered nationwide.",
                 email: "amapelsng@gmail.com",
                 telephone: "+2348161238148",
                 priceRange: "₦₦",
