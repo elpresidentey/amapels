@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, ArrowUpRight, Gift, PackageCheck, Sparkles } from 'lucide-react'
@@ -25,6 +25,12 @@ const collections = [
   },
 ]
 
+const heroFrames = [
+  { image: '/images/hero-model.webp', position: '58% center' },
+  { image: '/images/pexels-gabriela-brasiliano-515209300-32225451.webp', position: '58% center' },
+  { image: '/images/pexels-ben-iwara-1033992193-27152278.webp', position: '65% center' },
+]
+
 const assurances = [
   { icon: Sparkles, title: 'Chosen with care', text: 'Every piece is reviewed before it earns a place in the collection.' },
   { icon: PackageCheck, title: 'Packed in Abuja', text: 'Your order is carefully prepared and tracked on its way to you.' },
@@ -37,6 +43,7 @@ export default function Home() {
   const { products, loading } = useProducts()
   const [journalPosts, setJournalPosts] = useState<any[]>([])
   const [arrivalFinish, setArrivalFinish] = useState<FinishFilter>('all')
+  const [activeHeroFrame, setActiveHeroFrame] = useState(0)
   const [bestsellerIds, setBestsellerIds] = useState<string[]>([])
   const [bestsellersLoading, setBestsellersLoading] = useState(true)
   const prefersReducedMotion = useReducedMotion()
@@ -61,6 +68,14 @@ export default function Home() {
   }, [])
 
   useEffect(() => {
+    if (prefersReducedMotion) return
+    const timer = window.setInterval(() => {
+      setActiveHeroFrame((current) => (current + 1) % heroFrames.length)
+    }, 6500)
+    return () => window.clearInterval(timer)
+  }, [prefersReducedMotion])
+
+  useEffect(() => {
     let ignore = false
     fetch('/api/products/bestsellers')
       .then((response) => response.ok ? response.json() : Promise.reject())
@@ -83,27 +98,39 @@ export default function Home() {
         className="pointer-events-none fixed inset-x-0 top-0 z-[70] h-[2px] origin-left bg-gold-ink"
         style={{ scaleX: prefersReducedMotion ? 0 : pageProgress }}
       />
-      <section className="pb-8 pt-16 sm:pb-12 sm:pt-20">
+      <section className="pt-[calc(2.5rem+env(safe-area-inset-top))]">
         <motion.div
           initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: prefersReducedMotion ? 0.15 : 0.7, ease }}
-          className="relative flex min-h-[650px] items-center overflow-hidden bg-[#28190f] px-5 py-12 text-white sm:min-h-[620px] sm:px-10 lg:min-h-[650px] lg:px-[8vw]"
+          className="relative flex min-h-[calc(100svh-2.5rem-env(safe-area-inset-top))] items-center overflow-hidden bg-[#28190f] px-5 py-8 text-white sm:px-10 sm:py-10 lg:px-[8vw]"
         >
-          <div aria-hidden="true" className="absolute inset-0 lg:hidden">
-            <Image src="/images/hero-model.webp" alt="" fill priority sizes="100vw" className="object-cover object-[58%_center]" />
+          <div aria-hidden="true" className="absolute inset-0">
+            <AnimatePresence initial={false} mode="sync">
+              <motion.div
+                key={heroFrames[activeHeroFrame].image}
+                className="absolute inset-0"
+                initial={{ opacity: 0, scale: 1.035 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ opacity: { duration: prefersReducedMotion ? 0.15 : 0.8 }, scale: { duration: prefersReducedMotion ? 0 : 7.2, ease: 'linear' } }}
+              >
+                <Image
+                  src={heroFrames[activeHeroFrame].image}
+                  alt=""
+                  fill
+                  priority={activeHeroFrame === 0}
+                  fetchPriority={activeHeroFrame === 0 ? 'high' : 'auto'}
+                  sizes="100vw"
+                  quality={88}
+                  style={{ objectPosition: heroFrames[activeHeroFrame].position }}
+                  className="object-cover"
+                />
+              </motion.div>
+            </AnimatePresence>
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(20,14,10,0.84)_0%,rgba(20,14,10,0.67)_42%,rgba(20,14,10,0.26)_100%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(20,14,10,0.45)_0%,transparent_52%)]" />
           </div>
-          <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(90deg,rgba(35,19,12,0.96)_0%,rgba(35,19,12,0.88)_48%,rgba(35,19,12,0.3)_100%)] lg:hidden" />
-
-          <div role="group" aria-label="AMAPELS jewelry campaign photographs" className="absolute inset-y-0 right-0 hidden w-[58%] grid-cols-[1.3fr_0.7fr] grid-rows-3 gap-[3px] bg-[#28190f] lg:grid">
-            <div className="relative row-span-3 overflow-hidden">
-              <Image src="/images/hero-model.webp" alt="Model wearing gold AMAPELS jewelry" fill sizes="(max-width: 1200px) 52vw, 46vw" className="object-cover object-[50%_center]" />
-            </div>
-            <div className="relative overflow-hidden"><Image src="/images/hero-earrings.webp" alt="Gold hoops and delicate diamond earrings" fill sizes="22vw" className="object-cover" /></div>
-            <div className="relative overflow-hidden"><Image src="/images/hero-rings.webp" alt="Gold rings styled on hand" fill sizes="22vw" className="object-cover" /></div>
-            <div className="relative overflow-hidden"><Image src="/images/hero-necklaces.webp" alt="Layered gold necklaces with pendants" fill sizes="22vw" className="object-cover" /></div>
-          </div>
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden bg-[linear-gradient(90deg,#28190f_0%,rgba(40,25,15,0.98)_30%,rgba(40,25,15,0.82)_48%,rgba(40,25,15,0.1)_70%,transparent_100%)] lg:block" />
 
           <motion.div className="relative z-10 w-full min-w-0 max-w-[570px] -translate-y-6 sm:-translate-y-8 lg:translate-y-0">
             <p className="mb-5 text-[9px] font-medium uppercase tracking-[0.3em] text-[#e8cc91] sm:mb-7 sm:text-[10px]">Style it. Love it. Repeat.</p>
@@ -119,17 +146,6 @@ export default function Home() {
             <Link href="/shop" className="group mt-7 inline-flex min-h-12 items-center gap-4 bg-[#e8c27e] px-6 text-[9px] font-medium uppercase tracking-[0.18em] text-[#24170e] transition-colors hover:bg-[#f1d49f] sm:mt-9 sm:text-[10px]">
               Shop the collection <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
             </Link>
-            <div aria-hidden="true" className="mt-8 flex gap-2 lg:hidden">
-              {[
-                ['/images/hero-earrings.webp', 'Gold earrings'],
-                ['/images/hero-rings.webp', 'Gold rings'],
-                ['/images/hero-necklaces.webp', 'Layered necklaces'],
-              ].map(([src, label]) => (
-                <div key={src} className="relative h-16 w-16 overflow-hidden border border-white/35">
-                  <Image src={src} alt={label} fill sizes="64px" className="object-cover" />
-                </div>
-              ))}
-            </div>
           </motion.div>
         </motion.div>
       </section>

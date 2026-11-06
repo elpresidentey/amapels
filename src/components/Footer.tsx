@@ -60,7 +60,6 @@ export default function Footer() {
                 { href: '/shop?category=Earrings', label: 'Earrings' },
                 { href: '/shop?category=Necklaces', label: 'Necklaces' },
                 { href: '/shop?category=Bracelets', label: 'Bracelets' },
-                { href: '/shop?category=Jewellery%20Sets', label: 'Jewelry Sets' },
               ].map((link) => (
                 <li key={link.href + link.label}>
                   <Link
