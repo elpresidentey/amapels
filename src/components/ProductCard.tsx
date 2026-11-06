@@ -124,7 +124,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
               alt={product.name}
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 50vw, 33vw"
-              className={`object-cover transition-all duration-700 ease-out group-hover:scale-[1.06] ${hasSwap ? 'group-hover:opacity-0' : ''}`}
+              className={`!h-full !w-full !max-w-none object-cover transition-all duration-700 ease-out group-hover:scale-[1.06] ${hasSwap ? 'group-hover:opacity-0' : ''}`}
               loading={index < 4 ? 'eager' : 'lazy'}
               quality={80}
             />
@@ -135,7 +135,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                 aria-hidden
                 fill
                 sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 50vw, 33vw"
-                className="absolute inset-0 object-cover opacity-0 transition-all duration-700 ease-out group-hover:scale-[1.06] group-hover:opacity-100"
+                className="absolute inset-0 !h-full !w-full !max-w-none object-cover opacity-0 transition-all duration-700 ease-out group-hover:scale-[1.06] group-hover:opacity-100"
                 loading="lazy"
                 quality={80}
               />
