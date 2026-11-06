@@ -7,11 +7,9 @@ import { ChevronDown, ShoppingBag, Menu, Search, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Cabin } from 'next/font/google'
 import { useCartStore } from '@/store/newCartStore'
-import CustomerAuth from '@/components/CustomerAuth'
 import SearchOverlay from '@/components/SearchOverlay'
 import ThemeToggle from '@/components/ThemeToggle'
 import Logo from '@/components/Logo'
-import { isCustomerAuthenticated } from '@/lib/customerAuth'
 import { SHOP_NAV_MENUS } from '@/lib/shop-navigation'
 
 const cabin = Cabin({
@@ -23,7 +21,6 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [mounted, setMounted] = useState(false)
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null)
   const pathname = usePathname()
@@ -31,14 +28,8 @@ export default function Navbar() {
   const { getTotalItems, isLoaded, items, toggleCart } = useCartStore()
   const [cartItemCount, setCartItemCount] = useState(0)
 
-  const checkAuth = useCallback(async () => {
-    const authed = await isCustomerAuthenticated()
-    setIsAuthenticated(authed)
-  }, [])
-
   useEffect(() => {
     setMounted(true)
-    checkAuth()
 
     const handleScroll = () => {
       setScrolled(window.scrollY > 16)
@@ -47,7 +38,7 @@ export default function Navbar() {
     handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [checkAuth])
+  }, [])
 
   useEffect(() => {
     if (mounted && isLoaded) {
@@ -122,10 +113,6 @@ export default function Navbar() {
           {/* Right Actions */}
           <div className="flex items-center gap-3 md:gap-4">
             <ThemeToggle className="hidden sm:block" />
-            <div className="hidden lg:block">
-              <CustomerAuth onAuthChange={checkAuth} />
-            </div>
-
             <button
               onClick={() => setIsSearchOpen(true)}
               className="flex h-10 w-10 items-center justify-center text-ink/75 transition-colors duration-300 hover:text-ink"
@@ -242,20 +229,6 @@ export default function Navbar() {
                     </motion.div>
                   )
                 })}
-
-                {isAuthenticated && (
-                  <Link
-                    href="/account"
-                    onClick={closeMenus}
-                    className="block border-l-2 border-transparent py-4 pl-5 text-base font-light tracking-[0.12em] uppercase text-ink/75 transition-colors duration-200 hover:border-gold/40 hover:text-ink"
-                  >
-                    Account
-                  </Link>
-                )}
-
-                <div className="mt-4 border-t border-ink/[0.06] px-5 pt-6">
-                  <CustomerAuth onAuthChange={checkAuth} />
-                </div>
 
                 <div className="mt-4 flex items-center gap-2 px-5">
                   <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-ink/65">
