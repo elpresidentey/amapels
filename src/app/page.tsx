@@ -87,9 +87,9 @@ export default function Home() {
           </div>
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden bg-[linear-gradient(90deg,#28190f_0%,rgba(40,25,15,0.98)_30%,rgba(40,25,15,0.82)_48%,rgba(40,25,15,0.1)_70%,transparent_100%)] lg:block" />
 
-          <motion.div className="relative z-10 max-w-[570px]">
+          <motion.div className="relative z-10 w-full min-w-0 max-w-[570px] -translate-y-6 sm:-translate-y-8 lg:translate-y-0">
             <p className="mb-5 text-[9px] font-medium uppercase tracking-[0.3em] text-[#e8cc91] sm:mb-7 sm:text-[10px]">Style it. Love it. Repeat.</p>
-            <h1 className="text-balance font-serif text-[clamp(2.5rem,5vw,4rem)] font-light leading-[0.98] tracking-[-0.035em]">
+            <h1 className="text-balance font-serif text-[clamp(2rem,9vw,3.5rem)] font-light leading-[0.98] tracking-[-0.035em] lg:text-[clamp(2.5rem,5vw,4rem)]">
               Give them<br /> <span className="text-[#e8cc91]">something to keep.</span>
             </h1>
             <p className="mt-5 max-w-[480px] text-sm leading-7 text-white/75 sm:mt-7 sm:text-base sm:leading-8">
