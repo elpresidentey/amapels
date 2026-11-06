@@ -83,8 +83,8 @@ export default function Navbar() {
     <nav
       className={`${cabin.className} fixed top-0 left-0 right-0 z-50 safe-top transition-all duration-500 ease-out ${
         scrolled
-          ? 'border-b border-ink/[0.06] bg-chrome/90 py-0 backdrop-blur-2xl'
-          : 'border-b border-transparent bg-gradient-to-b from-chrome/70 to-transparent py-0'
+          ? 'border-b border-ink/[0.06] bg-chrome/90 py-1.5 backdrop-blur-2xl'
+          : 'border-b border-transparent bg-gradient-to-b from-chrome/70 to-transparent py-1.5'
       }`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12 xl:px-24">
@@ -93,7 +93,7 @@ export default function Navbar() {
           <Link href="/" className="group flex-shrink-0" aria-label="AMAPELS home">
             <Logo 
               variant="wordmark"
-              className="h-5 w-32 md:h-6 md:w-40"
+              className="h-6 w-40 md:h-7 md:w-44"
               priority
             />
           </Link>
@@ -148,7 +148,7 @@ export default function Navbar() {
             </button>
 
             <button
-              className="flex h-10 w-10 items-center justify-center text-ink/90 transition-colors hover:text-ink lg:hidden"
+              className="flex h-11 w-11 items-center justify-center text-ink/90 transition-colors hover:text-ink lg:hidden"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle menu"
               aria-expanded={isMenuOpen}
