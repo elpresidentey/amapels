@@ -316,17 +316,17 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: prefersReducedMotion ? 0.15 : 0.7, delay: prefersReducedMotion ? 0 : index * 0.07, ease }}
-                className={index === 0 ? 'col-span-2 row-span-2 lg:col-span-7 lg:row-span-2' : index === 1 ? 'lg:col-span-5' : index === 2 ? 'lg:col-span-2' : 'col-span-2 lg:col-span-3'}
+                className={index === 0 ? 'col-span-2 row-span-2 lg:col-span-7 lg:row-span-2' : index === 1 ? 'lg:col-span-5' : index === 2 ? 'lg:col-span-3' : 'col-span-2 lg:col-span-2'}
               >
                 <Link href={collection.href} className={`group relative block h-full min-h-[150px] overflow-hidden bg-[#ded5c9] ${index === 0 ? 'min-h-[310px]' : ''}`}>
                   <Image src={collection.image} alt={`${collection.name} jewellery`} fill sizes={index === 1 ? '(max-width: 1024px) 100vw, 58vw' : '(max-width: 1024px) 50vw, 42vw'} style={{ objectPosition: collection.position }} className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.045]" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#17120f]/75 via-[#17120f]/10 to-transparent" />
-                  <div className="absolute inset-x-4 bottom-4 flex items-end justify-between gap-3 sm:inset-x-6 sm:bottom-6">
-                    <div>
-                      <h3 className="font-serif text-2xl font-light text-white sm:text-3xl lg:text-4xl">{collection.name}</h3>
-                      <p className="mt-1 max-w-xs text-xs leading-5 text-white/80 sm:text-sm">{collection.note}</p>
+                  <div className="absolute inset-x-4 bottom-4 flex items-end justify-between gap-3 text-left sm:inset-x-6 sm:bottom-6">
+                    <div className="min-w-0 flex-1 text-left">
+                      <h3 className={`font-serif font-light leading-tight text-white ${index === 2 ? 'text-xl sm:text-2xl lg:text-xl 2xl:text-2xl' : 'text-2xl sm:text-3xl lg:text-4xl'}`}>{collection.name}</h3>
+                      <p className={`mt-1 text-xs leading-5 text-white/80 sm:text-sm ${index === 2 ? 'max-w-[62%]' : 'max-w-xs'}`}>{collection.note}</p>
                     </div>
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center border border-white/60 text-white transition-colors group-hover:border-[#d7bd83] group-hover:bg-[#d7bd83] group-hover:text-ink"><ArrowUpRight size={16} strokeWidth={1.4} /></span>
+                    <span className={`flex h-10 w-10 shrink-0 items-center justify-center border border-white/60 text-white transition-colors group-hover:border-[#d7bd83] group-hover:bg-[#d7bd83] group-hover:text-ink ${index === 2 ? 'absolute bottom-0 right-0' : ''}`}><ArrowUpRight size={16} strokeWidth={1.4} /></span>
                   </div>
                 </Link>
               </motion.div>
