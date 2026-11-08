@@ -98,12 +98,12 @@ export default function Home() {
         className="pointer-events-none fixed inset-x-0 top-0 z-[70] h-[2px] origin-left bg-gold-ink"
         style={{ scaleX: prefersReducedMotion ? 0 : pageProgress }}
       />
-      <section className="pt-[calc(3.5rem+env(safe-area-inset-top))]">
+      <section className="pt-[calc(3.5rem+env(safe-area-inset-top))] lg:pt-[calc(4.375rem+env(safe-area-inset-top))]">
         <motion.div
           initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: prefersReducedMotion ? 0.15 : 0.7, ease }}
-          className="relative flex min-h-[calc(100svh-3.5rem-env(safe-area-inset-top))] items-center overflow-hidden bg-[#28190f] px-5 py-8 text-white sm:px-10 sm:py-10 lg:px-[8vw]"
+          className="relative flex min-h-[calc(100svh-3.5rem-env(safe-area-inset-top))] items-center overflow-hidden bg-[#28190f] px-5 py-8 text-white sm:px-10 sm:py-10 lg:min-h-[calc(100svh-4.375rem-env(safe-area-inset-top))] lg:px-[8vw]"
         >
           <div aria-hidden="true" className="absolute inset-0">
             <AnimatePresence initial={false} mode="sync">

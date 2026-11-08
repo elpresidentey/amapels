@@ -72,19 +72,19 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`${cabin.className} fixed top-0 left-0 right-0 z-50 safe-top transition-all duration-500 ease-out ${
+      className={`${cabin.className} fixed top-0 left-0 right-0 z-50 h-[calc(56px+env(safe-area-inset-top))] safe-top transition-all duration-500 ease-out lg:h-[calc(70px+env(safe-area-inset-top))] ${
         scrolled
-          ? 'border-b border-ink/[0.06] bg-chrome/90 py-1.5 backdrop-blur-2xl'
-          : 'border-b border-transparent bg-gradient-to-b from-chrome/70 to-transparent py-1.5'
+          ? 'border-b border-ink/[0.06] bg-chrome/90 backdrop-blur-2xl'
+          : 'border-b border-transparent bg-gradient-to-b from-chrome/70 to-transparent'
       }`}
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12 xl:px-24">
-        <div className="flex items-center justify-between">
+      <div className="mx-auto h-full max-w-7xl px-4 sm:px-6 lg:px-12 xl:px-24">
+        <div className="flex h-full items-center justify-between">
           {/* Brand */}
           <Link href="/" className="group flex-shrink-0" aria-label="AMAPELS home">
             <Logo 
               variant="wordmark"
-              className="h-6 w-40 md:h-7 md:w-44"
+              className="h-5 w-36 lg:h-6 lg:w-40"
               priority
             />
           </Link>
