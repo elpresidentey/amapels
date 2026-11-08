@@ -147,7 +147,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
         </Link>
 
         {product.featured && (
-          <span className="pointer-events-none absolute left-2 top-2 z-20 border border-gold/40 bg-white/95 px-1.5 py-[3px] text-[7px] font-medium uppercase tracking-[0.14em] text-black-dark backdrop-blur-sm sm:left-3 sm:top-3 sm:px-2 sm:py-1 sm:text-[8px] sm:tracking-[0.16em]">
+          <span className="pointer-events-none absolute left-1.5 top-1.5 z-20 border border-gold/40 bg-white/95 px-1 py-[2px] text-[5px] font-medium uppercase tracking-[0.1em] text-black-dark backdrop-blur-sm sm:left-2 sm:top-2 sm:px-1.5 sm:py-[3px] sm:text-[6px] sm:tracking-[0.12em]">
             Featured
           </span>
         )}
