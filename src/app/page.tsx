@@ -18,7 +18,7 @@ const collections = [
     name: 'Earrings', note: 'A little light, close to the face.', image: '/images/hero-earrings.webp', position: '62% center', href: '/shop?category=Earrings',
   },
   {
-    name: 'Bracelets', note: 'Made for the everyday, and then some.', image: '/images/pexels-vedat-29043373.webp', position: 'center 48%', href: '/shop?category=Bracelets',
+    name: 'Bracelets', note: 'Made for the everyday, and then some.', image: '/images/hero-model.webp', position: 'center 70%', href: '/shop?category=Bracelets',
   },
   {
     name: 'Rings', note: 'Small details. Quite a statement.', image: '/images/hero-rings.webp', position: 'center 54%', href: '/shop?category=Rings',
