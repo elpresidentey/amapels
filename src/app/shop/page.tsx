@@ -134,7 +134,6 @@ function ShopContent({ initialCategory, initialFinish, initialQuery, maxPrice }:
           >
             <span className="text-[9px] font-medium uppercase tracking-[0.2em] text-ink/45">Finish</span>
             {([
-              ['all', 'All finishes'],
               ['gold', 'Gold'],
               ['silver', 'Silver'],
               ['mixed', 'Mixed metal'],
@@ -142,7 +141,7 @@ function ShopContent({ initialCategory, initialFinish, initialQuery, maxPrice }:
               <button
                 key={finish}
                 type="button"
-                onClick={() => setSelectedFinish(finish)}
+                onClick={() => setSelectedFinish(selectedFinish === finish ? 'all' : finish)}
                 aria-pressed={selectedFinish === finish}
                 className={`border-b pb-1.5 text-[10px] font-medium uppercase tracking-[0.17em] transition-colors sm:text-[11px] ${selectedFinish === finish ? 'border-gold-ink text-ink' : 'border-transparent text-ink/50 hover:text-ink'}`}
               >
