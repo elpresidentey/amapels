@@ -12,16 +12,16 @@ import { matchesFinish, type FinishFilter } from '@/lib/productFinish'
 
 const collections = [
   {
-    name: 'Necklaces', note: 'The finishing touch you keep on.', image: '/images/julie-sd--Njp0M9Rzhc-unsplash.webp', href: '/shop?category=Necklaces',
+    name: 'Necklaces', note: 'The finishing touch you keep on.', image: '/images/hero-necklaces.webp', position: 'center 58%', href: '/shop?category=Necklaces',
   },
   {
-    name: 'Earrings', note: 'A little light, close to the face.', image: '/images/godfred-kwakye-fOcFLNzGtd0-unsplash.webp', href: '/shop?category=Earrings',
+    name: 'Earrings', note: 'A little light, close to the face.', image: '/images/hero-earrings.webp', position: '62% center', href: '/shop?category=Earrings',
   },
   {
-    name: 'Bracelets', note: 'Made for the everyday, and then some.', image: '/images/k-studios-hbCWaqLnD_s-unsplash.webp', href: '/shop?category=Bracelets',
+    name: 'Bracelets', note: 'Made for the everyday, and then some.', image: '/images/pexels-vedat-29043373.webp', position: 'center 48%', href: '/shop?category=Bracelets',
   },
   {
-    name: 'Rings', note: 'Small details. Quite a statement.', image: '/images/pexels-vedat-28933799.webp', href: '/shop?category=Rings',
+    name: 'Rings', note: 'Small details. Quite a statement.', image: '/images/hero-rings.webp', position: 'center 54%', href: '/shop?category=Rings',
   },
 ]
 
@@ -319,7 +319,7 @@ export default function Home() {
                 className={index === 0 ? 'col-span-2 row-span-2 lg:col-span-7 lg:row-span-2' : index === 1 ? 'lg:col-span-5' : index === 2 ? 'lg:col-span-2' : 'col-span-2 lg:col-span-3'}
               >
                 <Link href={collection.href} className={`group relative block h-full min-h-[150px] overflow-hidden bg-[#ded5c9] ${index === 0 ? 'min-h-[310px]' : ''}`}>
-                  <Image src={collection.image} alt={`${collection.name} jewellery`} fill sizes={index === 1 ? '(max-width: 1024px) 100vw, 58vw' : '(max-width: 1024px) 50vw, 42vw'} className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.045]" />
+                  <Image src={collection.image} alt={`${collection.name} jewellery`} fill sizes={index === 1 ? '(max-width: 1024px) 100vw, 58vw' : '(max-width: 1024px) 50vw, 42vw'} style={{ objectPosition: collection.position }} className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.045]" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#17120f]/75 via-[#17120f]/10 to-transparent" />
                   <div className="absolute inset-x-4 bottom-4 flex items-end justify-between gap-3 sm:inset-x-6 sm:bottom-6">
                     <div>
