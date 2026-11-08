@@ -246,7 +246,7 @@ export default function Home() {
       </section>
 
       {/* Purchase history ranks bestsellers by units from paid orders. */}
-      <section id="bestsellers" className="scroll-mt-24 bg-[#eee7dc] px-5 py-16 text-[#211b15] sm:px-8 sm:py-20 lg:px-16 lg:py-24">
+      <section id="bestsellers" data-theme="light" className="scroll-mt-24 bg-[#eee7dc] px-5 py-16 text-[#211b15] sm:px-8 sm:py-20 lg:px-16 lg:py-24">
         <div className="mx-auto max-w-7xl">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-5 border-b border-[#211b15]/15 pb-6 sm:mb-10 sm:pb-8">
             <div>
