@@ -90,7 +90,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden items-center gap-3 lg:flex xl:gap-5">
+          <div className="hidden items-center gap-2 lg:flex xl:gap-3">
             {SHOP_NAV_MENUS.map((item) => {
               const open = activeMegaMenu === item.id
               return (
@@ -100,7 +100,7 @@ export default function Navbar() {
                   aria-expanded={open}
                   aria-controls={`nav-menu-${item.id}`}
                   onClick={() => setActiveMegaMenu(open ? null : item.id)}
-                  className={`group relative inline-flex items-center gap-1 py-1.5 text-[10px] font-medium uppercase tracking-[0.14em] transition-colors duration-300 xl:text-[11px] ${open ? 'text-ink' : 'text-ink/70 hover:text-ink'}`}
+                  className={`group relative inline-flex items-center gap-1 py-1.5 text-[10px] font-medium uppercase tracking-[0.1em] transition-colors duration-300 xl:text-[10px] ${open ? 'text-ink' : 'text-ink/70 hover:text-ink'}`}
                 >
                   {item.label}
                   <ChevronDown size={12} className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
@@ -159,21 +159,23 @@ export default function Navbar() {
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.18 }}
               onMouseLeave={() => setActiveMegaMenu(null)}
-              className="absolute left-0 right-0 top-full z-50 border-t border-ink/10 bg-chrome shadow-lg"
+              className="pointer-events-none absolute left-0 right-0 top-full z-50 flex justify-center px-4 pt-2"
             >
-              <div className="mx-auto grid max-w-7xl gap-8 px-6 py-8 sm:px-10 lg:grid-cols-3 lg:px-12 xl:px-24">
-                {menu.sections.map((section) => (
-                  <div key={section.heading}>
-                    <h2 className="mb-4 text-[9px] font-semibold uppercase tracking-[0.24em] text-ink/50">{section.heading}</h2>
-                    <div className="grid grid-cols-2 gap-x-8 gap-y-2 xl:grid-cols-3">
-                      {section.links.map((link) => (
-                        <Link key={link.label} href={link.href} onClick={closeMenus} className="py-1 text-sm text-ink/75 transition-colors hover:text-gold-ink">
-                          {link.label}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                ))}
+              <div className="pointer-events-auto grid w-full max-w-[860px] grid-cols-2 divide-x divide-ink/10 border border-ink/10 bg-chrome/95 px-5 py-5 shadow-[0_18px_45px_rgba(25,18,12,0.14)] backdrop-blur-xl sm:px-8 sm:py-7">
+                <div className={`col-span-2 grid ${menu.sections.length === 3 ? 'grid-cols-3' : 'grid-cols-2'}`}>
+                  {menu.sections.map((section, index) => (
+                    <section key={section.heading} className={`${index > 0 ? 'pl-5 sm:pl-8' : 'pr-5 sm:pr-8'} ${index < menu.sections.length - 1 ? 'border-r border-ink/10' : ''}`}>
+                      <h2 className="mb-3 border-b border-gold-ink/35 pb-2 text-[9px] font-semibold uppercase tracking-[0.2em] text-ink/50 sm:mb-4">{section.heading}</h2>
+                      <div className="flex flex-col items-start">
+                        {section.links.map((link) => (
+                          <Link key={link.label} href={link.href} onClick={closeMenus} className="w-full py-1.5 text-[13px] font-light leading-5 text-ink/75 transition-colors hover:text-gold-ink">
+                            {link.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </section>
+                  ))}
+                </div>
               </div>
             </motion.div>
           )
