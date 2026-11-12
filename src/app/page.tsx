@@ -56,9 +56,17 @@ export default function Home() {
     .slice(0, 4)
   const featuredPieces = products.filter((product) => product.featured).slice(0, 4)
   const visiblePieces = newestPieces.filter((product) => matchesFinish(product, arrivalFinish))
-  const bestsellerPieces = bestsellerIds
+  // Purchase history only ranks products that still exist (deleted items drop
+  // out), so fill any empty slots with featured, then newest, pieces — the
+  // bestseller row always shows a full set of four.
+  const bestsellerResolved = bestsellerIds
     .map((id) => products.find((product) => product._id === id))
     .filter((product): product is (typeof products)[number] => Boolean(product))
+  const bestsellerFillers = [
+    ...products.filter((product) => product.featured),
+    ...[...products].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()),
+  ].filter((product) => !bestsellerResolved.some((piece) => piece._id === product._id))
+  const bestsellerPieces = [...bestsellerResolved, ...bestsellerFillers].slice(0, 4)
 
   useEffect(() => {
     fetch('/api/blog?limit=3')
