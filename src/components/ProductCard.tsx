@@ -56,6 +56,10 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   const hoverImage = otherImage || primaryImage
   const hasSwap = Boolean(otherImage)
   const detailLine = product.material || product.story
+  // Inventory: unavailable is the admin's manual switch; sold out is stock = 0.
+  const unavailable = product.available === false
+  const soldOut = !unavailable && product.stock === 0
+  const notPurchasable = unavailable || soldOut
 
   const handleToggleWishlist = (e: React.MouseEvent) => {
     e.preventDefault()
@@ -66,6 +70,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
+    if (notPurchasable) return
     addItem(
       {
         id: product._id,
@@ -152,6 +157,16 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
           </span>
         )}
 
+        {notPurchasable && (
+          <span
+            className={`pointer-events-none absolute left-1.5 z-20 border px-1 py-[2px] text-[5px] font-medium uppercase tracking-[0.1em] backdrop-blur-sm sm:left-2 sm:px-1.5 sm:py-[3px] sm:text-[6px] sm:tracking-[0.12em] ${
+              product.featured ? 'top-7 sm:top-9' : 'top-1.5 sm:top-2'
+            } ${soldOut ? 'border-black/10 bg-black/85 text-white' : 'border-red-300/50 bg-red-600/90 text-white'}`}
+          >
+            {soldOut ? 'Sold out' : 'Unavailable'}
+          </span>
+        )}
+
         <button
           type="button"
           onClick={handleToggleWishlist}
@@ -178,47 +193,55 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
               transition={{ duration: 0.3, ease }}
               className="absolute bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-3 pb-3 pt-14"
             >
-              <div className="flex items-stretch justify-center gap-2">
-                <div
-                  className="flex items-stretch bg-white/95 shadow-sm backdrop-blur-sm"
-                  role="group"
-                  aria-label={`Quantity for ${product.name}`}
-                >
-                  <button
-                    type="button"
-                    onClick={handleQuantityChange(-1)}
-                    disabled={quantity <= 1}
-                    aria-label="Decrease quantity"
-                    className="flex w-8 items-center justify-center text-black/55 transition-colors duration-200 hover:bg-gold hover:text-black-dark disabled:pointer-events-none disabled:opacity-30 sm:w-9"
-                  >
-                    <Minus size={12} strokeWidth={2} />
-                  </button>
-                  <span
-                    className="flex min-w-[1.5rem] items-center justify-center border-x border-black/10 px-1 text-[11px] font-medium tabular-nums text-black-dark"
-                    aria-live="polite"
-                  >
-                    {quantity}
+              <div className="flex flex-col items-center justify-end gap-2">
+                {!notPurchasable ? (
+                  <div className="flex items-stretch justify-center gap-2">
+                    <div
+                      className="flex items-stretch bg-white/95 shadow-sm backdrop-blur-sm"
+                      role="group"
+                      aria-label={`Quantity for ${product.name}`}
+                    >
+                      <button
+                        type="button"
+                        onClick={handleQuantityChange(-1)}
+                        disabled={quantity <= 1}
+                        aria-label="Decrease quantity"
+                        className="flex w-8 items-center justify-center text-black/55 transition-colors duration-200 hover:bg-gold hover:text-black-dark disabled:pointer-events-none disabled:opacity-30 sm:w-9"
+                      >
+                        <Minus size={12} strokeWidth={2} />
+                      </button>
+                      <span
+                        className="flex min-w-[1.5rem] items-center justify-center border-x border-black/10 px-1 text-[11px] font-medium tabular-nums text-black-dark"
+                        aria-live="polite"
+                      >
+                        {quantity}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={handleQuantityChange(1)}
+                        disabled={quantity >= 99}
+                        aria-label="Increase quantity"
+                        className="flex w-8 items-center justify-center text-black/55 transition-colors duration-200 hover:bg-gold hover:text-black-dark disabled:pointer-events-none disabled:opacity-30 sm:w-9"
+                      >
+                        <Plus size={12} strokeWidth={2} />
+                      </button>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handleAddToCart}
+                      aria-label={addedToCart ? 'Added to bag' : 'Add to bag'}
+                      className="flex flex-1 items-center justify-center gap-2 whitespace-nowrap bg-white px-2 py-2.5 text-[10px] font-medium uppercase tracking-[0.18em] text-black-dark shadow-sm transition-all duration-300 hover:bg-gold hover:text-black-dark hover:shadow-[0_4px_16px_rgba(196,163,90,0.3)] active:scale-95"
+                    >
+                      {addedToCart ? <Check size={13} strokeWidth={1.75} /> : <ShoppingCart size={13} strokeWidth={1.5} />}
+                      <span>{addedToCart ? 'Added' : 'Add to Bag'}</span>
+                    </button>
+                  </div>
+                ) : (
+                  <span className="flex w-full items-center justify-center gap-2 bg-black/85 px-2 py-2.5 text-[10px] font-medium uppercase tracking-[0.18em] text-white backdrop-blur-sm">
+                    <ShoppingCart size={13} strokeWidth={1.5} />
+                    <span>{soldOut ? 'Sold out' : 'Unavailable'}</span>
                   </span>
-                  <button
-                    type="button"
-                    onClick={handleQuantityChange(1)}
-                    disabled={quantity >= 99}
-                    aria-label="Increase quantity"
-                    className="flex w-8 items-center justify-center text-black/55 transition-colors duration-200 hover:bg-gold hover:text-black-dark disabled:pointer-events-none disabled:opacity-30 sm:w-9"
-                  >
-                    <Plus size={12} strokeWidth={2} />
-                  </button>
-                </div>
-                <button
-                  type="button"
-                  onClick={handleAddToCart}
-                  aria-label={addedToCart ? 'Added to bag' : 'Add to bag'}
-                  className="flex flex-1 items-center justify-center gap-2 whitespace-nowrap bg-white px-2 py-2.5 text-[10px] font-medium uppercase tracking-[0.18em] text-black-dark shadow-sm transition-all duration-300 hover:bg-gold hover:text-black-dark hover:shadow-[0_4px_16px_rgba(196,163,90,0.3)] active:scale-95"
-                >
-                  {addedToCart ? <Check size={13} strokeWidth={1.75} /> : <ShoppingCart size={13} strokeWidth={1.5} />}
-                  <span>{addedToCart ? 'Added' : 'Add to Bag'}</span>
-                </button>
-              </div>
+                )}
               <button
                 type="button"
                 onClick={handleQuickView}
@@ -228,6 +251,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                 <Eye size={13} strokeWidth={1.5} />
                 <span>View</span>
               </button>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

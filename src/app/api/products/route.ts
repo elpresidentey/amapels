@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getProducts, supabase, getProductImages } from '@/lib/supabase'
+import { getProducts, supabase, getProductImages, normalizeStock, normalizeAvailable } from '@/lib/supabase'
 import { isShopifyConfigured, getShopifyProducts } from '@/lib/shopify'
 import { requireAdmin } from '@/lib/admin-guard'
 import { getProductFinish } from '@/lib/productFinish'
@@ -87,6 +87,8 @@ async function buildCatalogPayload(category: string | null) {
         category: p.category,
         description: p.description,
         images: getProductImages(p),
+        stock: p.stock ?? null,
+        available: p.available ?? true,
         featured: p.featured,
         finish: getProductFinish({ name: p.name, description: p.description || '' }),
         story: 'Picked with care',
@@ -129,7 +131,7 @@ export async function POST(request: NextRequest) {
     const imageUrls = Array.isArray(body.images)
       ? body.images.filter((img: string) => img && img.trim())
       : []
-    
+
     const { data: product, error } = await supabase
       .from('products')
       .insert([{
@@ -139,7 +141,8 @@ export async function POST(request: NextRequest) {
         image: imageUrls[0] || null,
         images: imageUrls,
         category: body.category,
-        stock: body.stock || 100,
+        stock: normalizeStock(body.stock),
+        available: normalizeAvailable(body.available),
         featured: body.featured || false
       }])
       .select()

@@ -65,7 +65,10 @@ export default function Home() {
   const bestsellerFillers = [
     ...products.filter((product) => product.featured),
     ...[...products].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()),
-  ].filter((product) => !bestsellerResolved.some((piece) => piece._id === product._id))
+  ]
+    // Skip products that can't be purchased so the row never shows sold-out fillers.
+    .filter((product) => product.available !== false && product.stock !== 0)
+    .filter((product) => !bestsellerResolved.some((piece) => piece._id === product._id))
   const bestsellerPieces = [...bestsellerResolved, ...bestsellerFillers].slice(0, 4)
 
   useEffect(() => {

@@ -29,10 +29,26 @@ export interface Product {
   image: string | null
   images: string[] | null
   category: string | null
-  stock: number
+  /** Pieces in stock. null = not counted yet; 0 = sold out. */
+  stock: number | null
+  /** Admin's manual availability switch. Treated as true when missing. */
+  available: boolean | null
   featured: boolean
   created_at: string
   updated_at: string
+}
+
+// Normalize inventory fields coming from the admin form into DB values.
+// Empty/invalid stock -> null (not counted); 0 is a valid value (= sold out).
+export function normalizeStock(value: unknown): number | null {
+  if (value === undefined || value === null || value === '') return null
+  const n = Math.floor(Number(value))
+  return Number.isFinite(n) && n >= 0 ? n : null
+}
+
+// Missing/undefined availability defaults to true; only an explicit false marks unavailable.
+export function normalizeAvailable(value: unknown): boolean {
+  return value !== false
 }
 
 // Get all product images, falling back to the single image column.

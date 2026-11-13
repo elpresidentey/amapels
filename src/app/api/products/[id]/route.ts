@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getProduct, supabase, getProductImages } from '@/lib/supabase'
+import { getProduct, supabase, getProductImages, normalizeStock, normalizeAvailable } from '@/lib/supabase'
 import { isShopifyConfigured, getShopifyProductById } from '@/lib/shopify'
 import { requireAdmin } from '@/lib/admin-guard'
 import { getProductFinish } from '@/lib/productFinish'
@@ -45,6 +45,8 @@ export async function GET(
         care: 'Store in dry place. Wipe with soft cloth.',
         options: ['Standard'],
         images: getProductImages(product),
+        stock: product.stock ?? null,
+        available: product.available ?? true,
         featured: product.featured,
         finish: getProductFinish({ name: product.name, description: product.description || '' }),
         createdAt: product.created_at,
@@ -107,7 +109,10 @@ export async function PUT(
         image: imageUrls[0] || null,
         images: imageUrls,
         category: body.category,
-        stock: body.stock || 100,
+        // Allow 0 (= sold out) and empty (= not counted); never fall back to a
+        // placeholder like the old `body.stock || 100` did.
+        stock: normalizeStock(body.stock),
+        available: normalizeAvailable(body.available),
         featured: body.featured || false
       })
       .eq('id', params.id)

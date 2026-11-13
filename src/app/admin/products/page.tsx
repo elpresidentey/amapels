@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Plus, Edit2, Trash2, Save, X, Eye, EyeOff, Search, Filter, Download, Copy, ChevronDown, ChevronUp } from 'lucide-react'
+import { Plus, Edit2, Trash2, Save, X, Eye, EyeOff, Search, Filter, Download, Copy, ChevronDown, ChevronUp, PackageCheck, PackageX } from 'lucide-react'
 import Toast from '@/components/Toast'
 import { getAdminAuthHeaders } from '@/lib/admin-api'
 import ImageUpload from '@/components/ImageUpload'
@@ -15,6 +15,10 @@ interface Product {
   description: string
   images: string[]
   featured?: boolean
+  /** Pieces in stock; '' or null = not counted, 0 = sold out. */
+  stock?: number | string | null
+  /** Admin's manual availability switch. Treated as true when missing. */
+  available?: boolean
   story?: string
   material?: string
   details?: string[]
@@ -27,6 +31,18 @@ interface Product {
 
 const CATEGORIES = ['Earrings', 'Necklaces', 'Bracelets', 'Rings']
 
+// Derived inventory status shown in the product table.
+const stockStatus = (product: Product) => {
+  if (product.available === false) return { label: 'Unavailable', tone: 'bg-red-100 text-red-700' }
+  if (product.stock === 0) return { label: 'Sold out', tone: 'bg-amber-100 text-amber-700' }
+  if (product.stock === null || product.stock === undefined || product.stock === '') {
+    return { label: 'Stock not set', tone: 'bg-gray-100 text-gray-600' }
+  }
+  const pieces = Number(product.stock)
+  if (pieces <= 3) return { label: `Low · ${pieces} left`, tone: 'bg-amber-100 text-amber-700' }
+  return { label: `${pieces} in stock`, tone: 'bg-accent-emerald/10 text-accent-emerald' }
+}
+
 const initialFormData: Omit<Product, '_id' | 'createdAt' | 'updatedAt'> = {
   name: '',
   price: '',
@@ -34,6 +50,8 @@ const initialFormData: Omit<Product, '_id' | 'createdAt' | 'updatedAt'> = {
   description: '',
   images: [''],
   featured: false,
+  stock: '',
+  available: true,
   story: 'Made with care',
   material: 'Gold-tone alloy',
         details: ['Made with care', 'Polished finish', 'Ideal for gifting'],
@@ -121,6 +139,9 @@ export default function AdminProductsPage() {
         case 'featured':
           comparison = (a.featured ? 1 : 0) - (b.featured ? 1 : 0)
           break
+        case 'stock':
+          comparison = Number(a.stock ?? -1) - Number(b.stock ?? -1)
+          break
         default:
           comparison = 0
       }
@@ -173,6 +194,8 @@ export default function AdminProductsPage() {
         description: product.description,
         images: [...product.images],
         featured: product.featured || false,
+        stock: product.stock ?? '',
+        available: product.available ?? true,
         story: product.story || 'Made with care',
         material: product.material || 'Gold-tone alloy',
         details: product.details || ['Lightweight and comfortable', 'Elegant design', 'Perfect for any occasion'],
@@ -223,6 +246,11 @@ export default function AdminProductsPage() {
       // Clean up array fields (remove empty items)
       const cleanedData = {
         ...formData,
+        // Inventory: empty pieces = not counted, otherwise send the number (0 = sold out)
+        stock: formData.stock === '' || formData.stock === null || formData.stock === undefined
+          ? null
+          : Number(formData.stock),
+        available: formData.available !== false,
         details: formData.details && formData.details.length > 0 ? formData.details.filter(d => d.trim()) : ['Made with care', 'Polished finish', 'Ideal for gifting'],
         options: formData.options && formData.options.length > 0 ? formData.options.filter(o => o.trim()) : ['Gold Finish', 'Gift Box'],
         images: formData.images.filter(i => i.trim()),
@@ -321,6 +349,37 @@ export default function AdminProductsPage() {
     }
   }
 
+  // Quick availability switch from the table — marks a product unavailable
+  // (or back to available) without opening the edit form.
+  const toggleAvailable = async (product: Product) => {
+    const makingAvailable = product.available === false
+    try {
+      const response = await fetch(`/api/products/${product._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAdminAuthHeaders(),
+        },
+        body: JSON.stringify({
+          ...product,
+          available: makingAvailable
+        })
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        showToastMessage(`Product marked ${makingAvailable ? 'available' : 'unavailable'}!`)
+        fetchProducts()
+      } else {
+        throw new Error(result.error || 'Failed to update product')
+      }
+    } catch (error) {
+      console.error('Error updating product:', error)
+      showToastMessage('Failed to update product', 'error')
+    }
+  }
+
   const handleSelectProduct = (productId: string) => {
     setSelectedProducts(prev => {
       const newSet = new Set(prev)
@@ -391,13 +450,15 @@ export default function AdminProductsPage() {
   }
 
   const handleExportCSV = () => {
-    const headers = ['Name', 'Price', 'Category', 'Description', 'Featured']
+    const headers = ['Name', 'Price', 'Category', 'Description', 'Featured', 'Stock', 'Status']
     const rows = filteredProducts.map(p => [
       p.name,
       p.price,
       p.category,
       p.description.replace(/,/g, ';'),
-      p.featured ? 'Yes' : 'No'
+      p.featured ? 'Yes' : 'No',
+      p.stock ?? '',
+      stockStatus(p).label
     ])
 
     const csvContent = [headers.join(','), ...rows.map(row => row.join(','))].join('\n')
@@ -526,6 +587,7 @@ export default function AdminProductsPage() {
                 <option value="price-desc">Price (High-Low)</option>
                 <option value="category-asc">Category (A-Z)</option>
                 <option value="featured-desc">Featured First</option>
+                <option value="stock-asc">Stock (Low-High)</option>
               </select>
             </div>
           </div>
@@ -606,7 +668,8 @@ export default function AdminProductsPage() {
                   </div>
                   
                   <div className="flex items-center justify-between pt-2 border-t border-gold/30 sm:pt-3">
-<button
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      <button
                       onClick={() => toggleFeatured(product)}
                       className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs transition-colors ${
                          product.featured
@@ -617,6 +680,30 @@ export default function AdminProductsPage() {
                        {product.featured ? <Eye size={12} className="sm:w-3 sm:h-3" /> : <EyeOff size={12} className="sm:w-3 sm:h-3" />}
                        <span className="hidden xs:inline">{product.featured ? 'Featured' : 'Hidden'}</span>
                      </button>
+                      {(() => {
+                        const status = stockStatus(product)
+                        return (
+                          <span className={`inline-flex items-center rounded-full px-2.5 py-1.5 text-xs font-medium ${status.tone}`}>
+                            {status.label}
+                          </span>
+                        )
+                      })()}
+                      <button
+                        onClick={() => toggleAvailable(product)}
+                        aria-label={product.available === false ? 'Mark product available' : 'Mark product unavailable'}
+                        title={product.available === false ? 'Mark available' : 'Mark unavailable'}
+                        className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs transition-colors ${
+                          product.available === false
+                            ? 'bg-accent-emerald/10 text-accent-emerald'
+                            : 'bg-red-100 text-red-600'
+                        }`}
+                      >
+                        {product.available === false
+                          ? <PackageCheck size={12} className="sm:w-3 sm:h-3" />
+                          : <PackageX size={12} className="sm:w-3 sm:h-3" />}
+                        <span className="hidden xs:inline">{product.available === false ? 'Available' : 'Unavailable'}</span>
+                      </button>
+                    </div>
                     
                     <div className="flex items-center gap-2">
                       <button
@@ -672,6 +759,9 @@ export default function AdminProductsPage() {
                   <th className="px-6 py-4 text-left text-black-dark font-semibold cursor-pointer hover:bg-gold/10" onClick={() => handleSort('price')}>
                     Price {sortBy === 'price' && (sortOrder === 'asc' ? <ChevronUp size={14} className="inline" /> : <ChevronDown size={14} className="inline" />)}
                   </th>
+                  <th className="px-6 py-4 text-left text-black-dark font-semibold cursor-pointer hover:bg-gold/10" onClick={() => handleSort('stock')}>
+                    Stock {sortBy === 'stock' && (sortOrder === 'asc' ? <ChevronUp size={14} className="inline" /> : <ChevronDown size={14} className="inline" />)}
+                  </th>
                   <th className="px-6 py-4 text-left text-black-dark font-semibold cursor-pointer hover:bg-gold/10" onClick={() => handleSort('featured')}>
                     Featured {sortBy === 'featured' && (sortOrder === 'asc' ? <ChevronUp size={14} className="inline" /> : <ChevronDown size={14} className="inline" />)}
                   </th>
@@ -709,6 +799,11 @@ export default function AdminProductsPage() {
                     <td className="px-6 py-4 text-black/80">{product.category}</td>
                     <td className="px-6 py-4 text-black-dark font-medium">{product.price}</td>
                     <td className="px-6 py-4">
+                      <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ${stockStatus(product).tone}`}>
+                        {stockStatus(product).label}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
                       <button
                         onClick={() => toggleFeatured(product)}
                         className={`flex items-center gap-1 px-3 py-1 rounded-full text-sm transition-colors ${
@@ -723,6 +818,19 @@ export default function AdminProductsPage() {
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => toggleAvailable(product)}
+                          className={`p-2 rounded-lg transition-colors ${
+                            product.available === false
+                              ? 'text-accent-emerald hover:bg-emerald-50'
+                              : 'text-red-600 hover:bg-red-50'
+                          }`}
+                          title={product.available === false ? 'Mark available' : 'Mark unavailable'}
+                        >
+                          {product.available === false
+                            ? <PackageCheck size={16} />
+                            : <PackageX size={16} />}
+                        </button>
                         <button
                           onClick={() => handleDuplicate(product)}
                           className="p-2 text-purple-600 hover:bg-purple-50 rounded-lg transition-colors"
@@ -748,7 +856,7 @@ export default function AdminProductsPage() {
                 ))}
                 {filteredProducts.length === 0 && (
                   <tr>
-                    <td colSpan={6} className="px-6 py-12 text-center text-black/70">
+                    <td colSpan={7} className="px-6 py-12 text-center text-black/70">
                       {products.length === 0 ? 'No products yet. Create your first product to get started.' : 'No products match your filters.'}
                     </td>
                   </tr>
@@ -867,6 +975,46 @@ export default function AdminProductsPage() {
                         Feature this product on homepage
                       </span>
                     </label>
+                  </div>
+
+                  {/* Inventory */}
+                  <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 border border-gold/20 rounded-xl p-4 bg-gold/[0.03]">
+                    <div>
+                      <label className="block text-sm font-medium text-black-dark mb-2">
+                        Pieces in stock
+                      </label>
+                      <input
+                        type="number"
+                        min={0}
+                        step={1}
+                        value={formData.stock ?? ''}
+                        onChange={(e) => handleInputChange('stock', e.target.value === '' ? '' : Number(e.target.value))}
+                        className="w-full px-4 py-3 border border-gold rounded-xl focus:ring-2 focus:ring-gold/30 focus:border-gold-dark outline-none text-black-dark"
+                        placeholder="e.g., 12"
+                      />
+                      <p className="mt-2 text-xs text-black/60">
+                        Set to 0 to mark the product sold out — customers will see a &quot;Sold out&quot; badge and can&apos;t add it to their bag. Leave empty if you don&apos;t track pieces.
+                      </p>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-black-dark mb-2">
+                        Availability
+                      </label>
+                      <label className="flex items-center gap-3">
+                        <input
+                          type="checkbox"
+                          checked={formData.available !== false}
+                          onChange={(e) => handleInputChange('available', e.target.checked)}
+                          className="w-4 h-4 text-black-dark border-gold rounded focus:ring-brown/20"
+                        />
+                        <span className="text-sm text-black-dark">
+                          Available for sale
+                        </span>
+                      </label>
+                      <p className="mt-2 text-xs text-black/60">
+                        Uncheck to mark this product unavailable (e.g. reserved or paused) even when pieces remain. Unavailable products show a badge and can&apos;t be purchased.
+                      </p>
+                    </div>
                   </div>
 
                   {/* Collapsible Advanced Options */}

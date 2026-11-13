@@ -36,6 +36,7 @@ export default function ProductPage() {
 
   const handleAddToCart = () => {
     if (!product) return
+    if (product.available === false || product.stock === 0) return
 
     addItem({
       id: product._id,
@@ -154,6 +155,18 @@ export default function ProductPage() {
               {product.price}
             </p>
 
+            {/* Inventory status */}
+            {(product.available === false || product.stock === 0) && (
+              <p className="mt-3 inline-flex items-center gap-2 border border-ink/10 bg-ink/[0.04] px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.18em] text-ink/70">
+                {product.available === false ? 'Currently unavailable' : 'Sold out'}
+              </p>
+            )}
+            {product.available !== false && product.stock !== null && product.stock !== undefined && product.stock > 0 && product.stock <= 3 && (
+              <p className="mt-3 inline-flex items-center gap-2 border border-gold/30 bg-gold/[0.06] px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.18em] text-gold-ink">
+                Only {product.stock} left in stock
+              </p>
+            )}
+
             {/* Gift packaging callout */}
             <div className="mt-5 flex items-center gap-3 rounded border border-gold/20 bg-gold/[0.04] px-4 py-3">
               <Package size={16} strokeWidth={1.3} className="shrink-0 text-gold-ink" />
@@ -190,10 +203,19 @@ export default function ProductPage() {
             <div className="mt-10 flex gap-3 sm:mt-12">
               <button
                 onClick={handleAddToCart}
-                disabled={addedToCart}
-                className="btn-premium flex flex-1 items-center justify-center gap-2.5 bg-ink py-4 text-[10px] font-medium uppercase tracking-[0.22em] text-on-ink transition-colors hover:bg-ink/90 disabled:bg-gold disabled:text-black-dark sm:py-5 sm:text-[11px]"
+                disabled={addedToCart || product.available === false || product.stock === 0}
+                className={`btn-premium flex flex-1 items-center justify-center gap-2.5 py-4 text-[10px] font-medium uppercase tracking-[0.22em] transition-colors sm:py-5 sm:text-[11px] ${
+                  product.available === false || product.stock === 0
+                    ? 'cursor-not-allowed bg-ink/[0.06] text-ink/45'
+                    : 'bg-ink text-on-ink hover:bg-ink/90 disabled:bg-gold disabled:text-black-dark'
+                }`}
               >
-                {addedToCart ? (
+                {product.available === false || product.stock === 0 ? (
+                  <>
+                    <ShoppingBag size={16} strokeWidth={1.5} />
+                    {product.available === false ? 'Unavailable' : 'Sold out'}
+                  </>
+                ) : addedToCart ? (
                   <>
                     <Check size={16} strokeWidth={1.75} />
                     Added to Bag
