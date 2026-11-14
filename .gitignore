@@ -65,3 +65,5 @@ vercel-*.log
 
 # Local agent screenshots / tooling state
 .openchamber/
+
+tmp/
