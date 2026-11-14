@@ -166,6 +166,11 @@ export default function ProductPage() {
                 Only {product.stock} left in stock
               </p>
             )}
+            {product.available !== false && product.stock !== null && product.stock !== undefined && product.stock > 3 && (
+              <p className="mt-3 inline-flex items-center gap-2 border border-success/30 bg-success/[0.08] px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.18em] text-success">
+                In stock · {product.stock} available
+              </p>
+            )}
 
             {/* Gift packaging callout */}
             <div className="mt-5 flex items-center gap-3 rounded border border-gold/20 bg-gold/[0.04] px-4 py-3">

@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useMemo, memo, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowLeft, ArrowRight, Check, Lock, CreditCard, Truck, AlertCircle, WifiOff, User, Mail, ShoppingBag, LogOut, CheckCircle } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Check, Lock, CreditCard, Truck, AlertCircle, WifiOff, User, LogOut } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useCartStore } from '@/store/newCartStore'
@@ -12,20 +12,25 @@ import {
   type ShippingData
 } from '@/store/checkoutStore'
 import { initializePaystackPayment, nairaToKobo, generateReference, loadPaystackScript } from '@/lib/paystack'
-import { requestCustomerLoginCode, verifyCustomerLoginCode, customerLogout, isCustomerAuthenticated, getCachedSession, getServerSession } from '@/lib/customerAuth'
+import { customerLogout, isCustomerAuthenticated, getCachedSession, getServerSession } from '@/lib/customerAuth'
 import Toast from '@/components/Toast'
+
+// Saved guest checkout details (localStorage) so returning customers don't retype everything
+const CUSTOMER_INFO_KEY = 'amapels_checkout_info'
 
 // Memoized step configuration
 const CHECKOUT_STEPS = [
   { id: 1, title: 'Delivery Information', icon: Truck },
-  { id: 2, title: 'Payment Details', icon: CreditCard },
-  { id: 3, title: 'Review Your Order', icon: Check }
+  { id: 2, title: 'Review & Pay', icon: Check }
 ] as const
 
-// Nigerian states for dropdown
+// Nigerian states for dropdown (all 36 states + FCT)
 const NIGERIAN_STATES = [
-  'Abuja', 'Abuja (FCT)', 'Kano', 'Rivers', 'Ogun', 'Kaduna', 'Oyo', 
-  'Delta', 'Edo', 'Anambra', 'Imo', 'Enugu', 'Abia', 'Akwa Ibom'
+  'Abia', 'Adamawa', 'Akwa Ibom', 'Anambra', 'Bauchi', 'Bayelsa', 'Benue', 'Borno',
+  'Cross River', 'Delta', 'Ebonyi', 'Edo', 'Ekiti', 'Enugu', 'FCT - Abuja', 'Gombe',
+  'Imo', 'Jigawa', 'Kaduna', 'Kano', 'Katsina', 'Kebbi', 'Kogi', 'Kwara', 'Lagos',
+  'Nasarawa', 'Niger', 'Ogun', 'Ondo', 'Osun', 'Oyo', 'Plateau', 'Rivers', 'Sokoto',
+  'Taraba', 'Yobe', 'Zamfara'
 ] as const
 
 // Memoized input field component for better performance
@@ -124,17 +129,7 @@ export default function CheckoutPage() {
   const paymentAttemptRef = useRef(0)
   const [marketingOptIn, setMarketingOptIn] = useState(false)
   
-  // Authentication state
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [authLoading, setAuthLoading] = useState(true)
-  const [showLoginForm, setShowLoginForm] = useState(false)
-  const [loginEmail, setLoginEmail] = useState('')
-  const [loginName, setLoginName] = useState('')
-  const [loginCode, setLoginCode] = useState('')
-  const [loginStep, setLoginStep] = useState<'email' | 'code'>('email')
-  const [loginLoading, setLoginLoading] = useState(false)
-  const [loginSuccess, setLoginSuccess] = useState(false)
-  const [loginError, setLoginError] = useState('')
+  // Returning-customer session (optional — guests check out without it)
   const [customerSession, setCustomerSession] = useState<{ email: string; name: string } | null>(null)
   
   // Store hooks with error handling
@@ -179,25 +174,45 @@ export default function CheckoutPage() {
     }
   }, [])
 
-  // Check authentication on mount
+  // Load returning-customer session and saved guest details on mount
   useEffect(() => {
     const checkAuth = async () => {
       try {
         const authenticated = await isCustomerAuthenticated()
-        setIsAuthenticated(authenticated)
         if (authenticated) {
           const session = getCachedSession() || await getServerSession()
           setCustomerSession(session)
         }
       } catch {
-        setIsAuthenticated(false)
-      } finally {
-        setAuthLoading(false)
+        setCustomerSession(null)
       }
     }
     if (mounted) {
       checkAuth()
     }
+  }, [mounted])
+
+  // Pre-fill form for returning guests (saved after their last order)
+  useEffect(() => {
+    if (!mounted) return
+    try {
+      const saved = localStorage.getItem(CUSTOMER_INFO_KEY)
+      if (!saved) return
+      const info = JSON.parse(saved) as Partial<ShippingData>
+      const patch: Partial<ShippingData> = {}
+      const fields: (keyof ShippingData)[] = ['firstName', 'lastName', 'email', 'phone', 'address', 'city', 'state', 'postalCode', 'country']
+      for (const field of fields) {
+        if (typeof info[field] === 'string' && info[field] && !shippingData[field]) {
+          patch[field] = info[field]
+        }
+      }
+      if (Object.keys(patch).length > 0) {
+        updateShipping(patch)
+      }
+    } catch {
+      // Ignore corrupt saved details
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mounted])
 
   // Pre-fill shipping email from authenticated session
@@ -281,40 +296,8 @@ export default function CheckoutPage() {
     }
   }, [validateShipping, nextStep, clearErrors])
 
-  // Login/signup handler
-  const handleLogin = useCallback(async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!loginEmail.trim()) return
-    setLoginLoading(true)
-    setLoginError('')
-    setLoginSuccess(false)
-    try {
-      if (loginStep === 'email') {
-        await requestCustomerLoginCode(loginEmail, loginName || undefined)
-        setLoginStep('code')
-        return
-      }
-      const session = await verifyCustomerLoginCode(loginEmail, loginCode)
-      setIsAuthenticated(true)
-      setCustomerSession(session)
-      setLoginSuccess(true)
-      setTimeout(() => {
-        setShowLoginForm(false)
-        setLoginEmail('')
-        setLoginName('')
-        setLoginCode('')
-        setLoginStep('email')
-      }, 1200)
-    } catch (error) {
-      setLoginError(error instanceof Error ? error.message : 'Login failed. Please try again.')
-    } finally {
-      setLoginLoading(false)
-    }
-  }, [loginEmail, loginName, loginCode, loginStep])
-
   const handleLogout = useCallback(async () => {
     await customerLogout()
-    setIsAuthenticated(false)
     setCustomerSession(null)
   }, [])
 
@@ -547,6 +530,21 @@ export default function CheckoutPage() {
                         setToastType('success')
                         setShowToast(true)
                         
+                        // Remember customer details for next time (guest convenience)
+                        try {
+                          localStorage.setItem(CUSTOMER_INFO_KEY, JSON.stringify({
+                            firstName: shippingData.firstName.trim(),
+                            lastName: shippingData.lastName.trim(),
+                            email: shippingData.email.trim(),
+                            phone: shippingData.phone.trim(),
+                            address: shippingData.address.trim(),
+                            city: shippingData.city.trim(),
+                            state: shippingData.state.trim(),
+                            postalCode: shippingData.postalCode.trim(),
+                            country: shippingData.country.trim()
+                          }))
+                        } catch {}
+
                         // Clear cart and redirect immediately
                         clearCart()
                         resetCheckout()
@@ -649,16 +647,15 @@ export default function CheckoutPage() {
     (value: string) => updateShipping({ [field]: value }), [updateShipping])
 
   // Step navigation handlers
-  const goToPayment = useCallback(() => setStep(2), [setStep])
   const goToShipping = useCallback(() => setStep(1), [setStep])
 
   // Enhanced loading state with error handling
-  if (!mounted || !isLoaded || authLoading) {
+  if (!mounted || !isLoaded) {
     return (
       <div className="min-h-screen bg-paper pt-28 pb-16 flex items-center justify-center">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-ink border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-ink/70">{authLoading ? 'Checking your account...' : 'Loading checkout...'}</p>
+          <p className="text-ink/70">Loading checkout...</p>
           {!isOnline && (
             <div className="flex items-center justify-center gap-2 mt-4 text-danger">
               <WifiOff size={16} />
@@ -673,117 +670,6 @@ export default function CheckoutPage() {
   // Redirect if no items (after loading)
   if (items.length === 0) {
     return null
-  }
-
-  // Auth gate — require login before checkout
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-paper pt-20 sm:pt-24 md:pt-28 pb-8 sm:pb-12 md:pb-16">
-        <Toast message={toastMessage} type={toastType} isVisible={showToast} onClose={() => setShowToast(false)} duration={5000} />
-        <div className="section-shell">
-          <div className="max-w-lg mx-auto">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-              <div className="text-center mb-8">
-                <div className="w-16 h-16 bg-surface-2 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <User size={28} className="text-gold-ink" />
-                </div>
-                <h1 className="font-serif text-xl sm:text-2xl text-ink mb-3">Sign in to Continue</h1>
-                <p className="text-ink/60 text-sm">Create an account or sign in to place your order. This helps us keep you updated on your delivery.</p>
-              </div>
-
-              <div className="bg-chrome border border-gold/30 rounded-2xl p-6 sm:p-8">
-                {loginSuccess ? (
-                  <div className="flex flex-col items-center gap-3 py-6">
-                    <div className="w-12 h-12 bg-success-soft rounded-full flex items-center justify-center">
-                      <CheckCircle size={24} className="text-success" />
-                    </div>
-                    <p className="font-medium text-success text-sm">Signed in successfully!</p>
-                    <p className="text-xs text-ink/65">Continue to checkout...</p>
-                  </div>
-                ) : (
-                  <form onSubmit={handleLogin} className="space-y-5">
-                    {loginError && (
-                      <div className="flex items-start gap-2 p-3 bg-danger-soft border border-danger-line rounded-lg">
-                        <AlertCircle size={14} className="mt-0.5 flex-shrink-0 text-danger" />
-                        <p className="text-xs text-danger">{loginError}</p>
-                      </div>
-                    )}
-                    {loginStep === 'email' && <div>
-                      <label htmlFor="checkout-email" className="block text-sm font-medium text-ink mb-2">Email Address *</label>
-                      <input
-                        id="checkout-email"
-                        type="email"
-                        required
-                        value={loginEmail}
-                        onChange={(e) => setLoginEmail(e.target.value)}
-                        className="w-full px-4 py-3 border border-ink/45 rounded-xl focus:ring-2 focus:ring-gold-ink/30 focus:border-ink outline-none transition-colors text-base"
-                        placeholder="your@email.com"
-                      />
-                    </div>}
-                    {loginStep === 'email' && <div>
-                      <label htmlFor="checkout-name" className="block text-sm font-medium text-ink mb-2">
-                        Full Name <span className="text-ink/60">(for your order)</span>
-                      </label>
-                      <input
-                        id="checkout-name"
-                        type="text"
-                        value={loginName}
-                        onChange={(e) => setLoginName(e.target.value)}
-                        className="w-full px-4 py-3 border border-ink/45 rounded-xl focus:ring-2 focus:ring-gold-ink/30 focus:border-ink outline-none transition-colors text-base"
-                        placeholder="Chioma Okafor"
-                      />
-                    </div>}
-                    {loginStep === 'code' && <div>
-                      <label htmlFor="checkout-code" className="block text-sm font-medium text-ink mb-2">Email verification code *</label>
-                      <input id="checkout-code" inputMode="numeric" autoComplete="one-time-code" required value={loginCode} onChange={(e) => setLoginCode(e.target.value.replace(/\D/g, '').slice(0, 8))} className="w-full px-4 py-3 border border-ink/45 rounded-xl focus:ring-2 focus:ring-gold-ink/30 focus:border-ink outline-none text-base" placeholder="8-digit code" />
-                      <button type="button" onClick={() => { setLoginStep('email'); setLoginCode('') }} className="mt-2 text-xs underline">Use a different email</button>
-                    </div>}
-                    {loginStep === 'email' && <div className="bg-surface-2/10 rounded-xl p-4 border border-gold/30">
-                      <div className="flex items-start gap-3 text-xs text-ink/70">
-                        <ShoppingBag size={14} className="mt-0.5 flex-shrink-0" />
-                        <div>
-                          <p className="font-medium text-ink mb-1">Why create an account?</p>
-                          <ul className="space-y-1">
-                            <li>• Track your order in real-time</li>
-                            <li>• View your complete order history</li>
-                            <li>• Get delivery updates via email</li>
-                            <li>• Faster checkout next time</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>}
-                    <button
-                      type="submit"
-                      disabled={loginLoading || !loginEmail.trim() || (loginStep === 'code' && loginCode.length !== 8)}
-                      className="w-full bg-ink text-on-ink py-3.5 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-black-dark transition-colors rounded-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                    >
-                      {loginLoading ? (
-                        <>
-                          <div className="w-4 h-4 border-2 border-on-ink border-t-transparent rounded-full animate-spin" />
-                          {loginStep === 'email' ? 'Sending Code...' : 'Verifying...'}
-                        </>
-                      ) : (
-                        <>
-                          <Mail size={16} />
-                          {loginStep === 'email' ? 'Email Me a Code' : 'Verify Code & Continue'}
-                        </>
-                      )}
-                    </button>
-                    <p className="text-xs text-ink/65 text-center">{loginStep === 'email' ? 'We’ll email you a one-time sign-in code.' : `Enter the code sent to ${loginEmail}.`}</p>
-                  </form>
-                )}
-              </div>
-
-              <div className="text-center mt-6">
-                <Link href="/cart" className="text-xs text-ink/65 hover:text-ink underline underline-offset-4">
-                  ← Return to Bag
-                </Link>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </div>
-    )
   }
 
   return (
@@ -1003,10 +889,9 @@ export default function CheckoutPage() {
                     />
                     
                     <OptimizedInput
-                      label="Postal Code"
+                      label="Postal Code (optional)"
                       value={shippingData.postalCode}
                       onChange={handleShippingChange('postalCode')}
-                      required
                       placeholder="100001"
                       error={errors.postalCode}
                     />
@@ -1016,7 +901,7 @@ export default function CheckoutPage() {
                     type="submit"
                     className="w-full bg-ink text-on-ink py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-black-dark transition-colors rounded-xl flex items-center justify-center gap-2"
                   >
-                    Continue to Payment
+                    Continue to Review
                     <ArrowRight size={16} />
                   </button>
                 </form>
@@ -1031,43 +916,47 @@ export default function CheckoutPage() {
               >
                 <div className="flex items-center gap-3 mb-6 md:mb-8">
                   <Lock size={18} className="md:w-5 md:h-5 text-success" />
-                  <h2 className="font-serif text-xl md:text-2xl text-ink">Secure Payment</h2>
+                  <h2 className="font-serif text-xl md:text-2xl text-ink">Review & Pay</h2>
                 </div>
                 
-                <div className="space-y-4 md:space-y-6">
-                  {/* Paystack Info */}
-                  <div className="bg-surface-2/10 rounded-xl md:rounded-2xl p-4 md:p-6 border border-gold/30">
-                    <div className="flex items-start gap-3 md:gap-4 mb-4">
-                      <div className="w-10 h-10 md:w-12 md:h-12 bg-gold/10 rounded-full flex items-center justify-center flex-shrink-0">
-                        <Lock size={16} className="md:w-5 md:h-5 text-gold-ink" />
+                <div className="space-y-4 md:space-y-6 mb-6 md:mb-8">
+                  {/* Delivery Address */}
+                  <div className="border border-gold/30 rounded-xl p-4 md:p-6">
+                    <div className="flex items-center justify-between gap-3 mb-3 md:mb-4">
+                      <h3 className="font-medium text-ink text-sm md:text-base">Delivery Address</h3>
+                      <button
+                        type="button"
+                        onClick={goToShipping}
+                        className="text-xs text-ink/65 hover:text-ink underline underline-offset-4 uppercase tracking-wider"
+                      >
+                        Edit
+                      </button>
+                    </div>
+                    <div className="text-ink/80 text-sm md:text-base leading-relaxed">
+                      <div className="font-medium">{shippingData.firstName} {shippingData.lastName}</div>
+                      <div>{shippingData.address}</div>
+                      <div>{shippingData.city}, {shippingData.state} {shippingData.postalCode}</div>
+                      <div>{shippingData.country}</div>
+                      <div className="text-xs md:text-sm mt-1">{shippingData.phone}</div>
+                    </div>
+                  </div>
+                  
+                  {/* Payment Method */}
+                  <div className="border border-gold/30 rounded-xl p-4 md:p-6">
+                    <h3 className="font-medium text-ink mb-3 md:mb-4 text-sm md:text-base">Payment Method</h3>
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gold/10 rounded-full flex items-center justify-center flex-shrink-0">
+                        <CreditCard size={16} className="md:w-5 md:h-5 text-gold-ink" />
                       </div>
                       <div>
-                        <h3 className="font-medium text-ink mb-2 text-sm md:text-base">Secure Payment with Paystack</h3>
-                        <p className="text-xs md:text-sm text-ink/70 leading-relaxed">
-                          Your payment information is processed securely through Paystack, Nigeria's leading payment gateway. 
-                          We never store your card details.
-                        </p>
-                      </div>
-                    </div>
-                    
-                    <div className="grid gap-2 md:gap-3 mt-4">
-                      <div className="flex items-center gap-2 text-xs md:text-sm text-ink/70">
-                        <Check size={14} className="md:w-4 md:h-4 text-gold-ink" />
-                        <span>Bank-grade SSL encryption</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs md:text-sm text-ink/70">
-                        <Check size={14} className="md:w-4 md:h-4 text-gold-ink" />
-                        <span>PCI DSS compliant</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs md:text-sm text-ink/70">
-                        <Check size={14} className="md:w-4 md:h-4 text-gold-ink" />
-                        <span>Supports all Nigerian banks & cards</span>
+                        <p className="font-medium text-ink text-sm md:text-base">Card, bank transfer & USSD — via Paystack</p>
+                        <p className="text-xs md:text-sm text-ink/70 mt-1">You&apos;ll complete payment securely in the Paystack window. We never see or store your card details.</p>
                       </div>
                     </div>
                   </div>
 
                   {/* Payment Summary */}
-                  <div className="bg-chrome rounded-xl md:rounded-2xl border border-gold/30 p-4 md:p-6">
+                  <div className="bg-surface-2/10 rounded-xl md:rounded-2xl border border-gold/30 p-4 md:p-6">
                     <h3 className="font-medium text-ink mb-4 text-sm md:text-base">Payment Summary</h3>
                     <div className="space-y-2 md:space-y-3">
                       <div className="flex justify-between text-ink/70 text-sm md:text-base">
@@ -1090,67 +979,12 @@ export default function CheckoutPage() {
                       </div>
                     </div>
                   </div>
-                  
-                  <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
-                    <button
-                      type="button"
-                      onClick={goToShipping}
-                      className="flex-1 border border-ink text-ink py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-black-dark transition-colors rounded-xl"
-                    >
-                      Back
-                    </button>
-                    
-                    <button
-                      type="button"
-                      onClick={() => nextStep()}
-                      className="flex-1 bg-ink text-on-ink py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-black-dark transition-colors rounded-xl flex items-center justify-center gap-2"
-                    >
-                      Review Order
-                      <ArrowRight size={16} />
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-
-            {currentStep === 3 && (
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="bg-chrome rounded-2xl md:rounded-3xl border border-gold/30 p-4 md:p-8"
-              >
-                <h2 className="font-serif text-xl md:text-2xl text-ink mb-6 md:mb-8">Confirm Your Order</h2>
-                
-                <div className="space-y-4 md:space-y-6 mb-6 md:mb-8">
-                  <div className="border border-gold/30 rounded-xl p-4 md:p-6">
-                    <h3 className="font-medium text-ink mb-3 md:mb-4 text-sm md:text-base">Delivery Address</h3>
-                    <div className="text-ink/80 text-sm md:text-base leading-relaxed">
-                      <div className="font-medium">{shippingData.firstName} {shippingData.lastName}</div>
-                      <div>{shippingData.address}</div>
-                      <div>{shippingData.city}, {shippingData.state} {shippingData.postalCode}</div>
-                      <div>{shippingData.country}</div>
-                      <div className="text-xs md:text-sm mt-1">{shippingData.phone}</div>
-                    </div>
-                  </div>
-                  
-                  <div className="border border-gold/30 rounded-xl p-4 md:p-6">
-                    <h3 className="font-medium text-ink mb-3 md:mb-4 text-sm md:text-base">Payment Method</h3>
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gold/10 rounded-full flex items-center justify-center">
-                        <CreditCard size={16} className="md:w-5 md:h-5 text-gold-ink" />
-                      </div>
-                      <div>
-                        <p className="font-medium text-ink text-sm md:text-base">Paystack</p>
-                        <p className="text-xs md:text-sm text-ink/70">Secure payment gateway</p>
-                      </div>
-                    </div>
-                  </div>
                 </div>
                 
                 <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
                   <button
                     type="button"
-                    onClick={goToPayment}
+                    onClick={goToShipping}
                     className="flex-1 border border-ink text-ink py-3 md:py-4 px-4 text-sm font-medium uppercase tracking-wider hover:bg-gold hover:text-black-dark transition-colors rounded-xl"
                   >
                     Back
@@ -1188,8 +1022,7 @@ export default function CheckoutPage() {
                     ) : (
                       <>
                         <Lock size={16} />
-                        <span className="hidden sm:inline">Pay ₦{total.toLocaleString()}</span>
-                        <span className="sm:hidden">Pay ₦{total.toLocaleString()}</span>
+                        <span>Pay ₦{total.toLocaleString()}</span>
                       </>
                     )}
                   </button>

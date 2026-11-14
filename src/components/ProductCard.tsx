@@ -60,6 +60,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   const unavailable = product.available === false
   const soldOut = !unavailable && product.stock === 0
   const notPurchasable = unavailable || soldOut
+  const lowStock = !notPurchasable && product.stock != null && product.stock > 0 && product.stock <= 3
 
   const handleToggleWishlist = (e: React.MouseEvent) => {
     e.preventDefault()
@@ -285,6 +286,30 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
             )}
           </span>
         </div>
+        <p
+          className={`mt-2 flex h-4 items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.14em] ${
+            unavailable || soldOut ? 'text-ink/50' : lowStock ? 'text-gold-ink' : 'text-success'
+          }`}
+        >
+          {unavailable ? (
+            <>
+              <span className="h-1.5 w-1.5 rounded-full bg-ink/40" />
+              Unavailable
+            </>
+          ) : soldOut ? (
+            <>
+              <span className="h-1.5 w-1.5 rounded-full bg-ink/40" />
+              Sold out
+            </>
+          ) : product.stock != null && product.stock > 0 ? (
+            <>
+              <span className={`h-1.5 w-1.5 rounded-full ${lowStock ? 'bg-gold-ink' : 'bg-success'}`} />
+              {lowStock ? `Only ${product.stock} left` : 'In stock'}
+            </>
+          ) : (
+            '\u00a0'
+          )}
+        </p>
       </Link>
     </motion.div>
   )
